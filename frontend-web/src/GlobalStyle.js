@@ -4,6 +4,10 @@ import reset from "styled-reset";
 const GlobalStyle = createGlobalStyle`
   ${reset}
 
+  body {
+    background-color: #F6EABD;
+  }
+
   * {
     box-sizing: border-box;
   }
@@ -23,5 +27,5 @@ const GlobalStyle = createGlobalStyle`
   p {
     font-size: 20px;
   }
-`
-export default GlobalStyle
+`;
+export default GlobalStyle;
