@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   width: 95vw;
   height: 95vw;
   max-width: 700px;
-  max-height: 500px;
+  max-height: 400px;
   .grid {
     display: grid;
     width: 100%;
@@ -26,8 +26,9 @@ const Wrapper = styled.div`
       box-shadow: 5px 5px 15px 0.5px #dcdde1;
       .step {
         font-family: ${(props) => props.theme.standardFont};
-        padding-bottom: 25px;
+        padding: 12px 0;
         border-bottom: 3px #dcdde1 solid;
+        color: #dcdde1;
         p {
           font-size: 15px;
           font-weight: 700;
@@ -42,9 +43,16 @@ const Wrapper = styled.div`
           border: none;
         }
       }
+      .isActive {
+        color: black;
+      }
     }
     .content {
-      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      padding: 20px 15px;
       background-color: ${(props) => props.theme.whiteColor};
       box-shadow: 5px 5px 15px 0.5px #dcdde1;
       border-radius: 20px;
@@ -53,6 +61,21 @@ const Wrapper = styled.div`
         font-family: ${(props) => props.theme.namingFont};
         padding-bottom: 10px;
         border-bottom: 3px #dcdde1 solid;
+      }
+      p {
+        font-family: ${(props) => props.theme.namingFont};
+        font-size: 15px;
+        color: #dcdde1;
+      }
+      .buttonWrap {
+        border-top: 3px #dcdde1 solid;
+        padding-top: 20px;
+      }
+      .error {
+        color: #e84118;
+        font-size: 12px;
+        padding-left: 15px;
+        margin-bottom: 10px;
       }
     }
   }
