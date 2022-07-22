@@ -13,7 +13,7 @@ const theme = {
   titleFont: "UhBeeJJIBBABBA", // 제목 폰트
   questionFont: "KyoboHand", // 아이에게 하고 싶은 말 폰트
   namingFont: "Katuri", // 아이 이름, 로그인 화면 안내말 폰트
-  standardFont: "GmarketSansMedium",
+  standardFont: "GmarketSansMedium", // 가이드 폰트
 
   // color
   yellowColor: "#F6EABD",
