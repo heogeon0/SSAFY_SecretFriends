@@ -1,9 +1,15 @@
-import MediaCard from "./IntroCard";
 import styled from "styled-components";
+import Card from "./CardItem";
 
 const CardContainer = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   margin: 2rem;
+  max-width: 1000px;
+  @media  ${props => props.theme.mobile} {
+    flex-direction: column;
+    grid-template-columns: 1fr;
+  }
 `
 
 function CardList () {
@@ -11,7 +17,7 @@ function CardList () {
     { 
       imgSrc: '/img/main.PNG', 
       altImg: '프로젝트 소개', 
-      title: '나의 비밀친구란', 
+      title: '"나의 비밀친구"란', 
       description: '"나의 비밀친구" 프로젝트는 SSAFY에서 시작한 프로젝트로..'},
     { 
       imgSrc: '/img/technical.PNG', 
@@ -30,9 +36,12 @@ function CardList () {
     <div>
       <CardContainer>
         { contents.map((item, idx) => {
-          return (<MediaCard key={idx} item={item}/>)
+          return (
+            <Card key={idx} item={item}></Card>
+          )
         })}
       </CardContainer>
+      
     </div>
   )
 }

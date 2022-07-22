@@ -1,5 +1,5 @@
 import IntroCarousel from "../../components/Home/IntroCarousel";
-import MediaCard from "../../components/Home/CardList";
+import CardList from "../../components/Home/Card/CardList";
 import { Link } from 'react-router-dom';
 
 import styled from "styled-components";
@@ -36,7 +36,7 @@ function Intro () {
         <div>우리 아이의 추억을 만들어보세요.</div>
         <Link to="/login"><Button>Login</Button></Link>
         <IntroCarousel />
-        <MediaCard />
+        <CardList />
       </IntroContainer>
     </div>
   )
