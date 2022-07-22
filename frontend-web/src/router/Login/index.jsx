@@ -1,6 +1,6 @@
 import Wrapper from "./styles";
 
-import SignUp from "../../components/Member/SignUp";
+import LoginForm from "../../components/Member/LoginForm";
 import AccountErrorList from "../../components/Member/AccountErrorList";
 
 function Login() {
@@ -11,7 +11,7 @@ function Login() {
           <h3>로그인</h3>
         </div>
         <AccountErrorList />
-        <SignUp />
+        <LoginForm />
       </Wrapper>
     </>
   );
