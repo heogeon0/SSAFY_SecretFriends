@@ -7,16 +7,16 @@ import Intro from "./router/Intro";
 
 function Router() {
   return (
-    <>
+    <div>
       <BrowserRouter>
         <Routes>
           {/* <Route path="/"></Route> */}
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/login" element={<Login />}></Route>
-          <Route path="/intro" element={<Intro />}></Route>
+          <Route path="/" element={<Intro />}></Route>
         </Routes>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 
