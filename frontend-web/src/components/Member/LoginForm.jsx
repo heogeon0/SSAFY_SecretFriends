@@ -60,7 +60,9 @@ function LoginForm() {
           <input id="password" type="password" />
         </div>
         <ButtonWrap>
-          <button>로그인</button>
+          <Link to="/main">
+            <button>로그인</button>
+          </Link>
           <Link to="/signup">
             <button>회원가입</button>
           </Link>
