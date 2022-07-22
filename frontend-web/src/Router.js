@@ -9,7 +9,7 @@ import CreateChildern from "./router/CreateChildern/Index";
 
 function Router() {
   return (
-    <>
+    <div>
       <BrowserRouter>
         <Routes>
           {/* <Route path="/"></Route> */}
@@ -20,7 +20,7 @@ function Router() {
           <Route path="/createChildern" element={<CreateChildern />}></Route>
         </Routes>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 
