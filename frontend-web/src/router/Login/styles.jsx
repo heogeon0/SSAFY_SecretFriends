@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   justify-content: space-evenly;
   top: 50%;
   left: 50%;
-  padding: 20px;
+  padding: 15px;
   transform: translate(-50%, -50%);
   width: 80vw;
   height: calc(80vw / 1.3);
