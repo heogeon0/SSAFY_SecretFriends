@@ -10,9 +10,9 @@ const Wrapper = styled.div`
   padding: 20px;
   transform: translate(-50%, -50%);
   width: 80vw;
-  height: (90vw);
+  height: 90vw;
   max-width: 400px;
-  max-height: calc(700px / 1.68);
+  max-height: calc(900px / 1.68);
   background-color: ${(props) => props.theme.whiteColor};
   border-radius: 40px;
   box-shadow: 5px 5px 15px 0.5px #dcdde1;
