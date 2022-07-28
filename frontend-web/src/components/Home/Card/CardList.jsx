@@ -23,7 +23,8 @@ function CardList () {
       imgSrc: '/img/technical.PNG', 
       altImg: '기술 설명', 
       title: '기술 소개', 
-      description: '프로젝트에 쓰인 기술로는 AI, 얼굴인식, ...'
+      description: '프로젝트에 쓰인 기술로는 AI, 얼굴인식, ...',
+      modal: "sdljfsdfjsdklfjsdkl"
     },
     { 
       imgSrc: '/img/effects.PNG', 
