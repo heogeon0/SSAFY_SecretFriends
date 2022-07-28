@@ -1,14 +1,12 @@
 import Wrapper from "./styles";
-import styled from "styled-components";
 
 import Information from "../../components/Childern/Information";
 import Face from "../../components/Childern/Face";
 import { useState } from "react";
-
-const Box = styled.div`
-  height: 700px;
-  width: 600px;
-`
+import Character from "../../components/Childern/Chracter";
+import Conversation from "../../components/Childern/Conversation";
+import { FaceInfo } from "../../atom";
+import { useRecoilValue } from "recoil";
 
 function CreateChildern() {
   const [slide, setSlide] = useState(1);
@@ -17,7 +15,9 @@ function CreateChildern() {
   const [nickName, setNickName] = useState("");
   const [birth, setBirth] = useState("");
   const [admission, setAdmission] = useState("");
-
+  const [characterID, setCharacterId] = useState(1);
+  const [characterName, setCharacterName] = useState("");
+  const faces = useRecoilValue(FaceInfo);
   function goNext() {
     switch (slide) {
       case 1:
@@ -38,26 +38,54 @@ function CreateChildern() {
           return;
         }
         break;
+      case 2:
+        if (faces.length < 10) {
+          setError("아이 사진을 열장 등록해주세요");
+          return;
+        }
+        break;
+      case 3:
+        if (!characterID) {
+          setError("캐릭터를 선택해주세요");
+          return;
+        }
+        break;
+        if (!characterName) {
+          setError("캐릭터의 별명을 알려주세요");
+          return;
+        }
       default:
     }
-    if (slide < 2) {
+    if (slide < 4) {
       setSlide(slide + 1);
       setError("");
     } else console.log(slide, "야호");
   }
+
+  function goPre() {
+    if (slide > 1) {
+      setSlide((val) => val - 1);
+    }
+  }
   const tab = {
     1: (
       <Information
+        name={name}
         setName={setName}
+        nickName={nickName}
         setNickName={setNickName}
+        birth={birth}
         setBirth={setBirth}
+        admission={admission}
         setAdmission={setAdmission}
       />
     ),
     2: <Face />,
+    3: <Character setCharacterName={setCharacterName} />,
+    4: <Conversation />,
   };
   return (
-    <Box>
+    <>
       <Wrapper>
         <div className="grid">
           <div className="side">
@@ -65,32 +93,33 @@ function CreateChildern() {
               <p>Step 1</p>
               <span>아이정보 입력하기</span>
             </div>
+            <div className="line"></div>
             <div className={slide === 2 ? "isActive step" : "step"}>
               <p>Step 2</p>
               <span>얼굴 등록하기</span>
             </div>
+            <div className="line"></div>
             <div className={slide === 3 ? "isActive step" : "step"}>
               <p>Step 3</p>
               <span>캐릭터 등록하기</span>
             </div>
+            <div className="line"></div>
             <div className={slide === 4 ? "isActive step" : "step"}>
               <p>Step 4</p>
               <span>대화 등록하기</span>
             </div>
           </div>
           <div className="content">
-            <h2>아이 정보 입력하기</h2>
-            <div>
-              {tab[slide]}
-              {error ? <p className="error">{error}</p> : ""}
-            </div>
+            <div>{tab[slide]}</div>
+            {error ? <p className="error">{error}</p> : ""}
             <div className="buttonWrap">
-              <button onClick={goNext}>다음</button>
+              <button onClick={goPre}>이전</button>
+              <button onClick={goNext}>{slide === 4 ? "완료" : "다음"}</button>
             </div>
           </div>
         </div>
       </Wrapper>
-    </Box>
+    </>
   );
 }
 export default CreateChildern;

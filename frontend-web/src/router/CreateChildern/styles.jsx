@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   width: 95vw;
   height: 95vw;
   max-width: 700px;
-  max-height: 400px;
+  max-height: 500px;
   .grid {
     display: grid;
     width: 100%;
@@ -24,11 +24,13 @@ const Wrapper = styled.div`
       background-color: ${(props) => props.theme.whiteColor};
       border-radius: 20px;
       box-shadow: 5px 5px 15px 0.5px #dcdde1;
+      .line {
+        border: 1px #dcdde1 solid;
+      }
       .step {
         font-family: ${(props) => props.theme.standardFont};
-        padding: 12px 0;
-        border-bottom: 3px #dcdde1 solid;
         color: #dcdde1;
+        transition: color 0.3s linear, background-color 0.3s linear;
         p {
           font-size: 15px;
           font-weight: 700;
@@ -39,18 +41,15 @@ const Wrapper = styled.div`
           font-size: 10px;
           word-break: keep-all;
         }
-        :nth-child(4) {
-          border: none;
-        }
       }
       .isActive {
         color: black;
       }
     }
     .content {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 5fr 20px 1fr;
       height: 100%;
       padding: 20px 15px;
       background-color: ${(props) => props.theme.whiteColor};
@@ -69,7 +68,9 @@ const Wrapper = styled.div`
       }
       .buttonWrap {
         border-top: 3px #dcdde1 solid;
-        padding-top: 20px;
+        button {
+          padding: auto;
+        }
       }
       .error {
         color: #e84118;
