@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavBar from "./components/Home/NavBar";
+import Footer from "./components/Home/Footer";
 // router
 import SignUp from "./router/SignUp";
 import Login from "./router/Login";
@@ -20,6 +21,7 @@ function Router() {
           <Route path="/main" element={<Main />}></Route>
           <Route path="/createChildern" element={<CreateChildern />}></Route>
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   );

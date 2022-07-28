@@ -1,8 +1,14 @@
 import Wrapper from "./styles";
+import styled from "styled-components";
 
 import Information from "../../components/Childern/Information";
 import Face from "../../components/Childern/Face";
 import { useState } from "react";
+
+const Box = styled.div`
+  height: 700px;
+  width: 600px;
+`
 
 function CreateChildern() {
   const [slide, setSlide] = useState(1);
@@ -51,7 +57,7 @@ function CreateChildern() {
     2: <Face />,
   };
   return (
-    <>
+    <Box>
       <Wrapper>
         <div className="grid">
           <div className="side">
@@ -84,7 +90,7 @@ function CreateChildern() {
           </div>
         </div>
       </Wrapper>
-    </>
+    </Box>
   );
 }
 export default CreateChildern;
