@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Api("MycharacterController")
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/mycharacter")
 public class MyCharacterController {
 

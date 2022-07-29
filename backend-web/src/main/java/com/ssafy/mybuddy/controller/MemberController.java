@@ -20,6 +20,7 @@ import java.util.Map;
 
 @Api("MemberController")
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/member")
 public class MemberController {
     public static final Logger logger = LoggerFactory.getLogger(MemberController.class);
