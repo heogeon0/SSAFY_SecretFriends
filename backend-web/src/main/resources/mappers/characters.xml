@@ -5,7 +5,7 @@
 
 <mapper namespace="com.ssafy.mybuddy.mapper.CharacterMapper">
     <!--캐릭터 전체 조회-->
-    <select id="selectCharacters" resultType="com.example.ssafytask01.dto.CharactersDto">
+    <select id="selectCharacters" resultType="CharactersDto">
     select characterId, concept, description, name
     from characters
     </select>
