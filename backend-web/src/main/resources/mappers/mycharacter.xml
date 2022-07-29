@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.ssafytask01.mapper.MyCharactermapper">
+<mapper namespace="com.ssafy.mybuddy.mapper.MyCharactermapper">
     <insert id="insertMyCharacter" parameterType="MycharacterDto">
         insert into mycharacter (myCharacterId, nickname, characterId, childrenId)
         values (#{myCharacterId},#{nickname},#{characterId},#{childrenId})
