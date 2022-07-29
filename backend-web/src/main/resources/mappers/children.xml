@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.mybuddy.mapper.ChildrenMapper">
+
+    <insert id="insertChildren" parameterType="childrenDto">
+        insert into children(birthYear, birthMonth, birthDay, name, nickname, hospitalizationDay, memberID, isDeleted)
+        values (#{birthYear}, #{birthMonth}, #{birthDay}, #{name}, #{nickname}, #{hospitalizationDay}, #{memberId}, 0)
+    </insert>
+
+    <select id="retrieveChildren" parameterType="int" resultType="childrenDto">
+        select `childrenID`,
+               `birthYear`,
+               `birthMonth`,
+               `birthDay`,
+               `name`,
+               `nickname`,
+               `hospitalizationDay`,
+               `faceInformation`,
+               `memberID`,
+               `isDeleted`
+        from children
+        where isDeleted = 0;
+    </select>
+
+    <select id="selectChildren" parameterType="int" resultType="childrenDto">
+        select `childrenID`,
+               `birthYear`,
+               `birthMonth`,
+               `birthDay`,
+               `name`,
+               `nickname`,
+               `hospitalizationDay`,
+               `faceInformation`,
+               `memberID`,
+               `isDeleted`
+        from children
+        where childrenId = #{childrenId}
+    </select>
+
+    <update id="updateChildren" parameterType="childrenDto">
+        update children
+        set birthYear = #{birthYear},  birthMonth = #{birthMonth},  birthDay = #{birthDay},  name = #{name},  nickname = #{nickname}, hospitalizationDay = #{hospitalizationDay}
+        where childrenId = #{childrenId}
+    </update>
+
+    <update id="deleteChildren" parameterType="int">
+        update children
+        set isDeleted = true
+        where
+            childrenId = #{childrenId}
+    </update>
+
+</mapper>

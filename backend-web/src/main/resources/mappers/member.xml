@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.mybuddy.mapper.MemberMapper">
+
+    <insert id="insertMember" parameterType="memberDto">
+        insert into member(name, phoneNumber, email, password, isDeleted, isSuperuser)
+        values (#{name}, #{phoneNumber}, #{email}, #{password}, 0, 0)
+    </insert>
+
+    <select id="login" parameterType="memberDto" resultType="memberDto">
+        select memberId, name, email, password, isDeleted, isSuperuser, phoneNumber
+        from member
+        where email=#{email} and password=#{password}
+    </select>
+
+    <!-- 모든 회원의 정보를 반환 -->
+    <select id="retrieveMember" resultType="memberDto">
+        select memberId, name,
+               phoneNumber, email, password, isDeleted, isSuperuser
+        from member
+        where isDeleted = 0;
+    </select>
+
+    <!-- 특정 회원의 정보를 반환 -->
+    <select id="selectMember" parameterType="int" resultType="memberDto">
+        select memberId, name, phoneNumber, email, password, isDeleted, isSuperuser
+        from member
+    </select>
+
+    <!-- 회원 삭제 -->
+    <update id="deleteMember" parameterType="int">
+        update member
+        set isDeleted = true
+        where
+            memberId = #{memberId}
+    </update>
+
+    <select id="selectEmail" parameterType="string" resultType="int">
+        select
+            count(*)
+        from member
+        where email = #{email}
+    </select>
+
+    <update id="updateMember" parameterType="memberDto">
+        update member
+        set name=#{name}, phoneNumber=#{phoneNumber}
+        where memberId = #{memberId}
+    </update>
+</mapper>
