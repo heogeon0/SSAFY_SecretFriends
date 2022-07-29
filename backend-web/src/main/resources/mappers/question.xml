@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.mybuddy.mapper.QuestionMapper">
+    <!-- 질문 등록 -->
+    <insert id="registQuestion" parameterType="questionDto">
+        insert into question (content)
+        values (#{content})
+    </insert>
+
+    <!-- 질문 전체 조회 -->
+    <select id="allQuestions" resultType="questionDto">
+        select questionID, content
+        from question
+        order by questionID desc
+    </select>
+
+    <!-- 질문 상세 조회  -->
+    <select id="detailQuestion" resultType="questionDto">
+        select questionID, content
+        from question
+        where questionID = #{questionID}
+    </select>
+
+    <!-- 질문 수정  -->
+    <update id="updateQuestion" parameterType="questionDto">
+        update question
+        set content = #{content}
+        where questionID = #{questionID}
+    </update>
+
+    <!-- 질문 삭제  -->
+    <delete id="deleteQuestion" parameterType="int">
+        delete from question
+        where questionID = #{questionID}
+    </delete>
+</mapper>
