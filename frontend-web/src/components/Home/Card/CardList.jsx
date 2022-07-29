@@ -18,19 +18,22 @@ function CardList () {
       imgSrc: '/img/main.PNG', 
       altImg: '프로젝트 소개', 
       title: '"나의 비밀친구"란', 
-      description: '"나의 비밀친구" 프로젝트는 SSAFY에서 시작한 프로젝트로..'},
+      description: '"나의 비밀친구" 프로젝트는 SSAFY에서 시작한 프로젝트로.. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat, sequi reprehenderit nostrum dolor accusamus dicta! Consequuntur repellendus odio quas cum laborum magnam porro eligendi eaque asperiores.',
+      imgs: ['img/main.png', 'img/main.png', 'img/main.png'],
+    },
     { 
       imgSrc: '/img/technical.PNG', 
       altImg: '기술 설명', 
       title: '기술 소개', 
-      description: '프로젝트에 쓰인 기술로는 AI, 얼굴인식, ...',
-      modal: "sdljfsdfjsdklfjsdkl"
+      description: '프로젝트에 쓰인 기술로는 AI, 얼굴인식, ... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat, sequi reprehenderit nostrum dolor accusamus dicta! Consequuntur repellendus odio quas cum laborum magnam porro eligendi eaque asperiores. Inventore possimus maiores voluptas.',
+      imgs: ['img/technical.png', 'img/technical.png', 'img/technical.png'],
     },
     { 
       imgSrc: '/img/effects.PNG', 
       altImg: '기대 효과', 
       title: '기대 효과', 
-      description: '이 프로젝트를 통해 얻을 수 있는 기대효과는 a, b, c, d...'
+      description: '이 프로젝트를 통해 얻을 수 있는 기대효과는 a, b, c, d... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat, sequi reprehenderit nostrum dolor accusamus dicta! Consequuntur repellendus odio quas cum laborum magnam porro eligendi eaque asperiores. Inventore possimus maiores voluptas.',
+      imgs: ['img/effects.png', 'img/effects.png', 'img/effects.png'],
     },
   ]
   return (

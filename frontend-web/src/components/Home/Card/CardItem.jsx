@@ -61,7 +61,7 @@ function Card ({item}) {
           <CardText>{item.description}</CardText>
           <Button clasdsName="blueBtn" onClick={() => setClose(!close)}>더보기</Button>
           { close && (
-            <CardModal closeModal={() => setClose(!close)} childern={"abc"}/>
+            <CardModal closeModal={() => setClose(!close)} description={item.description} imgs={item.imgs}/>
           )}
         </div>
       </CardBox>
