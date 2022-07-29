@@ -27,7 +27,7 @@ function NavBar () {
         <FlexBox>
           <HeaderText><Link style={{textDecoration: 'none'}} to="/login">로그인</Link></HeaderText>
           <HeaderText><Link style={{textDecoration: 'none'}} to="/signup">회원가입</Link></HeaderText>
-          <HeaderText><Link style={{textDecoration: 'none'}} to="/createChildern">아이정보 등록</Link></HeaderText>
+          <HeaderText><Link style={{textDecoration: 'none'}} to="/createChildren">아이정보 등록</Link></HeaderText>
         </FlexBox>
       </FlexBox>
     </HeaderBox>
