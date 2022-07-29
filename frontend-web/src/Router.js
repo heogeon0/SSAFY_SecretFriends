@@ -19,7 +19,7 @@ function Router() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/" element={<Intro />}></Route>
           <Route path="/main" element={<Main />}></Route>
-          <Route path="/createChildern" element={<CreateChildern />}></Route>
+          <Route path="/createChildren" element={<CreateChildern />}></Route>
         </Routes>
         <Footer />
       </BrowserRouter>

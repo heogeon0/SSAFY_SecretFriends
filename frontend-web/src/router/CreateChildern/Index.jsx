@@ -85,7 +85,7 @@ function CreateChildern() {
     4: <Conversation />,
   };
   return (
-    <>
+    <div style={{ height: "90vh" }}>
       <Wrapper>
         <div className="grid">
           <div className="side">
@@ -119,7 +119,7 @@ function CreateChildern() {
           </div>
         </div>
       </Wrapper>
-    </>
+    </div>
   );
 }
 export default CreateChildern;
