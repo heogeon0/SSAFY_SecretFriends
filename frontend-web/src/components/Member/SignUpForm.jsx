@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { signup } from "../../store";
 
 const ERROR = styled.div`
   grid-column: 1 / 3;
@@ -63,9 +64,13 @@ function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  function onSubmit(data) {
-    console.log(data);
+
+  function onSubmit({name, phoneNumber, password, email}) {
+    const newData = { name, phoneNumber, password, email, isDeleted: false, isSuperuser: false }
+    console.log(newData)
+    signup(newData)
   }
+
   const check = watch().password;
   return (
     <div>
@@ -87,11 +92,11 @@ function LoginForm() {
           />
         </div>
         <div>
-          <label htmlFor="phone" placeholder="숫자만 입력해주세요">
+          <label htmlFor="phoneNumber" placeholder="숫자만 입력해주세요">
             휴대전화 :
           </label>
           <input
-            {...register("phone", {
+            {...register("phoneNumber", {
               required: "전화번호를 입력해주세요",
               pattern: {
                 value: /[0-9]/,

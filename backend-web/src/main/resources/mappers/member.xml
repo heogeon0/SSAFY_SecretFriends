@@ -24,7 +24,7 @@
     <!-- 특정 회원의 정보를 반환 -->
     <select id="selectMember" parameterType="int" resultType="memberDto">
         select memberId, name, phoneNumber, email, password, isDeleted, isSuperuser
-        from member
+        from member where memberId = #{memberId}
     </select>
 
     <!-- 회원 삭제 -->
