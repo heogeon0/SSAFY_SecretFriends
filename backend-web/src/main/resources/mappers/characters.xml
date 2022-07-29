@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.ssafytask01.mapper.CharacterMapper">
+    <!--캐릭터 전체 조회-->
+    <select id="selectCharacters" resultType="com.example.ssafytask01.dto.CharactersDto">
+    select characterId, concept, description, name
+    from characters
+    </select>
+
+    <!--특정 캐릭터 하나만 조회-->
+    <select id="selectCharacter" parameterType="int" resultType="CharactersDto">
+    select characterId, concept, description, name
+    from characters
+    where characterId = #{characterID}
+    </select>
+
+
+</mapper>
