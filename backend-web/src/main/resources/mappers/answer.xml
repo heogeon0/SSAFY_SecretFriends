@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.mybuddy.mapper.AnswerMapper">
+    <!-- 답변 등록 -->
+    <insert id="registAnswer" parameterType="answerDto">
+        insert into answer (content, childrenID, questionID)
+        values (#{content}, #{childrenID}, #{questionID})
+    </insert>
+
+    <!-- 아이별 답변 전체 조회 -->
+    <select id="allAnswers" resultType="answerDto">
+        select answerID, content, childrenID, questionID
+        from answer
+        where childrenID = #{childrenID};
+    </select>
+
+    <!-- 아이별 질문별 답변 조회 -->
+    <select id="detailAnswer" parameterType="hashmap" resultType="answerDto">
+        select answerID, content, childrenID, questionID
+        from answer
+        where childrenID = #{childrenID} and questionID = #{questionID};
+    </select>
+
+    <!-- 답변 수정  -->
+    <update id="updateAnswer" parameterType="answerDto">
+        update answer
+        set content = #{content}
+        where answerID = #{answerID}
+    </update>
+
+    <!-- 답변 삭제  -->
+    <delete id="deleteAnswer" parameterType="int">
+        delete from answer
+        where answerID = #{answerID}
+    </delete>
+
+</mapper>
