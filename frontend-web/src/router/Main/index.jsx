@@ -4,7 +4,9 @@ import { Wrapper } from "./styles";
 function Main() {
   return (
     <Wrapper>
-      <MainCarousel />
+      <div className="head">
+        <MainCarousel />
+      </div>
 
       <div className="body">
         <div className="body_grid">
