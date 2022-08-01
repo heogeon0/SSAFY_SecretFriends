@@ -8,8 +8,11 @@ import Conversation from "../../components/Childern/Conversation";
 import { FaceInfo } from "../../atom";
 import { useRecoilValue } from "recoil";
 
+import { storage } from "../../api/firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
 function CreateChildern() {
-  const [slide, setSlide] = useState(1);
+  const [slide, setSlide] = useState(2);
   const [error, setError] = useState("");
   const [name, setName] = useState("");
   const [nickName, setNickName] = useState("");
@@ -17,7 +20,36 @@ function CreateChildern() {
   const [admission, setAdmission] = useState("");
   const [characterID, setCharacterId] = useState(1);
   const [characterName, setCharacterName] = useState("");
+  const [isUploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [photoURL, setPhotosURL] = useState([]);
   const faces = useRecoilValue(FaceInfo);
+  console.log(process.env.REACT_APP_FB_STORAGE_BUCKET);
+  const handleImageUpload = async (fileList) => {
+    try {
+      setUploading(true);
+      const urls = await Promise.all(
+        faces?.map((face) => {
+          const storageRef = ref(storage, `images/${face.name}`);
+          const task = uploadBytesResumable(storageRef, face);
+          task.on("state_changed", (snapshot) => {
+            setProgress(
+              Math.round(
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+              )
+            );
+          });
+          return getDownloadURL(storageRef);
+        })
+      );
+      setPhotosURL(urls);
+      alert("업로드 완료");
+    } catch (err) {
+      console.log(err);
+    }
+    setProgress(0);
+    setUploading(false);
+  };
   function goNext() {
     switch (slide) {
       case 1:
@@ -42,6 +74,8 @@ function CreateChildern() {
         if (faces.length < 10) {
           setError("아이 사진을 열장 등록해주세요");
           return;
+        } else {
+          handleImageUpload();
         }
         break;
       case 3:
