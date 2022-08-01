@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { login } from "../../store";
 
 const ERROR = styled.div`
   grid-column: 1 / 3;
@@ -61,6 +62,7 @@ function LoginForm() {
   } = useForm();
   function onSubmit(data) {
     console.log(data);
+    login(data)
   }
 
   return (
