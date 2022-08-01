@@ -43,10 +43,6 @@ function MainCarousel() {
         {slider.map((val) => {
           return <Slider key={val.id} check={check(val.id)} bg={val.bg} />;
         })}
-
-        {/* <button>
-          <Link to={"/createChildren"}>아이정보 추가하기</Link>
-        </button> */}
       </Container>
     </>
   );
