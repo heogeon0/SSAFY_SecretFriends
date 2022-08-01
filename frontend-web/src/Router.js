@@ -6,7 +6,8 @@ import SignUp from "./router/SignUp";
 import Login from "./router/Login";
 import Intro from "./router/Intro";
 import Main from "./router/Main";
-import CreateChildern from "./router/CreateChildern/Index";
+import CreateChildern from "./router/CreateChildern/index";
+import NotFound404 from "./router/NotFound";
 
 function Router() {
   return (
@@ -14,12 +15,12 @@ function Router() {
       <BrowserRouter>
         <NavBar />
         <Routes>
-          {/* <Route path="/"></Route> */}
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/" element={<Intro />}></Route>
           <Route path="/main" element={<Main />}></Route>
           <Route path="/createChildren" element={<CreateChildern />}></Route>
+          <Route path="*" element={<NotFound404/>}></Route>
         </Routes>
         <Footer />
       </BrowserRouter>
