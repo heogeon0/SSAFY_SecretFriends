@@ -37,10 +37,15 @@ public class MemberController {
     @PostMapping
     public ResponseEntity<String> registMember(@RequestBody @ApiParam(value="회원가입 시 필요한 회원정보(이름, 전화번호, 이메일, 비밀번호)", required = true) MemberDto memberDto) {
         logger.debug("registMember 호출 : {}", memberDto);
+
+        if(!memberService.checkEmail(memberDto.getEmail())) {
+            return new ResponseEntity<>(FAIL, HttpStatus.FORBIDDEN);
+        }
+
         if(memberService.insertMember(memberDto)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
-        return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<String>(FAIL, HttpStatus.FORBIDDEN);
     }
 
 //    @ApiOperation(value="로그인", notes="이메일과 비밀번호를 받아 로그인을 수행한다. 성공 여부에 따라 'success' 또는 'fail'을 반환한다.", response = Map.class)
