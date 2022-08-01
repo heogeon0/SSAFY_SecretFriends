@@ -127,7 +127,7 @@ function IntroCarousel () {
           </ItemBox>
           <ItemBox>
             <div style={{display: 'flex', margin: "0 1rem"}} height="500px">
-              <ImgBox src="img/effects.png" alt="" />
+              <ImgBox src="img/effects.png" style={{width: '300px'}} alt="" />
               <TextBox height="300px">
                 <h2 style={{margin: "10px 0"}}>즐거움</h2>
                 <h3 style={{ margin: "10px 0 20px 0" }}>Eventy Day</h3>

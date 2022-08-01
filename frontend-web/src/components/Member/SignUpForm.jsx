@@ -67,7 +67,6 @@ function LoginForm() {
 
   function onSubmit({name, phoneNumber, password, email}) {
     const newData = { name, phoneNumber, password, email, isDeleted: false, isSuperuser: false }
-    console.log(newData)
     signup(newData)
   }
 
@@ -76,7 +75,7 @@ function LoginForm() {
     <div>
       <ERROR>
         {errors?.name?.message ||
-          errors?.phone?.message ||
+          errors?.phoneNumber?.message ||
           errors?.email?.message ||
           errors?.password?.message ||
           errors?.passwordConfirm?.message}
@@ -113,8 +112,8 @@ function LoginForm() {
               required: "E-Mail을 입력해주세요",
               pattern: {
                 value:
-                  '/^(([^<>()[]\\.,;:s@"]+(.[^<>()[]\\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/',
-                pattern: "E-Mail양식을 확인해주세요",
+                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                message: "E-mail 양식을 확인해 주세요",
               },
             })}
             type="text"
