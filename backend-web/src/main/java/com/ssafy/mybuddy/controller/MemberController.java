@@ -23,7 +23,7 @@ import java.util.Map;
 
 @Api("MemberController")
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "X-AUTH-TOKEN", maxAge = 3600)
 @RequestMapping("/member")
 public class MemberController {
     public static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -97,7 +97,7 @@ public class MemberController {
                 status = HttpStatus.ACCEPTED;
             } else {
                 resultMap.put("message", FAIL);
-                status = HttpStatus.ACCEPTED;
+                status = HttpStatus.FORBIDDEN;
             }
         } catch(Exception e) {
             logger.error("로그인 실패 : {}", e);

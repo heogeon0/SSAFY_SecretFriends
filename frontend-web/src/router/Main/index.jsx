@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import MainCarousel from "../../components/Main/MainCarousel";
 import { Wrapper } from "./styles";
+import { member } from "../../store";
 
 function Main() {
+  function test() {
+    member()
+  }
   return (
     <Wrapper>
       <div className="head">
@@ -22,6 +27,7 @@ function Main() {
           </div>
         </div>
       </div>
+      <button onClick={() => test()}>abc</button>
     </Wrapper>
   );
 }

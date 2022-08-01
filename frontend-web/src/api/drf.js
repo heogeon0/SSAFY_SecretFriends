@@ -12,7 +12,8 @@ export default {
     signup: () => HOST + MEMBER,  // 회원가입(POST), 회원전체목록(GET)
     login: () => HOST + MEMBER + 'login/',  // 로그인(POST)
     updateMember: () => HOST + MEMBER,  // 회원 정보 업데이트(PUT)
-    memberInfo: memberId => HOST + MEMBER + memberId, // 조회(GET), 삭제(DELETE)
+    member: () => HOST + MEMBER + 'info/',  // 회원 정보 조회 (GET)
+    deleteMember: memberId => HOST + MEMBER + memberId, // 삭제(DELETE)
   },
   character: {
     characters: () => HOST + CHARACTER, // 모든 캐릭터 조회(GET)

@@ -10,9 +10,9 @@ export const Chats = atom({
   default: [],
 });
 
-export const memberId = atom({
-  key: "MemberId",
-  default: '',
+export const Token = atom({
+  key: "Token",
+  default: localStorage.getItem('token') || '',
 })
 
 export const characterId = atom({
