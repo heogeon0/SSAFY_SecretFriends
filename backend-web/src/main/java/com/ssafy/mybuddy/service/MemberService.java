@@ -17,5 +17,8 @@ public interface MemberService {
 
     MemberDto selectMember(int memberId);
 
+    MemberDto selectMemberByEmail(String memberEmail);
+
     boolean updateMember(MemberDto memberDto);
+
 }

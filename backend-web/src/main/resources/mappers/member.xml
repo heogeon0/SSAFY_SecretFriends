@@ -27,6 +27,12 @@
         from member where memberId = #{memberId}
     </select>
 
+    <select id="selectMemberByEmail" parameterType="string" resultType="memberDto">
+        select memberId, name, phoneNumber, email, password, isDeleted, isSuperuser
+        from member where email = #{memberEmail}
+    </select>
+
+
     <!-- 회원 삭제 -->
     <update id="deleteMember" parameterType="int">
         update member
@@ -41,6 +47,8 @@
         from member
         where email = #{email}
     </select>
+
+
 
     <update id="updateMember" parameterType="memberDto">
         update member

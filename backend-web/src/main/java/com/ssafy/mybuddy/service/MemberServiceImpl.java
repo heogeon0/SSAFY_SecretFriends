@@ -45,6 +45,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public MemberDto selectMemberByEmail(String memberEmail) {
+        return memberMapper.selectMemberByEmail(memberEmail);
+    }
+
+    @Override
     public boolean updateMember(MemberDto memberDto) {
         return memberMapper.updateMember(memberDto) == 1;
     }

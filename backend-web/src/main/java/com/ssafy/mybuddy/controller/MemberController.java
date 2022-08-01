@@ -2,6 +2,7 @@ package com.ssafy.mybuddy.controller;
 
 
 import com.ssafy.mybuddy.dto.MemberDto;
+import com.ssafy.mybuddy.jwt.JwtTokenProvider;
 import com.ssafy.mybuddy.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -9,10 +10,12 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +35,8 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     @ApiOperation(value="회원가입", notes="회원 정보를 받아 회원 가입을 수행한다. 성공 여부에 따라 'success' 또는 'fail'을 반환한다.", response=String.class)
     @PostMapping
@@ -76,7 +81,7 @@ public class MemberController {
 //    }
 
 
-    @ApiOperation(value="로그인", notes="이메일과 비밀번호를 받아 로그인을 수행한다. 성공 여부에 따라 'success' 또는 'fail'을 반환한다.", response = Map.class)
+    @ApiOperation(value="로그인", notes="이메일과 비밀번호를 받아 로그인을 수행한다. 성공 여부에 따라 'success' 및 Token 또는 'fail'을 반환한다.", response = Map.class)
     @PostMapping("login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody @ApiParam(value="로그인 시 필요한 회원정보(이메일, 비밀번호)", required = true) MemberDto memberDto) {
 
@@ -86,7 +91,8 @@ public class MemberController {
         try {
             MemberDto loginMember = memberService.login(memberDto);
             if(loginMember != null) {
-                resultMap.put("memberInfo", loginMember);
+//                resultMap.put("memberInfo", loginMember);
+                resultMap.put("token", jwtTokenProvider.createToken(loginMember.getEmail()));
                 resultMap.put("message", SUCCESS);
                 status = HttpStatus.ACCEPTED;
             } else {
@@ -108,11 +114,16 @@ public class MemberController {
         return new ResponseEntity<List<MemberDto>>(memberService.retrieveMember(), HttpStatus.OK);
     }
 
-    @ApiOperation(value="회원 정보", notes="memeberId에 해당하는 회원의 정보를 반환한다.", response = MemberDto.class)
-    @GetMapping("{memberId}")
-    public ResponseEntity<MemberDto> selectMember(@PathVariable  @ApiParam(value = "조회할 회원의 번호.", required = true) int memberId) {
+    @ApiOperation(value="회원 정보", notes="Header로 전달된 토큰에 해당하는 회원의 정보를 반환한다.", response = MemberDto.class)
+    @GetMapping("info")
+    public ResponseEntity<MemberDto> selectMember(HttpServletRequest request) {
         logger.debug("selectMember 호출");
-        return new ResponseEntity<MemberDto>(memberService.selectMember(memberId), HttpStatus.OK);
+        String email = (String) request.getAttribute("email");
+        System.out.println("selectMember 호출 : " + email);
+//        return new ResponseEntity<MemberDto>(memberService.selectMember(memberId), HttpStatus.OK);
+        System.out.println(memberService.selectMemberByEmail(email));
+        return new ResponseEntity<MemberDto>(memberService.selectMemberByEmail(email), HttpStatus.OK);
+
     }
 
     @ApiOperation(value="회원 정보 업데이트", notes="회원의 정보를 수정한다. 성공 여부에 따라 'success' 또는 'fail'을 반환한다. ", response=String.class)
