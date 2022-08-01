@@ -11,7 +11,7 @@ import { useRecoilValue } from "recoil";
 import { storage } from "../../api/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
-function CreateChildern() {
+function CreateChildren() {
   const [slide, setSlide] = useState(2);
   const [error, setError] = useState("");
   const [name, setName] = useState("");
@@ -24,6 +24,7 @@ function CreateChildern() {
   const [progress, setProgress] = useState(0);
   const [photoURL, setPhotosURL] = useState([]);
   const faces = useRecoilValue(FaceInfo);
+
   console.log(process.env.REACT_APP_FB_STORAGE_BUCKET);
   const handleImageUpload = async (fileList) => {
     try {
@@ -118,6 +119,7 @@ function CreateChildern() {
     3: <Character setCharacterName={setCharacterName} />,
     4: <Conversation />,
   };
+
   return (
     <div style={{ height: "90vh" }}>
       <Wrapper>
@@ -156,4 +158,4 @@ function CreateChildern() {
     </div>
   );
 }
-export default CreateChildern;
+export default CreateChildren;
