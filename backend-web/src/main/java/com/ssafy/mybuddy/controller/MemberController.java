@@ -45,7 +45,7 @@ public class MemberController {
         logger.debug("registMember 호출 : {}", memberDto);
 
         if(!memberService.checkEmail(memberDto.getEmail())) {
-            return new ResponseEntity<>(FAIL, HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("email error", HttpStatus.FORBIDDEN);
         }
 
         if(memberService.insertMember(memberDto)) {
