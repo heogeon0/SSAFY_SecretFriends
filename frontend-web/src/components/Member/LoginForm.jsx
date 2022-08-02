@@ -86,7 +86,7 @@ function LoginForm() {
         axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
         localStorage.setItem("token", accessToken)
         setToken(accessToken)
-        navigate("/main")
+        navigate("/")
       })
       .catch((err) => {
         alert('잘못된 정보입니다.')
