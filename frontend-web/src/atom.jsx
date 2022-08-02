@@ -15,7 +15,17 @@ export const Token = atom({
   default: localStorage.getItem('token') || '',
 })
 
-export const characterId = atom({
+export const IsLoggedIn = atom({
+  key: "IsLoggedIn",
+  default: false,
+})
+
+export const MemberId = atom({
+  key: "MemberId",
+  default: "",
+})
+
+export const CharacterId = atom({
   key: "CharacterId",
-  default: '',
+  default: "",
 })
