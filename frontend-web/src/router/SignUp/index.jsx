@@ -9,13 +9,20 @@ const Box = styled.div`
 `
 
 function SignUp() {
+  const data = {
+    name: '',
+    phoneNumber: '',
+    email: '',
+    password: '8자리 이상으로 적어주세요',
+    isUpdate: false,
+  }
   return (
     <Box>
       <Wrapper>
         <div className="title">
           <h3>회원가입</h3>
         </div>
-        <SignUpForm />
+        <SignUpForm data={data} />
       </Wrapper>
     </Box>
   );

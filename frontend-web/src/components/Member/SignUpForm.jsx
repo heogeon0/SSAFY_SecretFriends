@@ -59,7 +59,7 @@ const Form = styled.form`
   }
 `;
 
-function SignupForm() {
+function SignupForm({data}) {
   const {
     register,
     watch,
@@ -67,28 +67,45 @@ function SignupForm() {
     formState: { errors },
   } = useForm();
 
-
+  const { name, phoneNumber, email, password, isUpdate } = data;
   const navigate = useNavigate();
 
   function onSubmit({name, phoneNumber, password, email}) {
-    const newData = { name, phoneNumber, password, email, isDeleted: false, isSuperuser: false }
+    const newData = { name, phoneNumber, password, email }
+    const updateData = { name, phoneNumber }
     // signup(newData)
-    axios ({
-        url: drf.member.signup(),
-        method: 'post',
-        data: newData,
+    if (!isUpdate) {
+      axios ({
+          url: drf.member.signup(),
+          method: 'post',
+          data: newData,
+        })
+          .then(res => {
+            console.log(res)
+            navigate('/login')
+          })
+          .catch(err => {
+            if (err.response.data === "email error") {
+              alert("이메일이 중복됩니다.")
+            }
+            console.log(err)
+          })
+    } else {
+      axios ({
+        url: drf.member.updateMember(),
+        method: 'put',
+        data: updateData,
+        headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
       })
         .then(res => {
           console.log(res)
-          navigate('/login')
+          console.log(updateData)
+          console.log("update 되었습니다")
+          // navigate('/main')
         })
-        .catch(err => {
-          if (err.response.data === "email error") {
-            alert("이메일이 중복됩니다.")
-          }
-          console.log(err)
-        })
-      }
+        .catch(err => console.log(err))
+    }
+  }
 
   const check = watch().password;
   return (
@@ -108,6 +125,7 @@ function SignupForm() {
               required: "이름을 입력해주세요!",
             })}
             type="text"
+            placeholder={name}
           />
         </div>
         <div>
@@ -123,49 +141,57 @@ function SignupForm() {
               },
             })}
             type="text"
+            placeholder={phoneNumber}
           />
         </div>
-        <div>
-          <label htmlFor="email">E-Mail : </label>
-          <input
-            {...register("email", {
-              required: "E-Mail을 입력해주세요",
-              pattern: {
-                value:
-                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                message: "E-mail 양식을 확인해 주세요",
-              },
-            })}
-            type="text"
-          />
-        </div>
-        <div>
-          <label htmlFor="password">비밀번호 : </label>
-          <input
-            {...register("password", {
-              required: "비밀번호를 입력해주세요",
-              minLength: {
-                value: 8,
-                message: "비밀번호를 8자리 이상으로 해주세요",
-              },
-            })}
-            type="password"
-            placeholder="8자리 이상으로 적어주세요"
-          />
-        </div>
-        <div>
-          <label htmlFor="passwordCheck">비밀번호 확인 : </label>
-          <input
-            {...register("passwordConfirm", {
-              validate: (value) =>
-                value === check ? true : "비밀번호가 틀립니다",
-            })}
-            type="password"
-            placeholder="한번 더 적어주세요"
-          />
-        </div>
+        <div>{ isUpdate ? null : 
+          <div>
+            <div>
+              <label htmlFor="email">E-Mail : </label>
+              <input
+                {...register("email", {
+                  required: "E-Mail을 입력해주세요",
+                  pattern: {
+                    value:
+                      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    message: "E-mail 양식을 확인해 주세요",
+                  },
+                })}
+                type="text"
+                placeholder={email}
+              />
+            </div>
+            <div>
+              <label htmlFor="password">비밀번호 : </label>
+              <input
+                {...register("password", {
+                  required: "비밀번호를 입력해주세요",
+                  minLength: {
+                    value: 8,
+                    message: "비밀번호를 8자리 이상으로 해주세요",
+                  },
+                })}
+                type="password"
+                // placeholder="8자리 이상으로 적어주세요"
+                placeholder={password}
+              />
+            </div>
+            <div>
+              <label htmlFor="passwordCheck">비밀번호 확인 : </label>
+              <input
+                {...register("passwordConfirm", {
+                  validate: (value) =>
+                    value === check ? true : "비밀번호가 틀립니다",
+                })}
+                type="password"
+                placeholder="한번 더 적어주세요"
+              />
+            </div>
+          </div>
+        }</div>
         <ButtonWrap>
-          <button>회원가입</button>
+          <div>{ isUpdate ? <button>수정하기</button> : <button>회원가입</button> }</div>
+          {/* <button>회원가입</button> */}
         </ButtonWrap>
       </Form>
     </div>
