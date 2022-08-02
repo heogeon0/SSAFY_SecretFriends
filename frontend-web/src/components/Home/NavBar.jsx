@@ -21,28 +21,39 @@ const HeaderText = styled.div`
 `
 
 function NavBar () {
+  const isLoggedIn = !!localStorage.getItem("token")
+
+  // when logout, token is need to be removed.
   function removeToken() {
     localStorage.removeItem("token")
     return (
       <Navigate to="/" />
     )
   }
+
   return (
     <HeaderBox>
       <FlexBox>
         <HeaderText><Link style={{textDecoration: 'none'}} to="/">SSAFY</Link></HeaderText>
-        <FlexBox>
-          <HeaderText><Link style={{textDecoration: 'none'}} to="/login">로그인</Link></HeaderText>
-          {/* <HeaderText><Link style={{textDecoration: 'none'}} to="/logout">로그아웃</Link></HeaderText> */}
-          <HeaderText>
-            <a href="/logout" 
-              onClick={() => removeToken()}
-              style={{textDecoration: 'none'}}
-            >로그아웃</a>
-          </HeaderText>
-          <HeaderText><Link style={{textDecoration: 'none'}} to="/signup">회원가입</Link></HeaderText>
-          <HeaderText><Link style={{textDecoration: 'none'}} to="/createChildren">아이정보 등록</Link></HeaderText>
-        </FlexBox>
+        <div>
+          { isLoggedIn ? 
+          <FlexBox>
+            <HeaderText>
+              <a href="/logout" 
+                onClick={() => removeToken()}
+                style={{textDecoration: 'none'}}
+              >로그아웃</a>
+            </HeaderText>
+            <HeaderText><Link style={{textDecoration: 'none'}} to="/createChildren">아이정보 등록</Link></HeaderText>
+            <HeaderText><Link style={{textDecoration: 'none'}} to="/main">MY PAGE</Link></HeaderText>
+          </FlexBox>
+          : 
+          <FlexBox>
+            <HeaderText><Link style={{textDecoration: 'none'}} to="/login">로그인</Link></HeaderText>
+            <HeaderText><Link style={{textDecoration: 'none'}} to="/signup">회원가입</Link></HeaderText>
+          </FlexBox>
+          }
+        </div>
       </FlexBox>
     </HeaderBox>
   )
