@@ -1,12 +1,33 @@
 import { useEffect } from "react";
 import MainCarousel from "../../components/Main/MainCarousel";
 import { Wrapper } from "./styles";
-import { member } from "../../store";
+// import { member } from "../../store";
+import { useRecoilState } from "recoil";
+import { MemberId } from "../../atom";
+
+import axios from "axios";
+import drf from "../../api/drf";
+
 
 function Main() {
-  function test() {
-    member()
-  }
+  const [memberId, setmemberId] = useRecoilState(MemberId);
+
+  useEffect(() => {axios.defaults.withCredentials = true;
+    axios.get("http://localhost:9999/mybuddy/member/info/", {
+      headers:
+      {
+        Authorization: 'Bearer ' + localStorage.getItem("token"),
+      },
+    })
+    .then(res => {
+      setmemberId(res.data.memberId)
+      console.log(memberId)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  })
+
   return (
     <Wrapper>
       <div className="head">
