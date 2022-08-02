@@ -17,6 +17,7 @@ export const Token = atom({
 
 export const IsLoggedIn = atom({
   key: "IsLoggedIn",
+  // default: !!localStorage.getItem('token'),
   default: false,
 })
 
