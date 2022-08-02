@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: minmax(350px, 1fr) 3fr;
+  /* grid-template-rows: minmax(350px, 1fr) 3fr; */
+  grid-template-rows: 50px minmax(350px, 1fr) 3fr;
   p {
     display: flex;
     align-items: center;
