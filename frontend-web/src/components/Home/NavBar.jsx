@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import { Navigate } from "react-router-dom";
 
+import axios from 'axios';
+import drf from '../../api/drf';
+
+
 const HeaderBox = styled.div`
   position: relative;
   top: 0px;
@@ -31,6 +35,24 @@ function NavBar () {
     )
   }
 
+  function signOut() {
+    // axios ({
+    //   url: drf.member.signup(),
+    //   method: 'post',
+    //   data: newData,
+    // })
+    //   .then(res => {
+    //     console.log(res)
+    //     navigate('/login')
+    //   })
+    //   .catch(err => {
+    //     if (err.response.data === "email error") {
+    //       alert("이메일이 중복됩니다.")
+    //     }
+    //     console.log(err)
+    //   })
+    }
+
   return (
     <HeaderBox>
       <FlexBox>
@@ -43,6 +65,12 @@ function NavBar () {
                 onClick={() => removeToken()}
                 style={{textDecoration: 'none'}}
               >로그아웃</a>
+            </HeaderText>
+            <HeaderText>
+              <a href="/logout" 
+                onClick={() => signOut()}
+                style={{textDecoration: 'none'}}
+              >회원탈퇴</a>
             </HeaderText>
             <HeaderText><Link style={{textDecoration: 'none'}} to="/createChildren">아이정보 등록</Link></HeaderText>
             <HeaderText><Link style={{textDecoration: 'none'}} to="/main">MY PAGE</Link></HeaderText>

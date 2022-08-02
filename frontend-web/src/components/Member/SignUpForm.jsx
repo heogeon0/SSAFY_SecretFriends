@@ -1,6 +1,6 @@
 import styled from "styled-components";
+
 import { useForm } from "react-hook-form";
-// import { signup } from "../../store";
 import axios from "axios";
 import drf from "../../api/drf";
 import { useNavigate } from "react-router-dom";
@@ -66,6 +66,7 @@ function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
 
   const navigate = useNavigate();
 
