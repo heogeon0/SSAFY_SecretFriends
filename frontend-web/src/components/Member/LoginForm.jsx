@@ -1,7 +1,14 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { login } from "../../store";
+
+import axios from "axios";
+import drf from "../../api/drf";
+import { useNavigate } from "react-router-dom";
+
+import { IsLoggedIn, Token } from "../../atom";
+import { useRecoilState } from "recoil";
+
 
 const ERROR = styled.div`
   grid-column: 1 / 3;
@@ -60,10 +67,32 @@ function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(IsLoggedIn);
+  const [token, setToken] = useRecoilState(Token);
+
+
   function onSubmit(data) {
-    console.log(data);
-    login(data)
-  }
+    axios.post(
+      drf.member.login(),
+      {
+        email: data.email,
+        password: data.password,
+      },
+      )
+      .then((res) => {
+        const accessToken = res.data.token;
+        axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
+        localStorage.setItem("token", accessToken)
+        setToken(accessToken)
+        navigate("/")
+      })
+      .catch((err) => {
+        alert('잘못된 정보입니다.')
+        console.log(err)
+      })
+    }
 
   return (
     <div

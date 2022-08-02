@@ -1,6 +1,8 @@
 import IntroCarousel from "../../components/Home/Carousel/IntroCarousel";
 import CardList from "../../components/Home/Card/CardList";
 import { Link } from 'react-router-dom';
+import { useRecoilValue } from "recoil";
+import { Token } from "../../atom";
 
 import styled from "styled-components";
 
@@ -38,7 +40,6 @@ const Button = styled.button`
 
 function Intro () {
   return (
-
     <div>
       <Title>나의 비밀 친구</Title>
       <IntroCarousel/>
