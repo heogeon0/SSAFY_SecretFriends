@@ -40,7 +40,7 @@ public class MemberController {
     private JwtTokenProvider jwtTokenProvider;
 
     @ApiOperation(value="회원가입", notes="회원 정보를 받아 회원 가입을 수행한다. 성공 여부에 따라 'success' 또는 'fail'을 반환한다.", response=String.class)
-    @PostMapping
+    @PostMapping("/signup")
     public ResponseEntity<String> registMember(@RequestBody @ApiParam(value="회원가입 시 필요한 회원정보(이름, 전화번호, 이메일, 비밀번호)", required = true) MemberDto memberDto) {
         logger.debug("registMember 호출 : {}", memberDto);
 

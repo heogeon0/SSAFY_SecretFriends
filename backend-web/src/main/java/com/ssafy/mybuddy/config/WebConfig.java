@@ -24,7 +24,9 @@ public class WebConfig implements WebMvcConfigurer {
 
     public void addInterceptors(InterceptorRegistry registry){
         System.out.println(">>> 인터셉터 등록");
-        registry.addInterceptor(bearerAuthInterceptor).addPathPatterns("/**/info");
+        registry.addInterceptor(bearerAuthInterceptor).addPathPatterns("/answer/**").addPathPatterns("/character/*").addPathPatterns("/children/**").addPathPatterns("/member/**").addPathPatterns("/mycharacter/**")
+                .excludePathPatterns("/member/login")
+                .excludePathPatterns("/member/signup");
 
     }
 }
