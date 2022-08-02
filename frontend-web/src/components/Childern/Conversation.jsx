@@ -3,6 +3,9 @@ import Wrapper from "./styles/Form";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 import { Chats } from "../../atom";
 import ChatList from "./ChatList";
+import axios from "axios";
+import drf from "../../api/drf";
+import { useEffect } from "react";
 
 const Input = styled.input`
   display: block;
@@ -48,6 +51,16 @@ function Conversation() {
     setChat((oldValue) => [...oldValue, { chat, id: Date.now() }]);
     event.target[0].value = "";
   }
+
+  useEffect(() => {
+    axios ({
+      url: drf.question.questions(),
+      method: 'get',
+    })
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+  })
+
   return (
     <Wrapper>
       <h2>아이에게 하고싶은 말을 적어주세요</h2>
