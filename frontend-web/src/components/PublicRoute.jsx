@@ -3,7 +3,6 @@ import { Navigate } from "react-router-dom";
 
 
 const PublicRoute = ({authenticated, component: Component}) => {
-    console.log(authenticated)
     return (
       !authenticated ? Component : <Navigate to='/' />
     )
