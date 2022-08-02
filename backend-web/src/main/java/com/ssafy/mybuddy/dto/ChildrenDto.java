@@ -8,6 +8,7 @@ import lombok.ToString;
 
 import java.sql.Blob;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,5 +35,7 @@ public class ChildrenDto {
     private Boolean isDeleted;
     @ApiModelProperty(value="회원 번호")
     private int memberId;
+
+    private List<AnswerDto> answers;
 
 }
