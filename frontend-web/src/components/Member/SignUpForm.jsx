@@ -1,7 +1,9 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+
 import { useForm } from "react-hook-form";
-import { signup } from "../../store";
+import axios from "axios";
+import drf from "../../api/drf";
+import { useNavigate } from "react-router-dom";
 
 const ERROR = styled.div`
   grid-column: 1 / 3;
@@ -65,10 +67,28 @@ function LoginForm() {
     formState: { errors },
   } = useForm();
 
+
+  const navigate = useNavigate();
+
   function onSubmit({name, phoneNumber, password, email}) {
     const newData = { name, phoneNumber, password, email, isDeleted: false, isSuperuser: false }
-    signup(newData)
-  }
+    // signup(newData)
+    axios ({
+        url: drf.member.signup(),
+        method: 'post',
+        data: newData,
+      })
+        .then(res => {
+          console.log(res)
+          navigate('/login')
+        })
+        .catch(err => {
+          if (err.response.data === "email error") {
+            alert("이메일이 중복됩니다.")
+          }
+          console.log(err)
+        })
+      }
 
   const check = watch().password;
   return (

@@ -87,6 +87,7 @@ function LoginForm() {
         localStorage.setItem("token", accessToken)
         setToken(accessToken)
         navigate("/")
+        window.location.reload(); // 로그인 이후 navbar가 변하지 않아 강제 새로고침
       })
       .catch((err) => {
         alert('잘못된 정보입니다.')
