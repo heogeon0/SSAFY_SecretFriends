@@ -33,6 +33,7 @@ function Main() {
     <Wrapper>
       <div>
         <Link to="/updateMember">회원정보 수정</Link>
+        <Link to="/signout">회원 탈퇴</Link>
       </div>
       <div className="head">
         <MainCarousel />
