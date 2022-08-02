@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -25,4 +27,6 @@ public class MemberDto {
     private Boolean isDeleted;
     @ApiModelProperty(value="회원 권한(사용자/관리자)")
     private Boolean isSuperuser;
+
+    private List<ChildrenDto> childrens;
 }

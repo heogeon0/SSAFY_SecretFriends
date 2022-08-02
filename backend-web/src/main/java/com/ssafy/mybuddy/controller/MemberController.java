@@ -1,8 +1,12 @@
 package com.ssafy.mybuddy.controller;
 
 
+import com.ssafy.mybuddy.dto.AnswerDto;
+import com.ssafy.mybuddy.dto.ChildrenDto;
 import com.ssafy.mybuddy.dto.MemberDto;
 import com.ssafy.mybuddy.jwt.JwtTokenProvider;
+import com.ssafy.mybuddy.service.AnswerService;
+import com.ssafy.mybuddy.service.ChildrenService;
 import com.ssafy.mybuddy.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,6 +40,13 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private ChildrenService childrenService;
+
+    @Autowired
+    private AnswerService answerService;
+
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
@@ -118,13 +129,23 @@ public class MemberController {
 
     @ApiOperation(value="회원 정보", notes="Header로 전달된 토큰에 해당하는 회원의 정보를 반환한다.", response = MemberDto.class)
     @GetMapping("info")
-    public ResponseEntity<MemberDto> selectMember(HttpServletRequest request) {
+    public ResponseEntity<MemberDto> selectMember(HttpServletRequest request) throws Exception {
         logger.debug("selectMember 호출");
+
         String email = (String) request.getAttribute("email");
-        System.out.println("selectMember 호출 : " + email);
-//        return new ResponseEntity<MemberDto>(memberService.selectMember(memberId), HttpStatus.OK);
-        System.out.println(memberService.selectMemberByEmail(email));
-        return new ResponseEntity<MemberDto>(memberService.selectMemberByEmail(email), HttpStatus.OK);
+
+        MemberDto currentMember = memberService.selectMemberByEmail(email);
+
+        List<ChildrenDto> childrens = childrenService.retrieveChildren(currentMember.getMemberId());
+
+        currentMember.setChildrens(childrens);
+
+        for(int i = 0; i < childrens.size(); i++) {
+            List<AnswerDto> answers = answerService.allAnswers(childrens.get(i).getChildrenId());
+            childrens.get(i).setAnswers(answers);
+        }
+
+        return new ResponseEntity<MemberDto>(currentMember, HttpStatus.OK);
 
     }
 

@@ -1,6 +1,7 @@
 package com.ssafy.mybuddy.controller;
 
 import com.ssafy.mybuddy.dto.ChildrenDto;
+import com.ssafy.mybuddy.service.AnswerService;
 import com.ssafy.mybuddy.service.ChildrenService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +28,9 @@ public class ChildrenController {
 
     @Autowired
     private ChildrenService childrenService;
+
+    @Autowired
+    private AnswerService answerService;
 
     @ApiOperation(value="아이 등록", notes="아이의 정보를 받아 등록을 수행한다. 성공 여부에 따라 'success' 또는 'fail'을 반환한다.", response = String.class)
     @PostMapping
