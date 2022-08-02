@@ -9,7 +9,7 @@ const ANSWER = 'answer/'
 
 export default {
   member: {
-    signup: () => HOST + MEMBER,  // 회원가입(POST), 회원전체목록(GET)
+    signup: () => HOST + MEMBER + 'signup/',  // 회원가입(POST), 회원전체목록(GET)
     login: () => HOST + MEMBER + 'login/',  // 로그인(POST)
     updateMember: () => HOST + MEMBER,  // 회원 정보 업데이트(PUT)
     member: () => HOST + MEMBER + 'info/',  // 회원 정보 조회 (GET)
