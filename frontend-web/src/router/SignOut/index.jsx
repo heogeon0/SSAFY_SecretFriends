@@ -68,7 +68,7 @@ function SignOut() {
       .catch(err => { console.log(err) })
     }, [])
     
-    console.log(currentUser)
+    // console.log(currentUser)
 
   function onSubmit(data) {
     console.log(data)
@@ -81,10 +81,11 @@ function SignOut() {
           headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
         })
         .then(res => {
-          console.log(res)
-          localStorage.removeItem("token")
-          navigate('/')
-          window.location.reload()
+          // console.log(res)
+          console.log('delete confirm')
+          localStorage.removeItem("token")  // 자동 로그아웃 처리
+          navigate('/') // intro page로 이동
+          window.location.reload()  // navbar 연동 위해서 강제 새로고침
         })
         .catch(err => console.log(err))
       }
