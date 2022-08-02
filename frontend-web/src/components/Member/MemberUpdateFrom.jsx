@@ -5,6 +5,10 @@ import axios from "axios";
 import drf from "../../api/drf";
 import { useNavigate } from "react-router-dom";
 
+import { useRecoilState, useRecoilValue } from "recoil";
+import { MemberId } from "../../atom";
+import { useEffect, useState } from "react";
+
 const ERROR = styled.div`
   grid-column: 1 / 3;
   text-align: center;
@@ -59,7 +63,26 @@ const Form = styled.form`
   }
 `;
 
-function SignupForm() {
+function MemberUpdateForm() {
+  const [currentUser, setCurrentUser] = useState();
+
+  useEffect(() => {
+    axios(
+      {
+        url: drf.member.member(),
+        method: 'get',
+        headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
+      })
+      .then(res => {
+        setCurrentUser(res)
+        // console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    })
+    
+  // console.log(currentUser);
   const {
     register,
     watch,
@@ -72,10 +95,9 @@ function SignupForm() {
 
   function onSubmit({name, phoneNumber, password, email}) {
     const newData = { name, phoneNumber, password, email, isDeleted: false, isSuperuser: false }
-    // signup(newData)
     axios ({
-        url: drf.member.signup(),
-        method: 'post',
+        url: drf.member.updateMember(),
+        method: 'put',
         data: newData,
       })
         .then(res => {
@@ -172,4 +194,4 @@ function SignupForm() {
   );
 }
 
-export default SignupForm;
+export default MemberUpdateForm;

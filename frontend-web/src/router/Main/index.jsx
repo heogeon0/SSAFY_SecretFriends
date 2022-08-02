@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import MainCarousel from "../../components/Main/MainCarousel";
 import { Wrapper } from "./styles";
-// import { member } from "../../store";
+
 import { useRecoilState } from "recoil";
 import { MemberId } from "../../atom";
 
 import axios from "axios";
 import drf from "../../api/drf";
+import { Link } from 'react-router-dom';
 
 
 function Main() {
@@ -30,10 +31,12 @@ function Main() {
 
   return (
     <Wrapper>
+      <div>
+        <Link to="/updateMember">회원정보 수정</Link>
+      </div>
       <div className="head">
         <MainCarousel />
       </div>
-
       <div className="body">
         <div className="body_grid">
           <p>\아이와 \공팔이가 함께한 사진들</p>
@@ -48,7 +51,6 @@ function Main() {
           </div>
         </div>
       </div>
-      <button onClick={() => test()}>abc</button>
     </Wrapper>
   );
 }

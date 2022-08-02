@@ -34,6 +34,7 @@ export function member () {
   })
   .then(res => {
     console.log(res)
+    return (res)
   })
   .catch(err => {
     console.log(err)

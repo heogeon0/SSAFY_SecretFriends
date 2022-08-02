@@ -9,6 +9,7 @@ import Main from "./router/Main";
 import CreateChildren from "./router/CreateChildren/Index";
 import NotFound404 from "./router/NotFound";
 import Logout from "./router/Logout";
+import MemberUpdate from "./router/MemberUpdate";
 
 import PublicRoute from "./components/PublicRoute";
 import PrivateRoute from "./components/PrivateRoute";
@@ -30,6 +31,7 @@ function Router() {
           <Route path="/main" element={<PrivateRoute authenticated={access} component={<Main />} />}></Route>
           <Route path="/CreateChildren" element={<PrivateRoute authenticated={access} component={<CreateChildren />} />}></Route>
           <Route path="/logout" element={<PrivateRoute authenticated={access} component={<Logout />} />}></Route>
+          <Route path="/updateMember" element={<PrivateRoute authenticated={access} component={<MemberUpdate />} />}></Route>
           {/* 항상 접근 가능 */}
           <Route path="/" element={<Intro />}></Route>
           <Route path="*" element={<NotFound404 />}></Route>
