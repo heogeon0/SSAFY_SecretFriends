@@ -28,7 +28,6 @@ function CreateChildren() {
   const faces = useRecoilValue(FaceInfo);
   const [memberID, setMemberID] = useState();
   const [childrenID, setChildrenID] = useState();
-  const characterId = 1;
 
   useEffect(() => {
     axios({
@@ -49,7 +48,7 @@ function CreateChildren() {
   const birthMonth = parseInt(birth.slice(5, 7))
   const birthYear = parseInt(birth.slice(0, 4))
 
-  console.log(process.env.REACT_APP_FB_STORAGE_BUCKET);
+  // console.log(process.env.REACT_APP_FB_STORAGE_BUCKET);
 
   const handleImageUpload = async (fileList) => {
     try {
@@ -76,6 +75,73 @@ function CreateChildren() {
     setProgress(0);
     setUploading(false);
   };
+
+  const createCharacter = async (childrenID) => {
+    try {
+      const response = await axios ({
+        url: drf.mycharacter.createCharacter(),
+        method: "post",
+        headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
+        data: {
+          characterID: characterID,
+          childrenID: childrenID,
+          nickname: nickName
+        }
+      })
+      console.log(response);
+    } catch(error) {
+      console.log(childrenID)
+      console.log(error)
+    }
+  }
+
+  async function a () {
+    try {
+      const res = await axios({
+        url: drf.children.childrens(),
+        method: "post",
+        headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
+        data: {
+          memberID: memberID,
+          hospitalizationDay: admission,
+          birthDay: birthDay,
+          birthMonth: birthMonth,
+          birthYear: birthYear,
+          name: name,
+          nickname: nickName,
+        }
+      })
+      console.log(res)
+      setChildrenID(res.data.childrenID)
+      async function next() {
+        await b(res.data.childrenID)
+      }
+      next()
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+  
+  async function b (props) {
+    try {
+      console.log(childrenID);
+      const res = await axios({
+        url: drf.mycharacter.createCharacter(),
+        method: "post",
+        headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
+        data: {
+          characterID: characterID,
+          childrenID: props,
+          nickname: characterName,
+        }
+      })
+      console.log(res)
+    }
+    catch(e) {
+      console.log(e)
+    }
+  }
 
   function goNext() {
     switch (slide) {
@@ -120,23 +186,34 @@ function CreateChildren() {
       setSlide(slide + 1);
       setError("");
     } else {
-      axios({
-        url: drf.children.childrens(),
-        method: "post",
-        headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
-        data: {
-          memberID: memberID,
-          hospitalizationDay: admission,
-          birthDay: birthDay,
-          birthMonth: birthMonth,
-          birthYear: birthYear,
-          name: name,
-          nickname: nickName,
-        }
-      }).then((res) => {
-        console.log(res)
-        // setChildrenId(res.data.childrenID)
-      }).catch((err) => console.log(err))
+      a()
+      // const asyc_func_list = [a(), b()];
+      // async function test() {
+      //   for (let index = 0; 2; index++) {
+      //     return await asyc_func_list[index]
+      //   }
+      // }
+      // test()
+
+      // axios({
+      //   url: drf.children.childrens(),
+      //   method: "post",
+      //   headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
+      //   data: {
+      //     memberID: memberID,
+      //     hospitalizationDay: admission,
+      //     birthDay: birthDay,
+      //     birthMonth: birthMonth,
+      //     birthYear: birthYear,
+      //     name: name,
+      //     nickname: nickName,
+      //   }
+      // })
+      //   .then((res) => {
+      //     console.log(res)
+      //     setChildrenID(res.data.childrenID)
+      //   })
+      //   .catch((err) => console.log(err))
     };
   }
 

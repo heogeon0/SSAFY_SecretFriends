@@ -46,7 +46,6 @@ function Conversation() {
   function onSubmit(event) {
     console.log(NewChat);
     event.preventDefault();
-    console.log();
     const chat = event.target[0].value;
     setChat((oldValue) => [...oldValue, { chat, id: Date.now() }]);
     event.target[0].value = "";
@@ -57,15 +56,23 @@ function Conversation() {
       url: drf.question.questions(),
       method: 'get',
     })
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+    .then((res) => {
+      // console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 
     axios({
       url: drf.character.characters(),
       method: 'get',
     })
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+    .then((res) => {
+      // console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   })
   
   return (
