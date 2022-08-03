@@ -45,7 +45,7 @@ const CharacterForm = styled.div`
   }
 `;
 
-function Character({ setCharacterName }) {
+function Character({ characterName, setCharacterName }) {
   function onChange(event) {
     setCharacterName(event.target.value.trim());
   }
@@ -68,7 +68,7 @@ function Character({ setCharacterName }) {
               캐릭터 별명을 지어주세요
             </p>
           </label>
-          <input type="text" onChange={onChange} />
+          <input type="text" value={characterName} onChange={onChange} />
         </div>
       </CharacterForm>
     </Wrapper>
