@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,4 +21,9 @@ public class AnswerDto {
     private int childrenID;
     @ApiModelProperty(value="질문 번호")
     private int questionID;
+    @ApiModelProperty(value = "질문 사용 여부")
+    private boolean isUsed;
+    @ApiModelProperty(value = "질문이 생성된 시간")
+    private String cratedAt;
+
 }
