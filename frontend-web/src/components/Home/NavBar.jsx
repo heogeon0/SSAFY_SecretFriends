@@ -1,12 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
-import { useNavigate, Navigate } from "react-router-dom";
-
-import axios from 'axios';
-import drf from '../../api/drf';
-import { member } from '../../store';
-
+import { useNavigate } from "react-router-dom";
 
 const HeaderBox = styled.div`
   position: relative;
@@ -33,9 +28,6 @@ function NavBar () {
   function removeToken() {
     localStorage.removeItem("token")
     navigate("/")
-    // return (
-    //   <Navigate to="/" />
-    // )
   }
 
   return (
@@ -51,7 +43,6 @@ function NavBar () {
                 style={{textDecoration: 'none'}}
               >로그아웃</a>
             </HeaderText>
-            <HeaderText><Link style={{textDecoration: 'none'}} to="/createChildren">아이정보 등록</Link></HeaderText>
             <HeaderText><Link style={{textDecoration: 'none'}} to="/main">MY PAGE</Link></HeaderText>
           </FlexBox>
           : 

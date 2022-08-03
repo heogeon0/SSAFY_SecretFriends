@@ -32,8 +32,9 @@ function Main() {
   return (
     <Wrapper>
       <div>
-        <Link to="/updateMember">회원정보 수정</Link>
-        <Link to="/signout">회원 탈퇴</Link>
+        <Link style={{textDecoration: 'none', margin: '0 1rem 0 0'}} to="/updateMember">회원정보 수정</Link>
+        <Link style={{textDecoration: 'none', margin: '0 1rem 0 0'}} to="/createChildren">아이정보 등록</Link>
+        <Link style={{textDecoration: 'none'}} to="/signout">회원 탈퇴</Link>
       </div>
       <div className="head">
         <MainCarousel />

@@ -6,9 +6,6 @@ import axios from "axios";
 import drf from "../../api/drf";
 import { useNavigate } from "react-router-dom";
 
-import { IsLoggedIn, Token } from "../../atom";
-import { useRecoilState } from "recoil";
-
 
 const ERROR = styled.div`
   grid-column: 1 / 3;
@@ -69,8 +66,6 @@ function LoginForm() {
   } = useForm();
 
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(IsLoggedIn);
-  const [token, setToken] = useRecoilState(Token);
 
 
   function onSubmit(data) {
@@ -85,7 +80,6 @@ function LoginForm() {
         const accessToken = res.data.token;
         axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
         localStorage.setItem("token", accessToken)
-        setToken(accessToken)
         navigate("/")
         window.location.reload(); // 로그인 이후 navbar가 변하지 않아 강제 새로고침
       })
