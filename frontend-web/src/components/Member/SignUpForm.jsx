@@ -61,7 +61,7 @@ const Form = styled.form`
 `;
 
 function SignupForm({
-  name, setName, phoneNumber, setPhoneNumber, isUpdate, memberId,
+  name, setName, phoneNumber, setPhoneNumber, isUpdate, memberID,
 }) {
   // console.log(data.name)
   const {
@@ -84,7 +84,7 @@ function SignupForm({
 
   function onSubmit({name, phoneNumber, password, email}) {
     const newData = { name, phoneNumber, password, email }
-    const updateData = { name, phoneNumber, memberId }
+    const updateData = { name, phoneNumber, memberID }
     // case1: 회원가입 form
     if (!isUpdate) {
       axios ({

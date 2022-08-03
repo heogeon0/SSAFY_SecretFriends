@@ -20,14 +20,14 @@ function CreateChildren() {
   const [nickName, setNickName] = useState("");
   const [birth, setBirth] = useState("");
   const [admission, setAdmission] = useState("");
-  const [characterID, setCharacterId] = useState(1);
+  const [characterID, setCharacterID] = useState(1);
   const [characterName, setCharacterName] = useState("");
   const [isUploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [photoURL, setPhotosURL] = useState([]);
   const faces = useRecoilValue(FaceInfo);
-  const [memberId, setMemberId] = useState();
-  const [childrenId, setChildrenId] = useState();
+  const [memberID, setMemberID] = useState();
+  const [childrenID, setChildrenID] = useState();
   const characterId = 1;
 
   useEffect(() => {
@@ -38,11 +38,11 @@ function CreateChildren() {
     })
       .then(res => {
         // console.log(res)
-        setMemberId(res.data.memberId)
+        setMemberID(res.data.memberID)
       })
       .catch(err => console.log(err))
   })
-  // console.log(memberId)
+  // console.log(memberID)
 
   // 생년월일 분리
   const birthDay = parseInt(birth.slice(8, 10))
@@ -98,12 +98,12 @@ function CreateChildren() {
         }
         break;
       case 2:
-        if (faces.length < 10) {
-          setError("아이 사진을 열장 등록해주세요");
-          return;
-        } else {
-          handleImageUpload();
-        }
+        // if (faces.length < 10) {
+        //   setError("아이 사진을 열장 등록해주세요");
+        //   return;
+        // } else {
+        //   handleImageUpload();
+        // }
         break;
       case 3:
         if (!characterID) {
@@ -125,7 +125,7 @@ function CreateChildren() {
         method: "post",
         headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
         data: {
-          memberId: memberId,
+          memberID: memberID,
           hospitalizationDay: admission,
           birthDay: birthDay,
           birthMonth: birthMonth,
@@ -135,37 +135,7 @@ function CreateChildren() {
         }
       }).then((res) => {
         console.log(res)
-        setChildrenId(res.data.childrenId)
-        axios({
-          url: drf.mycharacter.createCharacter(),
-          method: "post",
-          headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
-          data: {
-            characterId: 1,
-            childrenId: childrenId,
-            nickname: characterName,
-          }
-        }).then((res) => {
-          console.log(res)
-          Chats.map((chat) => {
-            return (
-              axios({
-                url: drf.answer.answers(),
-                method: "post",
-                headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
-                data: {
-                  childrenID: childrenId,
-                  content: chat,
-                  questionID: 1,
-                },
-              })
-              .then((res) => console.log(res))
-              .catch((err) => console.log(err))
-            )
-          }
-          )
-        })
-        .catch((err) => console.log(err))
+        // setChildrenId(res.data.childrenID)
       }).catch((err) => console.log(err))
     };
   }

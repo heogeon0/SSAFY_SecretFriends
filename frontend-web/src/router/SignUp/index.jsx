@@ -13,7 +13,7 @@ function SignUp() {
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const isUpdate = false;
-  const [memberId, setMemberId] = useState(null);
+  const [memberID, setMemberID] = useState(null);
 
   return (
     <Box>
@@ -25,7 +25,7 @@ function SignUp() {
           name={name} setName={setName}
           phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber}
           isUpdate={isUpdate}
-          memberId={memberId}
+          memberID={memberID}
         />
       </Wrapper>
     </Box>

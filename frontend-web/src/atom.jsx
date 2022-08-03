@@ -21,12 +21,12 @@ export const IsLoggedIn = atom({
   default: false,
 })
 
-export const MemberId = atom({
-  key: "MemberId",
+export const MemberID = atom({
+  key: "MemberID",
   default: "",
 })
 
-export const CharacterId = atom({
-  key: "CharacterId",
+export const CharacterID = atom({
+  key: "CharacterID",
   default: "",
 })

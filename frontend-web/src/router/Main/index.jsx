@@ -3,7 +3,7 @@ import MainCarousel from "../../components/Main/MainCarousel";
 import { Wrapper } from "./styles";
 
 import { useRecoilState } from "recoil";
-import { MemberId } from "../../atom";
+import { MemberID } from "../../atom";
 
 import axios from "axios";
 import drf from "../../api/drf";
@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 
 function Main() {
-  const [memberId, setmemberId] = useRecoilState(MemberId);
+  const [memberID, setmemberID] = useRecoilState(MemberID);
 
   useEffect(() => {axios.defaults.withCredentials = true;
     axios.get("http://localhost:9999/mybuddy/member/info/", {
@@ -21,8 +21,8 @@ function Main() {
       },
     })
     .then(res => {
-      setmemberId(res.data.memberId)
-      console.log(memberId)
+      setmemberID(res.data.memberID)
+      console.log(memberID)
     })
     .catch(err => {
       console.log(err)
