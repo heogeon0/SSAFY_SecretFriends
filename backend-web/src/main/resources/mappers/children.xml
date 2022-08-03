@@ -2,9 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.mybuddy.mapper.ChildrenMapper">
 
-    <insert id="insertChildren" parameterType="childrenDto">
+    <insert id="insertChildren" parameterType="childrenDto" >
         insert into children(birthYear, birthMonth, birthDay, name, nickname, hospitalizationDay, memberID)
         values (#{birthYear}, #{birthMonth}, #{birthDay}, #{name}, #{nickname}, #{hospitalizationDay}, #{memberId})
+
+        <selectKey keyProperty="childrenId" resultType="int">
+            select last_insert_id();
+        </selectKey>
     </insert>
 
     <select id="retrieveChildren" parameterType="int" resultType="childrenDto">
