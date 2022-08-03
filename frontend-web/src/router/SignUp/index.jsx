@@ -15,6 +15,7 @@ function SignUp() {
     email: '',
     password: '8자리 이상으로 적어주세요',
     isUpdate: false,
+    memberId: null,
   }
   return (
     <Box>
