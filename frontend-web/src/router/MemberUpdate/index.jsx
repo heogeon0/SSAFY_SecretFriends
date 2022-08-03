@@ -5,8 +5,6 @@ import SignupForm from "../../components/Member/SignUpForm";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import drf from "../../api/drf";
-import { useRecoilState } from "recoil";
-import { MemberId, UserInfo } from "../../atom";
 
 
 const Box = styled.div`
@@ -21,7 +19,7 @@ function MemberUpdate() {
   const [name, setName] = useState(currentUser ? currentUser.data.name : '');
   const [phoneNumber, setPhoneNumber] = useState(currentUser ? currentUser.data.phoneNumber : '');
   const isUpdate = true;
-  const [memberId, setMemberId] = useState(currentUser ? currentUser.data.memberId : null);
+  const [memberID, setMemberID] = useState(currentUser ? currentUser.data.memberID : null);
   
   useEffect( () => {
     axios(
@@ -34,7 +32,7 @@ function MemberUpdate() {
         setCurrentUser(res)
         setName(res.data.name)
         setPhoneNumber(res.data.phoneNumber)
-        setMemberId(res.data.memberId)
+        setMemberID(res.data.memberID)
       })
       .catch(err => {
         console.log(err)
@@ -51,7 +49,7 @@ function MemberUpdate() {
           name={name} setName={setName}
           phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber}
           isUpdate={isUpdate}
-          memberId={memberId}
+          memberID={memberID}
         />
       </Wrapper>
     </Box>

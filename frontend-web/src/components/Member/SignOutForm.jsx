@@ -78,7 +78,7 @@ function SignOutForm() {
     if (data.password === currentUser.data.password) {
       if (window.confirm("정말로 회원탈퇴 하시겠습니까?")) {
         axios ({
-          url: drf.member.deleteMember(currentUser.data.memberId),
+          url: drf.member.deleteMember(currentUser.data.memberID),
           method: "delete",
           headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
         })
