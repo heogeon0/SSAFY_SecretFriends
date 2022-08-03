@@ -12,11 +12,11 @@ public interface MemberMapper {
 
     List<MemberDto> retrieveMember();
 
-    int deleteMember(int memberId);
+    int deleteMember(int memberID);
 
     int selectEmail(String email);
 
-    MemberDto selectMember(int memberId);
+    MemberDto selectMember(int memberID);
 
     int updateMember(MemberDto memberDto);
 

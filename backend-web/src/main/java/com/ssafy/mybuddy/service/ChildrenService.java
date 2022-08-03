@@ -8,11 +8,11 @@ import java.util.List;
 public interface ChildrenService {
     boolean insertChildren(ChildrenDto childrenDto);
 
-    List<ChildrenDto> retrieveChildren(int memberId);
+    List<ChildrenDto> retrieveChildren(int memberID);
 
-    ChildrenDto selectChildren(int childrenId);
+    ChildrenDto selectChildren(int childrenID);
 
     boolean updateChildren(ChildrenDto childrenDto);
 
-    boolean deleteChildren(int childrenId);
+    boolean deleteChildren(int childrenID);
 }

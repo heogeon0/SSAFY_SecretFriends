@@ -136,12 +136,12 @@ public class MemberController {
 
         MemberDto currentMember = memberService.selectMemberByEmail(email);
 
-        List<ChildrenDto> childrens = childrenService.retrieveChildren(currentMember.getMemberId());
+        List<ChildrenDto> childrens = childrenService.retrieveChildren(currentMember.getMemberID());
 
         currentMember.setChildrens(childrens);
 
         for(int i = 0; i < childrens.size(); i++) {
-            List<AnswerDto> answers = answerService.allAnswers(childrens.get(i).getChildrenId());
+            List<AnswerDto> answers = answerService.allAnswers(childrens.get(i).getChildrenID());
             childrens.get(i).setAnswers(answers);
         }
 
@@ -151,7 +151,7 @@ public class MemberController {
 
     @ApiOperation(value="회원 정보 업데이트", notes="회원의 정보를 수정한다. 성공 여부에 따라 'success' 또는 'fail'을 반환한다. ", response=String.class)
     @PutMapping
-    public ResponseEntity<String> updateMember(@ApiParam(value = "회원의 수정할 정보(memberId, 전화번호, 이름)", required = true) @RequestBody MemberDto memberDto) {
+    public ResponseEntity<String> updateMember(@ApiParam(value = "회원의 수정할 정보(memberID, 전화번호, 이름)", required = true) @RequestBody MemberDto memberDto) {
         logger.debug("updateMember 호출");
         if(memberService.updateMember(memberDto)) {
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
@@ -159,11 +159,11 @@ public class MemberController {
         return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
     }
 
-    @ApiOperation(value = "회원 삭제", notes = "회원 삭제를 수행한다(memberId). 성공 여부에 따라 'success' 또는 'fail'을 반환한다.", response=String.class)
-    @DeleteMapping("{memberId}")
-    public ResponseEntity<String> deleteMember(@PathVariable  @ApiParam(value = "삭제할 회원의 아이디.", required = true) int memberId) {
+    @ApiOperation(value = "회원 삭제", notes = "회원 삭제를 수행한다(memberID). 성공 여부에 따라 'success' 또는 'fail'을 반환한다.", response=String.class)
+    @DeleteMapping("{memberID}")
+    public ResponseEntity<String> deleteMember(@PathVariable  @ApiParam(value = "삭제할 회원의 아이디.", required = true) int memberID) {
         logger.debug("deleteMember 호출");
-        if(memberService.deleteMember(memberId)) {
+        if(memberService.deleteMember(memberID)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);

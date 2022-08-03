@@ -11,11 +11,11 @@ public interface MemberService {
 
     List<MemberDto> retrieveMember();
 
-    boolean deleteMember(int memberId);
+    boolean deleteMember(int memberID);
 
     boolean checkEmail(String email);
 
-    MemberDto selectMember(int memberId);
+    MemberDto selectMember(int memberID);
 
     MemberDto selectMemberByEmail(String memberEmail);
 

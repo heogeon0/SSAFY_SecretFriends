@@ -13,14 +13,14 @@ import lombok.ToString;
 public class MycharacterDto {
 
     @ApiModelProperty(value = "나의캐릭터고유번호")
-    private int myCharacterId;
+    private int myCharacterID;
 
     @ApiModelProperty(value = "캐릭터닉네임")
     private String nickname;
 
     @ApiModelProperty(value = "캐릭터고유번호")
-    private int characterId;
+    private int characterID;
 
     @ApiModelProperty(value = "아이의 고유번호")
-    private int childrenId;
+    private int childrenID;
 }

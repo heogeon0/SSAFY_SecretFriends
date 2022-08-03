@@ -1,5 +1,6 @@
 package com.ssafy.mybuddy.controller;
 
+import com.ssafy.mybuddy.dto.AllAnswerDto;
 import com.ssafy.mybuddy.dto.AnswerDto;
 import com.ssafy.mybuddy.service.AnswerService;
 import io.swagger.annotations.ApiOperation;
@@ -29,12 +30,19 @@ public class AnswerController {
 
     @ApiOperation(value="답변 등록", notes="답변을 등록한다. 성공 여부에 따라 'success' 또는 'fail'을 반환한다.", response = String.class)
     @PostMapping
-    public ResponseEntity<String> registAnswer(@RequestBody @ApiParam(value="답변 등록 시 필요한 정보(답변 내용, 아이 번호, 질문 번호)", required = true) AnswerDto answerDto) throws Exception{
-        logger.debug("registAnswer - 호출");
-        if(answerService.registAnswer(answerDto)) {
-            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+    public ResponseEntity<String> registAnswer(@RequestBody @ApiParam(value="답변 등록 시 필요한 정보(답변 내용, 아이 번호, 질문 번호)", required = true) AllAnswerDto allAnswerDto) throws Exception{
+        System.out.println(allAnswerDto.toString());
+        for(int i = 0; i < allAnswerDto.getContent().size(); i++) {
+            AnswerDto answerDto = new AnswerDto();
+            answerDto.setChildrenID(allAnswerDto.getChildrenID());
+            answerDto.setQuestionID(allAnswerDto.getQuestionID());
+            answerDto.setContent(allAnswerDto.getContent().get(i));
+
+            if(!answerService.registAnswer(answerDto)) {
+                return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
+            }
         }
-        return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
     @ApiOperation(value="아이별 딥변 전체 조회", notes="아이별로 답변 전체를 반환한다(답변이 생성된 순서대로 정렬).", response = List.class)
@@ -56,7 +64,7 @@ public class AnswerController {
 
     @ApiOperation(value="답변 수정", notes="답변 내용을 수정한다.", response = String.class)
     @PutMapping("{answerID}")
-    public ResponseEntity<String> updateAnswer(@RequestBody @ApiParam(value = "수정할 답변 정보를 입력받아 수정한다. (답변 번호, 답변 내용, 아이 번호, 질문 번호)", required = true) AnswerDto answerDto) throws Exception {
+    public ResponseEntity<String> updateAnswer(@RequestBody @ApiParam(value = "수정할 답변 정보를 입력받아 수정한다. (답변 내용, 질문 번호)", required = true) AnswerDto answerDto) throws Exception {
         logger.debug("updateAnswer - 호출");
         logger.debug("" + answerDto);
 
@@ -64,6 +72,20 @@ public class AnswerController {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+    }
+
+    @ApiOperation(value="답변 여러 개 수정", notes="여러 개의 답변 내용을 수정한다.(객체 배열 형태로 넣어야 함 [{...},{...},{...}])", response = String.class)
+    @PutMapping("/updateAll")
+    public ResponseEntity<String> updateAnswer(@RequestBody @ApiParam(value = "수정할 답변 정보를 입력받아 수정한다. (답변 내용, 질문 번호)", required = true) List<AnswerDto> allAnswerDto) throws Exception {
+        logger.debug("updateAnswer - 호출");
+
+        for(int i = 0; i < allAnswerDto.size(); i++) {
+            if (!answerService.updateAnswer(allAnswerDto.get(i))) {
+                return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+            }
+        }
+        return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+
     }
 
     @ApiOperation(value="답변 삭제", notes="answerID에 해당하는 답변을 삭제한다.", response = String.class)

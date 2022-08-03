@@ -14,7 +14,7 @@ import java.util.List;
 @ApiModel(value="MemberDto : 회원정보", description = "회원의 상세 정보를 나타낸다")
 public class MemberDto {
     @ApiModelProperty(value="회원 번호")
-    private int memberId;
+    private int memberID;
     @ApiModelProperty(value="회원 이름")
     private String name;
     @ApiModelProperty(value="회원 전화번호")

@@ -4,9 +4,9 @@
 
     <insert id="insertChildren" parameterType="childrenDto" >
         insert into children(birthYear, birthMonth, birthDay, name, nickname, hospitalizationDay, memberID)
-        values (#{birthYear}, #{birthMonth}, #{birthDay}, #{name}, #{nickname}, #{hospitalizationDay}, #{memberId})
+        values (#{birthYear}, #{birthMonth}, #{birthDay}, #{name}, #{nickname}, #{hospitalizationDay}, #{memberID})
 
-        <selectKey keyProperty="childrenId" resultType="int">
+        <selectKey keyProperty="childrenID" resultType="int">
             select last_insert_id();
         </selectKey>
     </insert>
@@ -20,7 +20,8 @@
                `nickname`,
                `hospitalizationDay`,
                `memberID`
-        from children;
+        from children
+        where memberID = #{memberID};
     </select>
 
     <select id="selectChildren" parameterType="int" resultType="childrenDto">
@@ -33,19 +34,19 @@
                `hospitalizationDay`,
                `memberID`
         from children
-        where childrenId = #{childrenId}
+        where childrenID = #{childrenID}
     </select>
 
     <update id="updateChildren" parameterType="childrenDto">
         update children
         set birthYear = #{birthYear},  birthMonth = #{birthMonth},  birthDay = #{birthDay},  name = #{name},  nickname = #{nickname}, hospitalizationDay = #{hospitalizationDay}
-        where childrenId = #{childrenId}
+        where childrenID = #{childrenID}
     </update>
 
     <delete id="deleteChildren" parameterType="int">
         delete from children
         where
-            childrenId = #{childrenId}
+            childrenID = #{childrenID}
     </delete>
 
 </mapper>

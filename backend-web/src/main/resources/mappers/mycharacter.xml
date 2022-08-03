@@ -4,28 +4,28 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.mybuddy.mapper.MyCharactermapper">
     <insert id="insertMyCharacter" parameterType="MycharacterDto">
-        insert into mycharacter (myCharacterId, nickname, characterId, childrenId)
-        values (#{myCharacterId},#{nickname},#{characterId},#{childrenId})
+        insert into mycharacter (nickname, characterID, childrenID)
+        values (#{nickname},#{characterID},#{childrenID})
     </insert>
 
     <update id="updateMyCharacter" parameterType="MycharacterDto">
         update mycharacter
-        set myCharacterID = #{myCharacterId},
+        set
             nickname = #{nickname},
-            characterId = #{characterId}
-        where childrenId = #{childrenId}
+            characterID = #{characterID}
+        where childrenID = #{childrenID}
     </update>
 
     <delete id="deleteMyCharacter" parameterType="int">
-    delete
-    from mycharacter
-    where characterId = #{characterId}
+        delete
+        from mycharacter
+        where childrenID = #{childrenID}
     </delete>
 
     <select id="selectMyCharacter" resultType="MycharacterDto">
-        select myCharacterId, nickname, characterId, childrenId
+        select myCharacterID, nickname, characterID, childrenID
         from mycharacter
-        where childrenId = #{childrenId}
+        where childrenID = #{childrenID}
     </select>
 
 </mapper>
