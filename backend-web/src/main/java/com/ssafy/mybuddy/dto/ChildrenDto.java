@@ -16,7 +16,7 @@ import java.util.List;
 @ApiModel(value="ChildrenDto : 아이정보", description = "아이의 상세 정보를 나타낸다.")
 public class ChildrenDto {
     @ApiModelProperty(value="아이 번호")
-    private int childrenId;
+    private int childrenID;
     @ApiModelProperty(value="생년")
     private int birthYear;
     @ApiModelProperty(value="생월")
@@ -30,7 +30,7 @@ public class ChildrenDto {
     @ApiModelProperty(value="입원일(YYYY-MM-DD)")
     private Date hospitalizationDay;
     @ApiModelProperty(value="회원 번호")
-    private int memberId;
+    private int memberID;
 
     private List<AnswerDto> answers;
 

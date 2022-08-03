@@ -30,8 +30,8 @@ public class MemberServiceImpl implements MemberService {
         return memberMapper.retrieveMember();
     }
     @Override
-    public boolean deleteMember(int memberId) {
-        return memberMapper.deleteMember(memberId) == 1;
+    public boolean deleteMember(int memberID) {
+        return memberMapper.deleteMember(memberID) == 1;
     }
     @Override
     public boolean checkEmail(String email) {
@@ -40,8 +40,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDto selectMember(int memberId) {
-        return memberMapper.selectMember(memberId);
+    public MemberDto selectMember(int memberID) {
+        return memberMapper.selectMember(memberID);
     }
 
     @Override

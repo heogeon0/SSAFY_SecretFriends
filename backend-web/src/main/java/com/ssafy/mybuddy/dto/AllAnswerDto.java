@@ -6,16 +6,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
-@ApiModel(value="AnswerDto : 답변정보", description = "답변의 상세 정보를 나타낸다.")
-public class AnswerDto {
+@AllArgsConstructor
+@ApiModel(value="AllAnswerDto : 답변정보", description = "답변의 상세 정보를 나타낸다.")
+public class AllAnswerDto {
     @ApiModelProperty(value="답변 번호")
     private int answerID;
     @ApiModelProperty(value="답변 내용")
-    private String content;
+    private List<String> content;
     @ApiModelProperty(value="아이 번호")
     private int childrenID;
     @ApiModelProperty(value="질문 번호")

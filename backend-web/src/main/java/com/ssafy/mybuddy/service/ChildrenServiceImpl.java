@@ -20,13 +20,13 @@ public class ChildrenServiceImpl implements ChildrenService{
     }
 
     @Override
-    public List<ChildrenDto> retrieveChildren(int memberId) {
-        return childrenMapper.retrieveChildren(memberId);
+    public List<ChildrenDto> retrieveChildren(int memberID) {
+        return childrenMapper.retrieveChildren(memberID);
     }
 
     @Override
-    public ChildrenDto selectChildren(int childrenId) {
-        return childrenMapper.selectChildren(childrenId);
+    public ChildrenDto selectChildren(int childrenID) {
+        return childrenMapper.selectChildren(childrenID);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ChildrenServiceImpl implements ChildrenService{
     }
 
     @Override
-    public boolean deleteChildren(int childrenId) {
-        return childrenMapper.deleteChildren(childrenId) == 1;
+    public boolean deleteChildren(int childrenID) {
+        return childrenMapper.deleteChildren(childrenID) == 1;
     }
 }

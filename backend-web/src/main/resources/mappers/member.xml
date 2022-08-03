@@ -8,26 +8,26 @@
     </insert>
 
     <select id="login" parameterType="memberDto" resultType="memberDto">
-        select memberId, name, email, password, isSuperuser, phoneNumber
+        select memberID, name, email, password, isSuperuser, phoneNumber
         from member
         where email=#{email} and password=#{password}
     </select>
 
     <!-- 모든 회원의 정보를 반환 -->
     <select id="retrieveMember" resultType="memberDto">
-        select memberId, name,
+        select memberID, name,
                phoneNumber, email, password, isSuperuser
         from member;
     </select>
 
     <!-- 특정 회원의 정보를 반환 -->
     <select id="selectMember" parameterType="int" resultType="memberDto">
-        select memberId, name, phoneNumber, email, password, isSuperuser
-        from member where memberId = #{memberId}
+        select memberID, name, phoneNumber, email, password, isSuperuser
+        from member where memberID = #{memberID}
     </select>
 
     <select id="selectMemberByEmail" parameterType="string" resultType="memberDto">
-        select memberId, name, phoneNumber, email, password, isSuperuser
+        select memberID, name, phoneNumber, email, password, isSuperuser
         from member where email = #{memberEmail}
     </select>
 
@@ -35,7 +35,7 @@
     <delete id="deleteMember" parameterType="int">
         delete from member
         where
-            memberId = #{memberId}
+            memberID = #{memberID}
     </delete>
 
     <select id="selectEmail" parameterType="string" resultType="int">
@@ -48,6 +48,6 @@
     <update id="updateMember" parameterType="memberDto">
         update member
         set name=#{name}, phoneNumber=#{phoneNumber}
-        where memberId = #{memberId}
+        where memberID = #{memberID}
     </update>
 </mapper>

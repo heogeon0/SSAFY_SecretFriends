@@ -13,7 +13,7 @@ public class CharactersDto {
 
 
     @ApiModelProperty(value="캐릭터 고유번호")
-    private int characterId;
+    private int characterID;
 
     @ApiModelProperty(value="캐릭터 컨셉")
     private String concept;

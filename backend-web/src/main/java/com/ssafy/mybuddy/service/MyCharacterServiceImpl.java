@@ -12,8 +12,8 @@ public class MyCharacterServiceImpl implements MyCharacterService{
     MyCharactermapper myCharactermapper;
 
     @Override
-    public MycharacterDto selectMyCharacter(int childrenId) {
-        return myCharactermapper.selectMyCharacter(childrenId);
+    public MycharacterDto selectMyCharacter(int childrenID) {
+        return myCharactermapper.selectMyCharacter(childrenID);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class MyCharacterServiceImpl implements MyCharacterService{
     }
 
     @Override
-    public boolean deleteMyCharacter(int characterId) {
-        return myCharactermapper.deleteMyCharacter(characterId)==1;
+    public boolean deleteMyCharacter(int characterID) {
+        return myCharactermapper.deleteMyCharacter(characterID)==1;
     }
 }

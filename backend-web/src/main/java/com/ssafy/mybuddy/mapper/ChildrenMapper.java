@@ -9,11 +9,11 @@ import java.util.List;
 public interface ChildrenMapper {
     int insertChildren(ChildrenDto childrenDto);
 
-    List<ChildrenDto> retrieveChildren(int memberId);
+    List<ChildrenDto> retrieveChildren(int memberID);
 
-    ChildrenDto selectChildren(int childrenId);
+    ChildrenDto selectChildren(int childrenID);
 
     int updateChildren(ChildrenDto childrenDto);
 
-    int deleteChildren(int childrenId);
+    int deleteChildren(int childrenID);
 }
