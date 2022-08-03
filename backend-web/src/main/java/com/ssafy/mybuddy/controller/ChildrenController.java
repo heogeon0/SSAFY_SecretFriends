@@ -58,7 +58,7 @@ public class ChildrenController {
 
     @ApiOperation(value="아이 정보 업데이트", notes="아이의 정보를 업데이트", response = String.class)
     @PutMapping
-    public ResponseEntity<String> updateChildren(@RequestBody  @ApiParam(value = "갱신할 아이의 정보를 입력받아 업데이트한다.(생년, 생월, 생일, 이름, 별명, 입원일)", required = true)  ChildrenDto childrenDto) {
+    public ResponseEntity<String> updateChildren(@RequestBody  @ApiParam(value = "갱신할 아이의 정보를 입력받아 업데이트한다.(childrenId, 생년, 생월, 생일, 이름, 별명, 입원일(Format : YYYY-MM-DD))", required = true)  ChildrenDto childrenDto) {
         logger.debug("updateMember 호출");
         if(childrenService.updateChildren(childrenDto)) {
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);

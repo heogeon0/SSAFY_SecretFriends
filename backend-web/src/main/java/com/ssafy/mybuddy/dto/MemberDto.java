@@ -23,8 +23,6 @@ public class MemberDto {
     private String email;
     @ApiModelProperty(value="회원 비밀번호")
     private String password;
-    @ApiModelProperty(value="회원 탈퇴여부")
-    private Boolean isDeleted;
     @ApiModelProperty(value="회원 권한(사용자/관리자)")
     private Boolean isSuperuser;
 
