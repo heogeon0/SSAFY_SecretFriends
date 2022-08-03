@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Api("ChildrenController")
@@ -34,12 +35,17 @@ public class ChildrenController {
 
     @ApiOperation(value="아이 등록", notes="아이의 정보를 받아 등록을 수행한다. 성공 여부에 따라 'success' 또는 'fail'을 반환한다.", response = String.class)
     @PostMapping
-    public ResponseEntity<String> registChildren(@RequestBody @ApiParam(value="아이 등록 시 필요한 정보(생년, 생월, 생일, 이름, 별명, 입원일, 회원 아이디(memberId)", required = true) ChildrenDto childrenDto) {
+    public ResponseEntity<HashMap> registChildren(@RequestBody @ApiParam(value="아이 등록 시 필요한 정보(생년, 생월, 생일, 이름, 별명, 입원일, 회원 아이디(memberId)", required = true) ChildrenDto childrenDto) {
         logger.debug("registChildren 호출 : {}", childrenDto);
+        HashMap<String, String> map = new HashMap<>();
         if(childrenService.insertChildren(childrenDto)) {
-            return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+            System.out.println("key : " + childrenDto.getChildrenId());
+            map.put("message", SUCCESS);
+            map.put("childrenId", childrenDto.getChildrenId() + "") ;
+            return new ResponseEntity<>(map, HttpStatus.OK);
         }
-        return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
+        map.put("message" , FAIL);
+        return new ResponseEntity<HashMap>(map, HttpStatus.NO_CONTENT);
     }
 
     @ApiOperation(value="회원의 아이 조회", notes="memberId에 해당하는 회원의 아이들 정보를 반환한다.", response = List.class)
