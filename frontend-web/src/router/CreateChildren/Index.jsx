@@ -12,7 +12,7 @@ import { storage } from "../../api/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 function CreateChildren() {
-  const [slide, setSlide] = useState(2);
+  const [slide, setSlide] = useState(4);
   const [error, setError] = useState("");
   const [name, setName] = useState("");
   const [nickName, setNickName] = useState("");
