@@ -6,9 +6,8 @@ import SignUp from "./router/SignUp";
 import Login from "./router/Login";
 import Intro from "./router/Intro";
 import Main from "./router/Main";
-import CreateChildren from "./router/CreateChildren/Index";
+import CreateChildren from "./router/CreateChildren";
 import NotFound404 from "./router/NotFound";
-import Logout from "./router/Logout";
 import SignOut from "./router/SignOut"; //회원탈퇴
 import MemberUpdate from "./router/MemberUpdate";
 
