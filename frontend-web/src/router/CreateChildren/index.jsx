@@ -143,7 +143,7 @@ function CreateChildren() {
           data: {
             characterId: 1,
             childrenId: childrenId,
-            nickname: nickName,
+            nickname: characterName,
           }
         }).then((res) => {
           console.log(res)
@@ -190,7 +190,7 @@ function CreateChildren() {
       />
     ),
     2: <Face />,
-    3: <Character setCharacterName={setCharacterName} />,
+    3: <Character characterName={characterName} setCharacterName={setCharacterName} />,
     4: <Conversation />,
   };
 
