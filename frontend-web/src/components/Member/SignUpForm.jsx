@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import drf from "../../api/drf";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const ERROR = styled.div`
   grid-column: 1 / 3;
@@ -59,16 +60,27 @@ const Form = styled.form`
   }
 `;
 
-function SignupForm({data}) {
+function SignupForm({
+  name, setName, phoneNumber, setPhoneNumber, isUpdate, memberId,
+}) {
+  // console.log(data.name)
   const {
     register,
     watch,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  // console.log(data)
-  const { name, phoneNumber, email, password, isUpdate, memberId } = data;
+
   const navigate = useNavigate();
+
+  function ChangeName(event) {
+    setName(event.target.value)
+    console.log(event.target.value)
+  }
+
+  function ChangePhoneNumber(event) {
+    setPhoneNumber(event.target.value)
+  }
 
   function onSubmit({name, phoneNumber, password, email}) {
     const newData = { name, phoneNumber, password, email }
@@ -99,10 +111,11 @@ function SignupForm({data}) {
         headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
       })
         .then(res => {
+          alert('회원정보가 수정되었습니다.')
           console.log(res)
           console.log(updateData)
           console.log("update 되었습니다")
-          // navigate('/main')
+          navigate('/main')
         })
         .catch(err => console.log(err))
     }
@@ -126,7 +139,8 @@ function SignupForm({data}) {
               required: "이름을 입력해주세요!",
             })}
             type="text"
-            placeholder={name}
+            value={name}
+            onChange={ChangeName}
           />
         </div>
         <div>
@@ -142,7 +156,8 @@ function SignupForm({data}) {
               },
             })}
             type="text"
-            placeholder={phoneNumber}
+            value={phoneNumber}
+            onChange={ChangePhoneNumber}
           />
         </div>
         <>{ isUpdate ? null : 
@@ -159,7 +174,6 @@ function SignupForm({data}) {
                   },
                 })}
                 type="text"
-                placeholder={email}
               />
             </div>
             <div>
@@ -173,8 +187,8 @@ function SignupForm({data}) {
                   },
                 })}
                 type="password"
-                // placeholder="8자리 이상으로 적어주세요"
-                placeholder={password}
+                placeholder="8자리 이상으로 적어주세요"
+                // placeholder={password}
               />
             </div>
             <div>

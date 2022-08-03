@@ -5,6 +5,8 @@ import SignupForm from "../../components/Member/SignUpForm";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import drf from "../../api/drf";
+import { useRecoilState } from "recoil";
+import { MemberId, UserInfo } from "../../atom";
 
 
 const Box = styled.div`
@@ -14,8 +16,13 @@ const Box = styled.div`
 
 function MemberUpdate() {
   const [currentUser, setCurrentUser] = useState();
-  // const [data, setData] = useState();
 
+  // if don't use the conditional statement, it errors
+  const [name, setName] = useState(currentUser ? currentUser.data.name : '');
+  const [phoneNumber, setPhoneNumber] = useState(currentUser ? currentUser.data.phoneNumber : '');
+  const isUpdate = true;
+  const [memberId, setMemberId] = useState(currentUser ? currentUser.data.memberId : null);
+  
   useEffect( () => {
     axios(
       {
@@ -25,32 +32,27 @@ function MemberUpdate() {
       })
       .then(res => {
         setCurrentUser(res)
-        // setData('')
-        // console.log(res)
+        setName(res.data.name)
+        setPhoneNumber(res.data.phoneNumber)
+        setMemberId(res.data.memberId)
       })
       .catch(err => {
         console.log(err)
       })
     }, [])
-  
 
-  const data = 
-    {
-      name: currentUser ? currentUser.data.name : '',
-      phoneNumber: currentUser ? currentUser.data.phoneNumber : '',
-      email: currentUser ? currentUser.data.email : '',
-      password: '8자리 이상으로 적어주세요',
-      isUpdate: true,
-      memberId: currentUser ? currentUser.data.memberId : null,
-      // password: currentUser.data.password,
-    }
   return (
     <Box>
       <Wrapper>
         <div className="title">
           <h3>회원정보 수정</h3>
         </div>
-        <SignupForm data={data} />
+        <SignupForm
+          name={name} setName={setName}
+          phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber}
+          isUpdate={isUpdate}
+          memberId={memberId}
+        />
       </Wrapper>
     </Box>
   );
