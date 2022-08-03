@@ -1,7 +1,6 @@
 import Wrapper from "./styles";
 
 import styled from "styled-components";
-import MemberUpdateForm from "../../components/Member/MemberUpdateFrom";
 import SignupForm from "../../components/Member/SignUpForm";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -42,9 +41,9 @@ function MemberUpdate() {
       email: currentUser ? currentUser.data.email : '',
       password: '8자리 이상으로 적어주세요',
       isUpdate: true,
+      memberId: currentUser ? currentUser.data.memberId : null,
       // password: currentUser.data.password,
     }
-
   return (
     <Box>
       <Wrapper>

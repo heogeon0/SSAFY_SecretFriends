@@ -66,14 +66,14 @@ function SignupForm({data}) {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const { name, phoneNumber, email, password, isUpdate } = data;
+  // console.log(data)
+  const { name, phoneNumber, email, password, isUpdate, memberId } = data;
   const navigate = useNavigate();
 
   function onSubmit({name, phoneNumber, password, email}) {
     const newData = { name, phoneNumber, password, email }
-    const updateData = { name, phoneNumber }
-    // signup(newData)
+    const updateData = { name, phoneNumber, memberId }
+    // case1: 회원가입 form
     if (!isUpdate) {
       axios ({
           url: drf.member.signup(),
@@ -90,6 +90,7 @@ function SignupForm({data}) {
             }
             console.log(err)
           })
+    // case2: 회원정보 수정 form
     } else {
       axios ({
         url: drf.member.updateMember(),
@@ -144,8 +145,8 @@ function SignupForm({data}) {
             placeholder={phoneNumber}
           />
         </div>
-        <div>{ isUpdate ? null : 
-          <div>
+        <>{ isUpdate ? null : 
+          <>
             <div>
               <label htmlFor="email">E-Mail : </label>
               <input
@@ -187,8 +188,8 @@ function SignupForm({data}) {
                 placeholder="한번 더 적어주세요"
               />
             </div>
-          </div>
-        }</div>
+          </>
+        }</>
         <ButtonWrap>
           <div>{ isUpdate ? <button>수정하기</button> : <button>회원가입</button> }</div>
           {/* <button>회원가입</button> */}
