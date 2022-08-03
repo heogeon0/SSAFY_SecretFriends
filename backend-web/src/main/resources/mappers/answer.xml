@@ -3,28 +3,30 @@
 <mapper namespace="com.ssafy.mybuddy.mapper.AnswerMapper">
     <!-- 답변 등록 -->
     <insert id="registAnswer" parameterType="answerDto">
-        insert into answer (content, childrenID, questionID)
-        values (#{content}, #{childrenID}, #{questionID})
+        insert into answer (content, childrenID, questionID, isUsed, createdAt)
+        values (#{content}, #{childrenID}, #{questionID}, 0, now())
     </insert>
 
     <!-- 아이별 답변 전체 조회 -->
     <select id="allAnswers" resultType="answerDto">
-        select answerID, content, childrenID, questionID
+        select answerID, content, childrenID, questionID, isUsed, createdAt
         from answer
-        where childrenID = #{childrenID};
+        where childrenID = #{childrenID}
+        order by createdAt;
     </select>
 
     <!-- 아이별 질문별 답변 조회 -->
     <select id="detailAnswer" parameterType="hashmap" resultType="answerDto">
-        select answerID, content, childrenID, questionID
+        select answerID, content, childrenID, questionID, isUsed, createdAt
         from answer
-        where childrenID = #{childrenID} and questionID = #{questionID};
+        where childrenID = #{childrenID} and questionID = #{questionID}
+        order by createdAt;
     </select>
 
     <!-- 답변 수정  -->
     <update id="updateAnswer" parameterType="answerDto">
         update answer
-        set content = #{content}
+        set content = #{content}, createdAt = now()
         where answerID = #{answerID}
     </update>
 

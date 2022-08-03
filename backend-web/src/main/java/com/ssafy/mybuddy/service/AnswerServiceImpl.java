@@ -26,6 +26,7 @@ public class AnswerServiceImpl implements AnswerService{
 
     @Override
     public boolean updateAnswer(AnswerDto dto) throws Exception {
+        System.out.println("answerid: "+dto.getAnswerID()+" "+dto.getContent());
         return answerMapper.updateAnswer(dto) == 1;
     }
 

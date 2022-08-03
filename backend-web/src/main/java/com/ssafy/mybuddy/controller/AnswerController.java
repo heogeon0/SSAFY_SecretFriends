@@ -37,7 +37,7 @@ public class AnswerController {
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
     }
 
-    @ApiOperation(value="아이별 딥변 전체 조회", notes="아이별로 답변 전체를 반환한다.", response = List.class)
+    @ApiOperation(value="아이별 딥변 전체 조회", notes="아이별로 답변 전체를 반환한다(답변이 생성된 순서대로 정렬).", response = List.class)
     @GetMapping("{childrenID}")
     public ResponseEntity<List<AnswerDto>> allAnswers(@PathVariable @ApiParam(value = "조회할 아이 번호", required = true)int childrenID) throws Exception {
         logger.debug("allAnswers - 호출");
