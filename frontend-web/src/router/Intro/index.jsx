@@ -39,6 +39,8 @@ const Button = styled.button`
 `
 
 function Intro () {
+  const isLoggedIn = !!localStorage.getItem("token");
+
   return (
     <div>
       <Title>나의 비밀 친구</Title>
@@ -49,11 +51,15 @@ function Intro () {
           <br />
           <p>우리 아이에게 소중한 추억을 만들어주세요</p>
         </div>
-        <Link to="/login"><Button>시작하기</Button></Link>
+        <>
+          { isLoggedIn 
+            ? <Link to="/main"><Button>시작하기</Button></Link>
+            : <Link to="/login"><Button>시작하기</Button></Link>
+          }
+        </>
         <CardList />
       </IntroContainer>
     </div>
-
   )
 }
 

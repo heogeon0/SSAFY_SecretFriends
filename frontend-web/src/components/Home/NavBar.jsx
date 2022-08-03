@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
-import { Navigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 
 import axios from 'axios';
 import drf from '../../api/drf';
@@ -26,14 +26,16 @@ const HeaderText = styled.div`
 `
 
 function NavBar () {
-  const isLoggedIn = !!localStorage.getItem("token")
+  const isLoggedIn = !!localStorage.getItem("token");
+  const navigate = useNavigate();
 
   // when logout, token is need to be removed.
   function removeToken() {
     localStorage.removeItem("token")
-    return (
-      <Navigate to="/" />
-    )
+    navigate("/")
+    // return (
+    //   <Navigate to="/" />
+    // )
   }
 
   return (
@@ -44,7 +46,7 @@ function NavBar () {
           { isLoggedIn ? 
           <FlexBox>
             <HeaderText>
-              <a href="/logout" 
+              <a href="" 
                 onClick={() => removeToken()}
                 style={{textDecoration: 'none'}}
               >로그아웃</a>
