@@ -11,10 +11,10 @@ function Information({
   setAdmission,
 }) {
   function ChangeName(event) {
-    setName(event.target.value);
+    setName(event.target.value.trim());
   }
   function ChangeNick(event) {
-    setNickName(event.target.value);
+    setNickName(event.target.value.trim());
   }
   function ChangeBirth(event) {
     setBirth(event.target.value);
@@ -22,6 +22,7 @@ function Information({
   function ChangeAdmission(event) {
     setAdmission(event.target.value);
   }
+  
 
   return (
     <Wrapper>

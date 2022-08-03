@@ -30,8 +30,3 @@ export const CharacterId = atom({
   key: "CharacterId",
   default: "",
 })
-
-export const UserInfo = atom({
-  key: "UserInfo",
-  default: '',
-})

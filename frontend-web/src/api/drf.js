@@ -1,7 +1,7 @@
 const HOST = 'http://localhost:9999/mybuddy/'
 
 const MEMBER = 'member/'
-const CHARACTER = 'character/'
+const CHARACTER = 'character'
 const CHILDREN = 'children/'
 const MYCHARACTER = 'mycharacter/'
 const QUESTION = 'question/'
@@ -17,7 +17,7 @@ export default {
   },
   character: {
     characters: () => HOST + CHARACTER, // 모든 캐릭터 조회(GET)
-    character: ID => HOST + CHARACTER + ID, // 아이의 캐릭터 조회(GET)
+    character: ID => HOST + CHARACTER + '/' + ID, // 아이의 캐릭터 조회(GET)
   },
   children: {
     childrens: () => HOST + CHILDREN, // 아이 등록(POST), 업데이트(PUT)
@@ -25,7 +25,7 @@ export default {
     myChildren: memberId => HOST + CHILDREN + 'list/' + memberId, // 회원의 아이정보 조회(GET)
   },
   mycharacter: {
-    myCharacters: () => HOST + MYCHARACTER, // 선택한 캐릭터정보 등록(POST)
+    createCharacter: () => HOST + MYCHARACTER, // 선택한 캐릭터정보 등록(POST)
     // 캐릭터정보 삭제(DELETE), 조회(GET), 수정(PUT)
     updateCharacter: characterId => HOST + MYCHARACTER + characterId,
   },
