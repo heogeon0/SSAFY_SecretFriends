@@ -59,8 +59,15 @@ function Conversation() {
     })
     .then(res => console.log(res))
     .catch(err => console.log(err))
-  })
 
+    axios({
+      url: drf.character.characters(),
+      method: 'get',
+    })
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+  })
+  
   return (
     <Wrapper>
       <h2>아이에게 하고싶은 말을 적어주세요</h2>

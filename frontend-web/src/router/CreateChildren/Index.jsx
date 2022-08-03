@@ -2,17 +2,19 @@ import Wrapper from "./styles";
 
 import Information from "../../components/Childern/Information";
 import Face from "../../components/Childern/Face";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Character from "../../components/Childern/Chracter";
 import Conversation from "../../components/Childern/Conversation";
-import { FaceInfo } from "../../atom";
+import { Chats, FaceInfo } from "../../atom";
 import { useRecoilValue } from "recoil";
 
 import { storage } from "../../api/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import axios from "axios";
+import drf from "../../api/drf";
 
 function CreateChildren() {
-  const [slide, setSlide] = useState(4);
+  const [slide, setSlide] = useState(1);
   const [error, setError] = useState("");
   const [name, setName] = useState("");
   const [nickName, setNickName] = useState("");
@@ -24,8 +26,31 @@ function CreateChildren() {
   const [progress, setProgress] = useState(0);
   const [photoURL, setPhotosURL] = useState([]);
   const faces = useRecoilValue(FaceInfo);
+  const [memberId, setMemberId] = useState();
+  const [childrenId, setChildrenId] = useState();
+  const characterId = 1;
+
+  useEffect(() => {
+    axios({
+      url: drf.member.member(),
+      method: "get",
+      headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
+    })
+      .then(res => {
+        // console.log(res)
+        setMemberId(res.data.memberId)
+      })
+      .catch(err => console.log(err))
+  })
+  // console.log(memberId)
+
+  // 생년월일 분리
+  const birthDay = parseInt(birth.slice(8, 10))
+  const birthMonth = parseInt(birth.slice(5, 7))
+  const birthYear = parseInt(birth.slice(0, 4))
 
   console.log(process.env.REACT_APP_FB_STORAGE_BUCKET);
+
   const handleImageUpload = async (fileList) => {
     try {
       setUploading(true);
@@ -51,6 +76,7 @@ function CreateChildren() {
     setProgress(0);
     setUploading(false);
   };
+
   function goNext() {
     switch (slide) {
       case 1:
@@ -84,7 +110,6 @@ function CreateChildren() {
           setError("캐릭터를 선택해주세요");
           return;
         }
-        break;
         if (!characterName) {
           setError("캐릭터의 별명을 알려주세요");
           return;
@@ -94,7 +119,55 @@ function CreateChildren() {
     if (slide < 4) {
       setSlide(slide + 1);
       setError("");
-    } else console.log(slide, "야호");
+    } else {
+      axios({
+        url: drf.children.childrens(),
+        method: "post",
+        headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
+        data: {
+          memberId: memberId,
+          hospitalizationDay: admission,
+          birthDay: birthDay,
+          birthMonth: birthMonth,
+          birthYear: birthYear,
+          name: name,
+          nickname: nickName,
+        }
+      }).then((res) => {
+        console.log(res)
+        setChildrenId(res.data.childrenId)
+        axios({
+          url: drf.mycharacter.createCharacter(),
+          method: "post",
+          headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
+          data: {
+            characterId: 1,
+            childrenId: childrenId,
+            nickname: nickName,
+          }
+        }).then((res) => {
+          console.log(res)
+          Chats.map((chat) => {
+            return (
+              axios({
+                url: drf.answer.answers(),
+                method: "post",
+                headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
+                data: {
+                  childrenID: childrenId,
+                  content: chat,
+                  questionID: 1,
+                },
+              })
+              .then((res) => console.log(res))
+              .catch((err) => console.log(err))
+            )
+          }
+          )
+        })
+        .catch((err) => console.log(err))
+      }).catch((err) => console.log(err))
+    };
   }
 
   function goPre() {
@@ -102,6 +175,7 @@ function CreateChildren() {
       setSlide((val) => val - 1);
     }
   }
+
   const tab = {
     1: (
       <Information
