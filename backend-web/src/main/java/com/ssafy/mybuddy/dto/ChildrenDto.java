@@ -29,10 +29,6 @@ public class ChildrenDto {
     private String nickname;
     @ApiModelProperty(value="입원일(YYYY-MM-DD)")
     private Date hospitalizationDay;
-    @ApiModelProperty(value="얼굴 인식 모델")
-    private Blob faceInfomation;
-    @ApiModelProperty(value="삭제 여부")
-    private Boolean isDeleted;
     @ApiModelProperty(value="회원 번호")
     private int memberId;
 

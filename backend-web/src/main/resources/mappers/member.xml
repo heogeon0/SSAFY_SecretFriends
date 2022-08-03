@@ -3,12 +3,12 @@
 <mapper namespace="com.ssafy.mybuddy.mapper.MemberMapper">
 
     <insert id="insertMember" parameterType="memberDto">
-        insert into member(name, phoneNumber, email, password, isDeleted, isSuperuser)
-        values (#{name}, #{phoneNumber}, #{email}, #{password}, 0, 0)
+        insert into member(name, phoneNumber, email, password, isSuperuser)
+        values (#{name}, #{phoneNumber}, #{email}, #{password}, 0)
     </insert>
 
     <select id="login" parameterType="memberDto" resultType="memberDto">
-        select memberId, name, email, password, isDeleted, isSuperuser, phoneNumber
+        select memberId, name, email, password, isSuperuser, phoneNumber
         from member
         where email=#{email} and password=#{password}
     </select>
@@ -16,30 +16,27 @@
     <!-- 모든 회원의 정보를 반환 -->
     <select id="retrieveMember" resultType="memberDto">
         select memberId, name,
-               phoneNumber, email, password, isDeleted, isSuperuser
-        from member
-        where isDeleted = 0;
+               phoneNumber, email, password, isSuperuser
+        from member;
     </select>
 
     <!-- 특정 회원의 정보를 반환 -->
     <select id="selectMember" parameterType="int" resultType="memberDto">
-        select memberId, name, phoneNumber, email, password, isDeleted, isSuperuser
+        select memberId, name, phoneNumber, email, password, isSuperuser
         from member where memberId = #{memberId}
     </select>
 
     <select id="selectMemberByEmail" parameterType="string" resultType="memberDto">
-        select memberId, name, phoneNumber, email, password, isDeleted, isSuperuser
+        select memberId, name, phoneNumber, email, password, isSuperuser
         from member where email = #{memberEmail}
     </select>
 
-
     <!-- 회원 삭제 -->
-    <update id="deleteMember" parameterType="int">
-        update member
-        set isDeleted = true
+    <delete id="deleteMember" parameterType="int">
+        delete from member
         where
             memberId = #{memberId}
-    </update>
+    </delete>
 
     <select id="selectEmail" parameterType="string" resultType="int">
         select
@@ -47,8 +44,6 @@
         from member
         where email = #{email}
     </select>
-
-
 
     <update id="updateMember" parameterType="memberDto">
         update member
