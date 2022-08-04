@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Wrapper from "./styles/Form";
-import { useSetRecoilState, useRecoilValue } from "recoil";
+import { useSetRecoilState, useRecoilValue, useRecoilState } from "recoil";
 import { Chats } from "../../atom";
 import ChatList from "./ChatList";
 import axios from "axios";
@@ -41,30 +41,18 @@ const Grid = styled.div`
 `;
 
 function Conversation() {
-  const NewChat = useRecoilValue(Chats);
-  const setChat = useSetRecoilState(Chats);
+  const [newChat, setNewChat] = useRecoilState(Chats);
   function onSubmit(event) {
-    console.log(NewChat);
+    // console.log(newChat);
     event.preventDefault();
     const chat = event.target[0].value;
-    setChat((oldValue) => [...oldValue, { chat, id: Date.now() }]);
+    setNewChat((old) => [...old, chat])
     event.target[0].value = "";
   }
 
   useEffect(() => {
     axios ({
       url: drf.question.questions(),
-      method: 'get',
-    })
-    .then((res) => {
-      // console.log(res)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-
-    axios({
-      url: drf.character.characters(),
       method: 'get',
     })
     .then((res) => {
@@ -83,6 +71,7 @@ function Conversation() {
           <p>응원의 말 들을 적어주세요</p>
           <form onSubmit={onSubmit}>
             <Input type="text" />
+            <button>등록하기</button>
           </form>
         </div>
         <div className="content">

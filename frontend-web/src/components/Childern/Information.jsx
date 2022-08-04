@@ -1,4 +1,11 @@
 import Wrapper from "./styles/Form";
+import styled from "styled-components";
+
+const DateInput = styled.input`
+  /* :hover{
+    cursor: pointer;
+  } */
+`
 
 function Information({
   name,
@@ -38,11 +45,11 @@ function Information({
       </div>
       <div>
         <label htmlFor="birth">생년 월일 : </label>
-        <input id="birth" type="date" onChange={ChangeBirth} value={birth} />
+        <DateInput id="birth" type="date" onChange={ChangeBirth} value={birth} />
       </div>
       <div>
         <label htmlFor="admission">입원 일자 : </label>
-        <input
+        <DateInput
           id="admission"
           type="date"
           onChange={ChangeAdmission}
