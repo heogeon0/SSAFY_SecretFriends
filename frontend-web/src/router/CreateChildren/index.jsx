@@ -43,7 +43,7 @@ function CreateChildren() {
       .catch(err => console.log(err))
   })
 
-  // separatino of date of birth
+  // separation of date of birth
   const birthDay = parseInt(birth.slice(8, 10))
   const birthMonth = parseInt(birth.slice(5, 7))
   const birthYear = parseInt(birth.slice(0, 4))
@@ -185,12 +185,12 @@ function CreateChildren() {
         }
         break;
       case 2:
-        // if (faces.length < 10) {
-        //   setError("아이 사진을 열장 등록해주세요");
-        //   return;
-        // } else {
-        //   handleImageUpload();
-        // }
+        if (faces.length < 10) {
+          setError("아이 사진을 열장 등록해주세요");
+          return;
+        } else {
+          handleImageUpload();
+        }
         break;
       case 3:
         if (!characterID) {
