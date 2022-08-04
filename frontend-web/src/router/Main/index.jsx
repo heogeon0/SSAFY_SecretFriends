@@ -34,7 +34,7 @@ function Main() {
   }, [])
 
   const answers = childrens ? childrens[currentSlide]?.answers : null;
-  console.log(childrens[currentSlide])
+  // console.log(childrens[currentSlide])
 
   function deleteChildren(childrenID) {
     axios({
