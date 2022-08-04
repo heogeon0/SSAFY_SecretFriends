@@ -35,7 +35,7 @@ export default {
   },
   answer: {
     answers: () => HOST + ANSWER, // 답변 등록(POST)
-    updateAnswer: answerId => HOST + ANSWER + answerId, // 답변 수정(PUT), 삭제(DELETE)
+    updateAnswer: answerID => HOST + ANSWER + answerID, // 답변 수정(PUT), 삭제(DELETE)
     childrenAnswers: childrenId => HOST + ANSWER+ childrenId, // 아이별 답변 전체조회(GET)
     chidlrenAnswer: (childrenId, questionId) => HOST + ANSWER + childrenId + '/' + questionId,  // 아이별 질문별 답변 조회(GET)
   }

@@ -7,6 +7,7 @@ import Login from "./router/Login";
 import Intro from "./router/Intro";
 import Main from "./router/Main";
 import CreateChildren from "./router/CreateChildren";
+import UpdateChildren from "./router/UpdateChildren";
 import NotFound404 from "./router/NotFound";
 import SignOut from "./router/SignOut"; //회원탈퇴
 import MemberUpdate from "./router/MemberUpdate";
@@ -30,6 +31,7 @@ function Router() {
           {/* main, 아이 정보 등록 */}
           <Route path="/main" element={<PrivateRoute authenticated={access} component={<Main />} />}></Route>
           <Route path="/CreateChildren" element={<PrivateRoute authenticated={access} component={<CreateChildren />} />}></Route>
+          <Route path="/UpdateChildren/:childrenID" element={<PrivateRoute authenticated={access} component={<UpdateChildren />} />}></Route>
           {/* <Route path="/logout" element={<PrivateRoute authenticated={access} component={<Logout />} />}></Route> */}
           <Route path="/updateMember" element={<PrivateRoute authenticated={access} component={<MemberUpdate />} />}></Route>
           <Route path="/signout" element={<PrivateRoute authenticated={access} component={<SignOut />} />}></Route>
