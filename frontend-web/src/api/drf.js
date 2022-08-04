@@ -21,7 +21,7 @@ export default {
   },
   children: {
     childrens: () => HOST + CHILDREN, // 아이 등록(POST), 업데이트(PUT)
-    children: childrenId => HOST + CHILDREN + childrenId,  // 아이정보 조회(GET), 삭제(DELETE)
+    children: childrenID => HOST + CHILDREN + childrenID,  // 아이정보 조회(GET), 삭제(DELETE)
     myChildren: memberId => HOST + CHILDREN + 'list/' + memberId, // 회원의 아이정보 조회(GET)
   },
   mycharacter: {

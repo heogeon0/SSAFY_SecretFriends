@@ -2,22 +2,22 @@ import { useEffect, useState } from "react";
 import { Wrapper } from "./styles";
 
 import { useRecoilState } from "recoil";
-import { MemberID, CurrentSlide, ChildrenList } from "../../atom";
+import { ChildrenID, MemberID, CurrentSlide, ChildrenList } from "../../atom";
 
 import axios from "axios";
 import drf from "../../api/drf";
 import { Link } from 'react-router-dom';
-import NoChildCarousel from "../../components/Main/NoChildCarousel";
 import MainCarousel from "../../components/Main/MainCarousel";
 
 
 function Main() {
   const [memberID, setmemberID] = useRecoilState(MemberID);
+  const [childrenID, setChildrenID] = useRecoilState(ChildrenID);
   const [currentSlide, setCurrentSlide] = useRecoilState(CurrentSlide);
   const [childrens, setChildrens] = useRecoilState(ChildrenList);
 
   const [children, setChildren] = useState([]);
-  const [childrenNumber, setChildrenNumber] = useState(0);
+  // const [childrenNumber, setChildrenNumber] = useState(0);
 
   useEffect(() => {
     axios({
@@ -25,16 +25,27 @@ function Main() {
       method: "get",
       headers: {Authorization: 'Bearer ' + localStorage.getItem("token"),},
     }).then((res) => {
-      // console.log(res)
       setmemberID(res.data.memberID)
+      setChildrenID(res.data.childrens[currentSlide]?.childrenID)
       setChildren(res.data.childrens)
-      // setChildrens([])
       setChildrens([...res.data.childrens, {childrenId: 0}])
-      setChildrenNumber(res.data.childrens.length)
+      // setChildrenNumber(res.data.childrens.length)
     })
   }, [])
 
   const answers = childrens ? childrens[currentSlide]?.answers : null;
+
+  function deleteChildren(childrenID) {
+    axios({
+      url: drf.children.children(childrenID),
+      method: "delete",
+      headers: {Authorization: 'Bearer ' + localStorage.getItem("token"),},
+    }).then((res) => {
+      console.log(res)
+      window.location.reload()
+    })
+    .catch((err) => {console.log(err)})
+  }
 
   return (
     <Wrapper>
@@ -44,8 +55,11 @@ function Main() {
         <Link style={{textDecoration: 'none'}} to="/signout">회원 탈퇴</Link>
       </div>
       <div className="head">
-        {/* { childrenNumber===1 ? <NoChildCarousel /> : <MainCarousel />} */}
         <MainCarousel />
+        { childrenID ? 
+          <button onClick={() => deleteChildren(childrenID)}>아이 삭제</button>
+        : null
+        }
       </div>
       <>
         <div className="body">

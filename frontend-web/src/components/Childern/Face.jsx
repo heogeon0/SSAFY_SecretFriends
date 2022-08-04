@@ -48,7 +48,7 @@ function Face() {
     setProgress(0);
     setUploading(false);
   };
-  console.log(faces);
+
   return (
     <Wrapper>
       <h2>아이 얼굴 등록하기</h2>
