@@ -6,10 +6,11 @@ function ChatList() {
   return (
     <>
       <ul style={{ height: "100px" }}>
-        {chats?.map((chat) => {
-          return <li key={chat.id}>{chat.chat}</li>;
+        {chats?.map((chat, idx) => {
+          return <li key={idx}>{chat}</li>;
         })}
       </ul>
+      <div></div>
     </>
   );
 }

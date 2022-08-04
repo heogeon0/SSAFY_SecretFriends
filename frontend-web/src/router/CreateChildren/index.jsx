@@ -6,12 +6,13 @@ import { useEffect, useState } from "react";
 import Character from "../../components/Childern/Chracter";
 import Conversation from "../../components/Childern/Conversation";
 import { Chats, FaceInfo } from "../../atom";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 
 import { storage } from "../../api/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import axios from "axios";
 import drf from "../../api/drf";
+import { useNavigate } from "react-router-dom";
 
 function CreateChildren() {
   const [slide, setSlide] = useState(1);
@@ -25,6 +26,7 @@ function CreateChildren() {
   const [isUploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [photoURL, setPhotosURL] = useState([]);
+  const [chats, setChats] = useRecoilState(Chats);
   const faces = useRecoilValue(FaceInfo);
   const [memberID, setMemberID] = useState();
   const [childrenID, setChildrenID] = useState();
@@ -36,20 +38,19 @@ function CreateChildren() {
       headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
     })
       .then(res => {
-        // console.log(res)
         setMemberID(res.data.memberID)
       })
       .catch(err => console.log(err))
   })
-  // console.log(memberID)
 
-  // 생년월일 분리
+  // separatino of date of birth
   const birthDay = parseInt(birth.slice(8, 10))
   const birthMonth = parseInt(birth.slice(5, 7))
   const birthYear = parseInt(birth.slice(0, 4))
 
   // console.log(process.env.REACT_APP_FB_STORAGE_BUCKET);
 
+  // for step2: face-image registration
   const handleImageUpload = async (fileList) => {
     try {
       setUploading(true);
@@ -76,26 +77,11 @@ function CreateChildren() {
     setUploading(false);
   };
 
-  const createCharacter = async (childrenID) => {
-    try {
-      const response = await axios ({
-        url: drf.mycharacter.createCharacter(),
-        method: "post",
-        headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
-        data: {
-          characterID: characterID,
-          childrenID: childrenID,
-          nickname: nickName
-        }
-      })
-      console.log(response);
-    } catch(error) {
-      console.log(childrenID)
-      console.log(error)
-    }
-  }
 
-  async function a () {
+// after pressing the complete button, three axios will operate sequentially
+  const navigate = useNavigate();
+  // first axios. for create children(birthday, etc.)
+  async function createChildren () {
     try {
       const res = await axios({
         url: drf.children.childrens(),
@@ -114,18 +100,20 @@ function CreateChildren() {
       console.log(res)
       setChildrenID(res.data.childrenID)
       async function next() {
-        await b(res.data.childrenID)
+        await createChildrenCharacter(res.data.childrenID)
+        await createAnswer(res.data.childrenID)
+        await goMain()
       }
       next()
     }
-    catch (e) {
-      console.log(e)
+    catch (err) {
+      console.log(err)
     }
   }
-  
-  async function b (props) {
+  // second axios. for create character of children(nickname)
+  async function createChildrenCharacter (props) {
     try {
-      console.log(childrenID);
+      console.log(props);
       const res = await axios({
         url: drf.mycharacter.createCharacter(),
         method: "post",
@@ -138,11 +126,44 @@ function CreateChildren() {
       })
       console.log(res)
     }
+    catch(err) {
+      console.log(err)
+    }
+  }
+  // third axios. for create answer (optional)
+  async function createAnswer (props) {
+    try {
+      const res = await axios({
+        url: drf.answer.answers(),
+        method: "post",
+        headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
+        data: {
+          childrenID: props,
+          content: chats,
+          questionID: 1,
+        }
+      })
+      console.log(res)
+    }
     catch(e) {
       console.log(e)
     }
   }
+  // after three axios done, it goes to "main" page
+  async function goMain () {
+    try {
+      setChats([])
+      navigate('/main')
+    }
+    catch(err) {
+      console.log(err)
+    }
+  }
 
+
+// child information registration
+// function to move to the mext in the child registration form
+// movement restrictions placed
   function goNext() {
     switch (slide) {
       case 1:
@@ -186,43 +207,21 @@ function CreateChildren() {
       setSlide(slide + 1);
       setError("");
     } else {
-      a()
-      // const asyc_func_list = [a(), b()];
-      // async function test() {
-      //   for (let index = 0; 2; index++) {
-      //     return await asyc_func_list[index]
-      //   }
-      // }
-      // test()
-
-      // axios({
-      //   url: drf.children.childrens(),
-      //   method: "post",
-      //   headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
-      //   data: {
-      //     memberID: memberID,
-      //     hospitalizationDay: admission,
-      //     birthDay: birthDay,
-      //     birthMonth: birthMonth,
-      //     birthYear: birthYear,
-      //     name: name,
-      //     nickname: nickName,
-      //   }
-      // })
-      //   .then((res) => {
-      //     console.log(res)
-      //     setChildrenID(res.data.childrenID)
-      //   })
-      //   .catch((err) => console.log(err))
+      // next to step4 is the 'done' button.
+      // when the 'done' button is clicked, axios requests for child information registration will be executed
+      createChildren()
     };
   }
 
+  // function to move to the previous in the child registration form
+  // no constrains
   function goPre() {
     if (slide > 1) {
       setSlide((val) => val - 1);
     }
   }
 
+  // component call according to step (step1-4)
   const tab = {
     1: (
       <Information
