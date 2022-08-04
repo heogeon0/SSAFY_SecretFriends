@@ -13,11 +13,6 @@ const Container = styled.div`
 `;
 
 function MainCarousel() {
-  const slider = [
-    { id: 0, bg: "https://picsum.photos/200/300" },
-    { id: 1, bg: "../../img/plus.png" },
-  ];
-  // const [currentSlide, setCurrentSlide] = useState(0);
   const [currentSlide, setCurrentSlide] = useRecoilState(CurrentSlide);
   const [childrenList, setChildrenList] = useRecoilState(ChildrenList);
 
