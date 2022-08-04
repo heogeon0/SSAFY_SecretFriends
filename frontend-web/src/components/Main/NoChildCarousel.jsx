@@ -14,16 +14,8 @@ function NoChildCarousel() {
   const slider = [
     { id: 0, bg: "../../img/plus.png" },
   ];
-  
   const [currentSlide, setCurrentSlide] = useState(0);
-  const total = slider.length;
 
-  function goNext() {
-    if (currentSlide + 1 < total) setCurrentSlide((val) => val + 1);
-  }
-  function goPrev() {
-    if (currentSlide > 0) setCurrentSlide((val) => val - 1);
-  }
   function check(id) {
     if (id + 1 === currentSlide) {
       return "prev";
@@ -37,6 +29,7 @@ function NoChildCarousel() {
   }
   return (
     <>
+
       <Container>
         {slider.map((val) => {
           return <Slider key={val.id} check={check(val.id)} bg={val.bg} />;

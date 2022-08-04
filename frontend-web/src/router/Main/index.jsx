@@ -25,16 +25,16 @@ function Main() {
       method: "get",
       headers: {Authorization: 'Bearer ' + localStorage.getItem("token"),},
     }).then((res) => {
-      console.log(res)
+      // console.log(res)
       setmemberID(res.data.memberID)
       setChildren(res.data.childrens)
-      setChildrens((old) => [...res.data.childrens, ...old])
+      // setChildrens([])
+      setChildrens([...res.data.childrens, {childrenId: 0}])
       setChildrenNumber(res.data.childrens.length)
     })
   }, [])
 
-  const answers = childrens[currentSlide].answers;
-  console.log(childrens)
+  const answers = childrens ? childrens[currentSlide]?.answers : null;
 
   return (
     <Wrapper>
@@ -44,7 +44,7 @@ function Main() {
         <Link style={{textDecoration: 'none'}} to="/signout">회원 탈퇴</Link>
       </div>
       <div className="head">
-        { !childrenNumber ? <NoChildCarousel /> : <MainCarousel />}
+        { childrenNumber===1 ? <NoChildCarousel /> : <MainCarousel />}
         {/* <MainCarousel /> */}
       </div>
       <>

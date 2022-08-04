@@ -44,5 +44,5 @@ export const CurrentSlide = atom({
 
 export const ChildrenList = atom({
   key: "ChildrenList",
-  default: [{"childrenID": 0}]
+  default: []
 })
