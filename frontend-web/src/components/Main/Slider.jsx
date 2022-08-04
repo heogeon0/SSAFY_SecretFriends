@@ -20,12 +20,12 @@ const NowSlider = styled.div`
   background-size: cover;
 `;
 
-function Slider({ check, bg }) {
-  console.log(check);
+function Slider({ check, child, bg }) {
+  const backgroundImg = child && !child.childrenID ? "../../img/plus.png" : "https://picsum.photos/200/300"
   return (
     <>
       {check !== "hidden" ? (
-        <NowSlider bg={bg} check={check}></NowSlider>
+        <NowSlider bg={backgroundImg} check={check}></NowSlider>
       ) : null}
     </>
   );
