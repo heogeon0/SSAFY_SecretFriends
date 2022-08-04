@@ -29,10 +29,8 @@ function UpdateChildren() {
   const [memberID, setMemberID] = useState();
   const [childrenID, setChildrenID] = useState();
 
-  // console.log(params)
   const params = parseInt(useParams(childrenID).childrenID)
   
-  console.log(params)
   useEffect(() => {
     axios({
       url: drf.children.children(params),
@@ -40,12 +38,21 @@ function UpdateChildren() {
       headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
     })
       .then(res => {
-        console.log(res.data)
         setName(res.data.name)
         setNickName(res.data.nickname)
+        setMemberID(res.data.memberID)
         // 생년월일, 입원일자는 입력 불가
       })
       .catch(err => console.log(err))
+
+      axios({
+        url: drf.mycharacter.updateCharacter(params),
+        method: "get",
+        headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
+      }).then((res) => {
+        setCharacterID(res.data.characterID)
+        setCharacterName(res.data.nickname)
+      })
   }, [])
 
   // separation of date of birth
@@ -57,13 +64,14 @@ function UpdateChildren() {
 // after pressing the complete button, three axios will operate sequentially
   const navigate = useNavigate();
   // first axios. for create children(birthday, etc.)
-  async function createChildren () {
+  async function updateChildren () {
     try {
       const res = await axios({
         url: drf.children.childrens(),
-        method: "post",
+        method: "put",
         headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
         data: {
+          childrenID: params,
           memberID: memberID,
           hospitalizationDay: admission,
           birthDay: birthDay,
@@ -73,10 +81,8 @@ function UpdateChildren() {
           nickname: nickName,
         }
       })
-      console.log(res)
-      setChildrenID(res.data.childrenID)
       async function next() {
-        await createChildrenCharacter(res.data.childrenID)
+        await updateChildrenCharacter()
         await goMain()
       }
       next()
@@ -86,19 +92,19 @@ function UpdateChildren() {
     }
   }
   // second axios. for create character of children(nickname)
-  async function createChildrenCharacter (props) {
+  async function updateChildrenCharacter () {
     try {
       const res = await axios({
-        url: drf.mycharacter.createCharacter(),
-        method: "post",
+        url: drf.mycharacter.updateCharacter(params),
+        method: "put",
         headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
         data: {
           characterID: characterID,
-          childrenID: props,
+          childrenID: params,
           nickname: characterName,
         }
       })
-      console.log(res)
+      // console.log(res)
     }
     catch(err) {
       console.log(err)
@@ -157,7 +163,7 @@ function UpdateChildren() {
     } else {
       // next to step4 is the 'done' button.
       // when the 'done' button is clicked, axios requests for child information registration will be executed
-      createChildren()
+      updateChildren()
     };
   }
 
@@ -186,6 +192,10 @@ function UpdateChildren() {
     2: <Character characterName={characterName} setCharacterName={setCharacterName} />,
   };
 
+  function goOut() {
+    navigate('/main')
+  }
+
   return (
     <div style={{ height: "90vh" }}>
       <Wrapper>
@@ -196,7 +206,7 @@ function UpdateChildren() {
               <span>아이정보 수정하기</span>
             </div>
             <div className="line"></div>
-            <div className={slide === 3 ? "isActive step" : "step"}>
+            <div className={slide === 2 ? "isActive step" : "step"}>
               <p>Step 2</p>
               <span>캐릭터 수정하기</span>
             </div>
@@ -210,6 +220,7 @@ function UpdateChildren() {
             </div>
           </div>
         </div>
+        <button onClick={()=>goOut()}>나가기</button>
       </Wrapper>
     </div>
   );
