@@ -34,6 +34,7 @@ function Main() {
   }, [])
 
   const answers = childrens ? childrens[currentSlide]?.answers : null;
+  console.log(childrens[currentSlide])
 
   function deleteChildren(childrenID) {
     axios({
@@ -47,6 +48,26 @@ function Main() {
     .catch((err) => {console.log(err)})
   }
 
+  function updateAnswer(answerID, questionID) {
+    axios({
+      url: drf.answer.updateAnswer(answerID),
+      method: "put",
+      headers: {Authorization: 'Bearer ' + localStorage.getItem("token"),},
+    })
+  }
+
+  function deleteAnswer(answerID, questionID) {
+    axios({
+      url: drf.answer.updateAnswer(answerID),
+      method: "delete",
+      headers: {Authorization: 'Bearer ' + localStorage.getItem("token"),},
+    }).then((res) => {
+      console.log(res)
+      window.location.reload()  // 새로고침 필요
+    })
+    .catch((err) => {console.log(err)})
+  }
+
   return (
     <Wrapper>
       <div>
@@ -56,10 +77,11 @@ function Main() {
       </div>
       <div className="head">
         <MainCarousel />
-        { childrenID ? 
-          <button onClick={() => deleteChildren(childrenID)}>아이 삭제</button>
-        : null
+        { childrenID
+          ? <button onClick={() => deleteChildren(childrenID)}>아이 삭제</button>
+          : null
         }
+        { childrenID ? <button>아이정보 수정</button> : null }
       </div>
       <>
         <div className="body">
@@ -70,11 +92,19 @@ function Main() {
             </div>
           </div>
           <div className="body_grid">
+            { childrenID 
+              ? <button>추가하기</button>
+              : null
+            }
             <p>\아이에게 해주고싶은말</p>
             <div className="body_conversation">
               { answers ? answers.map((answer) => {
                 return (
-                  <div key={answer.answerID}>{answer.content}</div>
+                  <div key={answer.answerID}>
+                    <span key={answer.answerID}>{answer.content}</span>
+                    <button onClick={() => updateAnswer(answer.answerID, answer.questionID)}>수정</button>
+                    <button onClick={() => deleteAnswer(answer.answerID, answer.questionID)}>삭제</button>
+                  </div>
                 )
               }) : null}
             </div>
