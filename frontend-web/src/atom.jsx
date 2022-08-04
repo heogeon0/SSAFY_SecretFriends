@@ -36,3 +36,13 @@ export const CharacterID = atom({
   key: "CharacterID",
   default: "",
 })
+
+export const CurrentSlide = atom({
+  key: "CurrentSilde",
+  default: 0,
+})
+
+export const ChildrenList = atom({
+  key: "ChildrenList",
+  default: [{"childrenID": 0}]
+})

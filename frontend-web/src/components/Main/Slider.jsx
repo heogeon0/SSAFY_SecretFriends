@@ -21,7 +21,7 @@ const NowSlider = styled.div`
 `;
 
 function Slider({ check, bg }) {
-  console.log(check);
+  // console.log(check);
   return (
     <>
       {check !== "hidden" ? (

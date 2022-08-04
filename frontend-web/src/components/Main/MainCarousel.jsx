@@ -2,6 +2,9 @@
 import { useState } from "react";
 import styled from "styled-components";
 import Slider from "./Slider";
+import { useRecoilState } from "recoil";
+import { CurrentSlide } from "../../atom";
+
 
 const Container = styled.div`
   position: relative;
@@ -16,9 +19,12 @@ function MainCarousel({children}) {
     { id: 0, bg: "https://picsum.photos/200/300" },
     { id: 1, bg: "../../img/plus.png" },
   ];
-  const [currentSlide, setCurrentSlide] = useState(0);
+  // const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useRecoilState(CurrentSlide);
+
   const total = slider.length;
-  console.log(total);
+  // console.log(total);
+
   function goNext() {
     if (currentSlide + 1 < total) setCurrentSlide((val) => val + 1);
   }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import Slider from "./ESlider";
+import Slider from "./Slider";
 
 const Container = styled.div`
   position: relative;
@@ -12,12 +12,12 @@ const Container = styled.div`
 
 function NoChildCarousel() {
   const slider = [
-    // { id: 0, bg: "https://picsum.photos/200/300" },
     { id: 0, bg: "../../img/plus.png" },
   ];
+  
   const [currentSlide, setCurrentSlide] = useState(0);
   const total = slider.length;
-  console.log(total);
+
   function goNext() {
     if (currentSlide + 1 < total) setCurrentSlide((val) => val + 1);
   }

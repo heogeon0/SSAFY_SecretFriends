@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
-import Carousel from "../../components/Main/Carousel";
 import { Wrapper } from "./styles";
 
 import { useRecoilState } from "recoil";
-import { MemberID, ChildrenID } from "../../atom";
+import { MemberID, CurrentSlide, ChildrenList } from "../../atom";
 
 import axios from "axios";
 import drf from "../../api/drf";
 import { Link } from 'react-router-dom';
 import NoChildCarousel from "../../components/Main/NoChildCarousel";
+import MainCarousel from "../../components/Main/MainCarousel";
 
 
 function Main() {
   const [memberID, setmemberID] = useRecoilState(MemberID);
+  const [currentSlide, setCurrentSlide] = useRecoilState(CurrentSlide);
+  const [childrens, setChildrens] = useRecoilState(ChildrenList);
+
   const [children, setChildren] = useState([]);
-  const [childrenID, setChildrenID] = useRecoilState(ChildrenID);
   const [childrenNumber, setChildrenNumber] = useState(0);
-  const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
     axios({
@@ -27,10 +28,14 @@ function Main() {
       console.log(res)
       setmemberID(res.data.memberID)
       setChildren(res.data.childrens)
+      setChildrens((old) => [...res.data.childrens, ...old])
       setChildrenNumber(res.data.childrens.length)
     })
   }, [])
-  console.log(childrenID)
+
+  const answers = childrens[currentSlide].answers;
+  console.log(childrens)
+
   return (
     <Wrapper>
       <div>
@@ -39,7 +44,7 @@ function Main() {
         <Link style={{textDecoration: 'none'}} to="/signout">회원 탈퇴</Link>
       </div>
       <div className="head">
-        { !childrenNumber ? <NoChildCarousel /> : <Carousel children={children} answers={answers} setAnswers={setAnswers} />}
+        { !childrenNumber ? <NoChildCarousel /> : <MainCarousel />}
         {/* <MainCarousel /> */}
       </div>
       <>
@@ -53,28 +58,14 @@ function Main() {
           <div className="body_grid">
             <p>\아이에게 해주고싶은말</p>
             <div className="body_conversation">
-              { answers.map((answer) => {
+              { answers ? answers.map((answer) => {
                 return (
                   <div key={answer.answerID}>{answer.content}</div>
                 )
-              })}
+              }) : null}
             </div>
           </div>
         </div>
-      {/* { !childrenNumber ? null : 
-        <div className="body">
-          <div className="body_grid">
-            <p>\아이와 \공팔이가 함께한 사진들</p>
-            <div className="body_picture">
-            </div>
-          </div>
-          <div className="body_grid">
-            <p>\아이에게 해주고싶은말</p>
-            <div className="body_conversation">
-            </div>
-          </div>
-        </div>
-      } */}
       </>
     </Wrapper>
   );
