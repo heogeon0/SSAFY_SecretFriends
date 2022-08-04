@@ -81,7 +81,7 @@ function Main() {
           ? <button onClick={() => deleteChildren(childrenID)}>아이 삭제</button>
           : null
         }
-        { childrenID ? <button>아이정보 수정</button> : null }
+        { childrenID ? <Link to={`/UpdateChildren/${childrenID}`}><button>아이정보 수정</button></Link> : null }
       </div>
       <>
         <div className="body">
