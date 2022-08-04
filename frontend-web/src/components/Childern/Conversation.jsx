@@ -42,6 +42,7 @@ const Grid = styled.div`
 
 function Conversation() {
   const [newChat, setNewChat] = useRecoilState(Chats);
+  
   function onSubmit(event) {
     // console.log(newChat);
     event.preventDefault();

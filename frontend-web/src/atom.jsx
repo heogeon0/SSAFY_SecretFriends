@@ -46,3 +46,8 @@ export const ChildrenList = atom({
   key: "ChildrenList",
   default: []
 })
+
+export const NowAnswer = atom({
+  key: "NowAnswer",
+  default: null,
+})

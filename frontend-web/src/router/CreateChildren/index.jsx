@@ -139,6 +139,7 @@ function CreateChildren() {
         data: {
           childrenID: props,
           content: chats,
+          createdAt: new Date(),
           questionID: 1,
         }
       })
