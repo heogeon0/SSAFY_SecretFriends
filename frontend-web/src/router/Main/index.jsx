@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import MainCarousel from "../../components/Main/MainCarousel";
+import Carousel from "../../components/Main/Carousel";
 import { Wrapper } from "./styles";
 
 import { useRecoilState } from "recoil";
-import { MemberID } from "../../atom";
+import { MemberID, ChildrenID } from "../../atom";
 
 import axios from "axios";
 import drf from "../../api/drf";
@@ -14,7 +14,9 @@ import NoChildCarousel from "../../components/Main/NoChildCarousel";
 function Main() {
   const [memberID, setmemberID] = useRecoilState(MemberID);
   const [children, setChildren] = useState([]);
+  const [childrenID, setChildrenID] = useRecoilState(ChildrenID);
   const [childrenNumber, setChildrenNumber] = useState(0);
+  const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
     axios({
@@ -28,12 +30,7 @@ function Main() {
       setChildrenNumber(res.data.childrens.length)
     })
   }, [])
-
-  console.log(children)
-  const childNumber = children ? children.lenght : 0;
-  console.log(childNumber);
-  console.log(childrenNumber);
-
+  console.log(childrenID)
   return (
     <Wrapper>
       <div>
@@ -42,7 +39,7 @@ function Main() {
         <Link style={{textDecoration: 'none'}} to="/signout">회원 탈퇴</Link>
       </div>
       <div className="head">
-        { !childrenNumber ? <NoChildCarousel /> : <MainCarousel />}
+        { !childrenNumber ? <NoChildCarousel /> : <Carousel children={children} answers={answers} setAnswers={setAnswers} />}
         {/* <MainCarousel /> */}
       </div>
       <>
@@ -56,11 +53,14 @@ function Main() {
           <div className="body_grid">
             <p>\아이에게 해주고싶은말</p>
             <div className="body_conversation">
-              {/* map 돌릴 예정 */}
+              { answers.map((answer) => {
+                return (
+                  <div key={answer.answerID}>{answer.content}</div>
+                )
+              })}
             </div>
           </div>
         </div>
-        
       {/* { !childrenNumber ? null : 
         <div className="body">
           <div className="body_grid">

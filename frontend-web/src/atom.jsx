@@ -26,6 +26,12 @@ export const MemberID = atom({
   default: "",
 })
 
+
+export const ChildrenID = atom({
+  key: "ChildrenID",
+  default: null,
+})
+
 export const CharacterID = atom({
   key: "CharacterID",
   default: "",

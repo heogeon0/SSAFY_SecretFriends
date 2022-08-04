@@ -1,7 +1,9 @@
-// 예비용으로 놔두기
 import { useState } from "react";
 import styled from "styled-components";
-import Slider from "./Slider";
+import ESlider from "./ESlider";
+import { useRecoilState } from "recoil";
+import { ChildrenID } from "../../atom";
+import Example from "./Example";
 
 const Container = styled.div`
   position: relative;
@@ -11,7 +13,13 @@ const Container = styled.div`
   height: 80%;
 `;
 
-function MainCarousel({children}) {
+function Carousel({children, answers, setAnswers}) {
+  console.log(children)
+  const [childrenID, setChildrenID] = useRecoilState(ChildrenID);
+  
+  console.log(childrenID)
+  console.log(answers)
+
   const slider = [
     { id: 0, bg: "https://picsum.photos/200/300" },
     { id: 1, bg: "../../img/plus.png" },
@@ -41,12 +49,19 @@ function MainCarousel({children}) {
       <button onClick={goPrev}>앞</button>
       <button onClick={goNext}>뒤</button>
       <Container>
-        {slider.map((val) => {
-          return <Slider key={val.id} check={check(val.id)} bg={val.bg} />;
+        {children.map((child) => {
+          return (
+            <div>
+              <Example key={child.childrenID} child={child} answers={answers} setAnswers={setAnswers}></Example>
+            </div>
+            // <div style={{ border: "solid black 1px" }} key={child.childrenID}>child</div>
+            // <ESlider key={child.childrenID} check={check(idx)} child={child} />
+            // return <ESlider key={child.chidlrenID} childrenID={child.childrenID} check={check(idx)} bg="https://picsum.photos/200/300" />;
+          )
         })}
       </Container>
     </>
   );
 }
 
-export default MainCarousel;
+export default Carousel;

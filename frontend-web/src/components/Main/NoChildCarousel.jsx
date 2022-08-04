@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import Slider from "./Slider";
+import Slider from "./ESlider";
 
 const Container = styled.div`
   position: relative;
