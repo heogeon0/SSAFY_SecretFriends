@@ -44,8 +44,8 @@ function Main() {
         <Link style={{textDecoration: 'none'}} to="/signout">회원 탈퇴</Link>
       </div>
       <div className="head">
-        { childrenNumber===1 ? <NoChildCarousel /> : <MainCarousel />}
-        {/* <MainCarousel /> */}
+        {/* { childrenNumber===1 ? <NoChildCarousel /> : <MainCarousel />} */}
+        <MainCarousel />
       </div>
       <>
         <div className="body">
