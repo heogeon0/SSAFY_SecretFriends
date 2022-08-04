@@ -185,12 +185,12 @@ function CreateChildren() {
         }
         break;
       case 2:
-        if (faces.length < 10) {
-          setError("아이 사진을 열장 등록해주세요");
-          return;
-        } else {
-          handleImageUpload();
-        }
+        // if (faces.length < 10) {
+        //   setError("아이 사진을 열장 등록해주세요");
+        //   return;
+        // } else {
+        //   handleImageUpload();
+        // }
         break;
       case 3:
         if (!characterID) {

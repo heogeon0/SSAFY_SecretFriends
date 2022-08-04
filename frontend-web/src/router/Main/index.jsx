@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import MainCarousel from "../../components/Main/MainCarousel";
 import { Wrapper } from "./styles";
 
@@ -8,26 +8,31 @@ import { MemberID } from "../../atom";
 import axios from "axios";
 import drf from "../../api/drf";
 import { Link } from 'react-router-dom';
+import NoChildCarousel from "../../components/Main/NoChildCarousel";
 
 
 function Main() {
   const [memberID, setmemberID] = useRecoilState(MemberID);
+  const [children, setChildren] = useState([]);
+  const [childrenNumber, setChildrenNumber] = useState(0);
 
-  useEffect(() => {axios.defaults.withCredentials = true;
-    axios.get("http://localhost:9999/mybuddy/member/info/", {
-      headers:
-      {
-        Authorization: 'Bearer ' + localStorage.getItem("token"),
-      },
-    })
-    .then(res => {
+  useEffect(() => {
+    axios({
+      url: drf.member.member(),
+      method: "get",
+      headers: {Authorization: 'Bearer ' + localStorage.getItem("token"),},
+    }).then((res) => {
+      console.log(res)
       setmemberID(res.data.memberID)
-      console.log(memberID)
+      setChildren(res.data.childrens)
+      setChildrenNumber(res.data.childrens.length)
     })
-    .catch(err => {
-      console.log(err)
-    })
-  })
+  }, [])
+
+  console.log(children)
+  const childNumber = children ? children.lenght : 0;
+  console.log(childNumber);
+  console.log(childrenNumber);
 
   return (
     <Wrapper>
@@ -37,22 +42,40 @@ function Main() {
         <Link style={{textDecoration: 'none'}} to="/signout">회원 탈퇴</Link>
       </div>
       <div className="head">
-        <MainCarousel />
+        { !childrenNumber ? <NoChildCarousel /> : <MainCarousel />}
+        {/* <MainCarousel /> */}
       </div>
-      <div className="body">
-        <div className="body_grid">
-          <p>\아이와 \공팔이가 함께한 사진들</p>
-          <div className="body_picture">
-            {/* firebase 활용 예정 */}
+      <>
+        <div className="body">
+          <div className="body_grid">
+            <p>\아이와 \공팔이가 함께한 사진들</p>
+            <div className="body_picture">
+              {/* firebase 활용 예정 */}
+            </div>
+          </div>
+          <div className="body_grid">
+            <p>\아이에게 해주고싶은말</p>
+            <div className="body_conversation">
+              {/* map 돌릴 예정 */}
+            </div>
           </div>
         </div>
-        <div className="body_grid">
-          <p>\아이에게 해주고싶은말</p>
-          <div className="body_conversation">
-            {/* map 돌릴 예정 */}
+        
+      {/* { !childrenNumber ? null : 
+        <div className="body">
+          <div className="body_grid">
+            <p>\아이와 \공팔이가 함께한 사진들</p>
+            <div className="body_picture">
+            </div>
+          </div>
+          <div className="body_grid">
+            <p>\아이에게 해주고싶은말</p>
+            <div className="body_conversation">
+            </div>
           </div>
         </div>
-      </div>
+      } */}
+      </>
     </Wrapper>
   );
 }
