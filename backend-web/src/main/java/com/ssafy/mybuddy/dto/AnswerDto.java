@@ -23,6 +23,6 @@ public class AnswerDto {
     @ApiModelProperty(value = "질문 사용 여부")
     private Boolean isUsed;
     @ApiModelProperty(value = "질문이 생성된 시간")
-    private String cratedAt;
+    private String createdAt;
 
 }
