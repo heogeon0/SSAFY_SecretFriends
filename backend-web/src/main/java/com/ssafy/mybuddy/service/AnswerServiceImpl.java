@@ -44,4 +44,14 @@ public class AnswerServiceImpl implements AnswerService{
     public List<AnswerDto> allAnswers(int id) throws Exception {
         return answerMapper.allAnswers(id);
     }
+
+    @Override
+    public boolean updateAnswerTrue(int answerID) throws Exception {
+        return answerMapper.updateAnswerTrue(answerID) == 1;
+    }
+
+    @Override
+    public boolean updateAnswerFalse(int answerID) throws Exception {
+        return answerMapper.updateAnswerFalse(answerID) == 1;
+    }
 }

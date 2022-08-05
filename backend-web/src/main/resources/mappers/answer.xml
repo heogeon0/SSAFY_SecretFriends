@@ -30,6 +30,20 @@
         where answerID = #{answerID}
     </update>
 
+    <!-- 답변 사용 처리(IOT) -->
+    <update id="updateAnswerTrue" parameterType="answerDto">
+        update answer
+        set isUsed = 1
+        where answerID = #{answerID}
+    </update>
+
+    <!-- 답변 사용 처리 취소(Web) -->
+    <update id="updateAnswerFalse" parameterType="answerDto">
+        update answer
+        set isUsed = 0
+        where answerID = #{answerID}
+    </update>
+
     <!-- 답변 삭제  -->
     <delete id="deleteAnswer" parameterType="int">
         delete from answer

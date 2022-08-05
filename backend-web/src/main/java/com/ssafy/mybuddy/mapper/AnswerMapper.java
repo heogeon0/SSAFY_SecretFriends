@@ -14,4 +14,8 @@ public interface AnswerMapper {
     public int deleteAnswer(int id) throws SQLException;
     public List<AnswerDto> detailAnswer(Map<String, Integer> ids) throws SQLException;
     public List<AnswerDto> allAnswers(int id) throws SQLException;
+
+    int updateAnswerTrue(int answerID) throws SQLException;
+
+    int updateAnswerFalse(int answerID) throws SQLException;
 }

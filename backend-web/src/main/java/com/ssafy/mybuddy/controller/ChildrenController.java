@@ -62,6 +62,13 @@ public class ChildrenController {
         return new ResponseEntity<>(childrenService.selectChildren(childrenID), HttpStatus.OK);
     }
 
+    @ApiOperation(value="아이 정보(IOT)", notes="childrenID 해당하는 아이의 정보를 반환한다.", response = ChildrenDto.class)
+    @GetMapping("iot/{childrenID}")
+    public ResponseEntity<ChildrenDto> selectChildrenForIot(@PathVariable @ApiParam(value = "조회할 아이 번호", required = true) int childrenID) {
+        logger.debug("childrenID에 해당하는 아이 정보를 리턴 : {}" , childrenID);
+        return new ResponseEntity<>(childrenService.selectChildren(childrenID), HttpStatus.OK);
+    }
+
     @ApiOperation(value="아이 정보 업데이트", notes="아이의 정보를 업데이트", response = String.class)
     @PutMapping
     public ResponseEntity<String> updateChildren(@RequestBody  @ApiParam(value = "갱신할 아이의 정보를 입력받아 업데이트한다.(childrenID, 생년, 생월, 생일, 이름, 별명, 입원일(Format : YYYY-MM-DD))", required = true)  ChildrenDto childrenDto) {

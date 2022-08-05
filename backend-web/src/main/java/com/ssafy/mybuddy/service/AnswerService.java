@@ -11,4 +11,9 @@ public interface AnswerService {
     public boolean deleteAnswer(int id) throws Exception;
     public List<AnswerDto> detailAnswer(Map<String, Integer> ids) throws Exception;
     public List<AnswerDto> allAnswers(int id) throws Exception;
+
+    boolean updateAnswerTrue(int answerID) throws Exception;
+
+    boolean updateAnswerFalse(int answerID) throws Exception;
+
 }

@@ -45,12 +45,20 @@ public class AnswerController {
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
-    @ApiOperation(value="아이별 딥변 전체 조회", notes="아이별로 답변 전체를 반환한다(답변이 생성된 순서대로 정렬).", response = List.class)
+    @ApiOperation(value="아이별 답변 전체 조회", notes="아이별로 답변 전체를 반환한다(답변이 생성된 순서대로 정렬).", response = List.class)
     @GetMapping("{childrenID}")
     public ResponseEntity<List<AnswerDto>> allAnswers(@PathVariable @ApiParam(value = "조회할 아이 번호", required = true)int childrenID) throws Exception {
         logger.debug("allAnswers - 호출");
         return new ResponseEntity<List<AnswerDto>>(answerService.allAnswers(childrenID), HttpStatus.OK);
     }
+
+    @ApiOperation(value="아이별 답변 전체 조회(IOT용)", notes="아이별로 답변 전체를 반환한다(답변이 생성된 순서대로 정렬).", response = List.class)
+    @GetMapping("iot/{childrenID}")
+    public ResponseEntity<List<AnswerDto>> allAnswersForIot(@PathVariable @ApiParam(value = "조회할 아이 번호", required = true)int childrenID) throws Exception {
+        logger.debug("allAnswers - 호출");
+        return new ResponseEntity<List<AnswerDto>>(answerService.allAnswers(childrenID), HttpStatus.OK);
+    }
+
 
     @ApiOperation(value="아이별 질문별 답변 조회", notes="아이별 질문별로 답변 반환한다.", response = List.class)
     @GetMapping("{childrenID}/{questionID}")
@@ -69,6 +77,28 @@ public class AnswerController {
         logger.debug("" + answerDto);
 
         if (answerService.updateAnswer(answerDto)) {
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+        }
+        return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+    }
+
+    @ApiOperation(value="답변 isUsed : false -> true", notes="IOT에서 사용한 답변을 isUsed = true로 변경한다.", response = String.class)
+    @PutMapping("iot/isUsed/{answerID}")
+    public ResponseEntity<String> updateAnswerTrue(@PathVariable @ApiParam(value = "사용 처리할 answerID", required = true) int answerID) throws Exception {
+        logger.debug("updateAnswer - 호출");
+
+        if (answerService.updateAnswerTrue(answerID)) {
+            return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+        }
+        return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+    }
+
+    @ApiOperation(value="답변 isUsed : true -> false", notes="IOT에서 사용한 답변을 isUsed = false로 변경한다.", response = String.class)
+    @PutMapping("isUsed/{answerID}")
+    public ResponseEntity<String> updateAnswerFalse(@PathVariable @ApiParam(value = "사용 처리 취소할 answerID", required = true) int answerID) throws Exception {
+        logger.debug("updateAnswer - 호출");
+
+        if (answerService.updateAnswerFalse(answerID)) {
             return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
         }
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
