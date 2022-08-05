@@ -32,7 +32,7 @@ function Main() {
   console.log(answerList)
   
   // const answers = childrens ? childrens[currentSlide]?.answers : null;
-  const answers = answerList;
+  // const answers = answerList;
   const childrenID = childrens[currentSlide]?.childrenID;
 
 
@@ -51,13 +51,19 @@ function Main() {
   }
 
   function deleteAnswer(answerID) {
+    const newAnswerList = [];
+    answerList.map((answer) => {
+      if (answer.answerID !== answerID) {
+        newAnswerList.push(answer)
+      }
+    })
+    console.log(newAnswerList);
     axios({
       url: drf.answer.updateAnswer(answerID),
       method: "delete",
       headers: {Authorization: 'Bearer ' + localStorage.getItem("token"),},
     }).then((res) => {
-      console.log(res)
-      // window.location.reload()  // 새로고침 필요
+      setAnswerList(newAnswerList)
     })
     .catch((err) => {console.log(err)})
   }
@@ -99,7 +105,7 @@ function Main() {
           { childrenID ? <button><Link to={`/CreateAnswer/${childrenID}`}>추가하기</Link></button> : null }
             <p>\아이에게 해주고싶은 말</p>
             <div className="body_conversation">
-              { answers ? answers.map((answer, idx) => {
+              { answerList ? answerList.map((answer, idx) => {
                 return (
                   <div key={answer.answerID}>
                     <span>{answer.content}</span>
