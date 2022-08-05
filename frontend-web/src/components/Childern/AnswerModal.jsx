@@ -12,7 +12,9 @@ const ContentBox = styled.div`
 
 function AnswerModal (props) {
   const answer = props.answer;
+  console.log(answer)
   const [chat, setChat] = useState(props.answer.content);
+  const [answerID, setAnswerID] = useState(answer.answerID);
   const navigate = useNavigate();
 
   function closeModal () {
@@ -24,20 +26,21 @@ function AnswerModal (props) {
   }
 
   function onSubmit(event) {
-    // event.preventDefault();
+    event.preventDefault();
+    console.log(chat)
     axios({
-      url: drf.answer.updateAnswer(answer.childrenID),
+      url: drf.answer.updateAnswer(answer.answerID),
         method: "put",
         headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
         data: {
-          // childrenID: answer.childrenID,
+          answerID: answerID,
           content: chat,
-          cratedAt: new Date(),
           questionID: 1,
         }
       }).then((res) => {
+        navigate('/main')
+        window.location.reload(); // 새로고침
         console.log(res)
-        // navigate('/main')
       })
       .catch((err) => {
         console.log(err)

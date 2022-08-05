@@ -112,6 +112,7 @@ function CreateChildren() {
   }
   // second axios. for create character of children(nickname)
   async function createChildrenCharacter (props) {
+    console.log(props)
     try {
       const res = await axios({
         url: drf.mycharacter.createCharacter(),
