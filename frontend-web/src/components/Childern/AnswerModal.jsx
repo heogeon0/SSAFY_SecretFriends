@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import drf from "../../api/drf";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
+import { AnswerList } from "../../atom";
 
 const ContentBox = styled.div`
   /* display: flex; */
@@ -12,9 +14,9 @@ const ContentBox = styled.div`
 
 function AnswerModal (props) {
   const answer = props.answer;
-  console.log(answer)
   const [chat, setChat] = useState(props.answer.content);
   const [answerID, setAnswerID] = useState(answer.answerID);
+  const [answerList, setAnswerList] = useRecoilState(AnswerList);
   const navigate = useNavigate();
 
   function closeModal () {
@@ -22,25 +24,40 @@ function AnswerModal (props) {
   }
 
   function ChangeChat(event) {
-    setChat(event.target.value.trim());
+    setChat(event.target.value);
   }
 
   function onSubmit(event) {
     event.preventDefault();
-    console.log(chat)
+    const newAnswerList = [];
+    answerList.map((answer) => {
+      if (answer.answerID === answerID) {
+        const newChat = {
+          answerID: answer.answerID,
+          childrenID: answer.childrenID,
+          content: chat,
+          createdAt: answer.createdAt,
+          isUsed: answer.isUsed,
+          questionID: answer.questionID
+        }
+        newAnswerList.push(newChat);
+      } else {
+        newAnswerList.push(answer)
+      }
+    })
     axios({
       url: drf.answer.updateAnswer(answer.answerID),
         method: "put",
         headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
         data: {
           answerID: answerID,
-          content: chat,
+          content: chat.trim(),
           questionID: 1,
         }
       }).then((res) => {
+        setAnswerList(newAnswerList)
+        closeModal()
         navigate('/main')
-        window.location.reload(); // 새로고침
-        console.log(res)
       })
       .catch((err) => {
         console.log(err)
