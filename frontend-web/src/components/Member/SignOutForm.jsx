@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import { useRecoilState } from "recoil";
+import { Token } from "../../atom";
 
 import axios from "axios";
 import drf from "../../api/drf";
@@ -55,6 +57,7 @@ const Form = styled.form`
 
 function SignOutForm() {
   const [ currentUser, setCurrentUser ] = useState();
+  const [token, setToken] = useRecoilState(Token);
   const { register, handleSubmit, formState: { errors }, } = useForm();
   const navigate = useNavigate();
 
@@ -72,28 +75,48 @@ function SignOutForm() {
     
     // console.log(currentUser)
 
-  function onSubmit(data) {
-    console.log(data)
-    console.log(currentUser.data.password)
+  
+  async function onSubmit(data) {
     if (data.password === currentUser.data.password) {
       if (window.confirm("정말로 회원탈퇴 하시겠습니까?")) {
-        axios ({
-          url: drf.member.deleteMember(currentUser.data.memberID),
-          method: "delete",
-          headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
-        })
-        .then(res => {
-          // console.log(res)
-          console.log('delete confirm')
-          localStorage.removeItem("token")  // 자동 로그아웃 처리
-          navigate('/') // intro page로 이동
-          window.location.reload()  // navbar 연동 위해서 강제 새로고침
-        })
-        .catch(err => console.log(err))
+        try {
+          await axios ({
+            url: drf.member.deleteMember(currentUser.data.memberID),
+            method: "delete",
+            headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
+          })
+          next()
+        }
+        catch (err) {
+          console.log(err)
+        }
       }
     }
     else {
       alert("비밀번호가 틀렸습니다")
+    }
+  }
+
+  async function next() {
+    await removeToken()
+    await goMain()
+  }
+
+  async function removeToken() {
+    try {
+      localStorage.removeItem("token")
+      setToken("")
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+  async function goMain() {
+    try {
+      navigate('/')
+    }
+    catch(err) {
+      console.log(err)
     }
   }
 

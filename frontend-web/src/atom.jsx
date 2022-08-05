@@ -10,10 +10,10 @@ export const Chats = atom({
   default: [],
 });
 
-// export const Token = atom({
-//   key: "Token",
-//   default: localStorage.getItem('token') || '',
-// })
+export const Token = atom({
+  key: "Token",
+  default: localStorage.getItem('token') || '',
+})
 
 // export const IsLoggedIn = atom({
 //   key: "IsLoggedIn",

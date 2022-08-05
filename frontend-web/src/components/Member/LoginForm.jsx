@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import drf from "../../api/drf";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { Token } from "../../atom";
 
 
 const ERROR = styled.div`
@@ -59,6 +61,8 @@ const Form = styled.form`
 `;
 
 function LoginForm() {
+  const [token, setToken] = useRecoilState(Token);
+
   const {
     register,
     handleSubmit,
@@ -66,7 +70,6 @@ function LoginForm() {
   } = useForm();
 
   const navigate = useNavigate();
-
 
   function onSubmit(data) {
     axios.post(
@@ -80,8 +83,8 @@ function LoginForm() {
         const accessToken = res.data.token;
         axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
         localStorage.setItem("token", accessToken)
+        setToken(accessToken)
         navigate("/")
-        window.location.reload(); // 로그인 이후 navbar가 변하지 않아 강제 새로고침
       })
       .catch((err) => {
         alert('잘못된 정보입니다.')
