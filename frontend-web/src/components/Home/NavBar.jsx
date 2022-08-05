@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from 'recoil';
+import { Token } from '../../atom';
 
 const HeaderBox = styled.div`
   position: relative;
@@ -21,7 +23,8 @@ const HeaderText = styled.div`
 `
 
 function NavBar () {
-  const isLoggedIn = !!localStorage.getItem("token");
+  // if token exists, it means 'loggedIn"
+  const token = useRecoilValue(Token);
   const navigate = useNavigate();
 
   // when logout, token is need to be removed.
@@ -35,7 +38,7 @@ function NavBar () {
       <FlexBox>
         <HeaderText><Link style={{textDecoration: 'none'}} to="/">SSAFY</Link></HeaderText>
         <div>
-          { isLoggedIn ? 
+          { token ? 
           <FlexBox>
             <HeaderText>
               <a href="" 
