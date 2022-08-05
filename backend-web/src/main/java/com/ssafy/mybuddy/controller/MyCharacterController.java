@@ -35,6 +35,12 @@ public class MyCharacterController {
         return new ResponseEntity<MycharacterDto>(myCharacterService.selectMyCharacter(childrenID),HttpStatus.OK);
     }
 
+    @ApiOperation(value="캐릭터 정보 확인(IOT)", notes="로그인된 아이가 등록한 캐릭터의 정보를 return", response = String.class)
+    @GetMapping("iot/{childrenID}")
+    public ResponseEntity<MycharacterDto> selectMyCharacterForIot(@PathVariable int childrenID){
+        return new ResponseEntity<MycharacterDto>(myCharacterService.selectMyCharacter(childrenID),HttpStatus.OK);
+    }
+
     @ApiOperation(value="캐릭터 정보 수정", notes="로그인된 아이가 등록한 캐릭터의 정보를 수정", response = String.class)
     @PutMapping("{childrenID}")
     public ResponseEntity<String> updateMyCharacter(@RequestBody  @ApiParam(value = "childrenID, characterID, nickname 필요", required = true) MycharacterDto mycharacterDto){
