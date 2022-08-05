@@ -1,10 +1,10 @@
-import MyCanvas from "./MyCanvas";
+import Router from "./Router";
 
 
 function App() {
   return (
     <div className="App">
-      <MyCanvas/>
+      <Router />
     </div>
   );
 }
