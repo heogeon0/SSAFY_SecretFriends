@@ -18,10 +18,6 @@ function Main() {
   const [childrens, setChildrens] = useRecoilState(ChildrenList);
   const [nowAnswer, setNowAnswer] = useRecoilState(NowAnswer);
 
-  const [isUpdating, setIsUpdating] = useState(false);
-
-  // const [children, setChildren] = useState([]);
-
   useEffect(() => {
     axios({
       url: drf.member.member(),
@@ -36,6 +32,7 @@ function Main() {
   }, [])
 
   setChildrenID(childrens[currentSlide]?.childrenID)
+  console.log(childrenID)
   const answers = childrens ? childrens[currentSlide]?.answers : null;
 
   function deleteChildren(childrenID) {

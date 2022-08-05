@@ -26,7 +26,7 @@
     <!-- 답변 수정  -->
     <update id="updateAnswer" parameterType="answerDto">
         update answer
-        set content = #{content}, createdAt = now()
+        set content = #{content}
         where answerID = #{answerID}
     </update>
 
