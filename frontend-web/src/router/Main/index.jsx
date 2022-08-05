@@ -28,13 +28,9 @@ function Main() {
       setChildrens([...res.data.childrens, {childrenID: 0}])
     })
   }, [])
-
-  console.log(answerList)
   
-  // const answers = childrens ? childrens[currentSlide]?.answers : null;
-  // const answers = answerList;
-  const childrenID = childrens[currentSlide]?.childrenID;
 
+  const childrenID = childrens[currentSlide]?.childrenID;
 
   function deleteChildren(childrenID) {
     if (window.confirm('정말 삭제하시겠습니까?')) {
@@ -57,7 +53,6 @@ function Main() {
         newAnswerList.push(answer)
       }
     })
-    console.log(newAnswerList);
     axios({
       url: drf.answer.updateAnswer(answerID),
       method: "delete",
@@ -73,7 +68,6 @@ function Main() {
   const [num, setNum] = useState();
 
   function updateActivate(answer, idx) {
-    console.log(answer)
     setNum(idx)
     setClose(!close)
   }
@@ -112,7 +106,7 @@ function Main() {
                     <span>{answer.createdAt}</span>
                     <button onClick={() => updateActivate(answer, idx)}>수정</button>
                     <button onClick={() => deleteAnswer(answer.answerID, answer.questionID)}>삭제</button>
-                    { close && num===idx && (<AnswerModal answer={answer} closeModal={() => setClose(!close)} />)}
+                    { close && num===idx && (<AnswerModal answer={answer} setClose={setClose} closeModal={() => setClose(!close)} />)}
                   </div>
                 )
               }) : null}
