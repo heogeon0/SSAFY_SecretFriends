@@ -1,4 +1,4 @@
-###  REQUIREMENTS
+### REQUIREMENTS
 
 #### 1. Node & React
 
@@ -10,8 +10,6 @@ sudo curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash // 저장소�
 sudo apt-get install nodejs
 ```
 
-
-
 2. react
 
 ```bash
@@ -22,9 +20,21 @@ npm install"@react-three/cannon" // 물리효과
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p // 리액트 오류 해결코드
 ```
 
-
-
 #### 2. 사진촬영
 
 #### 3. 얼굴인식
 
+1. 얼굴인식
+
+```bash
+pip install opencv-python
+pip install opencv-contrib-python
+pip install dlib
+pip install face_recognition
+```
+
+2. Firebase 연동
+
+```bash
+pip install pyrebase4
+```
