@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Slider from "./Slider";
 import { useRecoilState } from "recoil";
-import { CurrentSlide, ChildrenList, AnswerList } from "../../atom";
+import { CurrentSlide, ChildrenList, AnswerList, CurrentID } from "../../atom";
 
 
 const Container = styled.div`
@@ -16,6 +16,7 @@ function MainCarousel() {
   const [currentSlide, setCurrentSlide] = useRecoilState(CurrentSlide);
   const [childrenList, setChildrenList] = useRecoilState(ChildrenList);
   const [answerList, setAnswerList] = useRecoilState(AnswerList);
+  const [id, setID] = useRecoilState(CurrentID);
 
   // "front", "back" button for carousel
   const total = childrenList.length;
@@ -24,12 +25,14 @@ function MainCarousel() {
     if (currentSlide + 1 < total) {
       setCurrentSlide((val) => val + 1);
       setAnswerList(childrenList[currentSlide+1].answers)
+      setID(childrenList[currentSlide+1].childrenID)
     }
   }
   function goPrev() {
     if (currentSlide > 0) {
       setCurrentSlide((val) => val - 1);
       setAnswerList(childrenList[currentSlide-1].answers)
+      setID(childrenList[currentSlide-1].childrenID)
     }
   }
   function check(id) {

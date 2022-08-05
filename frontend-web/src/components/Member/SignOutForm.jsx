@@ -111,6 +111,7 @@ function SignOutForm() {
       console.log(err)
     }
   }
+
   async function goMain() {
     try {
       navigate('/')

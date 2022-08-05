@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Wrapper } from "./styles";
 
 import { useRecoilState } from "recoil";
-import { MemberID, CurrentSlide, ChildrenList, AnswerList } from "../../atom";
+import { MemberID, CurrentSlide, ChildrenList, AnswerList, CurrentID } from "../../atom";
 
 import axios from "axios";
 import drf from "../../api/drf";
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import MainCarousel from "../../components/Main/MainCarousel";
 import AnswerModal from "../../components/Childern/AnswerModal";
 
@@ -16,6 +16,8 @@ function Main() {
   const [currentSlide, setCurrentSlide] = useRecoilState(CurrentSlide);
   const [childrens, setChildrens] = useRecoilState(ChildrenList);
   const [answerList, setAnswerList] = useRecoilState(AnswerList);
+  const [currentChild, setCurrentChild] = useState();
+  const [id, setID] = useRecoilState(CurrentID);
 
   useEffect(() => {
     axios({
@@ -25,26 +27,56 @@ function Main() {
     }).then((res) => {
       setmemberID(res.data.memberID)
       setAnswerList(res.data.childrens[currentSlide]?.answers)
+      setID(res.data.childrens[currentSlide]?.childrenID)
       setChildrens([...res.data.childrens, {childrenID: 0}])
     })
   }, [])
   
+  // console.log(currentChild)
 
   const childrenID = childrens[currentSlide]?.childrenID;
 
-  function deleteChildren(childrenID) {
+  async function deleteChildren(childrenID) {
     if (window.confirm('정말 삭제하시겠습니까?')) {
-      axios({
-        url: drf.children.children(childrenID),
-        method: "delete",
-        headers: {Authorization: 'Bearer ' + localStorage.getItem("token"),},
-      }).then((res) => {
-        console.log(res)
-        window.location.reload()
+      const newChildrenList = []
+      childrens.map((child) => {
+        if (child.childrenID !== childrenID) {
+          newChildrenList.push(child)
+        }
       })
-      .catch((err) => {console.log(err)})
+      // console.log(newChildrenList) // -> 확인 완료
+
+      try {
+        await axios ({
+          url: drf.children.children(childrenID),
+          method: "delete",
+          headers: {Authorization: 'Bearer ' + localStorage.getItem("token")},
+        })
+        setChildrens(newChildrenList)
+        await updateAnswerList(newChildrenList)
+      }
+      catch (err) {
+        console.log(err)
+      }
     }
   }
+
+  async function updateAnswerList(newChildrenList) {
+    const newAnswerList = [];
+    newChildrenList.forEach((child) => {
+      if (child.childrenID === newChildrenList[currentSlide].childrenID && newChildrenList[currentSlide].childrenID !== 0) {
+        const answers = child.answers ? child.answers : null
+        newAnswerList.push(...answers)
+      }
+    })
+    try {
+      setAnswerList(newAnswerList)
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+
 
   function deleteAnswer(answerID) {
     const newAnswerList = [];
