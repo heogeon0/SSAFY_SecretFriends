@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Wrapper } from "./styles";
 
 import { useRecoilState } from "recoil";
-import { ChildrenID, MemberID, CurrentSlide, ChildrenList, NowAnswer, Chats } from "../../atom";
+import { MemberID, CurrentSlide, ChildrenList, AnswerList } from "../../atom";
 
 import axios from "axios";
 import drf from "../../api/drf";
@@ -13,10 +13,9 @@ import AnswerModal from "../../components/Childern/AnswerModal";
 
 function Main() {
   const [memberID, setmemberID] = useRecoilState(MemberID);
-  const [childrenID, setChildrenID] = useRecoilState(ChildrenID);
   const [currentSlide, setCurrentSlide] = useRecoilState(CurrentSlide);
   const [childrens, setChildrens] = useRecoilState(ChildrenList);
-  const [nowAnswer, setNowAnswer] = useRecoilState(NowAnswer);
+  const [answerList, setAnswerList] = useRecoilState(AnswerList);
 
   useEffect(() => {
     axios({
@@ -25,15 +24,17 @@ function Main() {
       headers: {Authorization: 'Bearer ' + localStorage.getItem("token"),},
     }).then((res) => {
       setmemberID(res.data.memberID)
-      setChildrenID(res.data.childrens[currentSlide]?.childrenID)
-      // setChildren(res.data.childrens)
-      setChildrens([...res.data.childrens, {childrenId: 0}])
+      setAnswerList(res.data.childrens[currentSlide]?.answers)
+      setChildrens([...res.data.childrens, {childrenID: 0}])
     })
   }, [])
 
-  setChildrenID(childrens[currentSlide]?.childrenID)
-  console.log(childrenID)
-  const answers = childrens ? childrens[currentSlide]?.answers : null;
+  console.log(answerList)
+  
+  // const answers = childrens ? childrens[currentSlide]?.answers : null;
+  const answers = answerList;
+  const childrenID = childrens[currentSlide]?.childrenID;
+
 
   function deleteChildren(childrenID) {
     if (window.confirm('정말 삭제하시겠습니까?')) {
@@ -49,25 +50,18 @@ function Main() {
     }
   }
 
-  
-
-  function deleteAnswer(answerID, questionID) {
+  function deleteAnswer(answerID) {
     axios({
       url: drf.answer.updateAnswer(answerID),
       method: "delete",
       headers: {Authorization: 'Bearer ' + localStorage.getItem("token"),},
     }).then((res) => {
       console.log(res)
-      window.location.reload()  // 새로고침 필요
+      // window.location.reload()  // 새로고침 필요
     })
     .catch((err) => {console.log(err)})
   }
 
-  function onSubmit(event) {
-    event.preventDefault();
-    const chat = event.target[0].value;
-    console.log(chat)
-  }
 
   const [close, setClose] = useState(false) // 모달창 닫는 변수
   const [num, setNum] = useState();
@@ -75,15 +69,7 @@ function Main() {
   function updateActivate(answer, idx) {
     console.log(answer)
     setNum(idx)
-    // setIsUpdating(true)
-    setNowAnswer(answer)
     setClose(!close)
-  }
-
-  console.log(num)
-
-  function updateAnswer(event) {
-    console.log(event.target)
   }
 
   return (
@@ -110,7 +96,7 @@ function Main() {
             </div>
           </div>
           <div className="body_grid">
-          { childrenID ? <Link to={`/CreateAnswer/${childrenID}`}><button>추가하기</button></Link> : null }
+          { childrenID ? <button><Link to={`/CreateAnswer/${childrenID}`}>추가하기</Link></button> : null }
             <p>\아이에게 해주고싶은 말</p>
             <div className="body_conversation">
               { answers ? answers.map((answer, idx) => {
