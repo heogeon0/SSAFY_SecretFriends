@@ -1,7 +1,8 @@
 import IntroCarousel from "../../components/Home/Carousel/IntroCarousel";
 import CardList from "../../components/Home/Card/CardList";
 import { Link } from 'react-router-dom';
-import { useRecoilValue } from "recoil";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
 import { Token } from "../../atom";
 
 import styled from "styled-components";
@@ -39,7 +40,11 @@ const Button = styled.button`
 `
 
 function Intro () {
-  const isLoggedIn = !!localStorage.getItem("token");
+  const [token, setToken] = useRecoilState(Token);
+
+  useEffect(() => {
+    setToken(localStorage.getItem("token"))
+  }, [])
 
   return (
     <div>
@@ -52,7 +57,7 @@ function Intro () {
           <p>우리 아이에게 소중한 추억을 만들어주세요</p>
         </div>
         <>
-          { isLoggedIn 
+          { token 
             ? <Link to="/main"><Button>시작하기</Button></Link>
             : <Link to="/login"><Button>시작하기</Button></Link>
           }

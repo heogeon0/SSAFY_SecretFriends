@@ -63,7 +63,6 @@ const Form = styled.form`
 function SignupForm({
   name, setName, phoneNumber, setPhoneNumber, isUpdate, memberID,
 }) {
-  // console.log(data.name)
   const {
     register,
     watch,
@@ -75,7 +74,6 @@ function SignupForm({
 
   function ChangeName(event) {
     setName(event.target.value)
-    console.log(event.target.value)
   }
 
   function ChangePhoneNumber(event) {
@@ -93,7 +91,6 @@ function SignupForm({
           data: newData,
         })
           .then(res => {
-            console.log(res)
             navigate('/login')
           })
           .catch(err => {
