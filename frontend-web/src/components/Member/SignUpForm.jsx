@@ -110,8 +110,6 @@ function SignupForm({
         .then(res => {
           alert('회원정보가 수정되었습니다.')
           console.log(res)
-          console.log(updateData)
-          console.log("update 되었습니다")
           navigate('/main')
         })
         .catch(err => console.log(err))
@@ -148,8 +146,11 @@ function SignupForm({
             {...register("phoneNumber", {
               required: "전화번호를 입력해주세요",
               pattern: {
-                value: /[0-9]/,
-                message: "숫자만 입력해주세요",
+                // value: /[0-9]/,
+                // message: "숫자만 입력해주세요",
+                // 숫자 대신 휴대전화 번호 양식에 맞게 입력 필요 (선택)
+                value: /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/,
+                message: "000-0000-0000 양식에 맞게 입력해주세요"
               },
             })}
             type="text"

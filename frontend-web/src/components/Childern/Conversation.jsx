@@ -44,7 +44,7 @@ function Conversation() {
   const [newChat, setNewChat] = useRecoilState(Chats);
   
   function onSubmit(event) {
-    // console.log(newChat);
+    console.log(newChat);
     event.preventDefault();
     const chat = event.target[0].value;
     setNewChat((old) => [...old, chat])
