@@ -14,29 +14,15 @@ import { useNavigate } from "react-router-dom";
 function CreateAnswer() {
   const [childrenID, setChildrenID] = useState();
   const params = parseInt(useParams(childrenID).childrenID)
-  console.log(params)
   const [slide, setSlide] = useState(1);
   const [error, setError] = useState("");
   const [chats, setChats] = useRecoilState(Chats);
 
-  // useEffect(() => {
-  //   axios({
-  //     url: drf.member.member(),
-  //     method: "get",
-  //     headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
-  //   })
-  //     .then(res => {
-  //       setMemberID(res.data.memberID)
-  //     })
-  //     .catch(err => console.log(err))
-  // })
-
   const navigate = useNavigate();
 
-  async function createAnswer () {
-    try {
-      const res = await axios({
-        url: drf.answer.answers(),
+  function plusNewAnswer() {
+    axios({
+      url: drf.answer.answers(),
         method: "post",
         headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
         data: {
@@ -45,26 +31,16 @@ function CreateAnswer() {
           cratedAt: new Date(),
           questionID: 1,
         }
-      })
+    }).then((res) => {
       goMain()
-      console.log(res)
-    }
-    catch(e) {
-      console.log(e)
-    }
-  }
-  // after three axios done, it goes to "main" page
-  async function goMain () {
-    try {
-      setChats([])
-      navigate('/main')
-    }
-    catch(err) {
+    }).catch((err) => {
       console.log(err)
-    }
+    })
   }
 
-  function goOut() {
+
+  function goMain() {
+    setChats([])
     navigate('/main')
   }
 
@@ -73,7 +49,7 @@ function CreateAnswer() {
 // function to move to the mext in the child registration form
 // movement restrictions placed
   function goNext() {
-    createAnswer()
+    plusNewAnswer()
   }
 
   // function to move to the previous in the child registration form
@@ -106,7 +82,7 @@ function CreateAnswer() {
               <button onClick={goPre}>이전</button>
               <button onClick={goNext}>{slide === 1 ? "완료" : "다음"}</button>
             </div>
-          <button onClick={() => goOut()}>나가기</button>
+          <button onClick={() => goMain()}>나가기</button>
           </div>
         </div>
       </Wrapper>
