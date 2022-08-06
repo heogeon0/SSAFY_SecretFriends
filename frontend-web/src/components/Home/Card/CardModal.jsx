@@ -1,7 +1,7 @@
 import "./styles.css"
+import styled from "styled-components";
 import ModalCaoursel from "./ModalCarousel";
 
-import styled from "styled-components";
 
 const ContentBox = styled.div`
   display: flex;

@@ -1,9 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from 'recoil';
+
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { Token } from '../../atom';
+
 
 const HeaderBox = styled.div`
   position: relative;
@@ -24,12 +25,13 @@ const HeaderText = styled.div`
 
 function NavBar () {
   // if token exists, it means 'loggedIn"
-  const token = useRecoilValue(Token);
+  const [token, setToken] = useRecoilState(Token);
   const navigate = useNavigate();
 
   // when logout, token is need to be removed.
   function removeToken() {
     localStorage.removeItem("token")
+    setToken("")
     navigate("/")
   }
 

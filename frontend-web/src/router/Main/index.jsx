@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
 import { Wrapper } from "./styles";
+import styled from "styled-components";
 
-import { useRecoilState } from "recoil";
-import { MemberID, CurrentSlide, ChildrenList, AnswerList, CurrentID } from "../../atom";
-
-import axios from "axios";
-import drf from "../../api/drf";
-import { Link } from 'react-router-dom';
 import MainCarousel from "../../components/Main/MainCarousel";
 import AnswerModal from "../../components/Childern/AnswerModal";
 
+import axios from "axios";
+import drf from "../../api/drf";
 
-import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
+import { Link } from 'react-router-dom';
+import { MemberID, CurrentSlide, ChildrenList, AnswerList } from "../../atom";
+
 
 const ScrollBtn = styled.div`
   :hover {
@@ -20,6 +20,7 @@ const ScrollBtn = styled.div`
 `
 
 function Main() {
+// Top, Bottom button
   const pageTop = {
     position: 'fixed',
     bottom: '60px',
@@ -49,31 +50,31 @@ function Main() {
     document.body.scrollIntoView({behavior: 'smooth', block: 'end'})
   }
 
-  const [memberID, setmemberID] = useRecoilState(MemberID);
-  const [currentSlide, setCurrentSlide] = useRecoilState(CurrentSlide);
+
+  const currentSlide = useRecoilValue(CurrentSlide);
+  const setMemberID = useSetRecoilState(MemberID);
   const [childrens, setChildrens] = useRecoilState(ChildrenList);
   const [answerList, setAnswerList] = useRecoilState(AnswerList);
-  const [currentChild, setCurrentChild] = useState();
-  const [id, setID] = useRecoilState(CurrentID);
 
+  // 페이지 렌더링 시 멤버에 대한 정보를 가져온다.
+  // 이 페이지에서 많은 컴포넌트들을 열기 때문에 회원ID를 저장한다
+  // 아이들 리스트와 현재 아이의 답변 리스트를 저장한다
   useEffect(() => {
     axios({
       url: drf.member.member(),
       method: "get",
       headers: {Authorization: 'Bearer ' + localStorage.getItem("token"),},
     }).then((res) => {
-      setmemberID(res.data.memberID)
+      setMemberID(res.data.memberID)
       setAnswerList(res.data.childrens[currentSlide]?.answers)
-      setID(res.data.childrens[currentSlide]?.childrenID)
       setChildrens([...res.data.childrens, {childrenID: 0}])
     })
   }, [])
-  
-  // console.log(currentChild)
 
   const childrenID = childrens[currentSlide]?.childrenID;
 
-  async function deleteChildren(childrenID) {
+// 아이 삭제하기
+  function deleteChildren(childrenID) {
     if (window.confirm('정말 삭제하시겠습니까?')) {
       const newChildrenList = []
       childrens.map((child) => {
@@ -81,24 +82,28 @@ function Main() {
           newChildrenList.push(child)
         }
       })
-      // console.log(newChildrenList) // -> 확인 완료
-
-      try {
-        await axios ({
-          url: drf.children.children(childrenID),
-          method: "delete",
-          headers: {Authorization: 'Bearer ' + localStorage.getItem("token")},
-        })
-        setChildrens(newChildrenList)
-        await updateAnswerList(newChildrenList)
-      }
-      catch (err) {
-        console.log(err)
-      }
+      updateChildrens(newChildrenList)
+      updateAnswerList(newChildrenList)
     }
   }
 
-  async function updateAnswerList(newChildrenList) {
+  // 아이 삭제 후 childrenList 업데이트
+  function updateChildrens(newChildrenList) {
+    axios({
+      url: drf.children.children(childrenID),
+        method: "delete",
+        headers: {Authorization: 'Bearer ' + localStorage.getItem("token")},
+    }).then((res) => {
+      setChildrens(newChildrenList)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+
+
+  // 아이 삭제 후 answerList 업데이트
+  // main page에서 새로고침 없이 "아이에게 하고싶은 말"을 바꾸기 위함
+  function updateAnswerList(newChildrenList) {
     const newAnswerList = [];
     newChildrenList.forEach((child) => {
       if (child.childrenID === newChildrenList[currentSlide].childrenID && newChildrenList[currentSlide].childrenID !== 0) {
@@ -106,15 +111,11 @@ function Main() {
         newAnswerList.push(...answers)
       }
     })
-    try {
-      setAnswerList(newAnswerList)
-    }
-    catch (err) {
-      console.log(err)
-    }
+    setAnswerList(newAnswerList)
   }
 
 
+// 답변 삭제하기
   function deleteAnswer(answerID) {
     const newAnswerList = [];
     answerList.map((answer) => {
@@ -133,10 +134,11 @@ function Main() {
   }
 
 
+// modal(for answer updating) code
   const [close, setClose] = useState(false) // 모달창 닫는 변수
   const [num, setNum] = useState();
 
-  function updateActivate(answer, idx) {
+  function updateAnswer(idx) {
     setNum(idx)
     setClose(!close)
   }
@@ -173,7 +175,7 @@ function Main() {
                   <div key={answer.answerID}>
                     <span>{answer.content}</span>
                     <span>{answer.createdAt}</span>
-                    <button onClick={() => updateActivate(answer, idx)}>수정</button>
+                    <button onClick={() => updateAnswer(idx)}>수정</button>
                     <button onClick={() => deleteAnswer(answer.answerID, answer.questionID)}>삭제</button>
                     { close && num===idx && (<AnswerModal answer={answer} setClose={setClose} closeModal={() => setClose(!close)} />)}
                   </div>

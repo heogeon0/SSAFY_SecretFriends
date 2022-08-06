@@ -1,11 +1,15 @@
-import styled from "styled-components";
 import Wrapper from "./styles/Form";
-import { useSetRecoilState, useRecoilValue, useRecoilState } from "recoil";
-import { Chats } from "../../atom";
+import styled from "styled-components";
+
 import ChatList from "./ChatList";
+
 import axios from "axios";
 import drf from "../../api/drf";
+
 import { useEffect } from "react";
+import { useSetRecoilState } from "recoil";
+import { Chats } from "../../atom";
+
 
 const Input = styled.input`
   display: block;
@@ -41,12 +45,12 @@ const Grid = styled.div`
 `;
 
 function Conversation() {
-  const [newChat, setNewChat] = useRecoilState(Chats);
+  const setChats = useSetRecoilState(Chats);
   
   function onSubmit(event) {
     event.preventDefault();
     const chat = event.target[0].value;
-    setNewChat((old) => [...old, chat])
+    setChats((old) => [...old, chat])
     event.target[0].value = "";
   }
 

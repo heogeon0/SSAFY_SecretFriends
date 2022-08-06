@@ -1,11 +1,13 @@
+import styled from "styled-components";
+
 import IntroCarousel from "../../components/Home/Carousel/IntroCarousel";
 import CardList from "../../components/Home/Card/CardList";
-import { Link } from 'react-router-dom';
+
 import { useEffect } from "react";
+import { Link } from 'react-router-dom';
 import { useRecoilState } from "recoil";
 import { Token } from "../../atom";
 
-import styled from "styled-components";
 
 const IntroContainer = styled.div`
   background-color: white;

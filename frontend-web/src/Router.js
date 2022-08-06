@@ -16,9 +16,9 @@ import MemberUpdate from "./router/MemberUpdate";
 import PublicRoute from "./components/PublicRoute";
 import PrivateRoute from "./components/PrivateRoute";
 
+import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { Token } from "./atom";
-import { useEffect } from "react";
 
 function Router() {
   const [token, setToken] = useRecoilState(Token);

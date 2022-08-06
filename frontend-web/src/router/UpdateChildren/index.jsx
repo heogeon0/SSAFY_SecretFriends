@@ -1,16 +1,14 @@
 import Wrapper from "./styles";
 
 import Information from "../../components/Childern/Information";
-import { useEffect, useState } from "react";
 import Character from "../../components/Childern/Chracter";
-import { Chats, FaceInfo } from "../../atom";
-import { useRecoilValue, useRecoilState } from "recoil";
 
-import { storage } from "../../api/firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import axios from "axios";
 import drf from "../../api/drf";
+
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+
 
 function UpdateChildren() {
   const [slide, setSlide] = useState(1);
@@ -21,19 +19,17 @@ function UpdateChildren() {
   const [admission, setAdmission] = useState("");
   const [characterID, setCharacterID] = useState(1);
   const [characterName, setCharacterName] = useState("");
-  const [isUploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [photoURL, setPhotosURL] = useState([]);
-  const [chats, setChats] = useRecoilState(Chats);
-  const faces = useRecoilValue(FaceInfo);
   const [memberID, setMemberID] = useState();
-  const [childrenID, setChildrenID] = useState();
 
-  const params = parseInt(useParams(childrenID).childrenID)
-  
+  // child's ID by getting the parameter from the url
+  const childrenID = parseInt(useParams().childrenID)
+
+  // 페이지가 렌더링될 때 아이에 대한 정보를 가져온다
+  // 첫 번째 axios: answers, 생년월일, 아이ID, 입원일, 부모ID, 아이 이름, 아이닉네임
+  // 두 번째 axios: 캐랙터ID, 아이ID, 아이 캐릭터ID, 캐릭터닉네임
   useEffect(() => {
     axios({
-      url: drf.children.children(params),
+      url: drf.children.children(childrenID),
       method: "get",
       headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
     })
@@ -41,12 +37,12 @@ function UpdateChildren() {
         setName(res.data.name)
         setNickName(res.data.nickname)
         setMemberID(res.data.memberID)
-        // 생년월일, 입원일자는 입력 불가
+        // 생년월일, 입원일은 저장 불가
       })
       .catch(err => console.log(err))
 
       axios({
-        url: drf.mycharacter.updateCharacter(params),
+        url: drf.mycharacter.updateCharacter(childrenID),
         method: "get",
         headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
       }).then((res) => {
@@ -55,76 +51,64 @@ function UpdateChildren() {
       })
   }, [])
 
+  
   // separation of date of birth
   const birthDay = parseInt(birth.slice(8, 10))
   const birthMonth = parseInt(birth.slice(5, 7))
   const birthYear = parseInt(birth.slice(0, 4))
 
-
-// after pressing the complete button, three axios will operate sequentially
   const navigate = useNavigate();
-  // first axios. for create children(birthday, etc.)
-  async function updateChildren () {
-    try {
-      const res = await axios({
-        url: drf.children.childrens(),
-        method: "put",
-        headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
-        data: {
-          childrenID: params,
-          memberID: memberID,
-          hospitalizationDay: admission,
-          birthDay: birthDay,
-          birthMonth: birthMonth,
-          birthYear: birthYear,
-          name: name.trim(),
-          nickname: nickName.trim(),
-        }
-      })
-      async function next() {
-        await updateChildrenCharacter()
-        await goMain()
-      }
-      next()
-    }
-    catch (err) {
-      console.log(err)
-    }
-  }
-  // second axios. for create character of children(nickname)
-  async function updateChildrenCharacter () {
-    try {
-      const res = await axios({
-        url: drf.mycharacter.updateCharacter(params),
-        method: "put",
-        headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
-        data: {
-          characterID: characterID,
-          childrenID: params,
-          nickname: characterName.trim(),
-        }
-      })
-      // console.log(res)
-    }
-    catch(err) {
-      console.log(err)
-    }
+
+  function updateChildren () {
+    updateInfo()
+    updateCharacter()
+    goMain()
   }
 
-  // after three axios done, it goes to "main" page
-  async function goMain () {
-    try {
-      setChats([])
-      navigate('/main')
-    }
-    catch(err) {
+  function updateInfo() {
+    axios({
+      url: drf.children.childrens(),
+        method: "put",
+        headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
+        data: {
+        childrenID: childrenID,
+        memberID: memberID,
+        hospitalizationDay: admission,
+        birthDay: birthDay,
+        birthMonth: birthMonth,
+        birthYear: birthYear,
+        name: name.trim(),
+        nickname: nickName.trim(),
+      }
+    }).then((res) => {
+    }).catch((err) => {
       console.log(err)
-    }
+    })
+  }
+
+  function updateCharacter() {
+    axios({
+      url: drf.mycharacter.updateCharacter(childrenID),
+      method: "put",
+      headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
+      data: {
+        characterID: characterID,
+        childrenID: childrenID,
+        nickname: characterName.trim(),
+      }
+    }).then((res) => {
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+
+  function goMain () {
+    navigate('/main')
   }
 
 
 // child information registration
-// function to move to the mext in the child registration form
+// function to move to the next in the child registration form
 // movement restrictions placed
   function goNext() {
     switch (slide) {
@@ -161,8 +145,7 @@ function UpdateChildren() {
       setSlide(slide + 1);
       setError("");
     } else {
-      // next to step4 is the 'done' button.
-      // when the 'done' button is clicked, axios requests for child information registration will be executed
+      // when the 'done' button is clicked, axios requests for child information update will be executed
       updateChildren()
     };
   }
@@ -175,7 +158,7 @@ function UpdateChildren() {
     }
   }
 
-  // component call according to step (step1-4)
+  // component call according to step (step1-2)
   const tab = {
     1: (
       <Information

@@ -1,10 +1,11 @@
 import Wrapper from "./styles";
-
 import styled from "styled-components";
+
 import SignupForm from "../../components/Member/SignUpForm";
-import { useEffect, useState } from "react";
+
 import axios from "axios";
 import drf from "../../api/drf";
+import { useEffect, useState } from "react";
 
 
 const Box = styled.div`
@@ -18,9 +19,10 @@ function MemberUpdate() {
   // if don't use the conditional statement, it errors
   const [name, setName] = useState(currentUser ? currentUser.data.name : '');
   const [phoneNumber, setPhoneNumber] = useState(currentUser ? currentUser.data.phoneNumber : '');
-  const isUpdate = true;
   const [memberID, setMemberID] = useState(currentUser ? currentUser.data.memberID : null);
+  const isUpdate = true;
   
+  // 페이지 렌더링 시, 로그인하면서 받은 토큰 정보를 바탕으로 회원 정보를 가져온다
   useEffect( () => {
     axios(
       {

@@ -2,17 +2,19 @@ import Wrapper from "./styles";
 
 import Information from "../../components/Childern/Information";
 import Face from "../../components/Childern/Face";
-import { useEffect, useState } from "react";
 import Character from "../../components/Childern/Chracter";
 import Conversation from "../../components/Childern/Conversation";
-import { Chats, FaceInfo } from "../../atom";
-import { useRecoilValue, useRecoilState } from "recoil";
 
-import { storage } from "../../api/firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import axios from "axios";
 import drf from "../../api/drf";
+import { storage } from "../../api/firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { Chats, FaceInfo } from "../../atom";
+
 
 function CreateChildren() {
   const [slide, setSlide] = useState(1);
@@ -26,11 +28,12 @@ function CreateChildren() {
   const [isUploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [photoURL, setPhotosURL] = useState([]);
+  const [memberID, setMemberID] = useState();
+  
   const [chats, setChats] = useRecoilState(Chats);
   const faces = useRecoilValue(FaceInfo);
-  const [memberID, setMemberID] = useState();
-  const [childrenID, setChildrenID] = useState();
 
+// 렌더링 시, 토큰을 바탕으로 로그인한 멤버 정보를 가져온다
   useEffect(() => {
     axios({
       url: drf.member.member(),
@@ -97,7 +100,6 @@ function CreateChildren() {
           nickname: nickName,
         }
       })
-      setChildrenID(res.data.childrenID)
       async function next() {
         await createChildrenCharacter(res.data.childrenID)
         await createAnswer(res.data.childrenID)

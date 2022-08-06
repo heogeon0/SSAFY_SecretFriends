@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import { useState } from "react";
 import CardModal from "./CardModal";
+import { useState } from "react";
 
 const CardBox = styled.div`
   width: 1fr;

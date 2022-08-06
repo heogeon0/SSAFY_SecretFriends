@@ -1,8 +1,10 @@
+import styled from "styled-components";
+
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { FaceInfo } from "../../atom";
+
 
 const ImgDiv = styled.label`
   background-image: url(${(props) => props.img || "/img/plus.png"});
