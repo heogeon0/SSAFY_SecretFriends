@@ -1,12 +1,12 @@
 import { atom } from "recoil";
 
 export const FaceInfo = atom({
-  key: "Face",
+  key: "FaceInfo",
   default: [],
 });
 
 export const Chats = atom({
-  key: "Chat",
+  key: "Chats",
   default: [],
 });
 
@@ -15,26 +15,10 @@ export const Token = atom({
   default: localStorage.getItem('token') || '',
 })
 
-// export const IsLoggedIn = atom({
-//   key: "IsLoggedIn",
-//   // default: !!localStorage.getItem('token'),
-//   default: false,
-// })
-
 export const MemberID = atom({
   key: "MemberID",
   default: "",
 })
-
-// export const ChildrenID = atom({
-//   key: "ChildrenID",
-//   default: null,
-// })
-
-// export const CharacterID = atom({
-//   key: "CharacterID",
-//   default: "",
-// })
 
 export const CurrentID = atom({
   key: "CurrentID",
@@ -55,11 +39,6 @@ export const ChildrenList = atom({
   key: "ChildrenList",
   default: []
 })
-
-// export const NowAnswer = atom({
-//   key: "NowAnswer",
-//   default: null,
-// })
 
 export const AnswerList = atom({
   key: "AnswerList",
