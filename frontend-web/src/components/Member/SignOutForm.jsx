@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
-import { useRecoilState } from "recoil";
-import { Token } from "../../atom";
+import styled from "styled-components";
 
 import axios from "axios";
 import drf from "../../api/drf";
-import styled from "styled-components";
+
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
+import { useSetRecoilState } from "recoil";
+import { Token } from "../../atom";
 
 
 const ButtonWrap = styled.div``;
@@ -57,7 +58,7 @@ const Form = styled.form`
 
 function SignOutForm() {
   const [ currentUser, setCurrentUser ] = useState();
-  const [token, setToken] = useRecoilState(Token);
+  const setToken = useSetRecoilState(Token);
   const { register, handleSubmit, formState: { errors }, } = useForm();
   const navigate = useNavigate();
 
@@ -72,54 +73,31 @@ function SignOutForm() {
       })
       .catch(err => { console.log(err) })
     }, [])
-    
-    // console.log(currentUser)
 
   
-  async function onSubmit(data) {
+  function onSubmit(data) {
     if (data.password === currentUser.data.password) {
       if (window.confirm("정말로 회원탈퇴 하시겠습니까?")) {
-        try {
-          await axios ({
+        axios ({
             url: drf.member.deleteMember(currentUser.data.memberID),
             method: "delete",
             headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
+          }).then((res) => {
           })
-          next()
+          removeToken()
+          navigate('/')
         }
-        catch (err) {
-          console.log(err)
-        }
-      }
     }
     else {
       alert("비밀번호가 틀렸습니다")
     }
   }
 
-  async function next() {
-    await removeToken()
-    await goMain()
+  function removeToken() {
+    localStorage.removeItem("token")
+    setToken("")
   }
 
-  async function removeToken() {
-    try {
-      localStorage.removeItem("token")
-      setToken("")
-    }
-    catch (err) {
-      console.log(err)
-    }
-  }
-
-  async function goMain() {
-    try {
-      navigate('/')
-    }
-    catch(err) {
-      console.log(err)
-    }
-  }
 
   return (
     <div>

@@ -1,5 +1,5 @@
-import Slider from "react-slick";
 import styled from "styled-components";
+import Slider from "react-slick";
 
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
@@ -26,21 +26,6 @@ const TextBox = styled.div`
   justify-content: center;
   height: 500px;
 `
-// const Button = styled.button`
-//   font-weight: bold;
-//   font-size: large;
-//   border: none;
-//   width: 120px;
-//   background-color: "#e0e0e00";
-//   border-radius: 20px;
-//   padding: 10px;
-//   margin: 3rem 0 0 0;
-//   :hover {
-//     cursor: pointer;
-//     background-color: black;
-//     color: white;
-//   }
-// `
 
 const Content = styled.p`
   margin: 10px 0 0 0;
@@ -140,7 +125,6 @@ function IntroCarousel () {
           </ItemBox>
         </Slider>
       </CarouselBox>
-      {/* Top, Bottom Scroll button */}
       <div>
         <ScrollBtn>
           <i onClick={moveToTop} className="fa-solid fa-circle-chevron-up fa-2xl" style={ pageTop }></i>

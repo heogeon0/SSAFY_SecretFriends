@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
 
 import axios from "axios";
 import drf from "../../api/drf";
-import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+
+import { Link, useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { useForm } from "react-hook-form";
 import { Token } from "../../atom";
 
 
@@ -61,7 +61,7 @@ const Form = styled.form`
 `;
 
 function LoginForm() {
-  const [token, setToken] = useRecoilState(Token);
+  const setToken = useSetRecoilState(Token);
 
   const {
     register,

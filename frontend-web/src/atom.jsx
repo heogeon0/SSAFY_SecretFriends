@@ -20,11 +20,6 @@ export const MemberID = atom({
   default: "",
 })
 
-export const CurrentID = atom({
-  key: "CurrentID",
-  default: null,
-})
-
 export const CurrentChild = atom({
   key: "CurrentChild",
   deafult: "",

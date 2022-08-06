@@ -37,8 +37,6 @@ const ModalCarousel = ({imgs}) => {
     },
   };
 
-// const handleDragStart = (e) => e.preventDefault();
-
   const images = [
     "img/main.png",
     "img/main.png",
@@ -51,7 +49,6 @@ const ModalCarousel = ({imgs}) => {
   console.log(images)
 
   const items = images.map((image) => {
-    // console.log(image)
     return (
       <ItemsContain>
       <ItemsWrap>

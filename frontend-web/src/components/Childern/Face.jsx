@@ -1,13 +1,15 @@
 import Wrapper from "./styles/Form";
 import styled from "styled-components";
-import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+
 import FaceItem from "./FaceItem";
+
+import { useState } from "react";
 import { FaceInfo } from "../../atom";
 import { useRecoilValue } from "recoil";
 
 import { storage } from "../../api/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
 
 const Grid = styled.div`
   height: 100%;
