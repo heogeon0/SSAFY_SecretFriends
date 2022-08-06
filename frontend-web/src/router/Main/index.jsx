@@ -6,12 +6,49 @@ import { MemberID, CurrentSlide, ChildrenList, AnswerList, CurrentID } from "../
 
 import axios from "axios";
 import drf from "../../api/drf";
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import MainCarousel from "../../components/Main/MainCarousel";
 import AnswerModal from "../../components/Childern/AnswerModal";
 
 
+import styled from "styled-components";
+
+const ScrollBtn = styled.div`
+  :hover {
+    cursor: pointer;
+  }
+`
+
 function Main() {
+  const pageTop = {
+    position: 'fixed',
+    bottom: '60px',
+    right: '30px',
+    width: '40px',
+    height: '40px',
+    /* border: 1px solid #eee; */
+    borderRadius: '50%',
+    color: 'gray',
+  }
+
+  const pageBottom = {
+    position: 'fixed',
+    bottom: '40px',
+    right: '30px',
+    width: '40px',
+    height: '20px',
+    borderRadius: '50%',
+    color: 'gray',
+  }
+
+  function moveToTop () {
+    document.body.scrollIntoView({behavior: 'smooth'});
+  } 
+
+  function moveToBottom () {
+    document.body.scrollIntoView({behavior: 'smooth', block: 'end'})
+  }
+
   const [memberID, setmemberID] = useRecoilState(MemberID);
   const [currentSlide, setCurrentSlide] = useRecoilState(CurrentSlide);
   const [childrens, setChildrens] = useRecoilState(ChildrenList);
@@ -146,6 +183,14 @@ function Main() {
           </div>
         </div>
       </>
+      <div>
+        <ScrollBtn>
+          <i onClick={moveToTop} className="fa-solid fa-circle-chevron-up fa-2xl" style={ pageTop }></i>
+        </ScrollBtn>
+        <ScrollBtn>
+          <i onClick={moveToBottom} className="fa-solid fa-circle-chevron-down fa-2xl" style={ pageBottom }></i>
+        </ScrollBtn>
+      </div>
     </Wrapper>
   );
 }

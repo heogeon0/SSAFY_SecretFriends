@@ -97,7 +97,6 @@ function CreateChildren() {
           nickname: nickName,
         }
       })
-      console.log(res)
       setChildrenID(res.data.childrenID)
       async function next() {
         await createChildrenCharacter(res.data.childrenID)
@@ -112,7 +111,6 @@ function CreateChildren() {
   }
   // second axios. for create character of children(nickname)
   async function createChildrenCharacter (props) {
-    console.log(props)
     try {
       const res = await axios({
         url: drf.mycharacter.createCharacter(),
@@ -124,7 +122,6 @@ function CreateChildren() {
           nickname: characterName,
         }
       })
-      console.log(res)
     }
     catch(err) {
       console.log(err)
@@ -144,7 +141,6 @@ function CreateChildren() {
           questionID: 1,
         }
       })
-      console.log(res)
     }
     catch(e) {
       console.log(e)

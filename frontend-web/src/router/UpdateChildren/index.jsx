@@ -77,8 +77,8 @@ function UpdateChildren() {
           birthDay: birthDay,
           birthMonth: birthMonth,
           birthYear: birthYear,
-          name: name,
-          nickname: nickName,
+          name: name.trim(),
+          nickname: nickName.trim(),
         }
       })
       async function next() {
@@ -101,7 +101,7 @@ function UpdateChildren() {
         data: {
           characterID: characterID,
           childrenID: params,
-          nickname: characterName,
+          nickname: characterName.trim(),
         }
       })
       // console.log(res)

@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import drf from "../../api/drf";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 
 const ERROR = styled.div`
   grid-column: 1 / 3;
@@ -63,7 +62,6 @@ const Form = styled.form`
 function SignupForm({
   name, setName, phoneNumber, setPhoneNumber, isUpdate, memberID,
 }) {
-  // console.log(data.name)
   const {
     register,
     watch,
@@ -75,7 +73,6 @@ function SignupForm({
 
   function ChangeName(event) {
     setName(event.target.value)
-    console.log(event.target.value)
   }
 
   function ChangePhoneNumber(event) {
@@ -83,8 +80,8 @@ function SignupForm({
   }
 
   function onSubmit({name, phoneNumber, password, email}) {
-    const newData = { name, phoneNumber, password, email }
-    const updateData = { name, phoneNumber, memberID }
+    const newData = { name: name.trim(), phoneNumber, password, email }
+    const updateData = { name: name.trim(), phoneNumber, memberID }
     // case1: 회원가입 form
     if (!isUpdate) {
       axios ({
@@ -93,7 +90,6 @@ function SignupForm({
           data: newData,
         })
           .then(res => {
-            console.log(res)
             navigate('/login')
           })
           .catch(err => {
@@ -113,8 +109,6 @@ function SignupForm({
         .then(res => {
           alert('회원정보가 수정되었습니다.')
           console.log(res)
-          console.log(updateData)
-          console.log("update 되었습니다")
           navigate('/main')
         })
         .catch(err => console.log(err))
@@ -151,8 +145,11 @@ function SignupForm({
             {...register("phoneNumber", {
               required: "전화번호를 입력해주세요",
               pattern: {
-                value: /[0-9]/,
-                message: "숫자만 입력해주세요",
+                // value: /[0-9]/,
+                // message: "숫자만 입력해주세요",
+                // 숫자 대신 휴대전화 번호 양식에 맞게 입력 필요 (선택)
+                value: /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/,
+                message: "000-0000-0000 양식에 맞게 입력해주세요"
               },
             })}
             type="text"
