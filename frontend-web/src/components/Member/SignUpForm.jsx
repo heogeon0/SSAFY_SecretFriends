@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import drf from "../../api/drf";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 
 const ERROR = styled.div`
   grid-column: 1 / 3;
@@ -81,8 +80,8 @@ function SignupForm({
   }
 
   function onSubmit({name, phoneNumber, password, email}) {
-    const newData = { name, phoneNumber, password, email }
-    const updateData = { name, phoneNumber, memberID }
+    const newData = { name: name.trim(), phoneNumber, password, email }
+    const updateData = { name: name.trim(), phoneNumber, memberID }
     // case1: 회원가입 form
     if (!isUpdate) {
       axios ({
