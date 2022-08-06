@@ -1,8 +1,9 @@
 import Wrapper from "./styles";
-import { useState } from "react";
 
 import SignUpForm from "../../components/Member/SignUpForm";
 import styled from "styled-components";
+
+import { useState } from "react";
 
 const Box = styled.div`
   height: 700px;
@@ -12,8 +13,8 @@ const Box = styled.div`
 function SignUp() {
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const memberID = useState(null)[0];
   const isUpdate = false;
-  const [memberID, setMemberID] = useState(null);
 
   return (
     <Box>
