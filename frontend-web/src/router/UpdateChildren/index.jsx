@@ -37,6 +37,7 @@ function UpdateChildren() {
         setName(res.data.name)
         setNickName(res.data.nickname)
         setMemberID(res.data.memberID)
+        // 생년월일, 입원일은 저장 불가
       })
       .catch(err => console.log(err))
 
