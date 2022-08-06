@@ -47,7 +47,7 @@ const CharacterForm = styled.div`
 
 function Character({ characterName, setCharacterName }) {
   function onChange(event) {
-    setCharacterName(event.target.value.trim());
+    setCharacterName(event.target.value);
   }
   return (
     <Wrapper>
