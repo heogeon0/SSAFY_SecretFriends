@@ -20,11 +20,6 @@ export const MemberID = atom({
   default: "",
 })
 
-export const CurrentChild = atom({
-  key: "CurrentChild",
-  deafult: "",
-})
-
 export const CurrentSlide = atom({
   key: "CurrentSilde",
   default: 0,
