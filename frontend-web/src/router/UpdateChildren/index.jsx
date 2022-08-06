@@ -80,7 +80,6 @@ function UpdateChildren() {
         nickname: nickName.trim(),
       }
     }).then((res) => {
-      console.log(res)
     }).catch((err) => {
       console.log(err)
     })
@@ -97,7 +96,6 @@ function UpdateChildren() {
         nickname: characterName.trim(),
       }
     }).then((res) => {
-      console.log(res)
     }).catch((err) => {
       console.log(err)
     })
