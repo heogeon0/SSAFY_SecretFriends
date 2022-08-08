@@ -3,6 +3,7 @@ import sys
 import urllib.request
 # import webbrowser
 import datetime
+from playsound import playsound
 
 
 def playTTS(word):
@@ -23,8 +24,7 @@ def playTTS(word):
         response_body = response.read()
         with open('tts.mp3', 'wb') as f:
             f.write(response_body)
-        # webbrowser.open('tts.mp3')
-        os.system("mpg123 " + "tts.mp3")
+        playsound('tts.mp3')
     else:
         print("Error Code:" + rescode)
 
