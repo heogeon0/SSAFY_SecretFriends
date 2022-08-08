@@ -15,7 +15,7 @@ import Character from "../components/ThreeModel/models/Character";
 import Cloud from "../components/ThreeModel/factors/cloud";
 import Plane from "../components/ThreeModel/factors/plane";
 import Chats from "../components/Chats/Chats";
-
+import Grass from "../components/ThreeModel/factors/grass";
 // function Box() {
 // const [ref, api] = useBox(() => ({ mass: 1, position: [0, 2, 0] }));
 //   return (
@@ -32,37 +32,15 @@ import Chats from "../components/Chats/Chats";
 //   );
 // }
 
-// function Plane() {
-//   const [ref] = useBox(() => ({ rotation: [-Math.PI / 2, 0, 0] }));
-//   return (
-//     <mesh ref={ref} position={[0, 10, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-//       <planeBufferGeometry attach="geometry" args={[100, 100]} />
-//       <meshLambertMaterial attach="material" color="hotpink" />
-//     </mesh>
-//   );
-// }
-
-// Pyodide
-// const runScript = async (code) => {
-//   const pyodide = await window.loadPyodide({
-//     indexURL : "https://cdn.jsdelivr.net/pyodide/v0.20.0/full/"
-//   });
-
-//   return await pyodide.runPythonAsync(code)
-// }
-
-// const MyCanvas = () => {
-//   const [output, setOutput] = useState("(loading...)");
-
-//   useEffect(() => {
-//     const run = async () => {
-//       const scriptText = await (await fetch(script)).text();
-//       const out = await runScript(scriptText);
-//       setOutput(out);
-//     }
-//     run();
-
-//   }, []);
+function Plane1() {
+  const [ref] = useBox(() => ({ rotation: [-Math.PI / 2, 0, 0] }));
+  return (
+    <mesh ref={ref} position={[0, 10, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      <planeBufferGeometry attach="geometry" args={[100, 100]} />
+      <meshLambertMaterial attach="material" color="hotpink" />
+    </mesh>
+  );
+}
 
 function MyCanvas() {
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
@@ -77,8 +55,12 @@ function MyCanvas() {
   return (
     <div>
       <Canvas
-        camera={{ fov: 85, position: [0, 2, 10] }}
-        style={{ width: "100vw", height: "100vh" }}
+        camera={{ fov: 85, position: [0, 1, 10] }}
+        style={{
+          width: "100vw",
+          height: "100vh",
+          backgroundImage: "linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%)",
+        }}
       >
         <RecoilBridge>
           {/* fov : 카메라 확대 정도 */}
@@ -90,10 +72,11 @@ function MyCanvas() {
           <spotLight position={[5, 5, 5]} angle={1} />
           <Physics>
             {/* <Box /> */}
-            <Character position={[0, -3, 4]} angle={90} />
+            <Character position={[0, -3, 3]} />
             <Plane />
             <Cloud />
             <Chats />
+            <Grass />
           </Physics>
         </RecoilBridge>
       </Canvas>
