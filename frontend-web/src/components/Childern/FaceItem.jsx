@@ -24,7 +24,7 @@ function FaceItem() {
     if (image && image.length > 0) {
       const file = image[0];
       setImagePreview(URL.createObjectURL(file));
-      setImage((val) => [...val, image[0]]);
+      setImage(image[0]);
     }
   }, [image]);
   return (

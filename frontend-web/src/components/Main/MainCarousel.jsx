@@ -18,7 +18,8 @@ function MainCarousel() {
   const childrenList = useRecoilValue(ChildrenList);
   const setAnswerList = useSetRecoilState(AnswerList);
 
-// "front", "back" button for carousel
+  
+  // "front", "back" button for carousel
   const total = childrenList.length;
   function goNext() {
     if (currentSlide + 1 < total) {
@@ -50,7 +51,7 @@ function MainCarousel() {
       <button onClick={goNext}>뒤</button>
       <Container>
         {childrenList.map((child, idx) => {
-          return <Slider key={`아이번호${child.childrenID}`} check={check(idx)} child={child} />;
+          return <Slider key={`아이번호${child.childrenID}`} check={check(idx)} child={child} idx={idx} />;
         })}
       </Container>
     </>

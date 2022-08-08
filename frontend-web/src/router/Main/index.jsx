@@ -8,8 +8,8 @@ import axios from "axios";
 import drf from "../../api/drf";
 
 import { useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 import { Link } from 'react-router-dom';
+import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 import { MemberID, CurrentSlide, ChildrenList, AnswerList } from "../../atom";
 
 
@@ -20,6 +20,7 @@ const ScrollBtn = styled.div`
 `
 
 function Main() {
+  // <ReactLoading type={type} color={'black'} height={'20%'} width={'20%'} />
 // Top, Bottom button
   const pageTop = {
     position: 'fixed',
@@ -56,6 +57,7 @@ function Main() {
   const [childrens, setChildrens] = useRecoilState(ChildrenList);
   const [answerList, setAnswerList] = useRecoilState(AnswerList);
 
+
   // 페이지 렌더링 시 멤버에 대한 정보를 가져온다.
   // 이 페이지에서 많은 컴포넌트들을 열기 때문에 회원ID를 저장한다
   // 아이들 리스트와 현재 아이의 답변 리스트를 저장한다
@@ -70,7 +72,7 @@ function Main() {
       setChildrens([...res.data.childrens, {childrenID: 0}])
     })
   }, [])
-
+  
   const childrenID = childrens[currentSlide]?.childrenID;
 
 // 아이 삭제하기

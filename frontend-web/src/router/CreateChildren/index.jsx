@@ -8,7 +8,7 @@ import Conversation from "../../components/Childern/Conversation";
 import axios from "axios";
 import drf from "../../api/drf";
 import { storage } from "../../api/firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes } from "firebase/storage";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -25,13 +25,12 @@ function CreateChildren() {
   const [admission, setAdmission] = useState("");
   const [characterID, setCharacterID] = useState(1);
   const [characterName, setCharacterName] = useState("");
-  const [isUploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [photoURL, setPhotosURL] = useState([]);
+  const [isUploading, setUploading] = useState(false);  // 업로드 상태
+  // const [photoURL, setPhotosURL] = useState([]);  // 업로드 완료된 사진 링크들
   const [memberID, setMemberID] = useState();
   
   const [chats, setChats] = useRecoilState(Chats);
-  const faces = useRecoilValue(FaceInfo);
+  const face = useRecoilValue(FaceInfo);
 
 // 렌더링 시, 토큰을 바탕으로 로그인한 멤버 정보를 가져온다
   useEffect(() => {
@@ -51,35 +50,39 @@ function CreateChildren() {
   const birthMonth = parseInt(birth.slice(5, 7))
   const birthYear = parseInt(birth.slice(0, 4))
 
-  // console.log(process.env.REACT_APP_FB_STORAGE_BUCKET);
 
   // for step2: face-image registration
-  const handleImageUpload = async (fileList) => {
+
+  const handleImageUpload = async (childrenID) => {
     try {
       setUploading(true);
-      const urls = await Promise.all(
-        faces?.map((face) => {
-          const storageRef = ref(storage, `images/${face.name}`);
-          const task = uploadBytesResumable(storageRef, face);
-          task.on("state_changed", (snapshot) => {
-            setProgress(
-              Math.round(
-                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-              )
-            );
-          });
-          return getDownloadURL(storageRef);
-        })
-      );
-      setPhotosURL(urls);
+      const storageRef = ref(storage, `images/${childrenID}`);
+
+      await uploadBytes(storageRef, face)
       alert("업로드 완료");
+
+      // const urls = await Promise.all(
+      //   face?.map((face) => {
+      //     const storageRef = ref(storage, `images/${childrenID}.png`);
+      //     const task = uploadBytesResumable(storageRef, face);
+      //     task.on("state_changed", (snapshot) => {
+      //       setProgress(
+      //         Math.round(
+      //           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      //         )
+      //       );
+      //     });
+      //     return getDownloadURL(storageRef)
+      //   })
+      // );
+
+      // setPhotosURL(urls);
     } catch (err) {
       console.log(err);
     }
-    setProgress(0);
     setUploading(false);
   };
-
+  
 
 // after pressing the complete button, three axios will operate sequentially
   const navigate = useNavigate();
@@ -101,6 +104,7 @@ function CreateChildren() {
         }
       })
       async function next() {
+        await handleImageUpload(res.data.childrenID)
         await createChildrenCharacter(res.data.childrenID)
         await createAnswer(res.data.childrenID)
         await goMain()
@@ -111,6 +115,7 @@ function CreateChildren() {
       console.log(err)
     }
   }
+
   // second axios. for create character of children(nickname)
   async function createChildrenCharacter (props) {
     try {
@@ -184,10 +189,11 @@ function CreateChildren() {
         }
         break;
       case 2:
-        // if (faces.length < 10) {
-        //   setError("아이 사진을 열장 등록해주세요");
-        //   return;
-        // } else {
+        if (face.length < 1) {
+          setError("아이 사진을 등록해주세요");
+          return;
+        } 
+        // else {
         //   handleImageUpload();
         // }
         break;
