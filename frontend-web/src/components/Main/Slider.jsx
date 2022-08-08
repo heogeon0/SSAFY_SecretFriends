@@ -39,7 +39,7 @@ function Slider({ check, child, idx }) {
   const backgroundImg = child && !child.childrenID ? "../../img/plus.png" : url;
   const navigate = useNavigate();
   // '+' 컴포넌트의 경우, 한 번 누르면 carousel 이동 / 두 번 누르면 create children 페이지로 이동
-  const [isPlus, setIsPlus] = useState(false);
+  const [isPlus, setIsPlus] = useState(-1);
 
   useEffect(() => {
     const storageRef = ref(storage, `images/${child.childrenID}`);
@@ -52,10 +52,16 @@ function Slider({ check, child, idx }) {
   function moveTo(idx) {
     setCurrentSlide(idx)
     setAnswerList(childrenList[idx].answers)
-    setIsPlus(!isPlus)
 
-    if (childrenList[idx].childrenID === 0 && isPlus) {
+    if (childrenList.length === 1 && childrenList[idx].childrenID === 0) {
       navigate('/CreateChildren')
+    }
+    else if (childrenList[idx].childrenID === 0) {
+      setIsPlus(isPlus + 1)
+      if (!(isPlus % 2)) {
+        navigate('/CreateChildren')
+        setCurrentSlide(idx => idx -1)
+      }
     }
   }
 
