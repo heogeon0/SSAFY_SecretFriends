@@ -3,8 +3,6 @@ import Slider from "./Slider";
 
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { CurrentSlide, ChildrenList, AnswerList } from "../../atom";
-import { storage } from "../../api/firebase";
-import { ref, getDownloadURL } from "firebase/storage";
 
 
 const Container = styled.div`
@@ -53,7 +51,7 @@ function MainCarousel() {
       <button onClick={goNext}>뒤</button>
       <Container>
         {childrenList.map((child, idx) => {
-          return <Slider key={`아이번호${child.childrenID}`} check={check(idx)} child={child} />;
+          return <Slider key={`아이번호${child.childrenID}`} check={check(idx)} child={child} idx={idx} />;
         })}
       </Container>
     </>
