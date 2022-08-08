@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useRecoilValue } from "recoil";
 
 import { storage } from "../../api/firebase";
 import { ref, getDownloadURL } from "firebase/storage";
@@ -31,9 +30,9 @@ function Slider({ check, child }) {
 
   useEffect(() => {
     const storageRef = ref(storage, `images/${child.childrenID}`);
-        getDownloadURL(storageRef).then((url) => {
-          setURL(url)
-        })
+      getDownloadURL(storageRef).then((url) => {
+        setURL(url)
+      })
   }, [])
 
   const backgroundImg = child && !child.childrenID ? "../../img/plus.png" : url
