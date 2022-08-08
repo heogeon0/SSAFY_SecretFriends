@@ -1,4 +1,10 @@
 import styled from "styled-components";
+import { useRecoilValue } from "recoil";
+
+import { storage } from "../../api/firebase";
+import { ref, getDownloadURL } from "firebase/storage";
+import { useEffect, useState } from "react";
+
 
 const NowSlider = styled.div`
   width: ${(props) => (props.check === "now" ? "30%" : "25%")};
@@ -20,8 +26,17 @@ const NowSlider = styled.div`
   background-size: cover;
 `;
 
-function Slider({ check, child, bg }) {
-  const backgroundImg = child && !child.childrenID ? "../../img/plus.png" : "https://picsum.photos/200/300"
+function Slider({ check, child }) {
+  const [url, setURL] = useState();
+
+  useEffect(() => {
+    const storageRef = ref(storage, `images/${child.childrenID}`);
+        getDownloadURL(storageRef).then((url) => {
+          setURL(url)
+        })
+  }, [])
+
+  const backgroundImg = child && !child.childrenID ? "../../img/plus.png" : url
   return (
     <>
       {check !== "hidden" ? (

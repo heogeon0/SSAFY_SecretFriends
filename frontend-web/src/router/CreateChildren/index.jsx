@@ -8,7 +8,7 @@ import Conversation from "../../components/Childern/Conversation";
 import axios from "axios";
 import drf from "../../api/drf";
 import { storage } from "../../api/firebase";
-import { ref, uploadBytesResumable, getDownloadURL, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes } from "firebase/storage";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -26,12 +26,11 @@ function CreateChildren() {
   const [characterID, setCharacterID] = useState(1);
   const [characterName, setCharacterName] = useState("");
   const [isUploading, setUploading] = useState(false);  // 업로드 상태
-  const [photoURL, setPhotosURL] = useState([]);  // 업로드 완료된 사진 링크들
+  // const [photoURL, setPhotosURL] = useState([]);  // 업로드 완료된 사진 링크들
   const [memberID, setMemberID] = useState();
   
   const [chats, setChats] = useRecoilState(Chats);
   const face = useRecoilValue(FaceInfo);
-  console.log(face)
 
 // 렌더링 시, 토큰을 바탕으로 로그인한 멤버 정보를 가져온다
   useEffect(() => {
@@ -51,7 +50,6 @@ function CreateChildren() {
   const birthMonth = parseInt(birth.slice(5, 7))
   const birthYear = parseInt(birth.slice(0, 4))
 
-  // console.log(process.env.REACT_APP_FB_STORAGE_BUCKET);
 
   // for step2: face-image registration
 
@@ -60,11 +58,8 @@ function CreateChildren() {
       setUploading(true);
       const storageRef = ref(storage, `images/${childrenID}`);
 
-      await uploadBytes(storageRef, face).then((res) => {console.log(res)})
-      .catch((err) => console.log(err))
-      
-      await getDownloadURL(storageRef).then((url) => {setPhotosURL(url)})
-      .catch((err) => {console.log(err)})
+      await uploadBytes(storageRef, face)
+      alert("업로드 완료");
 
       // const urls = await Promise.all(
       //   face?.map((face) => {
@@ -82,7 +77,6 @@ function CreateChildren() {
       // );
 
       // setPhotosURL(urls);
-      alert("업로드 완료");
     } catch (err) {
       console.log(err);
     }

@@ -3,13 +3,6 @@ import styled from "styled-components";
 
 import FaceItem from "./FaceItem";
 
-// import { useState } from "react";
-// import { FaceInfo } from "../../atom";
-// import { useRecoilValue } from "recoil";
-
-// import { storage } from "../../api/firebase";
-// import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-
 
 const Grid = styled.div`
   height: 100%;
@@ -21,7 +14,6 @@ const Grid = styled.div`
 `;
 
 function Face() {
-  // const faces = useRecoilValue(FaceInfo);
 
   return (
     <Wrapper>

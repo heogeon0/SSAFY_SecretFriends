@@ -69,8 +69,9 @@ function Main() {
       setAnswerList(res.data.childrens[currentSlide]?.answers)
       setChildrens([...res.data.childrens, {childrenID: 0}])
     })
-  }, [])
 
+  }, [])
+  
   const childrenID = childrens[currentSlide]?.childrenID;
 
 // 아이 삭제하기

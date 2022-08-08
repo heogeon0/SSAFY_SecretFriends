@@ -3,6 +3,8 @@ import Slider from "./Slider";
 
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { CurrentSlide, ChildrenList, AnswerList } from "../../atom";
+import { storage } from "../../api/firebase";
+import { ref, getDownloadURL } from "firebase/storage";
 
 
 const Container = styled.div`
@@ -18,7 +20,8 @@ function MainCarousel() {
   const childrenList = useRecoilValue(ChildrenList);
   const setAnswerList = useSetRecoilState(AnswerList);
 
-// "front", "back" button for carousel
+  
+  // "front", "back" button for carousel
   const total = childrenList.length;
   function goNext() {
     if (currentSlide + 1 < total) {
