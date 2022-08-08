@@ -52,3 +52,8 @@ pip install face_recognition
 ```bash
 pip install pyrebase4
 ```
+
+#### 4. TTS
+```bash
+pip install playsound==1.2.2
+```
