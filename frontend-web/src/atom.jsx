@@ -2,7 +2,7 @@ import { atom } from "recoil";
 
 export const FaceInfo = atom({
   key: "FaceInfo",
-  default: [],
+  default: null,
 });
 
 export const Chats = atom({
