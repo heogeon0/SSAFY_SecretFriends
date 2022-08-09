@@ -16,15 +16,16 @@ import Cloud from "../components/ThreeModel/factors/cloud";
 import Plane from "../components/ThreeModel/factors/plane";
 import Chats from "../components/Chats/Chats";
 import Grass from "../components/ThreeModel/factors/grass";
+import Photozone from "../components/ThreeModel/factors/Photo/photozone";
 // function Box() {
-// const [ref, api] = useBox(() => ({ mass: 1, position: [0, 2, 0] }));
+//   const [ref, api] = useBox(() => ({ mass: 1, position: [0, 2, 0] }));
 //   return (
 //     <mesh
-// onClick={() => {
-//   api.velocity.set(0, 2, 0);
-// }}
+//       onClick={() => {
+//         api.velocity.set(0, 2, 0);
+//       }}
 //       ref={ref}
-//       position={[0, 2, 0]}
+//       position={[0, 0, 0]}
 //     >
 //       <boxBufferGeometry attach="geometry" />
 //       <meshLambertMaterial attach="material" color="black" />
@@ -32,19 +33,11 @@ import Grass from "../components/ThreeModel/factors/grass";
 //   );
 // }
 
-function Plane1() {
-  const [ref] = useBox(() => ({ rotation: [-Math.PI / 2, 0, 0] }));
-  return (
-    <mesh ref={ref} position={[0, 10, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-      <planeBufferGeometry attach="geometry" args={[100, 100]} />
-      <meshLambertMaterial attach="material" color="hotpink" />
-    </mesh>
-  );
-}
-
 function MyCanvas() {
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
   const setChats = useSetRecoilState(basicChats);
+  const degred = (degrees) => degrees * (Math.PI / 180);
+
   // memberId 넣어야함
   useEffect(() => {
     axios.get(webapi.answers.answer(7)).then((res) => {
@@ -55,28 +48,32 @@ function MyCanvas() {
   return (
     <div>
       <Canvas
-        camera={{ fov: 85, position: [0, 1, 10] }}
+        camera={{ fov: 150, position: [0, 7, 10] }}
         style={{
           width: "100vw",
           height: "100vh",
           backgroundImage: "linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%)",
+          // backgroundImage: "url('/bgimg.png')",
+          // backgroundPosition : 'center',
+          // backgroundSize : 'cover'
         }}
       >
         <RecoilBridge>
           {/* fov : 카메라 확대 정도 */}
           <Stars />
           {/* 궤도 추가 */}
-          {/* <OrbitControls /> */}
+          <OrbitControls />
           {/* 조명추가 */}
           <ambientLight intensity={0.3} />
           <spotLight position={[5, 5, 5]} angle={1} />
           <Physics>
             {/* <Box /> */}
-            <Character position={[0, -3, 3]} />
+            <Character position={[-10, 2, -4]} />
             <Plane />
-            <Cloud />
+            {/* <Cloud /> */}
             <Chats />
             <Grass />
+            <Photozone />
           </Physics>
         </RecoilBridge>
       </Canvas>

@@ -34,8 +34,9 @@ const grass = () => {
 function Grass() {
   return (
     <>
-      <Tree position={[4, -6, -3]} />
-      <Tree position={[8, -6, -1]} />
+      <Tree position={[-25, 0, -20]} />
+      <Tree position={[-24, 2, -25]} />
+      <Tree position={[-27, 2, -25]} />
     </>
   );
 }

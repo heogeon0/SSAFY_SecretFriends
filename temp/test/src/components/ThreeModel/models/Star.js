@@ -16,15 +16,16 @@ function Star({ chat, ...props }) {
   const [position, sposition] = useState({});
   useEffect(() => {
     const setPosition = () => {
-      const minx = -15;
-      const maxx = 15;
-      const miny = -3;
-      const maxy = 4;
-      const minz = -5;
-      const maxz = 3;
+      const minx = -24;
+      const maxx = -14;
+      // const miny = -3;
+      // const maxy = 4;
+      const minz = -4;
+      const maxz = 3.9;
 
       const x = Math.floor(Math.random() * (maxx - minx) + minx);
-      const y = Math.floor(Math.random() * (maxy - miny) + miny);
+      // const y = Math.floor(Math.random() * (maxy - miny) + miny);
+      const y = 1.5;
       const z = Math.floor(Math.random() * (maxz - minz) + minz);
       sposition({ x, y, z });
     };
