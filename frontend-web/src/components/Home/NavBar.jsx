@@ -10,13 +10,20 @@ const HeaderBox = styled.div`
   position: relative;
   top: 0px;
   width: 100%;
-  padding: 1rem 2rem 1rem;
+  padding: 0.5rem 2rem 0.5rem;
   background-color: white;
 `
 
 const FlexBox = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+`
+
+const Logo = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 `
 
 const HeaderText = styled.div`
@@ -38,22 +45,22 @@ function NavBar () {
   return (
     <HeaderBox>
       <FlexBox>
-        <HeaderText><Link style={{textDecoration: 'none'}} to="/">SSAFY</Link></HeaderText>
+        <Link style={{textDecoration: 'none', color: "black"}} to="/"><Logo src="img/logo/yellow_black.jpg" alt="logo" /></Link>
         <div>
           { token ? 
           <FlexBox>
             <HeaderText>
               <a href="" 
                 onClick={() => removeToken()}
-                style={{textDecoration: 'none'}}
+                style={{textDecoration: 'none', color: "black"}}
               >로그아웃</a>
             </HeaderText>
-            <HeaderText><Link style={{textDecoration: 'none'}} to="/main">MY PAGE</Link></HeaderText>
+            <HeaderText><Link style={{textDecoration: 'none', color: "black"}} to="/main">MY PAGE</Link></HeaderText>
           </FlexBox>
           : 
           <FlexBox>
-            <HeaderText><Link style={{textDecoration: 'none'}} to="/login">로그인</Link></HeaderText>
-            <HeaderText><Link style={{textDecoration: 'none'}} to="/signup">회원가입</Link></HeaderText>
+            <HeaderText><Link style={{textDecoration: 'none', color: "black"}} to="/login">로그인</Link></HeaderText>
+            <HeaderText><Link style={{textDecoration: 'none', color: "black"}} to="/signup">회원가입</Link></HeaderText>
           </FlexBox>
           }
         </div>
