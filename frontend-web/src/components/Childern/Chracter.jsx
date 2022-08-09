@@ -56,7 +56,7 @@ function Character({ characterName, setCharacterName }) {
       <CharacterForm>
         <div className="CharacterCard">
           {/* <Circle className="Circle"></Circle> */}
-          <img src="/img/n208character.png" width="50%" />
+          <img src="/img/characters/character1.png" width="50%" />
           <Card>
             <h4>이름 : SPACE-N08</h4>
             <Text>친구를 찾아서 우주를 떠돌던 N08(공팔)</Text>
