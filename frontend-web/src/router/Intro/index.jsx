@@ -9,8 +9,12 @@ import { useRecoilState } from "recoil";
 import { Token } from "../../atom";
 
 
+const IntroBox = styled.div`
+  background-image: url("img/background/pastel1.jpg");
+  padding: 1rem;
+  `
+
 const IntroContainer = styled.div`
-  background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,26 +24,33 @@ const IntroContainer = styled.div`
 const Title = styled.div`
   font-size: 70px;
   font-family: ${props => props.theme.titleFont};
+  color: white;
   text-align: center;
   text-shadow: 2px 2px 2px gray;
-  background-color: ${props => props.theme.yellowColor};
-  padding: 2rem;
+  padding: 4rem 0 0 0;
 `
 
 const Button = styled.button`
   margin: 1rem;
-  padding: 5px;
+  padding: 5px 16px;
+  font-weight: bold;
+  font-size: large;
+  background-color: #e7e6e6;
+  border: none;
+  border-radius: 20px;
   :hover {
     cursor: pointer;
     background-color: black;
     color: white;
   }
-  font-weight: bold;
-  font-size: large;
-  /* border: none; */
-  background-color: ${props => props.theme.yellowColor};
-  border-radius: 20px;
 `
+
+const ScrollBtn = styled.div`
+  :hover {
+    cursor: pointer;
+  }
+`
+
 
 function Intro () {
   const [token, setToken] = useRecoilState(Token);
@@ -48,15 +59,47 @@ function Intro () {
     setToken(localStorage.getItem("token"))
   }, [])
 
+  const pageTop = {
+    position: 'fixed',
+    bottom: '60px',
+    right: '30px',
+    width: '40px',
+    height: '40px',
+    borderRadius: '50%',
+    color: '#e7e6e6',
+  }
+
+  const pageBottom = {
+    position: 'fixed',
+    bottom: '40px',
+    right: '30px',
+    width: '40px',
+    height: '20px',
+    borderRadius: '50%',
+    color: '#e7e6e6',
+  }
+
+  function moveToTop () {
+    document.body.scrollIntoView({behavior: 'smooth'});
+  } 
+
+  function moveToBottom () {
+    document.body.scrollIntoView({behavior: 'smooth', block: 'end'})
+  }
+
+
   return (
     <div>
-      <Title>나의 비밀 친구</Title>
-      <IntroCarousel/>
+      <IntroBox>
+        <Title>"나의 비밀 친구"</Title>
+        <hr style={{borderTop: 'dotted', width: '500px', color: 'white', boxShadow: 'gray'}} />
+        <IntroCarousel/>
+      </IntroBox>
       <IntroContainer>
         <div style={{marginTop: "2rem", textAlign: "center" }}>
           <p>2022년 8월, 병원에 있는 아이들을 위한 특별한 서비스가 시작됩니다.</p>
           <br />
-          <p>우리 아이에게 소중한 추억을 만들어주세요</p>
+          <p>우리 아이에게 소중한 추억을 만들어주세요.</p>
         </div>
         <>
           { token 
@@ -66,6 +109,23 @@ function Intro () {
         </>
         <CardList />
       </IntroContainer>
+      <hr style={{width: '95%'}} />
+      <div>
+        <ScrollBtn>
+          <i onClick={moveToTop} className="fa-solid fa-circle-chevron-up fa-2xl" style={ pageTop }></i>
+        </ScrollBtn>
+        <ScrollBtn>
+          <i onClick={moveToBottom} className="fa-solid fa-circle-chevron-down fa-2xl" style={ pageBottom }></i>
+        </ScrollBtn>
+        {/* { Math.floor((window.scrollY / (document.body.clientHeight - window.innerHeight)) * 100) > 20 
+        ? <ScrollBtn>
+            <i onClick={moveToTop} className="fa-solid fa-circle-chevron-up fa-2xl" style={ pageTop }></i>
+          </ScrollBtn>
+        : <ScrollBtn>
+            <i onClick={moveToBottom} className="fa-solid fa-circle-chevron-down fa-2xl" style={ pageBottom }></i>
+          </ScrollBtn>
+        } */}
+      </div>
     </div>
   )
 }

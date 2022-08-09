@@ -45,7 +45,7 @@ function NavBar () {
   return (
     <HeaderBox>
       <FlexBox>
-        <Link style={{textDecoration: 'none', color: "black"}} to="/"><Logo src="img/logo/yellow_black.jpg" alt="logo" /></Link>
+        <Link style={{textDecoration: 'none', color: "black"}} to="/"><Logo src="img/logo/pink_shadow.jpg" alt="logo" /></Link>
         <div>
           { token ? 
           <FlexBox>
