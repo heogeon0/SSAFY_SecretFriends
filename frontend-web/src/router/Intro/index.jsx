@@ -9,9 +9,14 @@ import { useRecoilState } from "recoil";
 import { Token } from "../../atom";
 
 
+
+const Container = styled.div`
+  padding: 1rem;
+`
+
 const IntroBox = styled.div`
   background-image: url("img/background/pastel1.jpg");
-  padding: 1rem;
+  background-size: cover;
   `
 
 const IntroContainer = styled.div`
@@ -22,12 +27,12 @@ const IntroContainer = styled.div`
 `
 
 const Title = styled.div`
-  font-size: 70px;
+  font-size: 7vw;
   font-family: ${props => props.theme.titleFont};
   color: white;
   text-align: center;
   text-shadow: 2px 2px 2px gray;
-  padding: 4rem 0 0 0;
+  padding: 5vw 0 0 0;
 `
 
 const Button = styled.button`
@@ -49,6 +54,10 @@ const ScrollBtn = styled.div`
   :hover {
     cursor: pointer;
   }
+`
+
+const FontFlex = styled.div`
+  font-size: 2vw;
 `
 
 
@@ -92,40 +101,42 @@ function Intro () {
     <div>
       <IntroBox>
         <Title>"나의 비밀 친구"</Title>
-        <hr style={{borderTop: 'dotted', width: '500px', color: 'white', boxShadow: 'gray'}} />
+        <hr style={{borderTop: 'dotted', width: '50vw', color: 'white', boxShadow: 'gray'}} />
         <IntroCarousel/>
       </IntroBox>
-      <IntroContainer>
-        <div style={{marginTop: "2rem", textAlign: "center" }}>
-          <p>2022년 8월, 병원에 있는 아이들을 위한 특별한 서비스가 시작됩니다.</p>
-          <br />
-          <p>우리 아이에게 소중한 추억을 만들어주세요.</p>
-        </div>
-        <>
-          { token 
-            ? <Link to="/main"><Button>시작하기</Button></Link>
-            : <Link to="/login"><Button>시작하기</Button></Link>
-          }
-        </>
-        <CardList />
-      </IntroContainer>
-      <hr style={{width: '95%'}} />
-      <div>
-        <ScrollBtn>
-          <i onClick={moveToTop} className="fa-solid fa-circle-chevron-up fa-2xl" style={ pageTop }></i>
-        </ScrollBtn>
-        <ScrollBtn>
-          <i onClick={moveToBottom} className="fa-solid fa-circle-chevron-down fa-2xl" style={ pageBottom }></i>
-        </ScrollBtn>
-        {/* { Math.floor((window.scrollY / (document.body.clientHeight - window.innerHeight)) * 100) > 20 
-        ? <ScrollBtn>
+      <Container>
+        <IntroContainer>
+          <div style={{marginTop: "2rem", textAlign: "center" }}>
+            <FontFlex>2022년 8월, 병원에 있는 아이들을 위한 특별한 서비스가 시작됩니다.</FontFlex>
+            <br />
+            <FontFlex>우리 아이에게 소중한 추억을 만들어주세요.</FontFlex>
+          </div>
+          <>
+            { token 
+              ? <Link to="/main"><Button>시작하기</Button></Link>
+              : <Link to="/login"><Button>시작하기</Button></Link>
+            }
+          </>
+          <CardList />
+        </IntroContainer>
+        <div>
+          <ScrollBtn>
             <i onClick={moveToTop} className="fa-solid fa-circle-chevron-up fa-2xl" style={ pageTop }></i>
           </ScrollBtn>
-        : <ScrollBtn>
+          <ScrollBtn>
             <i onClick={moveToBottom} className="fa-solid fa-circle-chevron-down fa-2xl" style={ pageBottom }></i>
           </ScrollBtn>
-        } */}
-      </div>
+          {/* { Math.floor((window.scrollY / (document.body.clientHeight - window.innerHeight)) * 100) > 20 
+          ? <ScrollBtn>
+              <i onClick={moveToTop} className="fa-solid fa-circle-chevron-up fa-2xl" style={ pageTop }></i>
+            </ScrollBtn>
+          : <ScrollBtn>
+              <i onClick={moveToBottom} className="fa-solid fa-circle-chevron-down fa-2xl" style={ pageBottom }></i>
+            </ScrollBtn>
+          } */}
+        </div>
+      </Container>
+      <hr style={{width: '95%'}} />
     </div>
   )
 }

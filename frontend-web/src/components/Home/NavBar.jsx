@@ -10,7 +10,7 @@ const HeaderBox = styled.div`
   position: relative;
   top: 0px;
   width: 100%;
-  padding: 0.5rem 2rem 0.5rem;
+  padding: 0 1.5vh;
   background-color: white;
 `
 
@@ -21,13 +21,14 @@ const FlexBox = styled.div`
 `
 
 const Logo = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 7vw;
+  height: auto;
   border-radius: 50%;
 `
 
 const HeaderText = styled.div`
-  margin: 0 1rem 0;
+  margin: 0 1.5vw 0;
+  font-size: 1.8vw;
 `
 
 function NavBar () {

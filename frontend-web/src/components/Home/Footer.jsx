@@ -6,20 +6,20 @@ const Box = styled.div`
   align-items: center;
   position: relative;
   top: 100%;
-  padding: 1rem 2rem 1rem;
+  padding: 1vh 0 2.4vh 0;
   width: 100%;
 `
 
 const FooterText = styled.div`
-  margin: 0.3rem;
-  font-size: 12px;
+  margin: 0.5vh;
+  font-size: 1.5vh;
 `
 
 const Logo = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 6vw;
+  height: auto;
   border-radius: 50%;
-  margin: 0 1rem 0 0;
+  margin: 0 1vw 0 0;
 `
 
 const LinkUrl = styled.a`
@@ -41,7 +41,7 @@ function Footer () {
           <span> | </span>
           <a style={{textDecoration: 'none', color: "black"}} href="https://www.notion.so/D208-3217826f3fdc4f6dae09c79a2ed483d7">Notion</a>
           </FooterText>
-        <FooterText style={{fontSize: '14px'}}>제작: 허건녕, 김민정, 박신혜, 오도석, 최연지</FooterText>
+        <FooterText style={{fontSize: '1.6vh'}}>제작: 허건녕, 김민정, 박신혜, 오도석, 최연지</FooterText>
         <FooterText>Copyright 2022. D208. All Rights Reserved.</FooterText>
       </div>
     </Box>
