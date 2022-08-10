@@ -27,7 +27,7 @@ const IntroContainer = styled.div`
 `
 
 const Title = styled.div`
-  font-size: 7vw;
+  font-size: 8vw;
   font-family: ${props => props.theme.titleFont};
   color: white;
   text-align: center;
@@ -36,10 +36,10 @@ const Title = styled.div`
 `
 
 const Button = styled.button`
-  margin: 1rem;
-  padding: 5px 16px;
+  margin: 2vw;
+  padding: 0.6vw 1.5vw;
   font-weight: bold;
-  font-size: large;
+  font-size: 2vw;
   background-color: #e7e6e6;
   border: none;
   border-radius: 20px;
@@ -49,14 +49,13 @@ const Button = styled.button`
     color: white;
   }
 `
-
 const ScrollBtn = styled.div`
   :hover {
     cursor: pointer;
   }
 `
 
-const FontFlex = styled.div`
+const Introduction = styled.div`
   font-size: 2vw;
 `
 
@@ -101,15 +100,15 @@ function Intro () {
     <div>
       <IntroBox>
         <Title>"나의 비밀 친구"</Title>
-        <hr style={{borderTop: 'dotted', width: '50vw', color: 'white', boxShadow: 'gray'}} />
+        <hr style={{borderTop: 'dotted', width: '55vw', color: 'white', boxShadow: 'gray'}} />
         <IntroCarousel/>
       </IntroBox>
       <Container>
         <IntroContainer>
-          <div style={{marginTop: "2rem", textAlign: "center" }}>
-            <FontFlex>2022년 8월, 병원에 있는 아이들을 위한 특별한 서비스가 시작됩니다.</FontFlex>
+          <div style={{marginTop: "3vw", textAlign: "center" }}>
+            <Introduction>2022년 8월, 병원에 있는 아이들을 위한 특별한 서비스가 시작됩니다.</Introduction>
             <br />
-            <FontFlex>우리 아이에게 소중한 추억을 만들어주세요.</FontFlex>
+            <Introduction>우리 아이에게 소중한 추억을 만들어주세요.</Introduction>
           </div>
           <>
             { token 
