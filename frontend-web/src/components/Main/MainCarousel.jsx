@@ -47,8 +47,15 @@ function MainCarousel() {
 
   return (
     <>
-      <button onClick={goPrev}>앞</button>
-      <button onClick={goNext}>뒤</button>
+      {childrenList.lenght > 1 
+      ? 
+      <>
+        <button onClick={goPrev}>앞</button>
+        <button onClick={goNext}>뒤</button>
+      </>
+      : null
+      }
+      
       <Container>
         {childrenList.map((child, idx) => {
           return <Slider key={`아이번호${child.childrenID}`} check={check(idx)} child={child} idx={idx} />;

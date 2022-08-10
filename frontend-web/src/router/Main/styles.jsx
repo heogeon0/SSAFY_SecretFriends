@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
+  background-image: url("img/background/pink.jpg");
+  background-size: cover;
   display: grid;
   grid-template-columns: 1fr;
   /* grid-template-rows: minmax(350px, 1fr) 3fr; */
