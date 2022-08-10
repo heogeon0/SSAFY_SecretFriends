@@ -7,13 +7,12 @@ import { useState } from "react";
 
 const CardBox = styled.div`
   /* width: 100%; */
-  height: 39vw;
+  height: 38.5vw;
   margin: 1vw 2vw;
   border-radius: 5px;
   box-shadow: 2px 2px 2px #b3b3b3;
   overflow: hidden;
   /* max-height: 550px; */
-
   @media ${props => props.theme.mobile} {
     width: 83vw;
     margin: 1vw 1vw 10vw 1vw;
@@ -59,10 +58,12 @@ const CardText = styled.div`
 `
 
 const Button = styled.button`
-  margin: 0 1vw 1vw 1vw;
   float: right;
+  font-weight: bold;
   border: none;
+  color: gray;
   background-color: white;
+  margin: 0 1vw 1vw 1vw;
   :hover {
     cursor: pointer;
     text-decoration: underline;

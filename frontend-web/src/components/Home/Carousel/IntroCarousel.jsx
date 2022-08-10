@@ -31,10 +31,12 @@ const LeftTextBox = styled.div`
 `
 
 const RightTextBox = styled.div`
-  position: absolute;
+  position: fixed;
+  text-align: right;
   bottom: 0px;
-  /* left: 1px; */
-  margin: 3vw;
+  left: auto;
+  right: auto;
+  margin: 3vw 0 3vw 46vw;
 `
 
 const Title = styled.div`
@@ -75,7 +77,7 @@ function IntroCarousel () {
     {id: 1, imgURL: "img/carousel/children2.jpg", title: "소통", subtitle: "Our Secret Story", description: [
       "아이에게 해주고 싶은 말이 있을 거에요.", "아무도 모르게 전해주고 싶지 않나요?", "크리스마스의 산타클로스처럼", "아이와의 비밀 이야기를 시작해보세요.",
     ]},
-    {id: 2, imgURL: "img/carousel/sheep.jpg", title: "즐거움", subtitle: "Eventy Day", description: [
+    {id: 2, imgURL: "img/carousel/sheep_reverse.jpg", title: "즐거움", subtitle: "Eventy Day", description: [
       "병원 생활에 지쳐있는 아이들에게", "즐거움을 선물해보세요.", "캐릭터와의 대화부터 다양한 배경의 사진촬영까지.", "매일매일이 이벤트같은 나날이 되길.",
     ]},
   ]
@@ -88,6 +90,18 @@ function IntroCarousel () {
             return (
               <ItemBox key={slide.id}>
                 <ImgBox src={slide.imgURL}></ImgBox>
+                { slide.id % 2 === 0 
+                ? 
+                <LeftTextBox>
+                  <Title style={{margin: "1vw 0"}}>{slide.title}</Title>
+                  <SubTitle style={{ margin: "2vw 0" }}>{slide.subtitle}</SubTitle>
+                  {slide.description.map((script, idx) => {
+                    return (
+                      <Content key={idx}>{script}</Content>
+                    )
+                  })}
+                </LeftTextBox>
+                : 
                 <RightTextBox>
                   <Title style={{margin: "1vw 0"}}>{slide.title}</Title>
                   <SubTitle style={{ margin: "2vw 0" }}>{slide.subtitle}</SubTitle>
@@ -97,6 +111,8 @@ function IntroCarousel () {
                     )
                   })}
                 </RightTextBox>
+                }
+                
               </ItemBox>
             )
           })}

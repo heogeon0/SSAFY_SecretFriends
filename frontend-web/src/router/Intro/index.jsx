@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useRecoilState } from "recoil";
 import { Token } from "../../atom";
-import zIndex from "@mui/material/styles/zIndex";
 
 
 const Container = styled.div`
@@ -48,10 +47,10 @@ const ScrollBtn = styled.div`
 `
 
 const StyledLink = styled(Link)`
-  margin: 1vw 2vw 2vw;
-  padding: 0.5vw 1.4vw;
+  margin: 1vw 1.5vw 2vw;
+  padding: 0.8vw 1vw;
   border: solid 1px #c4c4c4;
-  border-radius: 3vw;
+  border-radius: 4vw;
   font-weight: bold;
   font-size: 1.8vw;
   text-decoration: none;
