@@ -35,10 +35,15 @@ app.get("/login", (req, res) => {
 
 app.get("/camera", (req, res) => {
   console.log("im here");
-  const result = spawn("python", ["./python/pythonProject1/main.py"]);
+  const result = spawn("python", ["./python/BackgroundFilter/main.py"]);
   result.stdout.on("data", function (data) {
     console.log(data.toString());
     res.json({ id: data.toString() });
+  });
+
+  
+  result.stderr.on("data", function (data) {
+    console.log("Fail", data.toString());
   });
 });
 
