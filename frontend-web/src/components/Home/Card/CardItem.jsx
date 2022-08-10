@@ -3,49 +3,73 @@ import styled from "styled-components";
 import CardModal from "./CardModal";
 import { useState } from "react";
 
+
 const CardBox = styled.div`
-  width: 1fr;
-  /* border: solid black 1px; */
+  /* width: 100%; */
+  height: 39vw;
+  margin: 1vw 2vw;
   border-radius: 5px;
-  margin: 1rem;
   box-shadow: 2px 2px 2px gray;
   overflow: hidden;
-`
+  /* max-height: 550px; */
 
-const CardTitle = styled.div`
-  /* 상, 우, 하, 좌 */
-  margin: 1rem 0.5rem 0 0.5rem;
-  font-size: 24px;
-  font-weight: bold;
+  @media ${props => props.theme.mobile} {
+    width: 83vw;
+    margin: 1vw 1vw 10vw 1vw;
+    height: 100vw;
+  }
 `
 
 const CardImg = styled.img`
   width: 100%;
+  height: 26vw;
+  @media ${props => props.theme.mobile} {
+    height: 80vw;
+  }
+`
+
+const CardTitle = styled.div`
+  /* 상, 우, 하, 좌 */
+  margin: 1vw 0 1.2vw;
+  font-size: 2vw;
+  font-weight: bold;
+  text-align: center;
+  @media ${props => props.theme.mobile} {
+    margin: 1vw 0 2vw;
+    font-size: 3.2vw;
+  }
 `
 
 const CardText = styled.div`
   display: -webkit-box;
+  font-size: 1.4vw;
   -webkit-box-orient: vertical;
   word-wrap: break-word;
   text-overflow: ellipsis;
   overflow: hidden;
-  -webkit-line-clamp: 2;
-  margin: 0.5rem 1rem 1rem 1rem;
+  -webkit-line-clamp: 3;
+  margin: 1.1vw 1.5vw;
   font-weight: lighter;
   text-overflow: ellipsis;
+  @media ${props => props.theme.mobile} {
+    font-size: 2.1vw;
+    margin: 2vw 2vw;
+  }
 `
 
 const Button = styled.button`
-  font-weight: bold;
-  font-size: large;
+  margin: 0 1vw 1vw 1vw;
+  float: right;
   border: none;
-  background-color: "#e0e0e00";
-  border-radius: 10px;
-  margin: 0 0.5rem 1rem 0.5rem;
+  background-color: white;
   :hover {
     cursor: pointer;
-    background-color: black;
-    color: white;
+    text-decoration: underline;
+  }
+  font-size: 1.6vw;
+  @media ${props => props.theme.mobile} {
+    font-size: 2.3vw;
+    margin: 0 1vw 1vw 1vw;
   }
 `
 

@@ -7,11 +7,18 @@ import { useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useRecoilState } from "recoil";
 import { Token } from "../../atom";
+import zIndex from "@mui/material/styles/zIndex";
 
+
+
+const Container = styled.div`
+  padding: 0 3vw;
+`
 
 const IntroBox = styled.div`
   background-image: url("img/background/pastel1.jpg");
-  padding: 1rem;
+  background-size: cover;
+  padding: 1vw 1vw 3vw 1vw;
   `
 
 const IntroContainer = styled.div`
@@ -21,30 +28,34 @@ const IntroContainer = styled.div`
   align-items: center;
 `
 
+const Introduction = styled.div`
+  font-size: 1.8vw;
+  margin: 0 0 0.5vh 0;
+`
+
 const Title = styled.div`
-  font-size: 70px;
+  font-size: 5vw;
   font-family: ${props => props.theme.titleFont};
   color: white;
   text-align: center;
   text-shadow: 2px 2px 2px gray;
-  padding: 4rem 0 0 0;
+  padding: 5vw 0 0 0;
 `
 
 const Button = styled.button`
-  margin: 1rem;
-  padding: 5px 16px;
+  margin: 1vw 2vw 2vw;
+  padding: 0.6vw 1.5vw;
   font-weight: bold;
-  font-size: large;
+  font-size: 1.8vw;
   background-color: #e7e6e6;
   border: none;
-  border-radius: 20px;
+  border-radius: 2vw;
   :hover {
     cursor: pointer;
     background-color: black;
     color: white;
   }
 `
-
 const ScrollBtn = styled.div`
   :hover {
     cursor: pointer;
@@ -62,7 +73,9 @@ function Intro () {
   const pageTop = {
     position: 'fixed',
     bottom: '60px',
-    right: '30px',
+    // position: 'absolute',
+    // bottom: '12vh',
+    right: '15px',
     width: '40px',
     height: '40px',
     borderRadius: '50%',
@@ -72,7 +85,9 @@ function Intro () {
   const pageBottom = {
     position: 'fixed',
     bottom: '40px',
-    right: '30px',
+    // position: 'absolute',
+    // bottom: '9.5vh',
+    right: '15px',
     width: '40px',
     height: '20px',
     borderRadius: '50%',
@@ -92,40 +107,42 @@ function Intro () {
     <div>
       <IntroBox>
         <Title>"나의 비밀 친구"</Title>
-        <hr style={{borderTop: 'dotted', width: '500px', color: 'white', boxShadow: 'gray'}} />
+        <hr style={{borderTop: 'dotted', width: '35vw', color: 'white', boxShadow: 'gray'}} />
         <IntroCarousel/>
       </IntroBox>
-      <IntroContainer>
-        <div style={{marginTop: "2rem", textAlign: "center" }}>
-          <p>2022년 8월, 병원에 있는 아이들을 위한 특별한 서비스가 시작됩니다.</p>
-          <br />
-          <p>우리 아이에게 소중한 추억을 만들어주세요.</p>
-        </div>
-        <>
-          { token 
-            ? <Link to="/main"><Button>시작하기</Button></Link>
-            : <Link to="/login"><Button>시작하기</Button></Link>
-          }
-        </>
-        <CardList />
-      </IntroContainer>
-      <hr style={{width: '95%'}} />
-      <div>
-        <ScrollBtn>
-          <i onClick={moveToTop} className="fa-solid fa-circle-chevron-up fa-2xl" style={ pageTop }></i>
-        </ScrollBtn>
-        <ScrollBtn>
-          <i onClick={moveToBottom} className="fa-solid fa-circle-chevron-down fa-2xl" style={ pageBottom }></i>
-        </ScrollBtn>
-        {/* { Math.floor((window.scrollY / (document.body.clientHeight - window.innerHeight)) * 100) > 20 
-        ? <ScrollBtn>
+      
+        <IntroContainer>
+          <div style={{marginTop: "3vw", textAlign: "center" }}>
+            <Introduction>2022년 8월, 병원에 있는 아이들을 위한 특별한 서비스가 시작됩니다.</Introduction>
+            <Introduction>우리 아이에게 소중한 추억을 만들어주세요.</Introduction>
+          </div>
+          <>
+            { token 
+              ? <Link to="/main"><Button>시작하기</Button></Link>
+              : <Link to="/login"><Button>시작하기</Button></Link>
+            }
+          </>
+        <Container>
+          <CardList />
+        </Container>
+        </IntroContainer>
+        <div>
+          <ScrollBtn>
             <i onClick={moveToTop} className="fa-solid fa-circle-chevron-up fa-2xl" style={ pageTop }></i>
           </ScrollBtn>
-        : <ScrollBtn>
+          <ScrollBtn>
             <i onClick={moveToBottom} className="fa-solid fa-circle-chevron-down fa-2xl" style={ pageBottom }></i>
           </ScrollBtn>
-        } */}
-      </div>
+          {/* { Math.floor((window.scrollY / (document.body.clientHeight - window.innerHeight)) * 100) > 20 
+          ? <ScrollBtn>
+              <i onClick={moveToTop} className="fa-solid fa-circle-chevron-up fa-2xl" style={ pageTop }></i>
+            </ScrollBtn>
+          : <ScrollBtn>
+              <i onClick={moveToBottom} className="fa-solid fa-circle-chevron-down fa-2xl" style={ pageBottom }></i>
+            </ScrollBtn>
+          } */}
+        </div>
+      <hr style={{width: '95%'}} />
     </div>
   )
 }
