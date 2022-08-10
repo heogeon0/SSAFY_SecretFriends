@@ -48,7 +48,7 @@ function MyCanvas() {
   return (
     <div>
       <Canvas
-        camera={{ fov: 150, position: [0, 7, 10] }}
+        camera={{ fov: 120, position: [0, 7, 10] }}
         style={{
           width: "100vw",
           height: "100vh",

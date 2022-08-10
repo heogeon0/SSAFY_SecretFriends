@@ -1,12 +1,11 @@
-import {atom} from 'recoil';
+import { atom } from "recoil";
 
-export const isLogin = atom({
-  key : 'isLogin',
-  default : ''
-})
-
+export const childrenId = atom({
+  key: "childrenId",
+  default: "",
+});
 
 export const basicChats = atom({
-  key : 'basicChats',
-  default : [],
-})
+  key: "basicChats",
+  default: [],
+});

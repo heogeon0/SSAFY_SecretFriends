@@ -27,7 +27,7 @@ class FaceRecog():
             "appId": "1:377294439460:web:df58512675aa6f0d0e04b1",
             "measurementId": "G-C4PWZEC0B1",
             "databaseURL": "",
-            "serviceAccount": "serviceAccountKey.json"
+            "serviceAccount": "c:/Users/multicampus/Desktop/MyGit/PJT/New/S07P12D208/temp/SERVER/python/face_recognition/serviceAccountKey.json",
         }
 
         firebase = pyrebase.initialize_app(config)
@@ -37,18 +37,19 @@ class FaceRecog():
         all_files = storage.list_files()
 
         for file in all_files:
+
             try:
                 if "knowns" in file.name:
                     #print(file.name)
                     if file.name == "knowns/":
                         continue
 
-                    storage.child(file.name).download(file.name, "faces/" + os.path.basename(file.name))
+                    storage.child(file.name).download(file.name, "c:/Users/multicampus/Desktop/MyGit/PJT/New/S07P12D208/temp/SERVER/python/face_recognition/faces/" + os.path.basename(file.name))
             except:
                 print('Download Failed')
 
         # Load sample pictures and learn how to recognize it.
-        dirname = 'faces'
+        dirname = 'c:/Users/multicampus/Desktop/MyGit/PJT/New/S07P12D208/temp/SERVER/python/face_recognition/faces'
         files = os.listdir(dirname)
         for filename in files:
             name, ext = os.path.splitext(filename)

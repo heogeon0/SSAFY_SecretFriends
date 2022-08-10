@@ -1,26 +1,42 @@
-import {useRecoilState} from 'recoil'
-import { isLogin } from '../atoms'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useRecoilState } from "recoil";
+import { childrenId } from "../atoms";
+import { Navigate, useNavigate } from "react-router-dom";
 
-import axios from 'axios'
-import webapi from '../apis/webapi'
+import axios from "axios";
+import webapi from "../apis/webapi";
+import iot from "../apis/iot";
+import { useRef } from "react";
 
-function Login (){
-  // const [isLogined, setLogined] = useRecoilState(isLogin)
-  const navigate = useNavigate()
-  const onClick = ((cid, event) => {
-    console.log(webapi.answers.answer(cid))
-  //   axios({
-  //     url : webapi.answers.answer(cid)
-  //   }).then(res => {
-  //     console.log(res)
-  //   })
-    navigate('/main')
-  })
-  return (<>
-  <div>로그인화면</div>
-  <button onClick={(event) => onClick(1)}>로그인</button>
-  </>
-)}
+function Login() {
+  const [id, setId] = useRecoilState(childrenId);
+  const videoRef = useRef(null);
+  const navigate = useNavigate();
+  const constraints = {
+    video: true,
+  };
+  const startVideo = async () => {
+    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    if (videoRef && videoRef.current && !videoRef.current.srcObject) {
+      videoRef.current.srcObject = stream;
+    }
+  };
+  const onClick = () => {
+    console.log(iot.login());
+    startVideo();
+    axios.get(iot.login()).then(({ data }) => {
+      console.log(data.id);
+      setId(data.id);
+      navigate("/mains");
+    });
+  };
 
-export default Login
+  return (
+    <>
+      <div>로그인화면</div>
+      <button onClick={onClick}>로그인</button>
+      <video autoPlay ref={videoRef}></video>
+    </>
+  );
+}
+
+export default Login;
