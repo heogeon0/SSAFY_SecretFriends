@@ -21,14 +21,15 @@ const FlexBox = styled.div`
 `
 
 const Logo = styled.img`
-  width: 6vw;
+  width: 5vw;
   height: auto;
   border-radius: 50%;
 `
 
 const HeaderText = styled.div`
   margin: 0 1.5vw 0;
-  font-size: 1.3vw;
+  font-size: 1.4vw;
+  /* font-size: 1rem; */
 `
 
 function NavBar () {

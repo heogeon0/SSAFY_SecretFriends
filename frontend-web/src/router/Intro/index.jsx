@@ -7,8 +7,6 @@ import { useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useRecoilState } from "recoil";
 import { Token } from "../../atom";
-import zIndex from "@mui/material/styles/zIndex";
-
 
 
 const Container = styled.div`
@@ -47,7 +45,7 @@ const Button = styled.button`
   padding: 0.6vw 1.5vw;
   font-weight: bold;
   font-size: 1.8vw;
-  background-color: #e7e6e6;
+  background-color: #ececec;
   border: none;
   border-radius: 2vw;
   :hover {
@@ -76,7 +74,8 @@ function Intro () {
     // position: 'absolute',
     // bottom: '12vh',
     right: '15px',
-    width: '40px',
+    // width: '40px',
+    width: '4vw',
     height: '40px',
     borderRadius: '50%',
     color: '#e7e6e6',
@@ -88,7 +87,8 @@ function Intro () {
     // position: 'absolute',
     // bottom: '9.5vh',
     right: '15px',
-    width: '40px',
+    // width: '40px',
+    width: '4vw',
     height: '20px',
     borderRadius: '50%',
     color: '#e7e6e6',

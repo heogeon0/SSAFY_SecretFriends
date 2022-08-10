@@ -9,7 +9,7 @@ const CardBox = styled.div`
   height: 39vw;
   margin: 1vw 2vw;
   border-radius: 5px;
-  box-shadow: 2px 2px 2px gray;
+  box-shadow: 2px 2px 2px #b3b3b3;
   overflow: hidden;
   /* max-height: 550px; */
 
@@ -83,7 +83,7 @@ function Card ({item}) {
           <CardImg src={item.imgSrc} alt={item.altSrc}></CardImg>
           <CardTitle>{item.title}</CardTitle>
           <CardText>{item.description}</CardText>
-          <Button clasdsName="blueBtn" onClick={() => setClose(!close)}>더보기</Button>
+          <Button onClick={() => setClose(!close)}>더보기</Button>
           { close && (
             <CardModal closeModal={() => setClose(!close)} description={item.description} imgs={item.imgs}/>
           )}
