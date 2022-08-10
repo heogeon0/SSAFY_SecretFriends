@@ -14,7 +14,6 @@ const Wrapper = styled.div`
   max-width: 400px;
   max-height: calc(600px / 1.68);
   background-color: ${(props) => props.theme.whiteColor};
-  border-radius: 40px;
   box-shadow: 5px 5px 15px 0.5px #dcdde1;
   .title {
     font-family: ${(props) => props.theme.namingFont};

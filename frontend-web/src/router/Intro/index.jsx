@@ -14,7 +14,7 @@ const Container = styled.div`
 `
 
 const IntroBox = styled.div`
-  background-image: url("img/background/pastel1.jpg");
+  background-image: url("img/background/pink.jpg");
   background-size: cover;
   padding: 1vw 1vw 3vw 1vw;
   `
