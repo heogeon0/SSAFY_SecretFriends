@@ -41,21 +41,6 @@ const Title = styled.div`
   padding: 5vw 0 0 0;
 `
 
-const Button = styled.button`
-  margin: 1vw 2vw 2vw;
-  padding: 0.3vw 1.4vw;
-  font-weight: bold;
-  font-size: 1.8vw;
-  background-color: #ececec;
-  border: solid 1px #c4c4c4;
-  border-radius: 3vw;
-  color: black;
-  :hover {
-    cursor: pointer;
-    background-color: black;
-    color: white;
-  }
-`
 const ScrollBtn = styled.div`
   :hover {
     cursor: pointer;
@@ -64,7 +49,7 @@ const ScrollBtn = styled.div`
 
 const StyledLink = styled(Link)`
   margin: 1vw 2vw 2vw;
-  padding: 0.4vw 1.4vw;
+  padding: 0.5vw 1.4vw;
   border: solid 1px #c4c4c4;
   border-radius: 3vw;
   font-weight: bold;
@@ -89,10 +74,7 @@ function Intro () {
   const pageTop = {
     position: 'fixed',
     bottom: '60px',
-    // position: 'absolute',
-    // bottom: '12vh',
     right: '15px',
-    // width: '40px',
     width: '4vw',
     height: '40px',
     borderRadius: '50%',
@@ -103,10 +85,7 @@ function Intro () {
   const pageBottom = {
     position: 'fixed',
     bottom: '40px',
-    // position: 'absolute',
-    // bottom: '9.5vh',
     right: '15px',
-    // width: '40px',
     width: '4vw',
     height: '20px',
     borderRadius: '50%',
@@ -140,7 +119,7 @@ function Intro () {
           <>
             { token 
               ? <StyledLink to="/main">시작하기</StyledLink>
-              : <Button><StyledLink to="/login">시작하기</StyledLink></Button>
+              : <StyledLink to="/login">시작하기</StyledLink>
             }
           </>
         <Container>
