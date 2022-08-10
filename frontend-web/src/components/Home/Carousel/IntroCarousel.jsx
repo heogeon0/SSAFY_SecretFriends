@@ -22,6 +22,7 @@ const ImgBox = styled.img`
   border-radius: 5px;
   margin: 0 0 3px 0;
   box-shadow: 3px 3px 3px #b3b3b3;
+  object-fit: cover;
   filter: brightness(60%);  // 밝기 조절
 `
 const LeftTextBox = styled.div`
