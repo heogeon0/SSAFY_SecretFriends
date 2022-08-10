@@ -16,8 +16,7 @@ function CardModal (props) {
     <div className="Modal" onClick={closeModal}>
       <div className="modalBody" onClick={(event) => event.stopPropagation()}>
         <ContentBox>
-          <ModalCaoursel imgs={props.imgs}></ModalCaoursel>
-          {/* <div>{props.description}</div> */}
+          {/* <ModalCaoursel imgs={props.imgs}></ModalCaoursel> */}
           <div style={{margin: '2rem 2rem 2rem 3rem'}}>{props.description}</div>
         </ContentBox>
         <button id="modalCloseBtn" onClick={closeModal}>닫기</button>

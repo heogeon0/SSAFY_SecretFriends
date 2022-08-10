@@ -24,9 +24,16 @@ const ImgBox = styled.img`
   box-shadow: 3px 3px 3px #b3b3b3;
   filter: brightness(60%);  // 밝기 조절
 `
-const TextBox = styled.div`
+const LeftTextBox = styled.div`
   position: absolute;
   bottom: 0px;
+  margin: 3vw;
+`
+
+const RightTextBox = styled.div`
+  position: absolute;
+  bottom: 0px;
+  /* left: 1px; */
   margin: 3vw;
 `
 
@@ -81,7 +88,7 @@ function IntroCarousel () {
             return (
               <ItemBox key={slide.id}>
                 <ImgBox src={slide.imgURL}></ImgBox>
-                <TextBox>
+                <RightTextBox>
                   <Title style={{margin: "1vw 0"}}>{slide.title}</Title>
                   <SubTitle style={{ margin: "2vw 0" }}>{slide.subtitle}</SubTitle>
                   {slide.description.map((script, idx) => {
@@ -89,7 +96,7 @@ function IntroCarousel () {
                       <Content key={idx}>{script}</Content>
                     )
                   })}
-                </TextBox>
+                </RightTextBox>
               </ItemBox>
             )
           })}

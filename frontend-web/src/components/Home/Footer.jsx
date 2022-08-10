@@ -11,7 +11,7 @@ const Box = styled.div`
 `
 
 const FooterText = styled.div`
-  margin: 0.5vh;
+  margin: 0.3vh;
   font-size: 1.1vw;
 `
 

@@ -10,7 +10,6 @@ import { Token } from "../../atom";
 import zIndex from "@mui/material/styles/zIndex";
 
 
-
 const Container = styled.div`
   padding: 0 3vw;
 `
@@ -44,12 +43,13 @@ const Title = styled.div`
 
 const Button = styled.button`
   margin: 1vw 2vw 2vw;
-  padding: 0.6vw 1.5vw;
+  padding: 0.3vw 1.4vw;
   font-weight: bold;
   font-size: 1.8vw;
-  background-color: #e7e6e6;
-  border: none;
-  border-radius: 2vw;
+  background-color: #ececec;
+  border: solid 1px #c4c4c4;
+  border-radius: 3vw;
+  color: black;
   :hover {
     cursor: pointer;
     background-color: black;
@@ -59,6 +59,22 @@ const Button = styled.button`
 const ScrollBtn = styled.div`
   :hover {
     cursor: pointer;
+  }
+`
+
+const StyledLink = styled(Link)`
+  margin: 1vw 2vw 2vw;
+  padding: 0.4vw 1.4vw;
+  border: solid 1px #c4c4c4;
+  border-radius: 3vw;
+  font-weight: bold;
+  font-size: 1.8vw;
+  text-decoration: none;
+  color: black;
+  background-color: #f0f0f0;
+  :hover {
+    color: white;
+    background: black;
   }
 `
 
@@ -76,10 +92,12 @@ function Intro () {
     // position: 'absolute',
     // bottom: '12vh',
     right: '15px',
-    width: '40px',
+    // width: '40px',
+    width: '4vw',
     height: '40px',
     borderRadius: '50%',
     color: '#e7e6e6',
+    zIndex: '1',
   }
 
   const pageBottom = {
@@ -88,10 +106,12 @@ function Intro () {
     // position: 'absolute',
     // bottom: '9.5vh',
     right: '15px',
-    width: '40px',
+    // width: '40px',
+    width: '4vw',
     height: '20px',
     borderRadius: '50%',
     color: '#e7e6e6',
+    zIndex: '1',
   }
 
   function moveToTop () {
@@ -101,6 +121,7 @@ function Intro () {
   function moveToBottom () {
     document.body.scrollIntoView({behavior: 'smooth', block: 'end'})
   }
+
 
 
   return (
@@ -118,8 +139,8 @@ function Intro () {
           </div>
           <>
             { token 
-              ? <Link to="/main"><Button>시작하기</Button></Link>
-              : <Link to="/login"><Button>시작하기</Button></Link>
+              ? <StyledLink to="/main">시작하기</StyledLink>
+              : <Button><StyledLink to="/login">시작하기</StyledLink></Button>
             }
           </>
         <Container>
