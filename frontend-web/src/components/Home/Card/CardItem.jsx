@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import "./styles.css";
 
 import CardModal from "./CardModal";
 import { useState } from "react";
@@ -48,7 +49,7 @@ const CardText = styled.div`
   text-overflow: ellipsis;
   overflow: hidden;
   -webkit-line-clamp: 3;
-  margin: 1.1vw 1.5vw;
+  margin: 1vw 1.5vw 0.6vw 1.5vw;
   font-weight: lighter;
   text-overflow: ellipsis;
   @media ${props => props.theme.mobile} {
