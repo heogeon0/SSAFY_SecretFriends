@@ -7,16 +7,18 @@ import { useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useRecoilState } from "recoil";
 import { Token } from "../../atom";
+import zIndex from "@mui/material/styles/zIndex";
 
 
 
 const Container = styled.div`
-  padding: 1rem;
+  padding: 0 3vw;
 `
 
 const IntroBox = styled.div`
   background-image: url("img/background/pastel1.jpg");
   background-size: cover;
+  padding: 1vw 1vw 3vw 1vw;
   `
 
 const IntroContainer = styled.div`
@@ -26,8 +28,13 @@ const IntroContainer = styled.div`
   align-items: center;
 `
 
+const Introduction = styled.div`
+  font-size: 1.8vw;
+  margin: 0 0 0.5vh 0;
+`
+
 const Title = styled.div`
-  font-size: 8vw;
+  font-size: 5vw;
   font-family: ${props => props.theme.titleFont};
   color: white;
   text-align: center;
@@ -36,13 +43,13 @@ const Title = styled.div`
 `
 
 const Button = styled.button`
-  margin: 2vw;
+  margin: 1vw 2vw 2vw;
   padding: 0.6vw 1.5vw;
   font-weight: bold;
-  font-size: 2vw;
+  font-size: 1.8vw;
   background-color: #e7e6e6;
   border: none;
-  border-radius: 20px;
+  border-radius: 2vw;
   :hover {
     cursor: pointer;
     background-color: black;
@@ -53,10 +60,6 @@ const ScrollBtn = styled.div`
   :hover {
     cursor: pointer;
   }
-`
-
-const Introduction = styled.div`
-  font-size: 2vw;
 `
 
 
@@ -70,7 +73,9 @@ function Intro () {
   const pageTop = {
     position: 'fixed',
     bottom: '60px',
-    right: '30px',
+    // position: 'absolute',
+    // bottom: '12vh',
+    right: '15px',
     width: '40px',
     height: '40px',
     borderRadius: '50%',
@@ -80,7 +85,9 @@ function Intro () {
   const pageBottom = {
     position: 'fixed',
     bottom: '40px',
-    right: '30px',
+    // position: 'absolute',
+    // bottom: '9.5vh',
+    right: '15px',
     width: '40px',
     height: '20px',
     borderRadius: '50%',
@@ -100,14 +107,13 @@ function Intro () {
     <div>
       <IntroBox>
         <Title>"나의 비밀 친구"</Title>
-        <hr style={{borderTop: 'dotted', width: '55vw', color: 'white', boxShadow: 'gray'}} />
+        <hr style={{borderTop: 'dotted', width: '35vw', color: 'white', boxShadow: 'gray'}} />
         <IntroCarousel/>
       </IntroBox>
-      <Container>
+      
         <IntroContainer>
           <div style={{marginTop: "3vw", textAlign: "center" }}>
             <Introduction>2022년 8월, 병원에 있는 아이들을 위한 특별한 서비스가 시작됩니다.</Introduction>
-            <br />
             <Introduction>우리 아이에게 소중한 추억을 만들어주세요.</Introduction>
           </div>
           <>
@@ -116,7 +122,9 @@ function Intro () {
               : <Link to="/login"><Button>시작하기</Button></Link>
             }
           </>
+        <Container>
           <CardList />
+        </Container>
         </IntroContainer>
         <div>
           <ScrollBtn>
@@ -134,7 +142,6 @@ function Intro () {
             </ScrollBtn>
           } */}
         </div>
-      </Container>
       <hr style={{width: '95%'}} />
     </div>
   )

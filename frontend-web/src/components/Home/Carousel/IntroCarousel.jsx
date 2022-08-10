@@ -5,24 +5,22 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 
-
 const CarouselBox = styled.div`
-  padding: 2rem;
+  padding: 2vw 4.5vw;
 `
 const ItemBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 2rem;
+  padding: 0 3vw;
 `
 const ImgBox = styled.img`
   display: inline;
   position: relative;
   width: 100%;
-  height: 35vw;
-  border: none;
-  border-radius: 0.5rem;
-  margin: 0 0 5px 0;
+  height: 32vw;
+  border-radius: 5px;
+  margin: 0 0 3px 0;
   box-shadow: 3px 3px 3px #b3b3b3;
   filter: brightness(60%);  // 밝기 조절
 `
