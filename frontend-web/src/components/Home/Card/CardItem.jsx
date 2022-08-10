@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import "./styles.css";
 
 import CardModal from "./CardModal";
 import { useState } from "react";
@@ -13,17 +12,17 @@ const CardBox = styled.div`
   box-shadow: 2px 2px 2px #b3b3b3;
   overflow: hidden;
   /* max-height: 550px; */
-
   @media ${props => props.theme.mobile} {
     width: 83vw;
     margin: 1vw 1vw 10vw 1vw;
-    height: 100vw;
+    height: 102vw;
   }
 `
 
 const CardImg = styled.img`
   width: 100%;
   height: 26vw;
+  object-fit: cover;
   @media ${props => props.theme.mobile} {
     height: 80vw;
   }
@@ -52,17 +51,21 @@ const CardText = styled.div`
   margin: 1vw 1.5vw 0.6vw 1.5vw;
   font-weight: lighter;
   text-overflow: ellipsis;
+  line-height: 1.6vw;
   @media ${props => props.theme.mobile} {
     font-size: 2.1vw;
+    line-height: 2.5vw;
     margin: 2vw 2vw;
   }
 `
 
 const Button = styled.button`
-  margin: 0 1vw 1vw 1vw;
   float: right;
+  font-weight: bold;
   border: none;
+  color: gray;
   background-color: white;
+  margin: 0 1vw 1vw 1vw;
   :hover {
     cursor: pointer;
     text-decoration: underline;
@@ -86,7 +89,7 @@ function Card ({item}) {
           <CardText>{item.description}</CardText>
           <Button onClick={() => setClose(!close)}>더보기</Button>
           { close && (
-            <CardModal closeModal={() => setClose(!close)} description={item.description} imgs={item.imgs}/>
+            <CardModal closeModal={() => setClose(!close)} item={item}/>
           )}
         </div>
       </CardBox>
