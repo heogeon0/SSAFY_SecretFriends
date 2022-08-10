@@ -1,12 +1,16 @@
 import "../styles/CardModal.css"
 import styled from "styled-components";
-import ModalCaoursel from "./ModalCarousel";
+// import ModalCarousel from "./ModalCarousel";
+import ModalCarousel from "../Carousel/ModalCarousel";
 
 
 const ContentBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media ${props => props.theme.mobile} {
+    flex-direction: column;
+  }
 `
 const CardText = styled.div`
   font-size: min(1.8vw, 1rem);
@@ -34,7 +38,7 @@ function CardModal (props) {
     <div className="Modal" onClick={closeModal}>
       <div className="modalBody" onClick={(event) => event.stopPropagation()}>
         <ContentBox>
-          {/* <ModalCaoursel imgs={imgs}></ModalCaoursel> */}
+          <ModalCarousel imgs={imgs}></ModalCarousel>
           <CardText style={{whiteSpace: "pre-wrap", textAlign: "left"}}>{description}</CardText>
         </ContentBox>
         <button id="modalCloseBtn" onClick={closeModal}>닫기</button>

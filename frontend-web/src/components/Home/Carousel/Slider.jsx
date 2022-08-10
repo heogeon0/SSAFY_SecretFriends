@@ -24,15 +24,13 @@ const NowSlider = styled.div`
   }
 `;
 
-function Slider({ content, check }) {
-  const discription = content.discription;
+function Slider({ img, check }) {
 
   return (
     <>
       {check !== "hidden" ? (
         <>
-          {/* <NowSlider check={check}></NowSlider> */}
-          <div>{discription}</div>
+          <NowSlider check={check} bg={img}><img src={img} alt="image" /></NowSlider>
         </>
       ) : null}
     </>

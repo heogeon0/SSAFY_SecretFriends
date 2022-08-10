@@ -15,10 +15,11 @@
 .modalBody {
   position: absolute;
   width: 60%;
-  min-width: 100px;
+  min-width: 200px;
   max-width: 700px;
-  height: 50%;
-  min-height: 100px;
+  height: 40vh;
+  min-height: 300px;
+  max-height: 800px;
   padding: 20px;
   background-color: rgb(255, 255, 255);
   border-radius: 12px;

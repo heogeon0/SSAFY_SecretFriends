@@ -24,7 +24,7 @@ function CardList () {
         \n프로젝트의 핵심은 세 가지로 나눌 수 있는데, 먼저 아이가 직접 캐릭터를 선택할 수 있는 맞춤형이 있다.\
         \n다음은 소통으로, 웹과 IoT 기기를 통해 부모님 혹은 보호자가 아이에게 이야기를 전달할 수 있다. \
         \n마지막 키워드는 즐거움이다. 아이가 캐릭터와 상호작용을 하고 그 외에도 제공되는 다양한 활동을 통해 지친 병원 생활에 활력소가 될 수 있기를 기대한다.',
-      imgs: ['img/main.png', 'img/main.png', 'img/main.png'],
+      imgs: ['img/carousel/card1/1-1(1).png', 'img/carousel/card1/1-2(1).png', 'img/carousel/card1/1-3(1).png'],
     },
     { 
       imgSrc: '/img/carousel/computer.jpg', 
@@ -37,7 +37,7 @@ function CardList () {
         \n3D 렌더링 기능에는 Three.js를 활용했다. 2D 캐릭터보다 아이에게 더 친근하게 다가갈 수 있고 실물감이 느껴지도록 하기 위해 3D 캐릭터를 선택하고 렌더링하였다.\
         \n최종 기술 스택은 Front: React, Back: SpringBoot, IoT: 라즈베리파이를 사용했고,\
         \n그 외에도 Three.js, OpenCV, Naver CLOVA, MySQL, AWS, Firebase, Jenkins 등을 활용했다.',
-      imgs: ['img/technical.png', 'img/technical.png', 'img/technical.png'],
+      imgs: ['img/carousel/card2/face(1).png', 'img/carousel/card2/tts.png', 'img/carousel/card2/3d(1).png'],
     },
     { 
       imgSrc: '/img/carousel/children3.jpg', 
@@ -50,7 +50,7 @@ function CardList () {
         \n3. 병원에서 활동이 제한된 아이들에게 언제든지 찾아가서 놀고 대화하며 시간을 보낼 수 있는 곳이 생긴다는 것에서 아이들에게 매일매일이 이벤트같은 날이 되지 않을까를 기대한다.\
         \n프로젝트를 진행하면서 아이들이 즐겁게 놀 수 있는 컨텐츠가 무엇이 있을지를 계속해서 고민했고 마침내 프로젝트를 완성할 수 있었다.\
         \n팀원들과 함께 노력한 마음이 전해졌으면 하는 바람을 담아 프로젝트를 마무리하고자 한다.',
-      imgs: ['img/effects.png', 'img/effects.png', 'img/effects.png'],
+      imgs: ['img/carousel/card3/book(1).png', 'img/carousel/card3/conv(1).png', 'img/carousel/card3/event.png'],
     },
   ]
   

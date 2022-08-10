@@ -11,44 +11,33 @@ const Contain = styled.div`
 
 const ItemsContain = styled.div`
   width:100%;
-  height:100%;
-  padding: 2rem 10px;
+  /* height:100%; */
+  /* padding: 2rem 10px; */
 `
 
 const ItemsWrap = styled.div`
   width:100%;
-  height:180px;
+  /* height:180px; */
   border-radius:20px;
   overflow:hidden;
   margin:0 20px;
 
   img{
-    width:100%;
-    height:100%;
+    width: 50vw;
+    height: 10vh;
     object-fit:cover;
   }
 `
 
 const ModalCarousel = ({imgs}) => {
-
   const responsive = {
     0: {
       items: 1,
     },
   };
 
-  const images = [
-    "img/main.png",
-    "img/main.png",
-    "img/technical.png",
-    "img/technical.png",
-    "img/effects.png",
-    "img/effects.png",
-  ];
-  console.log(imgs)
-  console.log(images)
 
-  const items = images.map((image) => {
+  const items = imgs.map((image) => {
     return (
       <ItemsContain>
       <ItemsWrap>
