@@ -43,7 +43,7 @@ const ModalCarousel = ({imgs}) => {
     "img/technical.png",
     "img/technical.png",
     "img/effects.png",
-    "img/effects.png"
+    "img/effects.png",
   ];
   console.log(imgs)
   console.log(images)

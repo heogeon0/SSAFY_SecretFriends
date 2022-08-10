@@ -29,7 +29,7 @@ function CardList () {
       imgs: ['img/technical.png', 'img/technical.png', 'img/technical.png'],
     },
     { 
-      imgSrc: '/img/carousel/children3.jpg', 
+      imgSrc: '/img/carousel/cartoon.jpg', 
       altImg: '기대 효과', 
       title: '기대 효과', 
       description: '이 프로젝트를 통해 얻을 수 있는 기대효과는 a, b, c, d... Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat, sequi reprehenderit nostrum dolor accusamus dicta! Consequuntur repellendus odio quas cum laborum magnam porro eligendi eaque asperiores. Inventore possimus maiores voluptas.',
