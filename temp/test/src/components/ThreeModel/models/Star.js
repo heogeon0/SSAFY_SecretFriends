@@ -16,17 +16,18 @@ function Star({ chat, ...props }) {
   const [position, sposition] = useState({});
   useEffect(() => {
     const setPosition = () => {
-      const minx = -24;
-      const maxx = -14;
+      const minx = -2;
+      const maxx = 2;
       // const miny = -3;
       // const maxy = 4;
-      const minz = -4;
-      const maxz = 3.9;
+      const minz = 0;
+      const maxz = 0;
 
       const x = Math.floor(Math.random() * (maxx - minx) + minx);
       // const y = Math.floor(Math.random() * (maxy - miny) + miny);
-      const y = 1.5;
-      const z = Math.floor(Math.random() * (maxz - minz) + minz);
+      const y = 2.5;
+      // const z = Math.floor(Math.random() * (maxz - minz) + minz);
+      const z = 0;
       sposition({ x, y, z });
     };
     setPosition();
@@ -68,6 +69,7 @@ function Star({ chat, ...props }) {
           dispose={null}
           position={[position.x, position.y, position.z]}
           onClick={() => onClick(chat.answerID, chat.content)}
+          scale={0.5}
         >
           <mesh geometry={nodes.Star.geometry} material={materials.Gold} />
         </group>
