@@ -28,11 +28,10 @@ const InputTag = styled.input`
   background-color: ${(props) => props.theme.grayColor};
   border: ${(props) => props.theme.grayColor} 1px solid;
   height: 2.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   border-radius: 5px;
   @media ${props => props.theme.mobile} {
     height: 1.6rem;
-    margin-bottom: 1rem;
   };
 `
 
@@ -40,7 +39,7 @@ const LabelTag = styled.label`
   text-align: left;
   line-height: 2vw;
   font-size: min(3vw, 1rem);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5vw;
 `
 
 const FlexBox = styled.div`
@@ -59,8 +58,8 @@ const Form = styled.form`
     button {
       font-size: min(3vw, 1rem);
       font-family: ${(props) => props.theme.formFont};
-      width: 15vw;
-      max-width: 7rem;
+      width: 22vw;
+      max-width: 8.5rem;
       height: 1.8rem;
       border: none;
       background-color: ${(props) => props.theme.grayColor};
@@ -69,7 +68,7 @@ const Form = styled.form`
         cursor: pointer;
       }
       @media ${(props) => props.theme.mobile} {
-        width: 23vw;
+        width: 25vw;
         height: 6vw;
       }
     }
@@ -136,9 +135,9 @@ function LoginForm() {
         </FlexBox>
         <ERROR>{errors?.email?.message || errors?.password?.message}</ERROR>
         <ButtonWrap>
-          <button style={{margin: "min(0.5vw, 1rem)"}}>로그인</button>
-          <div style={{fontSize: "min(3vw, 1rem)", margin: "min(0.5vw, 1rem)"}}>or</div>
-          <Link style={{color: "black", fontSize: "min(3vw, 1rem)", margin: "min(0.5vw, 1rem)"}} to="/signup">계정이 없으신가요?</Link>
+          <button style={{margin: "min(0.4vw, 1rem)"}}>로그인</button>
+          <div style={{fontSize: "min(3vw, 1rem)", margin: "min(0.4vw, 1rem)"}}>or</div>
+          <Link style={{color: "black", fontSize: "min(3vw, 1rem)", margin: "min(0.4vw, 1rem)"}} to="/signup">계정이 없으신가요?</Link>
         </ButtonWrap>
       </Form>
     </>
