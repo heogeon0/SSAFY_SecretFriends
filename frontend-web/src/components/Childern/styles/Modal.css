@@ -13,9 +13,15 @@
 /* modal창 */
 .modalBody {
   position: absolute;
-  width: 55%;
-  height: 60%;
-  padding: 40px;
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  /* height: 35%; */
+  min-width: 350px;
+  min-height: 250px;
+  max-width: 500px;
+  max-height: 500px;
+  padding: 20px;
   text-align: center;
   background-color: rgb(255, 255, 255);
   border-radius: 12px;
