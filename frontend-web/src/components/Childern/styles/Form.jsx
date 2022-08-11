@@ -16,7 +16,7 @@ const Wrapper = styled.div`
     line-height: 25px;
   }
   input {
-    padding: 1vw;
+    padding: 10px;
     background-color: ${(props) => props.theme.grayColor};
     height: 2.5rem;
     font-family: ${(props) => props.theme.namingFont};

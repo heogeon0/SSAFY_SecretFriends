@@ -40,15 +40,17 @@ const CharacterForm = styled.div`
     align-items: center;
     justify-content: space-evenly;
     border-radius: 10px;
+    margin-top: 1rem;
   }
 `;
 
 const CharacterName = styled.div`
-  font-size: min(2.5vw, 2rem);
+  font-size: min(1.5vw, 2rem);
   font-weight: bold;
 `
 
 const InputTag = styled.input`
+  padding: 10px;
   background-color: ${(props) => props.theme.grayColor};
   border: ${(props) => props.theme.grayColor} 1px solid;
   height: 2.5rem;
