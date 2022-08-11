@@ -10,51 +10,67 @@ import { Token } from "../../atom";
 
 
 const ERROR = styled.div`
-  grid-column: 1 / 3;
   text-align: center;
+  font-size: min(2vw, 1rem);
   font-family: ${(props) => props.theme.standardFont};
   color: #c23616;
+  margin-bottom: min(2vw, 1rem);
 `;
 
-const ButtonWrap = styled.div``;
+const ButtonWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const InputTag = styled.input`
+  background-color: ${(props) => props.theme.grayColor};
+  border: ${(props) => props.theme.grayColor} 1px solid;
+  height: 2.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 5px;
+  @media ${props => props.theme.mobile} {
+    height: 1.6rem;
+    margin-bottom: 1rem;
+  };
+`
+
+const LabelTag = styled.label`
+  text-align: left;
+  line-height: 2vw;
+  font-size: min(3vw, 1rem);
+  margin-bottom: 0.5rem;
+`
+
+const FlexBox = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 
 const Form = styled.form`
-  width: 95%;
-  max-width: 500px;
+  display : flex;
   flex-direction: column;
-  margin-bottom: 5%; // 버튼 추가시 수정 필요
-  font-family: ${(props) => props.theme.namingFont};
-  div {
-    display: grid;
-    grid-template-columns: minmax(90px, 1fr) 10fr;
-    margin: 10px;
-    gap: 10px;
-    label {
-      text-align: right;
-      line-height: 40px;
-    }
-    input {
-      background-color: ${(props) => props.theme.yellowColor};
-      height: 40px;
-      background: linear-gradient(
-        ${(props) => props.theme.yellowColor},
-        ${(props) => props.theme.grayColor}
-      );
-      border: ${(props) => props.theme.yellowColor} 1px solid;
-    }
-  }
+  font-family: ${(props) => props.theme.formFont};
+  padding: 2vw;
+  margin-bottom: 1vw;
+
   ${ButtonWrap} {
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-    width: 95%;
-    margin-right: 0px;
     button {
-      font-family: ${(props) => props.theme.namingFont};
-      width: 80px;
-      height: 25px;
+      font-size: min(3vw, 1rem);
+      font-family: ${(props) => props.theme.formFont};
+      width: 15vw;
+      max-width: 7rem;
+      height: 1.8rem;
+      border: none;
+      background-color: ${(props) => props.theme.grayColor};
+      border-radius: 1rem;
       :hover {
         cursor: pointer;
+      }
+      @media ${(props) => props.theme.mobile} {
+        width: 23vw;
+        height: 6vw;
       }
     }
   }
@@ -93,19 +109,11 @@ function LoginForm() {
     }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        height: "80%",
-      }}
-    >
-      <ERROR>{errors?.email?.message || errors?.password?.message}</ERROR>
+    <>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="email">E-Mail : </label>
-          <input
+        <FlexBox>
+          <LabelTag htmlFor="email">이메일</LabelTag>
+          <InputTag
             {...register("email", {
               required: "E-mail을 입력해주세요",
               pattern: {
@@ -116,24 +124,24 @@ function LoginForm() {
             })}
             type="text"
           />
-        </div>
-        <div>
-          <label htmlFor="password">Password : </label>
-          <input
+        </FlexBox>
+        <FlexBox>
+          <LabelTag htmlFor="password">비밀번호</LabelTag>
+          <InputTag
             {...register("password", {
               required: "비밀번호를 입력해주세요",
             })}
             type="password"
           />
-        </div>
+        </FlexBox>
+        <ERROR>{errors?.email?.message || errors?.password?.message}</ERROR>
         <ButtonWrap>
-          <button>로그인</button>
-          <Link to="/signup">
-            <button>회원가입</button>
-          </Link>
+          <button style={{margin: "min(0.5vw, 1rem)"}}>로그인</button>
+          <div style={{fontSize: "min(3vw, 1rem)", margin: "min(0.5vw, 1rem)"}}>or</div>
+          <Link style={{color: "black", fontSize: "min(3vw, 1rem)", margin: "min(0.5vw, 1rem)"}} to="/signup">계정이 없으신가요?</Link>
         </ButtonWrap>
       </Form>
-    </div>
+    </>
   );
 }
 

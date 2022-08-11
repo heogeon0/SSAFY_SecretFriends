@@ -6,55 +6,69 @@ import drf from "../../api/drf";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+
 const ERROR = styled.div`
-  grid-column: 1 / 3;
   text-align: center;
+  font-size: min(2vw, 1rem);
   font-family: ${(props) => props.theme.standardFont};
   color: #c23616;
+  margin: min(0.8vw, 1rem) 0 min(2vw, 1rem) 0;
 `;
 
-const ButtonWrap = styled.div``;
-
-const Form = styled.form`
+const ButtonWrap = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  width: 98%;
-  height: 100%;
-  max-width: 500px;
-  margin-bottom: 5%; // 버튼 추가시 수정 필요
-  font-family: ${(props) => props.theme.namingFont};
-  div {
-    display: grid;
-    grid-template-columns: minmax(100px, 1fr) 10fr;
-    margin: 10px;
-    gap: 10px;
-    label {
-      text-align: left;
-      line-height: 30px;
-    }
-    input {
-      background-color: ${(props) => props.theme.yellowColor};
-      height: 30px;
-      background: linear-gradient(
-        ${(props) => props.theme.yellowColor},
-        ${(props) => props.theme.grayColor}
-      );
-      border: ${(props) => props.theme.yellowColor} 1px solid;
-    }
-  }
-  ${ButtonWrap} {
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-    width: 95%;
-    button {
-      font-family: ${(props) => props.theme.namingFont};
-      width: 80px;
-      height: 25px;
+  justify-content: center;
+  align-items: center;
+`;
 
+const LabelTag = styled.label`
+  text-align: left;
+  line-height: 2vw;
+  font-size: min(3vw, 1rem);
+  margin-bottom: 0.5vw;
+  `
+
+const InputTag = styled.input`
+  background-color: ${(props) => props.theme.grayColor};
+  border: ${(props) => props.theme.grayColor} 1px solid;
+  height: 2.5rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  @media ${props => props.theme.mobile} {
+    height: 1.6rem;
+    margin-bottom: 1rem;
+  };
+`
+
+const FlexBox = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const Form = styled.form`
+  display : flex;
+  flex-direction: column;
+  font-family: ${(props) => props.theme.formFont};
+  padding: 2vw 2vw 1vw 2vw;
+  margin-bottom: 1vw;
+
+  ${ButtonWrap} {
+    button {
+      font-size: min(3vw, 1rem);
+      font-family: ${(props) => props.theme.formFont};
+      width: 15vw;
+      max-width: 7rem;
+      height: 1.8rem;
+      border: none;
+      background-color: ${(props) => props.theme.grayColor};
+      border-radius: 1rem;
       :hover {
         cursor: pointer;
+      }
+      @media ${(props) => props.theme.mobile} {
+        width: 23vw;
+        height: 6vw;
       }
     }
   }
@@ -119,17 +133,10 @@ function SignupForm({
   const check = watch().password;
   return (
     <div>
-      <ERROR>
-        {errors?.name?.message ||
-          errors?.phoneNumber?.message ||
-          errors?.email?.message ||
-          errors?.password?.message ||
-          errors?.passwordConfirm?.message}
-      </ERROR>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="name">이름 : </label>
-          <input
+        <FlexBox>
+          <LabelTag htmlFor="name">이름</LabelTag>
+          <InputTag
             {...register("name", {
               required: "이름을 입력해주세요!",
             })}
@@ -137,12 +144,10 @@ function SignupForm({
             value={name}
             onChange={ChangeName}
           />
-        </div>
-        <div>
-          <label htmlFor="phoneNumber" placeholder="숫자만 입력해주세요">
-            휴대전화 :
-          </label>
-          <input
+        </FlexBox>
+        <FlexBox>
+          <LabelTag htmlFor="phoneNumber" placeholder="숫자만 입력해주세요">휴대전화</LabelTag>
+          <InputTag
             {...register("phoneNumber", {
               required: "전화번호를 입력해주세요",
               pattern: {
@@ -157,12 +162,12 @@ function SignupForm({
             value={phoneNumber}
             onChange={ChangePhoneNumber}
           />
-        </div>
+        </FlexBox>
         <>{ isUpdate ? null : 
           <>
-            <div>
-              <label htmlFor="email">E-Mail : </label>
-              <input
+            <FlexBox>
+              <LabelTag htmlFor="email">이메일</LabelTag>
+              <InputTag
                 {...register("email", {
                   required: "E-Mail을 입력해주세요",
                   pattern: {
@@ -173,10 +178,10 @@ function SignupForm({
                 })}
                 type="text"
               />
-            </div>
-            <div>
-              <label htmlFor="password">비밀번호 : </label>
-              <input
+            </FlexBox>
+            <FlexBox>
+              <LabelTag htmlFor="password">비밀번호</LabelTag>
+              <InputTag
                 {...register("password", {
                   required: "비밀번호를 입력해주세요",
                   minLength: {
@@ -186,12 +191,11 @@ function SignupForm({
                 })}
                 type="password"
                 placeholder="8자리 이상으로 적어주세요"
-                // placeholder={password}
               />
-            </div>
-            <div>
-              <label htmlFor="passwordCheck">비밀번호 확인 : </label>
-              <input
+            </FlexBox>
+            <FlexBox>
+              <LabelTag htmlFor="passwordCheck">비밀번호 확인</LabelTag>
+              <InputTag
                 {...register("passwordConfirm", {
                   validate: (value) =>
                     value === check ? true : "비밀번호가 틀립니다",
@@ -199,12 +203,18 @@ function SignupForm({
                 type="password"
                 placeholder="한번 더 적어주세요"
               />
-            </div>
+            </FlexBox>
           </>
         }</>
         <ButtonWrap>
+          <ERROR>
+            {errors?.name?.message ||
+              errors?.phoneNumber?.message ||
+              errors?.email?.message ||
+              errors?.password?.message ||
+              errors?.passwordConfirm?.message}
+          </ERROR>
           <div>{ isUpdate ? <button>수정하기</button> : <button>회원가입</button> }</div>
-          {/* <button>회원가입</button> */}
         </ButtonWrap>
       </Form>
     </div>
