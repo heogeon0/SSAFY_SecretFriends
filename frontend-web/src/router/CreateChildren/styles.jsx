@@ -52,7 +52,7 @@ const Wrapper = styled.div`
         color: #dcdde1;
         transition: color 0.3s linear, background-color 0.3s linear;
         @media ${props => props.theme.mobile} {
-          padding: 0.6vw;
+          padding: 1rem;
         }
         p {
           font-size: min(2.5vw, 1.5rem);
@@ -91,12 +91,11 @@ const Wrapper = styled.div`
       }
       .buttonWrap {
         display: flex;
-        flex-direction: row-reverse;
+        justify-content: space-between;
         padding: 20px 10px;
         right: 1.5vw;
         button {
           padding: 0.3rem 1rem;
-          margin-left: 6px;
           background-color: #daf3af;
           border: none;
           border-radius: 4vw;

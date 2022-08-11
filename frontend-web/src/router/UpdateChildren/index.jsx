@@ -15,7 +15,11 @@ const Bg = styled.div`
   background-image: url("img/background/green.jpg");
   background-size: cover;
 `
-
+const FlexBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 function UpdateChildren() {
   const [slide, setSlide] = useState(1);
@@ -201,8 +205,11 @@ function UpdateChildren() {
             <div>{tab[slide]}</div>
             {error ? <p className="error">{error}</p> : ""}
             <div className="buttonWrap">
-              <button onClick={goNext}>{slide === 2 ? "완료" : "다음"}</button>
-              {slide !== 1 ? <button onClick={goPre}>이전</button> : null}
+              <button onClick={() => goMain()}>나가기</button>
+              <FlexBox>
+                {slide !== 1 ? <button onClick={goPre}>이전</button> : null}
+                <button onClick={goNext} style={{marginLeft: "6px"}}>{slide === 2 ? "완료" : "다음"}</button>
+              </FlexBox>
             </div>
           </div>
         </div>
