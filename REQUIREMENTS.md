@@ -41,16 +41,16 @@ npm install cors
 1. 얼굴인식
 
 ```bash
-pip install opencv-python
-pip install opencv-contrib-python
-pip install dlib
-pip install face_recognition
+python -m pip install opencv-python
+python -m pip install opencv-contrib-python
+python -m pip install dlib
+python -m pip install face_recognition
 ```
 
 2. Firebase 연동
 
 ```bash
-pip install pyrebase4
+python -m pip install pyrebase4
 ```
 
 #### 4. TTS

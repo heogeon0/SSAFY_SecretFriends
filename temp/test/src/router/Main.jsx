@@ -22,30 +22,32 @@ import Plane from "../components/ThreeModel/factors/plane";
 import Chats from "../components/Chats/Chats";
 import Grass from "../components/ThreeModel/factors/grass";
 import Photozone from "../components/ThreeModel/factors/Photo/photozone";
-// function Box() {
-//   const [ref, api] = useBox(() => ({ mass: 1, position: [0, 2, 0] }));
-//   return (
-//     <mesh
-//       onClick={() => {
-//         api.velocity.set(0, 2, 0);
-//       }}
-//       ref={ref}
-//       position={[0, 0, 0]}
-//     >
-//       <boxBufferGeometry attach="geometry" />
-//       <meshLambertMaterial attach="material" color="black" />
-//     </mesh>
-//   );
-// }
 
 function Main() {
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
   const childernId = useRecoilValue(childrenId);
   const setChats = useSetRecoilState(basicChats);
-  const degred = (degrees) => degrees * (Math.PI / 180);
 
+  const helloChats = [
+    "좋은아침이야",
+    "점심은 먹었어? 난 메밀 소바를 먹을생각이야",
+    "벌써 저녁이야! 하루 시간가는 줄 모르겠어",
+  ];
+  const instructChate = [" 별이랑 하트를 눌러봐!"];
   // memberId 넣어야함
   useEffect(() => {
+    const now = new Date().getHours();
+    console.log(now);
+    let chat = "";
+    if (now <= 9) {
+      chat = helloChats[0];
+    } else if (now < 16) {
+      chat = helloChats[1];
+    } else {
+      chat = helloChats[2];
+    }
+    chat += instructChate[0];
+    axios.get(iot.tts(chat));
     axios.get(webapi.answers.answer(childernId)).then((res) => {
       setChats(res.data);
     });

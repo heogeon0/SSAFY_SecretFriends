@@ -1,40 +1,58 @@
-import { useRecoilState } from "recoil";
+import { RecoilBridge, useRecoilState } from "recoil";
 import { childrenId } from "../atoms";
 import { Navigate, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Canvas } from "@react-three/fiber";
 
-import axios from "axios";
-import webapi from "../apis/webapi";
-import iot from "../apis/iot";
-import { useRef } from "react";
+import { useRecoilBridgeAcrossReactRoots_UNSTABLE } from "recoil";
+import Character from "../components/ThreeModel/models/Character";
+
+import Photos from "../components/Login/photos";
+import FaceLogin from "../components/Login/faceLogin";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 function Login() {
-  const [id, setId] = useRecoilState(childrenId);
-  const videoRef = useRef(null);
+  const [ready, setReady] = useState(false);
   const navigate = useNavigate();
-  const constraints = {
-    video: true,
+  const GoMain = () => {
+    navigate("/mains");
   };
-  const startVideo = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia(constraints);
-    if (videoRef && videoRef.current && !videoRef.current.srcObject) {
-      videoRef.current.srcObject = stream;
-    }
-  };
-  const onClick = () => {
-    console.log(iot.login());
-    startVideo();
-    axios.get(iot.login()).then(({ data }) => {
-      console.log(data.id);
-      setId(data.id);
-      navigate("/mains");
-    });
-  };
+
+  const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
 
   return (
     <>
-      <div>로그인화면</div>
-      <button onClick={onClick}>로그인</button>
-      <video autoPlay ref={videoRef}></video>
+      <Wrapper>
+        <Canvas
+          style={{
+            width: "100vw",
+            height: "100vh",
+            backgroundImage:
+              "linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%)",
+          }}
+          camera={{ fov: 100, position: [0, 0.5, 3] }}
+        >
+          <RecoilBridge>
+            <spotLight position={[0, 10, 20]} angle={1} />
+
+            <Character
+              position={[3, -2, 0]}
+              goMain={GoMain}
+              rotation={[0, -0.35, 1]}
+              ready={ready}
+              setReady={setReady}
+              state={"stateLogin"}
+            />
+          </RecoilBridge>
+        </Canvas>
+        <Photos />
+      </Wrapper>
     </>
   );
 }
