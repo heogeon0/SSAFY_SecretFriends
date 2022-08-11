@@ -9,6 +9,9 @@ const Wrapper = styled.div`
   height: 80vw;
   max-width: 700px;
   max-height: 500px;
+  @media ${props => props.theme.mobile} {
+    top: 35%;
+  }
   .grid {
     display: grid;
     width: 100%;
@@ -69,9 +72,9 @@ const Wrapper = styled.div`
     .content {
       display: grid;
       grid-template-columns: 1fr;
-      grid-template-rows: 6fr 12px 60px;
+      grid-template-rows: 4fr 0.3fr 0.5fr;
       height: 100%;
-      padding: 20px 15px;
+      padding: 20px 15px 0 15px;
       background-color: ${(props) => props.theme.whiteColor};
       box-shadow: 5px 5px 15px 0.5px #dcdde1;
       border-radius: 5px;
