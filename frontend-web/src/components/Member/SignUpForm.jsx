@@ -53,9 +53,7 @@ const FlexBox = styled.div`
 const GrayBtn = styled.button`
   font-size: min(3vw, 1rem);
   font-family: ${(props) => props.theme.formFont};
-  width: 7vw;
-  max-width: 4rem;
-  height: 1.8rem;
+  padding: 1vw;
   line-height: 50%;
   border: none;
   background-color: ${(props) => props.theme.grayColor};
@@ -63,18 +61,15 @@ const GrayBtn = styled.button`
   :hover {
     cursor: pointer;
   }
-  @media ${(props) => props.theme.mobile} {
-    width: 15vw;
-    height: 6vw;
+  @media ${props => props.theme.mobile} {
+    padding: 2vw;
   }
 `
 
 const YellowBtn = styled.button`
   font-size: min(3vw, 1rem);
   font-family: ${(props) => props.theme.formFont};
-  width: 10vw;
-  max-width: 6rem;
-  height: 1.8rem;
+  padding: 1vw;
   line-height: 50%;
   border: none;
   background-color: ${(props) => props.theme.yellowColor};
@@ -82,9 +77,8 @@ const YellowBtn = styled.button`
   :hover {
     cursor: pointer;
   }
-  @media ${(props) => props.theme.mobile} {
-    width: 23vw;
-    height: 6vw;
+  @media ${props => props.theme.mobile} {
+    padding: 2vw;
   }
 `
 const Form = styled.form`
@@ -152,6 +146,11 @@ function SignupForm({
   }
 
   function goMain(event) {
+    event.preventDefault();
+    navigate('/main');
+  }
+
+  function goIntro(event) {
     event.preventDefault();
     navigate('/');
   }
@@ -238,7 +237,8 @@ function SignupForm({
               errors?.passwordConfirm?.message}
           </ERROR>
           <BtnFlex>
-            <GrayBtn onClick={(event) => goMain(event)}>취소</GrayBtn>
+            <div>{ isUpdate ? <GrayBtn onClick={(event) => goMain(event)}>취소</GrayBtn> : <GrayBtn onClick={(event) => goIntro(event)}>취소</GrayBtn> }</div>
+            
             <div>{ isUpdate ? <YellowBtn>회원정보 수정</YellowBtn> : <YellowBtn>회원가입</YellowBtn> }</div>
           </BtnFlex>
         </ButtonWrap>
