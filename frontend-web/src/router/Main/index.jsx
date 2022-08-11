@@ -20,27 +20,26 @@ const ScrollBtn = styled.div`
 `
 
 function Main() {
-  // <ReactLoading type={type} color={'black'} height={'20%'} width={'20%'} />
-// Top, Bottom button
   const pageTop = {
     position: 'fixed',
     bottom: '60px',
-    right: '30px',
-    width: '40px',
+    right: '15px',
+    width: '4vw',
     height: '40px',
-    /* border: 1px solid #eee; */
     borderRadius: '50%',
-    color: 'gray',
+    color: '#cbc8c8',
+    zIndex: '1',
   }
 
   const pageBottom = {
     position: 'fixed',
     bottom: '40px',
-    right: '30px',
-    width: '40px',
+    right: '15px',
+    width: '4vw',
     height: '20px',
     borderRadius: '50%',
-    color: 'gray',
+    color: '#cbc8c8',
+    zIndex: '1',
   }
 
   function moveToTop () {
