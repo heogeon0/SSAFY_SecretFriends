@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   height: calc(80vw / 1.3);
   max-width: 400px;
   max-height: calc(600px / 1.68);
+  border-radius: 5px;
   background-color: ${(props) => props.theme.whiteColor};
   box-shadow: 5px 5px 15px 0.5px #dcdde1;
   .title {
