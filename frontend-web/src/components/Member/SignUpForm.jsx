@@ -214,7 +214,7 @@ function SignupForm({
               errors?.password?.message ||
               errors?.passwordConfirm?.message}
           </ERROR>
-          <div>{ isUpdate ? <button>수정하기</button> : <button>회원가입</button> }</div>
+          <div>{ isUpdate ? <button>회원정보 수정</button> : <button>회원가입</button> }</div>
         </ButtonWrap>
       </Form>
     </div>

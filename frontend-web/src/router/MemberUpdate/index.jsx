@@ -9,8 +9,21 @@ import { useEffect, useState } from "react";
 
 
 const Box = styled.div`
+  background-image: url("img/background/pink.jpg");
+  background-size: cover;
   height: 700px;
-  width: 600px;
+`
+
+const Title = styled.span`
+  position: absolute;
+  padding: 2vw 4vw;
+  font-family: ${props => props.theme.formFont};
+  font-size: min(4vw, 1.5rem);
+  font-weight: bold;
+  border-radius: 5px;
+  background-color: ${props => props.theme.whiteColor};
+  top: -5vw;
+  right: 0%;
 `
 
 function MemberUpdate() {
@@ -44,9 +57,7 @@ function MemberUpdate() {
   return (
     <Box>
       <Wrapper>
-        <div className="title">
-          <h3>회원정보 수정</h3>
-        </div>
+        <Title>EDIT PROFILE</Title>
         <SignupForm
           name={name} setName={setName}
           phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber}
