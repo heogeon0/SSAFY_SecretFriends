@@ -151,6 +151,11 @@ function SignupForm({
     }
   }
 
+  function goMain(event) {
+    event.preventDefault();
+    navigate('/');
+  }
+
   const check = watch().password;
   return (
     <div>
@@ -233,7 +238,7 @@ function SignupForm({
               errors?.passwordConfirm?.message}
           </ERROR>
           <BtnFlex>
-            <GrayBtn>취소</GrayBtn>
+            <GrayBtn onClick={(event) => goMain(event)}>취소</GrayBtn>
             <div>{ isUpdate ? <YellowBtn>회원정보 수정</YellowBtn> : <YellowBtn>회원가입</YellowBtn> }</div>
           </BtnFlex>
         </ButtonWrap>
