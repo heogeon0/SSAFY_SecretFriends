@@ -27,6 +27,7 @@ app.get("/product", function (req, res) {
 
 app.get("/login", (req, res) => {
   const result = spawn("python", ["./python/face_recognition/face_recog.py"]);
+  console.log("im here");
   result.stdout.on("data", function (data) {
     console.log(data.toString());
     res.json({ id: data.toString() });
