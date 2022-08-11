@@ -7,6 +7,7 @@ import datetime
 import numpy as np
 from uuid import uuid4
 from cvzone.SelfiSegmentationModule import SelfiSegmentation
+from playsound import playsound
 
 # firebase import
 import firebase_admin
@@ -23,21 +24,13 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread, QCoreApplication
 import smtplib
 from email.message import EmailMessage
 
-global seg, imgout, flag_photo, flag_exit, filename, img, imgIndex, id, email
-
+projectPath = "C:/SSAFY/Workspace/20220811_13/S07P12D208/temp/SERVER/python/BackgroundFilter/" # 프로젝트 파일 경로
 imgIndex = 1
 
 seg = SelfiSegmentation()
 
 flag_photo = False
 flag_exit = False
-
-imagePath = "C:/SSAFY/Workspace/20220811_08/S07P12D208/temp/SERVER/python/BackgroundFilter/image"
-listImg = os.listdir(imagePath)
-imgList = []
-print(len(imgList))
-print("file_list : {}".format(imgList))
-
 
 class VideoThread(QThread):
     change_pixmap_signal = pyqtSignal(np.ndarray)
@@ -65,7 +58,7 @@ class VideoThread(QThread):
 
         while True:
             img = cv2.imread(
-                "C:/SSAFY/Workspace/20220811_08/S07P12D208/temp/SERVER/python/BackgroundFilter/image/" + str(
+                projectPath + "image/" + str(
                     imgIndex) + ".png")
             img = cv2.resize(img, (640, 480), fx=0, fy=0, interpolation=cv2.INTER_CUBIC)
 
@@ -78,12 +71,12 @@ class VideoThread(QThread):
                 print("Screenshot saved...")
                 filename = datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + 'screenshot{}.jpg'
                 filename = filename.format(cnt)
-                path = 'C:/SSAFY/Workspace/20220811_08/S07P12D208/temp/SERVER/python/BackgroundFilter/result/'
+                path = projectPath + 'result/'
                 cv2.imwrite(path + filename.format(cnt), imgout, params=[cv2.IMWRITE_PNG_COMPRESSION, 0])
                 fileUpload(path + filename.format(cnt))
                 flag_photo = False
 
-                file = 'C:/SSAFY/Workspace/20220811_08/S07P12D208/temp/SERVER/python/BackgroundFilter/result/' + filename.format(cnt)
+                file = projectPath + 'result/' + filename.format(cnt)
                 fp = open(file, 'rb')
                 file_data = fp.read()
                 msg.add_attachment(file_data, maintype='image', subtype='jpg', filename=filename.format(cnt))
@@ -98,7 +91,7 @@ PROJECT_ID = "my-buddy-359c8"
 # C:\SSAFY\Workspace\20220809_16\S07P12D208\temp\SERVER\python\BackgroundFilter\SDK
 # cred = credentials.Certificate("./SDK/my-buddy-359c8-firebase-adminsdk-9vyrm-60b4fbbdf5.json")
 cred = credentials.Certificate(
-    "C:/SSAFY/Workspace/20220811_08/S07P12D208/temp/SERVER/python/BackgroundFilter/SDK/my-buddy-359c8-firebase-adminsdk-9vyrm-60b4fbbdf5.json")
+    projectPath + "SDK/my-buddy-359c8-firebase-adminsdk-9vyrm-60b4fbbdf5.json")
 default_app = firebase_admin.initialize_app(cred, {
     # gs://smart-mirror-cf119.appspot.com
     'storageBucket': f"{PROJECT_ID}.appspot.com"
@@ -225,6 +218,7 @@ class App(QWidget):
     def btnPhotoClicked(self):
         global flag_photo
         flag_photo = True
+        playsound(projectPath + "sound/shutter.mp3")
 
     def btnExitClicked(self):
         QCoreApplication.instance().quit
@@ -273,7 +267,7 @@ if __name__ == "__main__":
     id = sys.argv[1]
     email = sys.argv[2]
     fontDB = QFontDatabase()
-    fontDB.addApplicationFont("C:/SSAFY/Workspace/20220811_08/S07P12D208/temp/SERVER/python/BackgroundFilter/font/NanumBarunGothic.ttf")
+    fontDB.addApplicationFont(projectPath + "font/NanumBarunGothic.ttf")
     app.setFont(QFont('NanumBarunGothic'))
     a = App()
     a.show()
