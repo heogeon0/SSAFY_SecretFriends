@@ -18,6 +18,47 @@ const ScrollBtn = styled.div`
     cursor: pointer;
   }
 `
+const FlexRow = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+const FlexCol = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
+const FlexReflex = styled.div`
+  display: flex;
+  @media ${props => props.theme.mobile} {
+    flex-direction: column;
+  }
+`
+const ChildBtn = styled.button`
+  margin: 5px;
+  padding: 5px 16px;
+  background-color: ${props => props.theme.whiteColor};
+  box-shadow: 3px 3px 3px gray;
+  border: none;
+  border-radius: 5px;
+  :hover {
+    cursor: pointer;
+  }
+`
+const ConversBtn = styled.button`
+  font-size: min(5vw, 16px);
+  :hover {
+    cursor: pointer;
+  }
+  @media ${props => props.theme.mobile} {
+    font-size: min(2vw, 16px);
+  }
+`
+const ConversText = styled.div`
+  @media ${props => props.theme.mobile} {
+    font-size: min(3vw, 16px);
+  }
+`
 
 function Main() {
   const pageTop = {
@@ -68,7 +109,7 @@ function Main() {
     }).then((res) => {
       setMemberID(res.data.memberID)
       setAnswerList(res.data.childrens[currentSlide]?.answers)
-      setChildrens([...res.data.childrens, {childrenID: 0}])
+      setChildrens([...res.data.childrens, {childrenID: 0, name: "아이"}])
     })
   }, [])
   
@@ -145,47 +186,59 @@ function Main() {
   }
 
   return (
-    <Wrapper>
-      <div>
-        <Link style={{textDecoration: 'none', margin: '0 1rem 0 0'}} to="/updateMember">회원정보 수정</Link>
-        <Link style={{textDecoration: 'none', margin: '0 1rem 0 0'}} to="/createChildren">아이정보 등록</Link>
-        <Link style={{textDecoration: 'none'}} to="/signout">회원 탈퇴</Link>
-      </div>
-      <div className="head">
-        <MainCarousel />
-        { childrenID
-          ? <button onClick={() => deleteChildren(childrenID)}>아이 삭제</button>
-          : null
-        }
-        { childrenID ? <Link to={`/UpdateChildren/${childrenID}`}><button>아이정보 수정</button></Link> : null }
-      </div>
-      <>
+    <>
+      <Wrapper>
+        <div className="head">
+          <MainCarousel />
+          <FlexRow>
+            { childrenID ? <Link to={`/UpdateChildren/${childrenID}`}><ChildBtn>수정</ChildBtn></Link> : null }
+            { childrenID
+              ? <ChildBtn onClick={() => deleteChildren(childrenID)}>삭제</ChildBtn>
+              : null
+            }
+          </FlexRow>
+        </div>
         <div className="body">
           <div className="body_grid">
-            <p>\아이와 \공팔이가 함께한 사진들</p>
-            <div className="body_picture">
-              {/* firebase 활용 예정 */}
-            </div>
-          </div>
-          <div className="body_grid">
-          { childrenID ? <button><Link to={`/CreateAnswer/${childrenID}`}>추가하기</Link></button> : null }
-            <p>\아이에게 해주고싶은 말</p>
+            <FlexRow style={{justifyContent: "space-between"}}>
+              <p>{childrens[currentSlide] ? childrens?.[currentSlide].name : "아이"}에게 해주고싶은 말</p>
+              { childrenID ? <button className="plusBtn"><Link to={`/CreateAnswer/${childrenID}`} style={{textDecoration: "none", color: "black"}}>추가하기</Link></button> : null }
+            </FlexRow>
             <div className="body_conversation">
               { answerList ? answerList.map((answer, idx) => {
                 return (
                   <div key={answer.answerID}>
-                    <span>{answer.content}</span>
-                    <span>{answer.createdAt}</span>
-                    <button onClick={() => updateAnswer(idx)}>수정</button>
-                    <button onClick={() => deleteAnswer(answer.answerID, answer.questionID)}>삭제</button>
-                    { close && num===idx && (<AnswerModal answer={answer} setClose={setClose} closeModal={() => setClose(!close)} />)}
+                    <FlexReflex style={{justifyContent: "space-between", marginBottom: "5px"}}>
+                      <ConversText>{answer.content}</ConversText>
+                      <FlexRow style={{justifyContent: "space-between", alignItems: "center"}}>
+                        <ConversText style={{marginBottom: "1vw"}}>{answer.createdAt}</ConversText>
+                        <FlexRow>
+                          <ConversBtn style={{marginLeft: "1rem", marginBottom: "1vw"}} onClick={() => updateAnswer(idx)}>수정</ConversBtn>
+                          <ConversBtn style={{marginLeft: "0.5rem", marginBottom: "1vw"}} onClick={() => deleteAnswer(answer.answerID, answer.questionID)}>삭제</ConversBtn>
+                          { close && num===idx && (<AnswerModal answer={answer} setClose={setClose} closeModal={() => setClose(!close)} />)}
+                        </FlexRow>
+                      </FlexRow>
+                    </FlexReflex>
                   </div>
                 )
               }) : null}
             </div>
           </div>
+          <div className="body_grid">
+            <FlexRow style={{justifyContent: "space-between"}}>
+              <p>{childrens[currentSlide] ? childrens?.[currentSlide].name : "아이"}와 함께한 사진</p>
+              { childrenID ? <button className="plusBtn"><Link to={`/CreateAnswer/${childrenID}`} style={{textDecoration: "none", color: "black"}}>더보기</Link></button> : null }
+            </FlexRow>
+            <div className="body_picture">
+              {/* firebase 활용 예정 */}
+            </div>
+          </div>
         </div>
-      </>
+        <FlexRow style={{margin: "1rem", justifyContent: "flex-end"}}>
+          <Link style={{fontSize: "min(2vw, 16px)", color: "gray", margin: '0 1rem 0 0'}} to="/updateMember">회원정보 수정</Link>
+          <Link style={{fontSize: "min(2vw, 16px)", color: "gray"}} to="/signout">회원 탈퇴</Link>
+        </FlexRow>
+      </Wrapper>
       <div>
         <ScrollBtn>
           <i onClick={moveToTop} className="fa-solid fa-circle-chevron-up fa-2xl" style={ pageTop }></i>
@@ -194,7 +247,7 @@ function Main() {
           <i onClick={moveToBottom} className="fa-solid fa-circle-chevron-down fa-2xl" style={ pageBottom }></i>
         </ScrollBtn>
       </div>
-    </Wrapper>
+    </>
   );
 }
 
