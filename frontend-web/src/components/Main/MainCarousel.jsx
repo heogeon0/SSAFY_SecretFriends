@@ -47,12 +47,11 @@ function MainCarousel() {
 
   return (
     <>
-      {childrenList.lenght > 1 
-      ? 
-      <>
-        <button onClick={goPrev}>앞</button>
-        <button onClick={goNext}>뒤</button>
-      </>
+      {childrenList.length !== 1
+      ? <>
+          <button onClick={goPrev}>앞</button>
+          <button onClick={goNext}>뒤</button>
+        </>
       : null
       }
       
