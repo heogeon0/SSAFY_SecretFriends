@@ -2,22 +2,28 @@ import os
 import cv2
 import sys
 import time
+import asyncio
 import datetime
 import numpy as np
 from uuid import uuid4
 from cvzone.SelfiSegmentationModule import SelfiSegmentation
 
+# firebase import
 import firebase_admin
 from firebase_admin import storage
 from firebase_admin import credentials
 
+# pyqt import
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QVBoxLayout, QPushButton, QDesktopWidget, QHBoxLayout, QGroupBox
 from PyQt5.QtGui import QPixmap, QFontDatabase, QFont
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread, QCoreApplication
-from cvzone.SelfiSegmentationModule import SelfiSegmentation
 
-global seg, imgout, flag_photo, flag_exit, filename, img, imgIndex
+# email import
+import smtplib
+from email.message import EmailMessage
+
+global seg, imgout, flag_photo, flag_exit, filename, img, imgIndex, id, email
 
 imgIndex = 1
 
@@ -26,7 +32,7 @@ seg = SelfiSegmentation()
 flag_photo = False
 flag_exit = False
 
-imagePath = "C:/파일경로/S07P12D208/temp/SERVER/python/BackgroundFilter/image"
+imagePath = "C:/SSAFY/Workspace/20220811_08/S07P12D208/temp/SERVER/python/BackgroundFilter/image"
 listImg = os.listdir(imagePath)
 imgList = []
 print(len(imgList))
@@ -37,14 +43,29 @@ class VideoThread(QThread):
     change_pixmap_signal = pyqtSignal(np.ndarray)
 
     def run(self):
-        global img, imgIndex
+        global img, imgIndex, email
+
+        smtp_gmail = smtplib.SMTP('smtp.gmail.com', 587)  # gmail smtp
+        smtp_gmail.ehlo() # 서버 연결을 설정하는 단계
+        smtp_gmail.starttls() # 연결을 암호화
+
+        smtp_gmail.login('hsduswl7@gmail.com', 'raltbxkzwzrjtrmh') # 로그인
+
+        msg = EmailMessage()
+
+        msg['Subject'] = "[나의 단짝친구] 회원님의 아이가 찍은 사진이 도착했습니다." # 제목 입력
+        msg.set_content("아이와 캐릭터가 함께한 사진입니다.") # 내용 입력
+        msg['From'] = 'mybuddy@ssafy.com' # 보내는 사람
+        print("send to " + email)
+        msg['To'] = email # 받는 사람
 
         # capture from web cam
         cap = cv2.VideoCapture(0)
         cnt = 1
+
         while True:
             img = cv2.imread(
-                "C:/파일경로/S07P12D208/temp/SERVER/python/BackgroundFilter/image/" + str(
+                "C:/SSAFY/Workspace/20220811_08/S07P12D208/temp/SERVER/python/BackgroundFilter/image/" + str(
                     imgIndex) + ".png")
             img = cv2.resize(img, (640, 480), fx=0, fy=0, interpolation=cv2.INTER_CUBIC)
 
@@ -57,11 +78,17 @@ class VideoThread(QThread):
                 print("Screenshot saved...")
                 filename = datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + 'screenshot{}.jpg'
                 filename = filename.format(cnt)
-                path = 'C:/파일경로/S07P12D208/temp/SERVER/python/BackgroundFilter/result/'
+                path = 'C:/SSAFY/Workspace/20220811_08/S07P12D208/temp/SERVER/python/BackgroundFilter/result/'
                 cv2.imwrite(path + filename.format(cnt), imgout, params=[cv2.IMWRITE_PNG_COMPRESSION, 0])
                 fileUpload(path + filename.format(cnt))
                 flag_photo = False
 
+                file = 'C:/SSAFY/Workspace/20220811_08/S07P12D208/temp/SERVER/python/BackgroundFilter/result/' + filename.format(cnt)
+                fp = open(file, 'rb')
+                file_data = fp.read()
+                msg.add_attachment(file_data, maintype='image', subtype='jpg', filename=filename.format(cnt))
+
+                smtp_gmail.send_message(msg)
             # elif flag_exit:
             #     # cv2.imwrite("image/photo.jpg", frame)
             #     close()
@@ -71,7 +98,7 @@ PROJECT_ID = "my-buddy-359c8"
 # C:\SSAFY\Workspace\20220809_16\S07P12D208\temp\SERVER\python\BackgroundFilter\SDK
 # cred = credentials.Certificate("./SDK/my-buddy-359c8-firebase-adminsdk-9vyrm-60b4fbbdf5.json")
 cred = credentials.Certificate(
-    "C:/파일경로/S07P12D208/temp/SERVER/python/BackgroundFilter/SDK/my-buddy-359c8-firebase-adminsdk-9vyrm-60b4fbbdf5.json")
+    "C:/SSAFY/Workspace/20220811_08/S07P12D208/temp/SERVER/python/BackgroundFilter/SDK/my-buddy-359c8-firebase-adminsdk-9vyrm-60b4fbbdf5.json")
 default_app = firebase_admin.initialize_app(cred, {
     # gs://smart-mirror-cf119.appspot.com
     'storageBucket': f"{PROJECT_ID}.appspot.com"
@@ -81,8 +108,9 @@ bucket = storage.bucket()
 
 
 def fileUpload(file):
+    global id
     global filename
-    blob = bucket.blob('captureImages/' + filename)  # 업로드 이미지 명
+    blob = bucket.blob('captureImages/' + str(id) + '/' + filename)  # 저장경로 : captureImage/아이번호/ + 업로드 이미지 명
     print("filename : " + filename)
     # new token and metadata 설정
     new_token = uuid4()
@@ -239,9 +267,13 @@ class App(QWidget):
 
 
 if __name__ == "__main__":
+    global id, email
     app = QApplication(sys.argv)
+    # print("Email : " + sys.argv[2])
+    id = sys.argv[1]
+    email = sys.argv[2]
     fontDB = QFontDatabase()
-    fontDB.addApplicationFont("C:/파일경로/S07P12D208/temp/SERVER/python/BackgroundFilter/font/NanumBarunGothic.ttf")
+    fontDB.addApplicationFont("C:/SSAFY/Workspace/20220811_08/S07P12D208/temp/SERVER/python/BackgroundFilter/font/NanumBarunGothic.ttf")
     app.setFont(QFont('NanumBarunGothic'))
     a = App()
     a.show()
