@@ -11,18 +11,18 @@ import { useEffect, useState } from "react";
 const Box = styled.div`
   background-image: url("img/background/pink.jpg");
   background-size: cover;
-  height: 700px;
+  height: 800px;
 `
 
 const Title = styled.span`
   position: absolute;
-  padding: 2vw 4vw;
+  padding: 1vw 4vw;
   font-family: ${props => props.theme.formFont};
   font-size: min(4vw, 1.5rem);
   font-weight: bold;
   border-radius: 5px;
   background-color: ${props => props.theme.whiteColor};
-  top: -5vw;
+  top: -2.5vw;
   right: 0%;
 `
 

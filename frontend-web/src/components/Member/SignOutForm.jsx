@@ -76,8 +76,8 @@ const Form = styled.form`
 `;
 
 const Title1 = styled.div`
-  font-size: min(2.5vw, 1.3rem);
-  margin: 1vw;
+  font-size: min(2.5vw, 1.2rem);
+  margin-bottom: 0.5vw;
   @media ${props => props.theme.mobile} {
     font-size: 3.5vw;
   }

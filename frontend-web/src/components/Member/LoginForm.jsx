@@ -39,7 +39,9 @@ const LabelTag = styled.label`
   text-align: left;
   line-height: 2vw;
   font-size: min(3vw, 1rem);
-  margin-bottom: 0.5vw;
+  @media ${props => props.theme.mobile} {
+    margin-bottom: 0.5vw;
+  }
 `
 
 const FlexBox = styled.div`
