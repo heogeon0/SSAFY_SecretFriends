@@ -16,7 +16,7 @@ const Title = styled.span`
   font-size: 1.1rem;
   font-weight: bold;
   background-color: ${props => props.theme.whiteColor};
-  top: -2rem;
+  top: -2.1rem;
   left: 0%;
 `
 

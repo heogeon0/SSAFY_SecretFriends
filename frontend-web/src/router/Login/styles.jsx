@@ -4,8 +4,8 @@ const Wrapper = styled.div`
   position: absolute;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
   top: 50%;
+  justify-content: space-evenly;
   left: 50%;
   padding: 15px;
   transform: translate(-50%, -50%);
