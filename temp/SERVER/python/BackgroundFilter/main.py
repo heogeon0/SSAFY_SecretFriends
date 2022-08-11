@@ -24,7 +24,7 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread, QCoreApplication
 import smtplib
 from email.message import EmailMessage
 
-projectPath = "C:/SSAFY/Workspace/20220811_13/S07P12D208/temp/SERVER/python/BackgroundFilter/" # 프로젝트 파일 경로
+projectPath = "c:/Users/multicampus/Desktop/MyGit/PJT/New/S07P12D208/temp/SERVER/python/BackgroundFilter/" # 프로젝트 파일 경로
 imgIndex = 1
 
 seg = SelfiSegmentation()

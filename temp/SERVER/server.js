@@ -25,6 +25,18 @@ app.get("/product", function (req, res) {
   res.json({ name: "black shoes" });
 });
 
+app.get("/arduino", function (req, res) {
+  const result = spawn("python", ["./arduino/초음파센서/goweb.py"]);
+  console.log("im arduino");
+  result.stdout.on("data", function (data) {
+    console.log("im going");
+    res.json({ id: data.toString() });
+  });
+  result.stderr.on("data", function (data) {
+    console.log("Fail", data.toString());
+  });
+});
+
 app.get("/login", (req, res) => {
   const result = spawn("python", ["./python/face_recognition/face_recog.py"]);
   console.log("im here");
@@ -42,7 +54,11 @@ app.get("/camera", (req, res) => {
   param2 = req.query.email;
   console.log("부모 이메일 : ", param2);
 
-  const result = spawn("python", ["./python/BackgroundFilter/main.py", param1, param2]);
+  const result = spawn("python", [
+    "./python/BackgroundFilter/main.py",
+    param1,
+    param2,
+  ]);
   result.stdout.on("data", function (data) {
     console.log(data.toString());
     res.json({ id: data.toString() });

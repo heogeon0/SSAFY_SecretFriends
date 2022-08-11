@@ -25,27 +25,32 @@ export default function Character({ ...props }) {
     if (props.state === "stateMain") {
       return;
     }
+    function sleep(sec) {
+      return new Promise((resolve) => setTimeout(resolve, sec * 1000));
+    }
 
     if (props.state === "stateLogin") {
-      // 초음파 센서 axios
-      if (hello) {
-        axios.get(iot.login()).then(({ data }) => {
+      axios.get(iot.arduino()).then((res) => {
+        axios.get(iot.login()).then(async ({ data }) => {
           console.log(data);
           props.setReady((val) => !val);
           setId(data.id);
+          sethello(true);
+          await sleep(2);
           axios
             .get(
               iot.tts(`안녕 ${data.id}아 나랑 얘기하고싶으면 나를 클릭해줘!`)
             )
             .then((res) => console.log(res));
         });
-      }
+      });
+      // 초음파 센서 axios
     }
-  }, [hello]);
+  }, []);
   useFrame(({ clock }) => {
     if (props.ready) {
       const elapsedTime = clock.getElapsedTime();
-      if (group.current.position.x > 1.5) {
+      if (group.current.position.x > 2.1) {
         group.current.position.x = group.current.position.x - 0.02;
         group.current.position.y = group.current.position.y + 0.01;
       }
@@ -54,7 +59,7 @@ export default function Character({ ...props }) {
   });
 
   function onClick() {
-    if (hello) {
+    if (id) {
       props.goMain();
     }
     sethello((val) => !val);
@@ -63,12 +68,12 @@ export default function Character({ ...props }) {
     return new Promise((resolve) => setTimeout(resolve, time));
   }
 
-  async function WalkAndHello() {
-    actions.Walk.play();
-    await delay(6000);
-    actions.Walk.fadeOut(3);
-    actions.Wave.play();
-  }
+  // async function WalkAndHello() {
+  //   actions.Walk.play();
+  //   await delay(6000);
+  //   actions.Walk.fadeOut(3);
+  //   actions.Wave.play();
+  // }
   useEffect(() => {
     console.log(actions);
     actions.Yes.play();
