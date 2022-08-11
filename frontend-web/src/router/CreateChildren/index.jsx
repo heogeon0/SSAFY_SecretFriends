@@ -16,6 +16,13 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { Chats, FaceInfo } from "../../atom";
 
 
+import styled from "styled-components";
+
+const Bg = styled.div`
+  background-image: url("img/background/green.jpg");
+  background-size: cover;
+`
+
 function CreateChildren() {
   const [slide, setSlide] = useState(1);
   const [error, setError] = useState("");
@@ -57,26 +64,8 @@ function CreateChildren() {
     try {
       setUploading(true);
       const storageRef = ref(storage, `images/${childrenID}`);
-
       await uploadBytes(storageRef, face)
       alert("업로드 완료");
-
-      // const urls = await Promise.all(
-      //   face?.map((face) => {
-      //     const storageRef = ref(storage, `images/${childrenID}.png`);
-      //     const task = uploadBytesResumable(storageRef, face);
-      //     task.on("state_changed", (snapshot) => {
-      //       setProgress(
-      //         Math.round(
-      //           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-      //         )
-      //       );
-      //     });
-      //     return getDownloadURL(storageRef)
-      //   })
-      // );
-
-      // setPhotosURL(urls);
     } catch (err) {
       console.log(err);
     }
@@ -189,7 +178,7 @@ function CreateChildren() {
         }
         break;
       case 2:
-        if (face.length < 1) {
+        if (!face) {
           setError("아이 사진을 등록해주세요");
           return;
         } 
@@ -246,7 +235,7 @@ function CreateChildren() {
   };
 
   return (
-    <div style={{ height: "90vh" }}>
+    <Bg style={{ height: "90vh" }}>
       <Wrapper>
         <div className="grid">
           <div className="side">
@@ -274,13 +263,13 @@ function CreateChildren() {
             <div>{tab[slide]}</div>
             {error ? <p className="error">{error}</p> : ""}
             <div className="buttonWrap">
-              <button onClick={goPre}>이전</button>
               <button onClick={goNext}>{slide === 4 ? "완료" : "다음"}</button>
+              {slide > 1 ? <button onClick={goPre}>이전</button> : null}
             </div>
           </div>
         </div>
       </Wrapper>
-    </div>
+    </Bg>
   );
 }
 export default CreateChildren;
