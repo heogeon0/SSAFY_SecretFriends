@@ -4,17 +4,27 @@ import SignOutForm from "../../components/Member/SignOutForm";
 import styled from "styled-components";
 
 const Box = styled.div`
+  background-image: url("img/background/pink.jpg");
+  background-size: cover;
   height: 700px;
-  width: 600px;
+`
+const Title = styled.span`
+  position: absolute;
+  padding: 2vw 4vw;
+  font-family: ${props => props.theme.formFont};
+  font-size: min(4vw, 1.5rem);
+  font-weight: bold;
+  border-radius: 5px;
+  background-color: ${props => props.theme.whiteColor};
+  top: -5vw;
+  right: 0%;
 `
 
 function SignOut() {
   return (
     <Box>
       <Wrapper>
-        <div className="title">
-          <h3>회원 탈퇴</h3>
-        </div>
+        <Title>DELETE ACCOUNT</Title>
         <SignOutForm />
       </Wrapper>
     </Box>

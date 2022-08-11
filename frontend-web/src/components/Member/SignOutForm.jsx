@@ -98,6 +98,10 @@ function SignOutForm() {
     setToken("")
   }
 
+  function goMain() {
+    navigate('/main');
+  }
+
 
   return (
     <div>
@@ -109,7 +113,8 @@ function SignOutForm() {
           })}
           type="password" />
         <ButtonWrap>
-          <button>제출</button>
+          <button>확인</button>
+          <button onClick={() => goMain()}>취소</button>
         </ButtonWrap>
       </Form>
     </div>
