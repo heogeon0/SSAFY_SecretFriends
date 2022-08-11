@@ -1,15 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
 import './Diary.css'
-
-const colors = [
-  "red",
-  "green",
-  "yellow",
-  "black",
-  "blue"
-]
+import { Canvas } from "@react-three/fiber";
+import { useRecoilBridgeAcrossReactRoots_UNSTABLE } from "recoil";
+import { Physics } from "@react-three/cannon";
+import Character from "../components/ThreeModel/models/Character";
 
 function Diary() {
+  const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
   const canvasRef = useRef(null); //useRef 사용
   const contextRef = useRef(null); // 캔버스의 드로잉 컨텍스트를 참조
   const [isDrawing, setIsDrawing] = useState(false);
@@ -26,7 +23,7 @@ function Diary() {
     const context = canvas.getContext("2d");
     
     const img = new Image();
-    img.src = "./sketchbook.png"
+    img.src = "./sketchbook2.png"
     img.onload = function() {
           context.drawImage(img, 0, 0, canvas.width, canvas.height);
     };
@@ -34,7 +31,6 @@ function Diary() {
     // context.scale(2, 2);
     context.linecap = "round";
     context.strokeStyle = "black";
-    // context.strokeStyle = selectedColor;
     context.lineWidth = 2.5;
     contextRef.current = context;
   }, []);
@@ -73,11 +69,31 @@ function Diary() {
 
   return(
     <div>
-      <canvas className="canvas-container"
-          onMouseDown={startDrawing}
-          onMouseUp={finishDrawing}
-          onMouseMove={drawing}
-          onMouseLeave={finishDrawing}
+       <Canvas
+        camera={{ fov: 100, position: [0, 0.5, 3] }}
+        style={{
+          width: "100vw",
+          height: "100vh",
+          backgroundImage: "linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%)"
+        }}
+      >
+        <RecoilBridge>
+          {/* fov : 카메라 확대 정도 */}
+          {/* 궤도 추가 */}
+          {/* 조명추가 */}
+          <spotLight position={[0, 10, 20]} angle={1} />
+          <Physics>
+            <Character position={[0, -2, 0]} />
+          </Physics>
+        </RecoilBridge>
+        
+      </Canvas>
+
+      <canvas className="canvas-container" 
+          onPointerDown={startDrawing}
+          onPointerUp={finishDrawing}
+          onPointerMove={drawing}
+          onPointerLeave={finishDrawing}
           ref={canvasRef}>
 
       </canvas>
@@ -92,8 +108,13 @@ function Diary() {
         <button className="color-btn" data-color="blue" onClick={(e)=>{changeColor("#0579ff", e)}}></button>
         <button className="color-btn" data-color="violet" onClick={(e)=>{changeColor("#5856d6", e)}}></button>
       </div>
+
+      <div className="controlBtn">
+        <button className="jsSave">저장</button>
+      </div>
     </div>
 
+  
 
     
 
