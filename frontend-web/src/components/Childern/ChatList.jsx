@@ -1,5 +1,23 @@
 import { useRecoilState } from "recoil";
 import { Chats } from "../../atom";
+import styled from "styled-components";
+
+
+const FlexBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4px 0;
+`
+const DeleteBtn = styled.button`
+  border: none;
+  border-radius: 5px;
+  background-color: aliceblue;
+  :hover {
+    cursor: pointer;
+  }
+`
+
 
 function ChatList() {
   const [chats, setChats] = useRecoilState(Chats);
@@ -18,13 +36,16 @@ function ChatList() {
     <>
       <ul style={{ height: "100px" }}>
         {chats?.map((chat, idx) => {
-          return <li key={idx}>
-            {chat}
-            <button onClick={() => deleteChat(idx)}>삭제</button>
-          </li>;
+          return (
+            <li key={idx}>
+              <FlexBox>
+                {chat}
+                <DeleteBtn onClick={() => deleteChat(idx)}>x</DeleteBtn>
+              </FlexBox>
+            </li>
+          )
         })}
       </ul>
-      <div></div>
     </>
   );
 }

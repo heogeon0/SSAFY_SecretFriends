@@ -95,9 +95,8 @@ const Wrapper = styled.div`
         padding: 20px 10px;
         right: 1.5vw;
         button {
-          padding: 1.6vw 2vw;
-          line-height: 20%;
-          margin-left: 1vw;
+          padding: 0.3rem 1rem;
+          margin-left: 6px;
           background-color: #daf3af;
           border: none;
           border-radius: 4vw;

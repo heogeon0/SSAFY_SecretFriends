@@ -11,13 +11,13 @@ const Box = styled.div`
 
 const Title = styled.span`
   position: absolute;
-  padding: 2vw 4vw;
+  padding: 1vw 4vw;
   font-family: ${props => props.theme.formFont};
   font-size: min(4vw, 1.5rem);
   font-weight: bold;
   background-color: ${props => props.theme.whiteColor};
   border-radius: 5px;
-  top: -5vw;
+  top: -2.5vw;
   left: 0%;
 `
 

@@ -20,20 +20,23 @@ const FlexBox = styled.div`
 `
 const ImgDiv = styled.label`
   width: 80%;
-  height: auto;
-  max-height: 300px;
+  height: 80%;
   background-image: url(${(props) => props.img || "/img/plus.png"});
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   background-color: ${(props) => props.theme.yellowCollor};
   cursor: pointer;
+  @media ${props => props.theme.mobile} {
+    height: 70%;
+    max-height: 200px;
+  }
 `;
 
 const Example = styled.div`
   border: 1px solid black;
   width: 100%;
-  height: 50%;
+  height: 150px;
   background-image: url("img/example.jpg");
   background-position: center;
   background-size: cover;
@@ -68,8 +71,8 @@ function FaceItem() {
       </ImgDiv>
       <FlexBox>
         <Example></Example>
-        <div style={{marginTop: "0.8rem", fontSize: "min(3vw, 1rem)"}}>[예시]</div>
-        <div style={{lineHeight: "3vw", fontSize: "min(2vw, 1rem)"}}>정확한 얼굴 인식을 위해 정면 사진을 권장합니다.</div>
+        <div style={{margin: "0.8rem 0 0.5rem 0", fontSize: "min(3vw, 1rem)"}}>[예시]</div>
+        <div style={{fontSize: "min(2vw, 1rem)"}}>정확한 얼굴 인식을 위해 정면 사진을 권장합니다.</div>
       </FlexBox>
     </GridBox>
   );
