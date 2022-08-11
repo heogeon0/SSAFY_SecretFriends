@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   transform: translate(-50%, -50%);
   width: 80vw;
   height: 90vw;
-  max-width: 400px;
+  max-width: 450px;
   max-height: calc(900px / 1.68);
   background-color: ${(props) => props.theme.whiteColor};
   border-radius: 5px;

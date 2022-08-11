@@ -18,7 +18,8 @@ const theme = {
 
   // color
   yellowColor: "#F6EABD",
-  grayColor: "#dcdde1",
+  // grayColor: "#dcdde1",
+  grayColor: "#e2e2e2",
   whiteColor: "#F5F5F5",
 };
 
