@@ -10,51 +10,92 @@ import { useSetRecoilState } from "recoil";
 import { Token } from "../../atom";
 
 
-const ButtonWrap = styled.div``;
+const ButtonWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
-const Form = styled.form`
-  width: 95%;
-  max-width: 500px;
+const FlexBox = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const CenterBox = styled.div`
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 5%; // 버튼 추가시 수정 필요
-  font-family: ${(props) => props.theme.namingFont};
-  div {
-    display: grid;
-    grid-template-columns: minmax(90px, 1fr) 10fr;
-    margin: 10px;
-    gap: 10px;
-    label {
-      text-align: right;
-      line-height: 40px;
-    }
-    input {
-      background-color: ${(props) => props.theme.yellowColor};
-      height: 40px;
-      background: linear-gradient(
-        ${(props) => props.theme.yellowColor},
-        ${(props) => props.theme.grayColor}
-      );
-      border: ${(props) => props.theme.yellowColor} 1px solid;
-    }
-  }
+`
+
+const LabelTag = styled.label`
+  text-align: left;
+  line-height: 2vw;
+  font-size: min(3vw, 1rem);
+  margin-top: min(3vw, 2rem);
+  margin-bottom: min(0.5vw, 0.2rem);
+  @media ${props => props.theme.mobile} {
+    margin-bottom: 1.4vw;
+  };
+  `
+
+const InputTag = styled.input`
+  background-color: ${(props) => props.theme.grayColor};
+  border: ${(props) => props.theme.grayColor} 1px solid;
+  height: 2.5rem;
+  margin-bottom: min(4vw, 2.5rem);
+  border-radius: 5px;
+  @media ${props => props.theme.mobile} {
+    height: 1.6rem;
+    margin-bottom: 1.5rem;
+  };
+`
+
+const Form = styled.form`
+  padding: 2vw;
+  font-family: ${(props) => props.theme.formFont};
+
   ${ButtonWrap} {
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-    width: 95%;
-    margin-right: 0px;
     button {
-      font-family: ${(props) => props.theme.namingFont};
-      width: 80px;
-      height: 25px;
+      font-size: min(3vw, 1rem);
+      font-family: ${(props) => props.theme.formFont};
+      width: 9vw;
+      max-width: 5rem;
+      height: 1.8rem;
+      border: none;
+      border-radius: 1rem;
       :hover {
         cursor: pointer;
+      }
+      @media ${(props) => props.theme.mobile} {
+        width: 15vw;
+        height: 6vw;
       }
     }
   }
 `;
+
+const Title1 = styled.div`
+  font-size: min(2.5vw, 1.3rem);
+  margin: 1vw;
+  @media ${props => props.theme.mobile} {
+    font-size: 3.5vw;
+  }
+`
+
+const Title2 = styled.div`
+  font-size: min(1.8vw, 1rem);
+  color: gray;
+  margin: 1vw;
+`
+const GrayBtn = styled.button`
+  background-color: ${(props) => props.theme.grayColor};
+`
+
+const YellowBtn = styled.button`
+  background-color: ${(props) => props.theme.yellowColor};
+`
+
 
 function SignOutForm() {
   const [ currentUser, setCurrentUser ] = useState();
@@ -98,7 +139,8 @@ function SignOutForm() {
     setToken("")
   }
 
-  function goMain() {
+  function goMain(event) {
+    event.preventDefault();
     navigate('/main');
   }
 
@@ -106,15 +148,22 @@ function SignOutForm() {
   return (
     <div>
       <Form onSubmit={handleSubmit(onSubmit)} action="">
-        <label htmlFor="password" style={{ marginRight: '1rem' }}>비밀번호를 입력해주세요</label>
-        <input 
-          {...register("password", {
-            required: "비밀번호를 입력해주세요",
-          })}
-          type="password" />
+        <CenterBox>
+          <Title1>탈퇴하시려면 비밀번호를 입력해 주세요.</Title1>
+          <Title2>탈퇴 시 등록된 모든 정보가 삭제됩니다.</Title2>
+        </CenterBox>
+        <hr style={{width: '90%', height: "1px", backgroundColor: "gray"}} />
+        <FlexBox>
+          <LabelTag htmlFor="password" style={{ marginRight: '1rem' }}>비밀번호</LabelTag>
+          <InputTag 
+            {...register("password", {
+              required: "비밀번호를 입력해주세요",
+            })}
+            type="password" />
+        </FlexBox>
         <ButtonWrap>
-          <button>확인</button>
-          <button onClick={() => goMain()}>취소</button>
+          <GrayBtn onClick={(event) => goMain(event)}>취소</GrayBtn>
+          <YellowBtn>확인</YellowBtn>
         </ButtonWrap>
       </Form>
     </div>
