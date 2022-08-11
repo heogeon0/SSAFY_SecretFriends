@@ -182,10 +182,6 @@ function UpdateChildren() {
     2: <Character characterName={characterName} setCharacterName={setCharacterName} />,
   };
 
-  function goOut() {
-    navigate('/main')
-  }
-
   return (
     <Bg style={{ height: "90vh" }}>
       <Wrapper>
