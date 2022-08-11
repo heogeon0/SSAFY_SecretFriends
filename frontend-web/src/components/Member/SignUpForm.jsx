@@ -57,12 +57,13 @@ const GrayBtn = styled.button`
   line-height: 50%;
   border: none;
   background-color: ${(props) => props.theme.grayColor};
-  border-radius: 1rem;
+  border-radius: 2vw;
   :hover {
     cursor: pointer;
   }
   @media ${props => props.theme.mobile} {
     padding: 2vw;
+    border-radius: 12px;
   }
 `
 
@@ -73,12 +74,13 @@ const YellowBtn = styled.button`
   line-height: 50%;
   border: none;
   background-color: ${(props) => props.theme.yellowColor};
-  border-radius: 1rem;
+  border-radius: 2vw;
   :hover {
     cursor: pointer;
   }
   @media ${props => props.theme.mobile} {
     padding: 2vw;
+    border-radius: 12px;
   }
 `
 const Form = styled.form`

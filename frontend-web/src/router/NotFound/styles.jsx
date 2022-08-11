@@ -1,33 +1,26 @@
 import styled from "styled-components";
 
-
-export const Wrapper = styled.div`
-  /* position: relative; */
-  background-color: white;
-  width: 100%;
-  height: 600px;
-  z-index: 0;
-  text-align: center;
+const Wrapper = styled.div`
+  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  top: 60%;
+  left: 50%;
+  padding: 15px;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  height: calc(80vw / 1.5);
+  max-width: 600px;
+  max-height: calc(600px / 1.68);
+  background-color: ${(props) => props.theme.whiteColor};
+  border-radius: 5px;
+  box-shadow: 5px 5px 15px 0.5px #dcdde1;
   .title {
-    font-size: 120px;
-    font-weight: bold;
-    padding: 1rem;
-    color: red;
+    font-family: ${(props) => props.theme.namingFont};
+    text-align: center;
   }
+`;
 
-  .error {
-    font-size: 60px;
-    font-weight: bold;
-    color: red;
-  }
-
-  .content {
-    font-size: 20px;
-    padding: 1rem;
-  }
-`
+export default Wrapper;
