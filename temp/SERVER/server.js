@@ -33,15 +33,20 @@ app.get("/login", (req, res) => {
   });
 });
 
+// /camera?id=아이번호&email=부모이메일
 app.get("/camera", (req, res) => {
-  console.log("im here");
-  const result = spawn("python", ["./python/BackgroundFilter/main.py"]);
+  param1 = req.query.id;
+  console.log("아이 번호 : ", param1);
+
+  param2 = req.query.email;
+  console.log("부모 이메일 : ", param2);
+
+  const result = spawn("python", ["./python/BackgroundFilter/main.py", param1, param2]);
   result.stdout.on("data", function (data) {
     console.log(data.toString());
     res.json({ id: data.toString() });
   });
 
-  
   result.stderr.on("data", function (data) {
     console.log("Fail", data.toString());
   });
