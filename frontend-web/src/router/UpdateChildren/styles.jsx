@@ -35,7 +35,7 @@ const Wrapper = styled.div`
       @media ${props => props.theme.mobile} {
         display: grid;
         grid-template-rows: 1fr;
-        grid-template-columns: repeat(4, 1fr 1px);
+        grid-template-columns: repeat(2, 1fr 1px);
         align-items: center;
         padding: 1vw 2vw;
         background-color: ${(props) => props.theme.whiteColor};
@@ -52,7 +52,7 @@ const Wrapper = styled.div`
         color: #dcdde1;
         transition: color 0.3s linear, background-color 0.3s linear;
         @media ${props => props.theme.mobile} {
-          padding: 0.6vw;
+          padding: 1rem;
         }
         p {
           font-size: min(2.5vw, 1.5rem);
@@ -91,12 +91,12 @@ const Wrapper = styled.div`
       }
       .buttonWrap {
         display: flex;
-        flex-direction: row-reverse;
+        /* flex-direction: row-reverse; */
+        justify-content: space-between;
         padding: 20px 10px;
         right: 1.5vw;
         button {
           padding: 0.3rem 1rem;
-          margin-left: 6px;
           background-color: #daf3af;
           border: none;
           border-radius: 4vw;

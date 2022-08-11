@@ -1,4 +1,5 @@
 import Wrapper from "./styles";
+import styled from "styled-components";
 
 import Conversation from "../../components/Childern/Conversation";
 
@@ -9,6 +10,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { Chats } from "../../atom";
 
+const Bg = styled.div`
+  background-image: url("img/background/green.jpg");
+  background-size: cover;
+`
 
 
 function CreateAnswer() {
@@ -42,7 +47,7 @@ function CreateAnswer() {
 
 
   return (
-    <div style={{ height: "90vh" }}>
+    <Bg style={{ height: "90vh" }}>
       <Wrapper>
         <div className="grid">
           <div className="side">
@@ -55,12 +60,12 @@ function CreateAnswer() {
             <div><Conversation /></div>
             <div className="buttonWrap">
               <button onClick={plusNewAnswer}>완료</button>
+              <button onClick={() => goMain()}>나가기</button>
             </div>
-          <button onClick={() => goMain()}>나가기</button>
           </div>
         </div>
       </Wrapper>
-    </div>
+    </Bg>
   );
 }
 export default CreateAnswer;
