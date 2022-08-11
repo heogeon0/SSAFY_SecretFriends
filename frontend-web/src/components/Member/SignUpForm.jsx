@@ -58,7 +58,7 @@ const Form = styled.form`
       font-size: min(3vw, 1rem);
       font-family: ${(props) => props.theme.formFont};
       width: 15vw;
-      max-width: 7rem;
+      max-width: 8rem;
       height: 1.8rem;
       border: none;
       background-color: ${(props) => props.theme.grayColor};
@@ -214,7 +214,7 @@ function SignupForm({
               errors?.password?.message ||
               errors?.passwordConfirm?.message}
           </ERROR>
-          <div>{ isUpdate ? <button>수정하기</button> : <button>회원가입</button> }</div>
+          <div>{ isUpdate ? <button>회원정보 수정</button> : <button>회원가입</button> }</div>
         </ButtonWrap>
       </Form>
     </div>
