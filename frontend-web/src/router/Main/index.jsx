@@ -55,6 +55,10 @@ const ChildBtn = styled.button`
 // conversation styles
 const ConversBtn = styled.button`
   font-size: min(5vw, 16px);
+  text-decoration: underline;
+  padding: 0;
+  border: none;
+  background-color: ${props => props.theme.grayColor};
   :hover {
     cursor: pointer;
   }
