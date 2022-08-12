@@ -5,4 +5,5 @@ export default {
   tts: (text) => HOST + `tts?word=${text}`,
   camera: () => HOST + "camera",
   login: () => HOST + "login",
+  arduino: () => HOST + "arduino",
 };

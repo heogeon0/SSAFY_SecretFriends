@@ -22,11 +22,18 @@ import Plane from "../components/ThreeModel/factors/plane";
 import Chats from "../components/Chats/Chats";
 import Grass from "../components/ThreeModel/factors/grass";
 import Photozone from "../components/ThreeModel/factors/Photo/photozone";
+import { useNavigate } from "react-router-dom";
 
 function Main() {
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
   const childernId = useRecoilValue(childrenId);
   const setChats = useSetRecoilState(basicChats);
+  const navigate = useNavigate();
+  const takePhoto = () => {
+    axios.get(iot.camera()).then((res) => {
+      console.log(res);
+    });
+  };
 
   const helloChats = [
     "좋은아침이야",
@@ -34,8 +41,12 @@ function Main() {
     "벌써 저녁이야! 하루 시간가는 줄 모르겠어",
   ];
   const instructChate = [" 별이랑 하트를 눌러봐!"];
-  // memberId 넣어야함
+
   useEffect(() => {
+    if (!childernId) {
+      navigate("/");
+    }
+
     const now = new Date().getHours();
     console.log(now);
     let chat = "";
@@ -79,8 +90,11 @@ function Main() {
           </Physics>
         </RecoilBridge>
       </Canvas>
-      <Button bottom={"5%"} left={"55%"}>
+      <Button bottom={"5%"} left={"55%"} onClick={() => takePhoto()}>
         친구와 함께 사진찍어요!
+      </Button>
+      <Button bottom={"5%"} left={"10%"} onClick={() => navigate("/diary")}>
+        오늘의 그림일기를 그려주세요!
       </Button>
     </div>
   );
