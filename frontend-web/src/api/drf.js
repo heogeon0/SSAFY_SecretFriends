@@ -1,4 +1,4 @@
-const HOST = ':9999/mybuddy/'
+const HOST = ''
 
 const MEMBER = 'member/'
 const CHARACTER = 'character'
