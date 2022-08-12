@@ -261,7 +261,7 @@ function Main() {
 
   return (
     <>
-      { isLoading ? <Loading></Loading> : null}
+      {/* { isLoading ? <Loading></Loading> : null} */}
       <Wrapper>
         <div className="head">
           <CarouselGrid>
@@ -306,17 +306,19 @@ function Main() {
               }) : null}
             </div>
           </div>
-          <div className="body_grid">
+          <div className="body_grid" style={{position: "relative"}}>
             <FlexRow style={{justifyContent: "space-between"}}>
               <p>{childrens[currentSlide] ? childrens?.[currentSlide].name : "아이"}와 함께한 사진</p>
               { childrenID ? <button className="plusBtn"><Link to={`/CreateAnswer/${childrenID}`} style={{textDecoration: "none", color: "black"}}>더보기</Link></button> : null }
             </FlexRow>
             <div className="body_picture">
+              <span style={{position: "absolute", width: "1rem", left: "0", height: "75%", backgroundColor: "#e2e2e2"}}></span>
               {imgURLs.map((imgURL, idx) => {
                 return (
                   <img key={idx} src={imgURL} className="picture_img"></img>
                 )
               })}
+              <span style={{position: "absolute", width: "1rem", right: "0", height: "75%", backgroundColor: "#e2e2e2"}}></span>
             </div>
           </div>
         </div>

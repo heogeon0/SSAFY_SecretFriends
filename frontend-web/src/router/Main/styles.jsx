@@ -60,6 +60,9 @@ export const Wrapper = styled.div`
         /* width: 100%; */
         margin: 1vw;
         border-radius: 5px;
+        :hover {
+          cursor: pointer;
+        }
       }
     }
     .body_conversation {
