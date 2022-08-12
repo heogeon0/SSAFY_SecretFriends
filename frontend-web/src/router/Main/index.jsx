@@ -9,24 +9,21 @@ import drf from "../../api/drf";
 
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilState } from "recoil";
 import { MemberID, CurrentSlide, ChildrenList, AnswerList } from "../../atom";
 
 
+// scroll button styles
 const ScrollBtn = styled.div`
   :hover {
     cursor: pointer;
   }
 `
+// box styles(flex, grid)
 const FlexRow = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
-const FlexCol = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 `
 const FlexReflex = styled.div`
   display: flex;
@@ -34,14 +31,13 @@ const FlexReflex = styled.div`
     flex-direction: column;
   }
 `
-const CarouselFlex = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 250px;
+const CarouselGrid = styled.div`
+  display: grid;
+  grid-template-rows: 7fr 1fr;
   @media ${props => props.theme.mobile} {
-    height: 30vw;
+    grid-template-rows: 4fr 1fr;
   }
+
 `
 const ChildBtn = styled.button`
   margin: min(1vw, 5px);
@@ -55,6 +51,7 @@ const ChildBtn = styled.button`
     cursor: pointer;
   }
 `
+// conversation styles
 const ConversBtn = styled.button`
   font-size: min(5vw, 16px);
   :hover {
@@ -69,6 +66,18 @@ const ConversText = styled.div`
     font-size: min(3vw, 16px);
   }
 `
+const Icon = styled.i`
+  margin: 0 3rem;
+  color: white;
+  font-size: min(4vw, 3rem);
+  :hover {
+    cursor: pointer;
+  }
+  @media ${props => props.theme.mobile} {
+    margin: 0 4vw;
+  }
+`
+
 
 function Main() {
 // page scroll button
@@ -211,24 +220,21 @@ function Main() {
     <>
       <Wrapper>
         <div className="head">
-          <FlexCol>
-            <CarouselFlex>
+          <CarouselGrid>
+            <FlexRow>
               {childrens.length !== 1 && currentSlide !== 0
-              ? <button onClick={goPrev}>앞</button>
-              : null}
+              ? <Icon onClick={goPrev} className="fa-solid fa-chevron-left"></Icon>
+              : <Icon onClick={goPrev} className="fa-solid fa-chevron-left" style={{visibility: "hidden"}}></Icon>}
               <MainCarousel />
               {childrens.length !== 1 && childrens[currentSlide]?.childrenID !== 0
-              ? <button onClick={goNext}>뒤</button> 
-              : null}
-            </CarouselFlex>
-            <FlexRow>
-              { childrenID ? <Link to={`/UpdateChildren/${childrenID}`}><ChildBtn>수정</ChildBtn></Link> : null }
-              { childrenID
-                ? <ChildBtn onClick={() => deleteChildren(childrenID)}>삭제</ChildBtn>
-                : null
-              }
+              ? <Icon onClick={goNext} className="fa-solid fa-chevron-right"></Icon>
+              : <Icon onClick={goNext} className="fa-solid fa-chevron-right" style={{visibility: "hidden"}}></Icon>}
             </FlexRow>
-          </FlexCol>
+            <FlexRow>
+              { childrenID ? <Link to={`/UpdateChildren/${childrenID}`}><ChildBtn>수정</ChildBtn></Link> : <Link to={`/UpdateChildren/${childrenID}`} style={{visibility: "hidden"}}><ChildBtn>수정</ChildBtn></Link> }
+              { childrenID ? <ChildBtn onClick={() => deleteChildren(childrenID)}>삭제</ChildBtn> : <ChildBtn onClick={() => deleteChildren(childrenID)} style={{visibility: "hidden"}}>삭제</ChildBtn> }
+            </FlexRow>
+          </CarouselGrid>
         </div>
         <div className="body">
           <div className="body_grid">
