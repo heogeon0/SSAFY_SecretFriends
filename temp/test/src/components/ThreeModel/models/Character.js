@@ -21,6 +21,8 @@ export default function Character({ ...props }) {
   const [sayHi, setSayHi] = useState(false);
   const [id, setId] = useRecoilState(childrenId);
 
+  // actions
+
   useEffect(() => {
     if (props.state === "stateMain") {
       return;
@@ -34,7 +36,7 @@ export default function Character({ ...props }) {
         axios.get(iot.login()).then(async ({ data }) => {
           console.log(data);
           props.setReady((val) => !val);
-          setId(data.id);
+          console.log();
           sethello(true);
           await sleep(2);
           axios

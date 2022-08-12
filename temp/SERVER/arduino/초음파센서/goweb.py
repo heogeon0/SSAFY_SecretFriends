@@ -36,6 +36,5 @@ if __name__ == '__main__':
             elif check == "Sensor1" and int(float(allStr[-3:])) > int(50) and int(float(allStr[-3:])) < int(200):
                 # req = requests.get(url2)
                 print('good')
-                exit()
                 
             print(response[:len(response) - 1].decode())

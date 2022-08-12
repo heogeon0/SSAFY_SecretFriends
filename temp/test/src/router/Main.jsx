@@ -41,8 +41,12 @@ function Main() {
     "벌써 저녁이야! 하루 시간가는 줄 모르겠어",
   ];
   const instructChate = [" 별이랑 하트를 눌러봐!"];
-  // memberId 넣어야함
+
   useEffect(() => {
+    if (!childernId) {
+      navigate("/");
+    }
+
     const now = new Date().getHours();
     console.log(now);
     let chat = "";
