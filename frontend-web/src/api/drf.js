@@ -1,4 +1,4 @@
-const HOST = 'http://localhost:9999/mybuddy/'
+const HOST = 'http://3.35.238.205/mybuddy/'
 
 const MEMBER = 'member/'
 const CHARACTER = 'character'
