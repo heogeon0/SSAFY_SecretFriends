@@ -1,4 +1,4 @@
-const HOST = '3.35.238.205/mybuddy/'
+const HOST = 'mybuddy/'
 
 const MEMBER = 'member/'
 const CHARACTER = 'character'
