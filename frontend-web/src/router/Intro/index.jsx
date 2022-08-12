@@ -73,7 +73,7 @@ function Intro () {
   const pageTop = {
     position: 'fixed',
     bottom: '60px',
-    right: '15px',
+    right: '20px',
     width: '4vw',
     height: '40px',
     borderRadius: '50%',
@@ -84,7 +84,7 @@ function Intro () {
   const pageBottom = {
     position: 'fixed',
     bottom: '40px',
-    right: '15px',
+    right: '20px',
     width: '4vw',
     height: '20px',
     borderRadius: '50%',

@@ -9,24 +9,21 @@ import drf from "../../api/drf";
 
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilState } from "recoil";
 import { MemberID, CurrentSlide, ChildrenList, AnswerList } from "../../atom";
 
 
+// scroll button styles
 const ScrollBtn = styled.div`
   :hover {
     cursor: pointer;
   }
 `
+// box styles(flex, grid)
 const FlexRow = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
-const FlexCol = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 `
 const FlexReflex = styled.div`
   display: flex;
@@ -34,9 +31,18 @@ const FlexReflex = styled.div`
     flex-direction: column;
   }
 `
+const CarouselGrid = styled.div`
+  display: grid;
+  grid-template-rows: 7fr 1fr;
+  @media ${props => props.theme.mobile} {
+    grid-template-rows: 4fr 1fr;
+  }
+
+`
 const ChildBtn = styled.button`
-  margin: 5px;
-  padding: 5px 16px;
+  margin: min(1vw, 5px);
+  padding: min(1vw, 5px) min(2vw, 16px);
+  font-size: min(2vw, 16px);
   background-color: ${props => props.theme.whiteColor};
   box-shadow: 3px 3px 3px gray;
   border: none;
@@ -45,6 +51,7 @@ const ChildBtn = styled.button`
     cursor: pointer;
   }
 `
+// conversation styles
 const ConversBtn = styled.button`
   font-size: min(5vw, 16px);
   :hover {
@@ -59,43 +66,52 @@ const ConversText = styled.div`
     font-size: min(3vw, 16px);
   }
 `
+const Icon = styled.i`
+  margin: 0 3rem;
+  color: white;
+  font-size: min(4vw, 3rem);
+  :hover {
+    cursor: pointer;
+  }
+  @media ${props => props.theme.mobile} {
+    margin: 0 4vw;
+  }
+`
+
 
 function Main() {
+// page scroll button
   const pageTop = {
     position: 'fixed',
     bottom: '60px',
-    right: '15px',
+    right: '20px',
     width: '4vw',
     height: '40px',
     borderRadius: '50%',
     color: '#cbc8c8',
     zIndex: '1',
   }
-
   const pageBottom = {
     position: 'fixed',
     bottom: '40px',
-    right: '15px',
+    right: '20px',
     width: '4vw',
     height: '20px',
     borderRadius: '50%',
     color: '#cbc8c8',
     zIndex: '1',
   }
-
   function moveToTop () {
     document.body.scrollIntoView({behavior: 'smooth'});
   } 
-
   function moveToBottom () {
     document.body.scrollIntoView({behavior: 'smooth', block: 'end'})
   }
 
-
-  const currentSlide = useRecoilValue(CurrentSlide);
   const setMemberID = useSetRecoilState(MemberID);
   const [childrens, setChildrens] = useRecoilState(ChildrenList);
   const [answerList, setAnswerList] = useRecoilState(AnswerList);
+  const [currentSlide, setCurrentSlide] = useRecoilState(CurrentSlide);
 
 
   // 페이지 렌더링 시 멤버에 대한 정보를 가져온다.
@@ -114,6 +130,21 @@ function Main() {
   }, [])
   
   const childrenID = childrens[currentSlide]?.childrenID;
+  
+// main carousel prev, next button
+  const total = childrens.length;
+  function goNext() {
+    if (currentSlide + 1 < total) {
+      setAnswerList(childrens[currentSlide+1].answers)
+      setCurrentSlide((val) => val + 1);
+    }
+  }
+  function goPrev() {
+    if (currentSlide > 0) {
+      setAnswerList(childrens[currentSlide-1].answers)
+      setCurrentSlide((val) => val - 1);
+    }
+  }
 
 // 아이 삭제하기
   function deleteChildren(childrenID) {
@@ -189,14 +220,21 @@ function Main() {
     <>
       <Wrapper>
         <div className="head">
-          <MainCarousel />
-          <FlexRow>
-            { childrenID ? <Link to={`/UpdateChildren/${childrenID}`}><ChildBtn>수정</ChildBtn></Link> : null }
-            { childrenID
-              ? <ChildBtn onClick={() => deleteChildren(childrenID)}>삭제</ChildBtn>
-              : null
-            }
-          </FlexRow>
+          <CarouselGrid>
+            <FlexRow>
+              {childrens.length !== 1 && currentSlide !== 0
+              ? <Icon onClick={goPrev} className="fa-solid fa-chevron-left"></Icon>
+              : <Icon onClick={goPrev} className="fa-solid fa-chevron-left" style={{visibility: "hidden"}}></Icon>}
+              <MainCarousel />
+              {childrens.length !== 1 && childrens[currentSlide]?.childrenID !== 0
+              ? <Icon onClick={goNext} className="fa-solid fa-chevron-right"></Icon>
+              : <Icon onClick={goNext} className="fa-solid fa-chevron-right" style={{visibility: "hidden"}}></Icon>}
+            </FlexRow>
+            <FlexRow>
+              { childrenID ? <Link to={`/UpdateChildren/${childrenID}`}><ChildBtn>수정</ChildBtn></Link> : <Link to={`/UpdateChildren/${childrenID}`} style={{visibility: "hidden"}}><ChildBtn>수정</ChildBtn></Link> }
+              { childrenID ? <ChildBtn onClick={() => deleteChildren(childrenID)}>삭제</ChildBtn> : <ChildBtn onClick={() => deleteChildren(childrenID)} style={{visibility: "hidden"}}>삭제</ChildBtn> }
+            </FlexRow>
+          </CarouselGrid>
         </div>
         <div className="body">
           <div className="body_grid">

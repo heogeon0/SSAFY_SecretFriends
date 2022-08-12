@@ -8,11 +8,12 @@ export const Wrapper = styled.div`
   grid-template-columns: 1fr;
   grid-template-rows: minmax(350px, 1fr) 3fr;
   @media ${props => props.theme.mobile} {
-    grid-gap: 60px;
+    grid-gap: 20px;
     grid-template-rows: minmax(150px, 1fr) 3fr;
     }
   p {
     display: flex;
+    font-size: min(3vw, 20px);
     align-items: center;
     height: 100%;
   }
@@ -66,17 +67,12 @@ export const Wrapper = styled.div`
       border-radius: 5px;
       box-shadow: 0px 3px 3px 0.5px #1d1b1b52;
       background-color: ${(props) => props.theme.grayColor};
-      .button {
-        font-size: min(1vw, 12px);
-        :hover {
-          cursor: pointer;
-        }
-      }
     }
   }
   .plusBtn {
-    padding: 0.3rem 1rem;
+    padding: 0.3vw 1vw;
     margin-left: 6px;
+    font-size: min(2vw, 16px);
     background-color: #cde6d9;
     border: none;
     border-radius: 4vw;
