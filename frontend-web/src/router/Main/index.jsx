@@ -89,8 +89,8 @@ function Main() {
   const pageTop = {
     position: 'fixed',
     bottom: '60px',
-    right: '20px',
-    width: '4vw',
+    right: '30px',
+    width: '3vw',
     height: '40px',
     borderRadius: '50%',
     color: '#cbc8c8',
@@ -99,8 +99,8 @@ function Main() {
   const pageBottom = {
     position: 'fixed',
     bottom: '40px',
-    right: '20px',
-    width: '4vw',
+    right: '30px',
+    width: '3vw',
     height: '20px',
     borderRadius: '50%',
     color: '#cbc8c8',

@@ -43,6 +43,7 @@ function Slider({ check, child, idx }) {
   const [isPlus, setIsPlus] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true)
     const storageRef = ref(storage, `images/${child.childrenID}`);
       getDownloadURL(storageRef).then((url) => {
         setURL(url)
