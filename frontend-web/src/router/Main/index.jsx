@@ -7,12 +7,13 @@ import Loading from "../../components/Loading/Loading";
 
 import axios from "axios";
 import drf from "../../api/drf";
+import { storage } from "../../api/firebase";
+import { getDownloadURL, listAll, ref } from "firebase/storage";
 
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { useSetRecoilState, useRecoilState } from "recoil";
-import { MemberID, CurrentSlide, ChildrenList, AnswerList, IsLoading } from "../../atom";
-
+import { MemberID, CurrentSlide, ChildrenList, AnswerList, IsLoading, ImgURLs } from "../../atom";
 
 // scroll button styles
 const ScrollBtn = styled.div`
@@ -55,6 +56,10 @@ const ChildBtn = styled.button`
 // conversation styles
 const ConversBtn = styled.button`
   font-size: min(5vw, 16px);
+  text-decoration: underline;
+  padding: 0;
+  border: none;
+  background-color: ${props => props.theme.grayColor};
   :hover {
     cursor: pointer;
   }
@@ -85,8 +90,8 @@ function Main() {
   const pageTop = {
     position: 'fixed',
     bottom: '60px',
-    right: '20px',
-    width: '4vw',
+    right: '30px',
+    width: '3vw',
     height: '40px',
     borderRadius: '50%',
     color: '#cbc8c8',
@@ -95,8 +100,8 @@ function Main() {
   const pageBottom = {
     position: 'fixed',
     bottom: '40px',
-    right: '20px',
-    width: '4vw',
+    right: '30px',
+    width: '3vw',
     height: '20px',
     borderRadius: '50%',
     color: '#cbc8c8',
@@ -114,6 +119,7 @@ function Main() {
   const [answerList, setAnswerList] = useRecoilState(AnswerList);
   const [currentSlide, setCurrentSlide] = useRecoilState(CurrentSlide);
   const [isLoading, setIsLoading] = useRecoilState(IsLoading);
+  const [imgURLs, setImgURLs] = useRecoilState(ImgURLs);
 
 
   // 페이지 렌더링 시 멤버에 대한 정보를 가져온다.
@@ -128,6 +134,18 @@ function Main() {
       setMemberID(res.data.memberID)
       setAnswerList(res.data.childrens[currentSlide]?.answers)
       setChildrens([...res.data.childrens, {childrenID: 0, name: "아이"}])
+
+      // firebase (image list)
+      setImgURLs([])
+      const listRef = ref(storage, `captureImages/${res.data.childrens[currentSlide].childrenID}`);
+      listAll(listRef).then((res) => {
+        res.items.forEach((item) => {
+          getDownloadURL(ref(storage, item.fullPath)).then((url) => {
+            setImgURLs((val) => [...val, url])
+          })
+        })
+      })
+
     })
   }, [])
   
@@ -139,14 +157,38 @@ function Main() {
     if (currentSlide + 1 < total) {
       setAnswerList(childrens[currentSlide+1].answers)
       setCurrentSlide((val) => val + 1);
+
+      // firebase (image list)
+      setImgURLs([])
+      const listRef = ref(storage, `captureImages/${childrens[currentSlide+1].childrenID}`);
+      listAll(listRef).then((res) => {
+        res.items.forEach((item) => {
+          getDownloadURL(ref(storage, item.fullPath)).then((url) => {
+            setImgURLs((val) => [...val, url])
+          })
+        })
+      })
+
     }
   }
   function goPrev() {
     if (currentSlide > 0) {
       setAnswerList(childrens[currentSlide-1].answers)
       setCurrentSlide((val) => val - 1);
+
+      // firebase (image list)
+      setImgURLs([])
+      const listRef = ref(storage, `captureImages/${childrens[currentSlide-1].childrenID}`);
+      listAll(listRef).then((res) => {
+        res.items.forEach((item) => {
+          getDownloadURL(ref(storage, item.fullPath)).then((url) => {
+            setImgURLs((val) => [...val, url])
+          })
+        })
+      })
     }
   }
+
 
 // 아이 삭제하기
   function deleteChildren(childrenID) {
@@ -208,7 +250,6 @@ function Main() {
     .catch((err) => {console.log(err)})
   }
 
-
 // modal(for answer updating) code
   const [close, setClose] = useState(false) // 모달창 닫는 변수
   const [num, setNum] = useState();
@@ -220,7 +261,7 @@ function Main() {
 
   return (
     <>
-      { isLoading ? <Loading></Loading> : null}
+      {/* { isLoading ? <Loading></Loading> : null} */}
       <Wrapper>
         <div className="head">
           <CarouselGrid>
@@ -265,13 +306,19 @@ function Main() {
               }) : null}
             </div>
           </div>
-          <div className="body_grid">
+          <div className="body_grid" style={{position: "relative"}}>
             <FlexRow style={{justifyContent: "space-between"}}>
               <p>{childrens[currentSlide] ? childrens?.[currentSlide].name : "아이"}와 함께한 사진</p>
               { childrenID ? <button className="plusBtn"><Link to={`/CreateAnswer/${childrenID}`} style={{textDecoration: "none", color: "black"}}>더보기</Link></button> : null }
             </FlexRow>
             <div className="body_picture">
-              {/* firebase 활용 예정 */}
+              <span style={{position: "absolute", width: "1rem", left: "0", height: "75%", backgroundColor: "#e2e2e2"}}></span>
+              {imgURLs.map((imgURL, idx) => {
+                return (
+                  <img key={idx} src={imgURL} className="picture_img"></img>
+                )
+              })}
+              <span style={{position: "absolute", width: "1rem", right: "0", height: "75%", backgroundColor: "#e2e2e2"}}></span>
             </div>
           </div>
         </div>
