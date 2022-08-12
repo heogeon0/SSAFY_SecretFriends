@@ -68,6 +68,27 @@ app.get("/tts", (req, res) => {
   });
 });
 
+app.get("/stt", (req, res) => {
+    
+  
+  console.log("녹음 및 STT 변환")
+  const result = spawn("python", ["./python/STT/record.py"]);
+  
+  result.stdout.on("data", function(data) {
+
+      let result = data.toString().replace(`b\'`, '').replace(`\'`, '');
+      let buff = Buffer.from(result, 'base64');
+      let text = buff.toString('utf-8');
+      console.log("변환 후 text : ", text);
+
+      res.json({result : text})
+  })
+
+  result.stderr.on("data", function(data) {
+    console.log("Fail", data.toString());
+  })
+
+})
 // 항상 가장 하단에 있는 코드
 // app.get('*', function(req, res){
 //   res.sendFile(path.join(__dirname, '../test/build/index.html'))
