@@ -1,30 +1,35 @@
 import styled from "styled-components";
-import Wrapper from "./styles/Form";
 
-const Circle = styled.div`
-  background-image: url("img/n208character.png");
-  background-position: center;
-  background-size: cover;
-`;
 
 const Card = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-between;
   width: 100%;
   height: 50%;
   padding: 10px;
 `;
 
+
+const Title = styled.div`
+  font-size: min(4vw, 2rem);
+  font-weight: bold;
+  margin-bottom: 2vw;
+  @media ${props => props.theme.mobile} {
+    font-size: min(1vw, 1rem);
+  }
+`
 const Text = styled.div`
-  margin-top: 10px;
+  margin-top: 0.5vw;
   color: black;
-  font-size: 13px;
+  font-size: min(4vw, 1rem);
+  @media ${props => props.theme.mobile} {
+    font-size: min(1vw, 1rem);
+  }
 `;
 
 const CharacterForm = styled.div`
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -34,44 +39,53 @@ const CharacterForm = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    width: 30%;
-    height: 70%;
     border-radius: 10px;
-  }
-  .Circle {
-    width: 60%;
-    padding-bottom: 60%;
-    border-radius: 60%;
+    margin-top: 1rem;
   }
 `;
+
+const CharacterName = styled.div`
+  font-size: min(1.5vw, 2rem);
+  font-weight: bold;
+`
+
+const InputTag = styled.input`
+  padding: 10px;
+  background-color: ${(props) => props.theme.grayColor};
+  border: ${(props) => props.theme.grayColor} 1px solid;
+  height: 2.5rem;
+  width: 80%;
+  border-radius: 5px;
+  @media ${props => props.theme.mobile} {
+    height: 1.6rem;
+  };
+`
 
 function Character({ characterName, setCharacterName }) {
   function onChange(event) {
     setCharacterName(event.target.value);
   }
   return (
-    <Wrapper>
-      <h2>캐릭터를 선택해주세요</h2>
-      <p>아이와 대화할 캐릭터를 선택해주세요</p>
+    <>
       <CharacterForm>
         <div className="CharacterCard">
-          {/* <Circle className="Circle"></Circle> */}
-          <img src="/img/characters/character1.png" width="50%" />
+          <img src="/img/characters/character1.png" width="30%" />
           <Card>
-            <h4>이름 : SPACE-N08</h4>
-            <Text>친구를 찾아서 우주를 떠돌던 N08(공팔)</Text>
+            <Title>SPACE-N08</Title>
+            <Text>친구를 찾아서 우주를 떠도는 외계인</Text>
+            <Text>N08의 친구가 되어주세요!</Text>
           </Card>
         </div>
-        <div>
+        <Card>
           <label htmlFor="cname">
-            <p style={{ color: "black", textAlign: "left" }}>
+            <CharacterName style={{ color: "black", textAlign: "left", margin: "1vw 0 1vw 0" }}>
               캐릭터 별명을 지어주세요
-            </p>
+            </CharacterName>
           </label>
-          <input type="text" value={characterName} onChange={onChange} />
-        </div>
+          <InputTag type="text" value={characterName} onChange={onChange} />
+        </Card>
       </CharacterForm>
-    </Wrapper>
+    </>
   );
 }
 

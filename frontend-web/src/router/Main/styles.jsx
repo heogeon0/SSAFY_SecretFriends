@@ -4,11 +4,16 @@ export const Wrapper = styled.div`
   background-image: url("img/background/pink.jpg");
   background-size: cover;
   display: grid;
+  grid-gap: 10px;
   grid-template-columns: 1fr;
-  /* grid-template-rows: minmax(350px, 1fr) 3fr; */
-  grid-template-rows: 50px minmax(350px, 1fr) 3fr;
+  grid-template-rows: minmax(350px, 1fr) 3fr;
+  @media ${props => props.theme.mobile} {
+    grid-gap: 20px;
+    grid-template-rows: minmax(150px, 1fr) 3fr;
+    }
   p {
     display: flex;
+    font-size: min(3vw, 20px);
     align-items: center;
     height: 100%;
   }
@@ -17,39 +22,67 @@ export const Wrapper = styled.div`
   }
   .body {
     display: grid;
+    grid-gap: 16px;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
     width: 90%;
     height: 90%;
     max-width: 1000px;
     max-height: 800px;
+    border-radius: 5px;
     background-color: ${(props) => props.theme.whiteColor};
+    box-shadow: 5px 5px 15px 0.5px #dcdde1;
     margin: 0 auto;
-    padding: 0px 20px 20px;
+    padding: 20px 24px;
+    @media ${props => props.theme.mobile} {
+      max-height: 1000px;
+    }
     .body_grid {
       display: grid;
       grid-template-columns: 1fr;
-      grid-template-rows: 1fr 3fr;
+      grid-template-rows: 1fr 6fr;
+      max-height: 350px;
+      @media ${props => props.theme.mobile} {
+        max-height: 180px;
+      }
     }
     .body_picture {
       overflow-x: scroll;
-      display: grid;
-      grid-template-rows: 1fr;
-      grid-template-columns: repeat(5, 1fr);
-      grid-gap: 20px;
+      display: flex;
+      flex-direction: row;
       width: 100%;
       height: 100%;
-      padding: 20px;
+      padding: 1rem;
+      border-radius: 5px;
       background-color: ${(props) => props.theme.grayColor};
+      .picture_img {
+        max-height: 100%;
+        margin: 1vw;
+        border-radius: 5px;
+        :hover {
+          cursor: pointer;
+        }
+      }
     }
     .body_conversation {
-      display: grid;
       overflow-y: scroll;
-      grid-template-rows: repeat(auto-fit, minmax(40px, 1fr));
-      grid-template-columns: 1fr;
       width: 100%;
       height: 100%;
+      padding: 1rem;
+      border-radius: 5px;
+      box-shadow: 0px 3px 3px 0.5px #1d1b1b52;
       background-color: ${(props) => props.theme.grayColor};
+    }
+  }
+  .plusBtn {
+    padding: 0.3vw 1vw;
+    margin-left: 6px;
+    font-size: min(2vw, 16px);
+    background-color: #cde6d9;
+    border: none;
+    border-radius: 4vw;
+    :hover {
+      cursor: pointer;
     }
   }
 `;

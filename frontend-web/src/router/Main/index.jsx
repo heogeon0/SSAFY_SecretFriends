@@ -3,58 +3,124 @@ import styled from "styled-components";
 
 import MainCarousel from "../../components/Main/MainCarousel";
 import AnswerModal from "../../components/Childern/AnswerModal";
+import Loading from "../../components/Loading/Loading";
 
 import axios from "axios";
 import drf from "../../api/drf";
+import { storage } from "../../api/firebase";
+import { getDownloadURL, listAll, ref } from "firebase/storage";
 
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
-import { MemberID, CurrentSlide, ChildrenList, AnswerList } from "../../atom";
+import { useSetRecoilState, useRecoilState } from "recoil";
+import { MemberID, CurrentSlide, ChildrenList, AnswerList, IsLoading, ImgURLs } from "../../atom";
+import ImageModal from "../../components/Childern/ImageModal";
 
-
+// scroll button styles
 const ScrollBtn = styled.div`
   :hover {
     cursor: pointer;
   }
 `
+// box styles(flex, grid)
+const FlexRow = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+const FlexReflex = styled.div`
+  display: flex;
+  @media ${props => props.theme.mobile} {
+    flex-direction: column;
+  }
+`
+const CarouselGrid = styled.div`
+  display: grid;
+  grid-template-rows: 7fr 1fr;
+  @media ${props => props.theme.mobile} {
+    grid-template-rows: 4fr 1fr;
+  }
+
+`
+const ChildBtn = styled.button`
+  margin: min(1vw, 5px);
+  padding: min(1vw, 5px) min(2vw, 16px);
+  font-size: min(2vw, 16px);
+  background-color: ${props => props.theme.whiteColor};
+  box-shadow: 3px 3px 3px gray;
+  border: none;
+  border-radius: 5px;
+  :hover {
+    cursor: pointer;
+  }
+`
+// conversation styles
+const ConversBtn = styled.button`
+  font-size: min(5vw, 16px);
+  text-decoration: underline;
+  padding: 0;
+  border: none;
+  background-color: ${props => props.theme.grayColor};
+  :hover {
+    cursor: pointer;
+  }
+  @media ${props => props.theme.mobile} {
+    font-size: min(2vw, 16px);
+  }
+`
+const ConversText = styled.div`
+  @media ${props => props.theme.mobile} {
+    font-size: min(3vw, 16px);
+  }
+`
+const Icon = styled.i`
+  margin: 0 3rem;
+  color: white;
+  font-size: min(4vw, 3rem);
+  :hover {
+    cursor: pointer;
+  }
+  @media ${props => props.theme.mobile} {
+    margin: 0 4vw;
+  }
+`
+
 
 function Main() {
+// page scroll button
   const pageTop = {
     position: 'fixed',
     bottom: '60px',
-    right: '15px',
-    width: '4vw',
+    right: '30px',
+    width: '3vw',
     height: '40px',
     borderRadius: '50%',
     color: '#cbc8c8',
     zIndex: '1',
   }
-
   const pageBottom = {
     position: 'fixed',
     bottom: '40px',
-    right: '15px',
-    width: '4vw',
+    right: '30px',
+    width: '3vw',
     height: '20px',
     borderRadius: '50%',
     color: '#cbc8c8',
     zIndex: '1',
   }
-
   function moveToTop () {
     document.body.scrollIntoView({behavior: 'smooth'});
   } 
-
   function moveToBottom () {
     document.body.scrollIntoView({behavior: 'smooth', block: 'end'})
   }
 
-
-  const currentSlide = useRecoilValue(CurrentSlide);
   const setMemberID = useSetRecoilState(MemberID);
   const [childrens, setChildrens] = useRecoilState(ChildrenList);
   const [answerList, setAnswerList] = useRecoilState(AnswerList);
+  const [currentSlide, setCurrentSlide] = useRecoilState(CurrentSlide);
+  const [isLoading, setIsLoading] = useRecoilState(IsLoading);
+  const [imgURLs, setImgURLs] = useRecoilState(ImgURLs);
 
 
   // 페이지 렌더링 시 멤버에 대한 정보를 가져온다.
@@ -68,11 +134,62 @@ function Main() {
     }).then((res) => {
       setMemberID(res.data.memberID)
       setAnswerList(res.data.childrens[currentSlide]?.answers)
-      setChildrens([...res.data.childrens, {childrenID: 0}])
+      setChildrens([...res.data.childrens, {childrenID: 0, name: "아이"}])
+
+      // firebase (image list)
+      setImgURLs([])
+      const listRef = ref(storage, `captureImages/${res.data.childrens[currentSlide].childrenID}`);
+      listAll(listRef).then((res) => {
+        res.items.forEach((item) => {
+          getDownloadURL(ref(storage, item.fullPath)).then((url) => {
+            setImgURLs((val) => [...val, url])
+          })
+        })
+      })
+
     })
   }, [])
   
   const childrenID = childrens[currentSlide]?.childrenID;
+  
+// main carousel prev, next button
+  const total = childrens.length;
+  function goNext() {
+    if (currentSlide + 1 < total) {
+      setAnswerList(childrens[currentSlide+1].answers)
+      setCurrentSlide((val) => val + 1);
+
+      // firebase (image list)
+      setImgURLs([])
+      const listRef = ref(storage, `captureImages/${childrens[currentSlide+1].childrenID}`);
+      listAll(listRef).then((res) => {
+        res.items.forEach((item) => {
+          getDownloadURL(ref(storage, item.fullPath)).then((url) => {
+            setImgURLs((val) => [...val, url])
+          })
+        })
+      })
+
+    }
+  }
+  function goPrev() {
+    if (currentSlide > 0) {
+      setAnswerList(childrens[currentSlide-1].answers)
+      setCurrentSlide((val) => val - 1);
+
+      // firebase (image list)
+      setImgURLs([])
+      const listRef = ref(storage, `captureImages/${childrens[currentSlide-1].childrenID}`);
+      listAll(listRef).then((res) => {
+        res.items.forEach((item) => {
+          getDownloadURL(ref(storage, item.fullPath)).then((url) => {
+            setImgURLs((val) => [...val, url])
+          })
+        })
+      })
+    }
+  }
+
 
 // 아이 삭제하기
   function deleteChildren(childrenID) {
@@ -134,8 +251,7 @@ function Main() {
     .catch((err) => {console.log(err)})
   }
 
-
-// modal(for answer updating) code
+// Conversation: modal(for answer updating) code
   const [close, setClose] = useState(false) // 모달창 닫는 변수
   const [num, setNum] = useState();
 
@@ -144,48 +260,89 @@ function Main() {
     setClose(!close)
   }
 
+// Picture: modal(for detail image & download image) code
+  const [closeImg, setCloseImg] = useState(false);
+  const [imgNum, setImgNum] = useState();
+  function detailImg(idx) {
+    setImgNum(idx)
+    setCloseImg(!close)
+  }
+
+
   return (
-    <Wrapper>
-      <div>
-        <Link style={{textDecoration: 'none', margin: '0 1rem 0 0'}} to="/updateMember">회원정보 수정</Link>
-        <Link style={{textDecoration: 'none', margin: '0 1rem 0 0'}} to="/createChildren">아이정보 등록</Link>
-        <Link style={{textDecoration: 'none'}} to="/signout">회원 탈퇴</Link>
-      </div>
-      <div className="head">
-        <MainCarousel />
-        { childrenID
-          ? <button onClick={() => deleteChildren(childrenID)}>아이 삭제</button>
-          : null
-        }
-        { childrenID ? <Link to={`/UpdateChildren/${childrenID}`}><button>아이정보 수정</button></Link> : null }
-      </div>
-      <>
+    <>
+      {/* { isLoading ? <Loading></Loading> : null} */}
+      <Wrapper>
+        <div className="head">
+          <CarouselGrid>
+            <FlexRow>
+              {childrens.length !== 1 && currentSlide !== 0
+              ? <Icon onClick={goPrev} className="fa-solid fa-chevron-left"></Icon>
+              : <Icon onClick={goPrev} className="fa-solid fa-chevron-left" style={{visibility: "hidden"}}></Icon>}
+              <MainCarousel />
+              {childrens.length !== 1 && childrens[currentSlide]?.childrenID !== 0
+              ? <Icon onClick={goNext} className="fa-solid fa-chevron-right"></Icon>
+              : <Icon onClick={goNext} className="fa-solid fa-chevron-right" style={{visibility: "hidden"}}></Icon>}
+            </FlexRow>
+            <FlexRow>
+              { childrenID ? <Link to={`/UpdateChildren/${childrenID}`}><ChildBtn>수정</ChildBtn></Link> : <Link to={`/UpdateChildren/${childrenID}`} style={{visibility: "hidden"}}><ChildBtn>수정</ChildBtn></Link> }
+              { childrenID ? <ChildBtn onClick={() => deleteChildren(childrenID)}>삭제</ChildBtn> : <ChildBtn onClick={() => deleteChildren(childrenID)} style={{visibility: "hidden"}}>삭제</ChildBtn> }
+            </FlexRow>
+          </CarouselGrid>
+        </div>
         <div className="body">
+          {/* conversation part */}
           <div className="body_grid">
-            <p>\아이와 \공팔이가 함께한 사진들</p>
-            <div className="body_picture">
-              {/* firebase 활용 예정 */}
-            </div>
-          </div>
-          <div className="body_grid">
-          { childrenID ? <button><Link to={`/CreateAnswer/${childrenID}`}>추가하기</Link></button> : null }
-            <p>\아이에게 해주고싶은 말</p>
+            <FlexRow style={{justifyContent: "space-between"}}>
+              <p>{childrens[currentSlide] ? childrens?.[currentSlide].name : "아이"}에게 해주고싶은 말</p>
+              { childrenID ? <button className="plusBtn"><Link to={`/CreateAnswer/${childrenID}`} style={{textDecoration: "none", color: "black"}}>추가하기</Link></button> : null }
+            </FlexRow>
             <div className="body_conversation">
               { answerList ? answerList.map((answer, idx) => {
                 return (
                   <div key={answer.answerID}>
-                    <span>{answer.content}</span>
-                    <span>{answer.createdAt}</span>
-                    <button onClick={() => updateAnswer(idx)}>수정</button>
-                    <button onClick={() => deleteAnswer(answer.answerID, answer.questionID)}>삭제</button>
-                    { close && num===idx && (<AnswerModal answer={answer} setClose={setClose} closeModal={() => setClose(!close)} />)}
+                    <FlexReflex style={{justifyContent: "space-between", marginBottom: "5px"}}>
+                      <ConversText>{answer.content}</ConversText>
+                      <FlexRow style={{justifyContent: "space-between", alignItems: "center"}}>
+                        <ConversText style={{marginBottom: "1vw"}}>{answer.createdAt}</ConversText>
+                        <FlexRow>
+                          <ConversBtn style={{marginLeft: "1rem", marginBottom: "1vw"}} onClick={() => updateAnswer(idx)}>수정</ConversBtn>
+                          <ConversBtn style={{marginLeft: "0.5rem", marginBottom: "1vw"}} onClick={() => deleteAnswer(answer.answerID, answer.questionID)}>삭제</ConversBtn>
+                          { close && num===idx && (<AnswerModal answer={answer} setClose={setClose} closeModal={() => setClose(!close)} />)}
+                        </FlexRow>
+                      </FlexRow>
+                    </FlexReflex>
                   </div>
                 )
               }) : null}
             </div>
           </div>
+          {/* picture part */}
+          <div className="body_grid" style={{position: "relative"}}>
+            <FlexRow style={{justifyContent: "space-between"}}>
+              <p>{childrens[currentSlide] ? childrens?.[currentSlide].name : "아이"}와 함께한 사진</p>
+              {/* { childrenID ? <button className="plusBtn"><Link to={`/CreateAnswer/${childrenID}`} style={{textDecoration: "none", color: "black"}}>더보기</Link></button> : null } */}
+            </FlexRow>
+            <div className="body_picture">
+              {/* <span style={{position: "absolute", width: "1rem", left: "0", height: "70%", backgroundColor: "#e2e2e2"}}></span> */}
+              {imgURLs.map((imgURL, idx) => {
+                return (
+                  <>
+                    <img key={idx} src={imgURL} className="picture_img" onClick={() => detailImg(idx)}></img>
+                    { closeImg && imgNum===idx && (<ImageModal imgURL={imgURLs[idx]} setCloseImg={setCloseImg} closeModal={() => setCloseImg(!closeImg)} />)}
+                  </>
+                )
+              })}
+              {/* <span style={{position: "absolute", width: "1rem", right: "0", height: "70%", backgroundColor: "#e2e2e2"}}></span> */}
+            </div>
+          </div>
         </div>
-      </>
+        <FlexRow style={{margin: "1rem", justifyContent: "flex-end"}}>
+          <Link style={{fontSize: "min(2vw, 16px)", color: "gray", margin: '0 1rem 0 0'}} to="/updateMember">회원정보 수정</Link>
+          <Link style={{fontSize: "min(2vw, 16px)", color: "gray"}} to="/signout">회원 탈퇴</Link>
+        </FlexRow>
+      </Wrapper>
+      {/* scroll button */}
       <div>
         <ScrollBtn>
           <i onClick={moveToTop} className="fa-solid fa-circle-chevron-up fa-2xl" style={ pageTop }></i>
@@ -194,7 +351,7 @@ function Main() {
           <i onClick={moveToBottom} className="fa-solid fa-circle-chevron-down fa-2xl" style={ pageBottom }></i>
         </ScrollBtn>
       </div>
-    </Wrapper>
+    </>
   );
 }
 

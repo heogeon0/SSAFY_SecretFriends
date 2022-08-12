@@ -27,8 +27,8 @@ const BtnFlex = styled.div`
 const LabelTag = styled.label`
   text-align: left;
   line-height: 2vw;
-  font-size: min(3vw, 1rem);
-  margin-bottom: min(0.1vw, 10px);
+  /* font-size: min(1vw, 1rem); */
+  /* margin-bottom: min(0.1vw, 10px); */
   @media ${props => props.theme.mobile} {
     margin-bottom: min(0.5vw, 10px);
   };
@@ -38,7 +38,7 @@ const InputTag = styled.input`
   background-color: ${(props) => props.theme.grayColor};
   border: ${(props) => props.theme.grayColor} 1px solid;
   height: 2.5rem;
-  margin-bottom: min(5vw, 0.8rem);
+  margin-bottom: min(1vw, 5px);
   border-radius: 5px;
   @media ${props => props.theme.mobile} {
     height: 1.6rem;
@@ -53,8 +53,7 @@ const FlexBox = styled.div`
 const GrayBtn = styled.button`
   font-size: min(3vw, 1rem);
   font-family: ${(props) => props.theme.formFont};
-  padding: 1vw;
-  line-height: 50%;
+  padding: 0.3rem 1rem;
   border: none;
   background-color: ${(props) => props.theme.grayColor};
   border-radius: 2vw;
@@ -70,8 +69,7 @@ const GrayBtn = styled.button`
 const YellowBtn = styled.button`
   font-size: min(3vw, 1rem);
   font-family: ${(props) => props.theme.formFont};
-  padding: 1vw;
-  line-height: 50%;
+  padding: 0.3rem 1rem;
   border: none;
   background-color: ${(props) => props.theme.yellowColor};
   border-radius: 2vw;

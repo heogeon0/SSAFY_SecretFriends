@@ -34,3 +34,13 @@ export const AnswerList = atom({
   key: "AnswerList",
   default: [],
 })
+
+export const IsLoading = atom({
+  key: "IsLoading",
+  default: true,
+})
+
+export const ImgURLs = atom({
+  key: "ImgURLs",
+  default: [],
+})

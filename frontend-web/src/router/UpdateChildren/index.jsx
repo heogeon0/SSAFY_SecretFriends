@@ -1,4 +1,5 @@
 import Wrapper from "./styles";
+import styled from "styled-components";
 
 import Information from "../../components/Childern/Information";
 import Character from "../../components/Childern/Chracter";
@@ -9,6 +10,16 @@ import drf from "../../api/drf";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+
+const Bg = styled.div`
+  background-image: url("img/background/green.jpg");
+  background-size: cover;
+`
+const FlexBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 function UpdateChildren() {
   const [slide, setSlide] = useState(1);
@@ -175,12 +186,8 @@ function UpdateChildren() {
     2: <Character characterName={characterName} setCharacterName={setCharacterName} />,
   };
 
-  function goOut() {
-    navigate('/main')
-  }
-
   return (
-    <div style={{ height: "90vh" }}>
+    <Bg style={{ height: "90vh" }}>
       <Wrapper>
         <div className="grid">
           <div className="side">
@@ -198,14 +205,16 @@ function UpdateChildren() {
             <div>{tab[slide]}</div>
             {error ? <p className="error">{error}</p> : ""}
             <div className="buttonWrap">
-              <button onClick={goPre}>이전</button>
-              <button onClick={goNext}>{slide === 2 ? "완료" : "다음"}</button>
+              <button onClick={() => goMain()}>나가기</button>
+              <FlexBox>
+                {slide !== 1 ? <button onClick={goPre}>이전</button> : null}
+                <button onClick={goNext} style={{marginLeft: "6px"}}>{slide === 2 ? "완료" : "다음"}</button>
+              </FlexBox>
             </div>
           </div>
         </div>
-        <button onClick={()=>goOut()}>나가기</button>
       </Wrapper>
-    </div>
+    </Bg>
   );
 }
 export default UpdateChildren;

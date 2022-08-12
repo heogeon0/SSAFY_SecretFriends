@@ -4,7 +4,7 @@ import { storage } from "../../api/firebase";
 import { ref, getDownloadURL } from "firebase/storage";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { CurrentSlide, ChildrenList, AnswerList } from "../../atom";
+import { CurrentSlide, ChildrenList, AnswerList, IsLoading } from "../../atom";
 import { useNavigate } from "react-router-dom";
 
 
@@ -36,15 +36,18 @@ function Slider({ check, child, idx }) {
   const childrenList = useRecoilValue(ChildrenList);
   const setCurrentSlide = useSetRecoilState(CurrentSlide);
   const setAnswerList = useSetRecoilState(AnswerList);
+  const setIsLoading = useSetRecoilState(IsLoading);
   const backgroundImg = child && !child.childrenID ? "../../img/plus.png" : url;
   const navigate = useNavigate();
   // '+' 컴포넌트의 경우, 한 번 누르면 carousel 이동 / 두 번 누르면 create children 페이지로 이동
-  const [isPlus, setIsPlus] = useState(-1);
+  const [isPlus, setIsPlus] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true)
     const storageRef = ref(storage, `images/${child.childrenID}`);
       getDownloadURL(storageRef).then((url) => {
         setURL(url)
+        setIsLoading(false)
       })
   }, [])
 
@@ -57,8 +60,8 @@ function Slider({ check, child, idx }) {
       navigate('/CreateChildren')
     }
     else if (childrenList[idx].childrenID === 0) {
-      setIsPlus(isPlus + 1)
-      if (!(isPlus % 2)) {
+      setIsPlus(!isPlus)
+      if (isPlus) {
         navigate('/CreateChildren')
         setCurrentSlide(idx => idx -1)
       }
