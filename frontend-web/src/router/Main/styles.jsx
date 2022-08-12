@@ -57,7 +57,6 @@ export const Wrapper = styled.div`
       background-color: ${(props) => props.theme.grayColor};
       .picture_img {
         max-height: 100%;
-        /* width: 100%; */
         margin: 1vw;
         border-radius: 5px;
         :hover {

@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { useSetRecoilState, useRecoilState } from "recoil";
 import { MemberID, CurrentSlide, ChildrenList, AnswerList, IsLoading, ImgURLs } from "../../atom";
+import ImageModal from "../../components/Childern/ImageModal";
 
 // scroll button styles
 const ScrollBtn = styled.div`
@@ -250,7 +251,7 @@ function Main() {
     .catch((err) => {console.log(err)})
   }
 
-// modal(for answer updating) code
+// Conversation: modal(for answer updating) code
   const [close, setClose] = useState(false) // 모달창 닫는 변수
   const [num, setNum] = useState();
 
@@ -258,6 +259,15 @@ function Main() {
     setNum(idx)
     setClose(!close)
   }
+
+// Picture: modal(for detail image & download image) code
+  const [closeImg, setCloseImg] = useState(false);
+  const [imgNum, setImgNum] = useState();
+  function detailImg(idx) {
+    setImgNum(idx)
+    setCloseImg(!close)
+  }
+
 
   return (
     <>
@@ -281,6 +291,7 @@ function Main() {
           </CarouselGrid>
         </div>
         <div className="body">
+          {/* conversation part */}
           <div className="body_grid">
             <FlexRow style={{justifyContent: "space-between"}}>
               <p>{childrens[currentSlide] ? childrens?.[currentSlide].name : "아이"}에게 해주고싶은 말</p>
@@ -306,19 +317,23 @@ function Main() {
               }) : null}
             </div>
           </div>
+          {/* picture part */}
           <div className="body_grid" style={{position: "relative"}}>
             <FlexRow style={{justifyContent: "space-between"}}>
               <p>{childrens[currentSlide] ? childrens?.[currentSlide].name : "아이"}와 함께한 사진</p>
-              { childrenID ? <button className="plusBtn"><Link to={`/CreateAnswer/${childrenID}`} style={{textDecoration: "none", color: "black"}}>더보기</Link></button> : null }
+              {/* { childrenID ? <button className="plusBtn"><Link to={`/CreateAnswer/${childrenID}`} style={{textDecoration: "none", color: "black"}}>더보기</Link></button> : null } */}
             </FlexRow>
             <div className="body_picture">
-              <span style={{position: "absolute", width: "1rem", left: "0", height: "75%", backgroundColor: "#e2e2e2"}}></span>
+              {/* <span style={{position: "absolute", width: "1rem", left: "0", height: "70%", backgroundColor: "#e2e2e2"}}></span> */}
               {imgURLs.map((imgURL, idx) => {
                 return (
-                  <img key={idx} src={imgURL} className="picture_img"></img>
+                  <>
+                    <img key={idx} src={imgURL} className="picture_img" onClick={() => detailImg(idx)}></img>
+                    { closeImg && imgNum===idx && (<ImageModal imgURL={imgURLs[idx]} setCloseImg={setCloseImg} closeModal={() => setCloseImg(!closeImg)} />)}
+                  </>
                 )
               })}
-              <span style={{position: "absolute", width: "1rem", right: "0", height: "75%", backgroundColor: "#e2e2e2"}}></span>
+              {/* <span style={{position: "absolute", width: "1rem", right: "0", height: "70%", backgroundColor: "#e2e2e2"}}></span> */}
             </div>
           </div>
         </div>
@@ -327,6 +342,7 @@ function Main() {
           <Link style={{fontSize: "min(2vw, 16px)", color: "gray"}} to="/signout">회원 탈퇴</Link>
         </FlexRow>
       </Wrapper>
+      {/* scroll button */}
       <div>
         <ScrollBtn>
           <i onClick={moveToTop} className="fa-solid fa-circle-chevron-up fa-2xl" style={ pageTop }></i>
