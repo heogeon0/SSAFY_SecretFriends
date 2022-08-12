@@ -34,3 +34,8 @@ export const AnswerList = atom({
   key: "AnswerList",
   default: [],
 })
+
+export const IsLoading = atom({
+  key: "IsLoading",
+  default: true,
+})

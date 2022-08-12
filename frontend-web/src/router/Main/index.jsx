@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import MainCarousel from "../../components/Main/MainCarousel";
 import AnswerModal from "../../components/Childern/AnswerModal";
+import Loading from "../../components/Loading/Loading";
 
 import axios from "axios";
 import drf from "../../api/drf";
@@ -10,7 +11,7 @@ import drf from "../../api/drf";
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { useSetRecoilState, useRecoilState } from "recoil";
-import { MemberID, CurrentSlide, ChildrenList, AnswerList } from "../../atom";
+import { MemberID, CurrentSlide, ChildrenList, AnswerList, IsLoading } from "../../atom";
 
 
 // scroll button styles
@@ -112,6 +113,7 @@ function Main() {
   const [childrens, setChildrens] = useRecoilState(ChildrenList);
   const [answerList, setAnswerList] = useRecoilState(AnswerList);
   const [currentSlide, setCurrentSlide] = useRecoilState(CurrentSlide);
+  const [isLoading, setIsLoading] = useRecoilState(IsLoading);
 
 
   // 페이지 렌더링 시 멤버에 대한 정보를 가져온다.
@@ -218,6 +220,7 @@ function Main() {
 
   return (
     <>
+      { isLoading ? <Loading></Loading> : null}
       <Wrapper>
         <div className="head">
           <CarouselGrid>
