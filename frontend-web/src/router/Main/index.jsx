@@ -34,9 +34,19 @@ const FlexReflex = styled.div`
     flex-direction: column;
   }
 `
+const CarouselFlex = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+  @media ${props => props.theme.mobile} {
+    height: 30vw;
+  }
+`
 const ChildBtn = styled.button`
-  margin: 5px;
-  padding: 5px 16px;
+  margin: min(1vw, 5px);
+  padding: min(1vw, 5px) min(2vw, 16px);
+  font-size: min(2vw, 16px);
   background-color: ${props => props.theme.whiteColor};
   box-shadow: 3px 3px 3px gray;
   border: none;
@@ -61,6 +71,7 @@ const ConversText = styled.div`
 `
 
 function Main() {
+// page scroll button
   const pageTop = {
     position: 'fixed',
     bottom: '60px',
@@ -71,7 +82,6 @@ function Main() {
     color: '#cbc8c8',
     zIndex: '1',
   }
-
   const pageBottom = {
     position: 'fixed',
     bottom: '40px',
@@ -82,20 +92,17 @@ function Main() {
     color: '#cbc8c8',
     zIndex: '1',
   }
-
   function moveToTop () {
     document.body.scrollIntoView({behavior: 'smooth'});
   } 
-
   function moveToBottom () {
     document.body.scrollIntoView({behavior: 'smooth', block: 'end'})
   }
 
-
-  const currentSlide = useRecoilValue(CurrentSlide);
   const setMemberID = useSetRecoilState(MemberID);
   const [childrens, setChildrens] = useRecoilState(ChildrenList);
   const [answerList, setAnswerList] = useRecoilState(AnswerList);
+  const [currentSlide, setCurrentSlide] = useRecoilState(CurrentSlide);
 
 
   // 페이지 렌더링 시 멤버에 대한 정보를 가져온다.
@@ -114,6 +121,21 @@ function Main() {
   }, [])
   
   const childrenID = childrens[currentSlide]?.childrenID;
+  
+// main carousel prev, next button
+  const total = childrens.length;
+  function goNext() {
+    if (currentSlide + 1 < total) {
+      setAnswerList(childrens[currentSlide+1].answers)
+      setCurrentSlide((val) => val + 1);
+    }
+  }
+  function goPrev() {
+    if (currentSlide > 0) {
+      setAnswerList(childrens[currentSlide-1].answers)
+      setCurrentSlide((val) => val - 1);
+    }
+  }
 
 // 아이 삭제하기
   function deleteChildren(childrenID) {
@@ -189,14 +211,24 @@ function Main() {
     <>
       <Wrapper>
         <div className="head">
-          <MainCarousel />
-          <FlexRow>
-            { childrenID ? <Link to={`/UpdateChildren/${childrenID}`}><ChildBtn>수정</ChildBtn></Link> : null }
-            { childrenID
-              ? <ChildBtn onClick={() => deleteChildren(childrenID)}>삭제</ChildBtn>
-              : null
-            }
-          </FlexRow>
+          <FlexCol>
+            <CarouselFlex>
+              {childrens.length !== 1 && currentSlide !== 0
+              ? <button onClick={goPrev}>앞</button>
+              : null}
+              <MainCarousel />
+              {childrens.length !== 1 && childrens[currentSlide]?.childrenID !== 0
+              ? <button onClick={goNext}>뒤</button> 
+              : null}
+            </CarouselFlex>
+            <FlexRow>
+              { childrenID ? <Link to={`/UpdateChildren/${childrenID}`}><ChildBtn>수정</ChildBtn></Link> : null }
+              { childrenID
+                ? <ChildBtn onClick={() => deleteChildren(childrenID)}>삭제</ChildBtn>
+                : null
+              }
+            </FlexRow>
+          </FlexCol>
         </div>
         <div className="body">
           <div className="body_grid">

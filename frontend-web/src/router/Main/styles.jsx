@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   grid-template-columns: 1fr;
   grid-template-rows: minmax(350px, 1fr) 3fr;
   @media ${props => props.theme.mobile} {
-    grid-gap: 60px;
+    grid-gap: 20px;
     grid-template-rows: minmax(150px, 1fr) 3fr;
     }
   p {
