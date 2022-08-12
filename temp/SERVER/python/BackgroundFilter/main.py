@@ -24,7 +24,7 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread, QCoreApplication
 import smtplib
 from email.message import EmailMessage
 
-projectPath = "C:/SSAFY/Workspace/20220811_13/S07P12D208/temp/SERVER/python/BackgroundFilter/" # 프로젝트 파일 경로
+projectPath = "C:/프로젝트경로/S07P12D208/temp/SERVER/python/BackgroundFilter/" # 프로젝트 파일 경로
 imgIndex = 1
 
 seg = SelfiSegmentation()
@@ -44,13 +44,13 @@ class VideoThread(QThread):
 
         smtp_gmail.login('hsduswl7@gmail.com', 'raltbxkzwzrjtrmh') # 로그인
 
-        msg = EmailMessage()
+        # msg = EmailMessage()
 
-        msg['Subject'] = "[나의 단짝친구] 회원님의 아이가 찍은 사진이 도착했습니다." # 제목 입력
-        msg.set_content("아이와 캐릭터가 함께한 사진입니다.") # 내용 입력
-        msg['From'] = 'mybuddy@ssafy.com' # 보내는 사람
-        print("send to " + email)
-        msg['To'] = email # 받는 사람
+        # msg['Subject'] = "[나의 단짝친구] 회원님의 아이가 찍은 사진이 도착했습니다." # 제목 입력
+        # msg.set_content("아이와 캐릭터가 함께한 사진입니다.") # 내용 입력
+        # msg['From'] = 'mybuddy@ssafy.com' # 보내는 사람
+        # print("send to " + email)
+        # msg['To'] = email # 받는 사람
 
         # capture from web cam
         cap = cv2.VideoCapture(0)
@@ -74,14 +74,25 @@ class VideoThread(QThread):
                 path = projectPath + 'result/'
                 cv2.imwrite(path + filename.format(cnt), imgout, params=[cv2.IMWRITE_PNG_COMPRESSION, 0])
                 fileUpload(path + filename.format(cnt))
-                flag_photo = False
-
+                
                 file = projectPath + 'result/' + filename.format(cnt)
+                print("file : " + file)
                 fp = open(file, 'rb')
                 file_data = fp.read()
+                msg = EmailMessage()
+
+                msg['Subject'] = "[나의 단짝친구] 회원님의 아이가 찍은 사진이 도착했습니다." # 제목 입력
+                msg.set_content("아이와 캐릭터가 함께한 사진입니다.") # 내용 입력
+                msg['From'] = 'mybuddy@ssafy.com' # 보내는 사람
+                print("send to " + email)
+                msg['To'] = email # 받는 사람
+
                 msg.add_attachment(file_data, maintype='image', subtype='jpg', filename=filename.format(cnt))
 
                 smtp_gmail.send_message(msg)
+            
+                flag_photo = False
+
             # elif flag_exit:
             #     # cv2.imwrite("image/photo.jpg", frame)
             #     close()
