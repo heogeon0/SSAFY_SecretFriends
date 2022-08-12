@@ -7,12 +7,13 @@ import Loading from "../../components/Loading/Loading";
 
 import axios from "axios";
 import drf from "../../api/drf";
+import { storage } from "../../api/firebase";
+import { getDownloadURL, listAll, ref } from "firebase/storage";
 
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { useSetRecoilState, useRecoilState } from "recoil";
-import { MemberID, CurrentSlide, ChildrenList, AnswerList, IsLoading } from "../../atom";
-
+import { MemberID, CurrentSlide, ChildrenList, AnswerList, IsLoading, ImgURLs } from "../../atom";
 
 // scroll button styles
 const ScrollBtn = styled.div`
@@ -118,6 +119,7 @@ function Main() {
   const [answerList, setAnswerList] = useRecoilState(AnswerList);
   const [currentSlide, setCurrentSlide] = useRecoilState(CurrentSlide);
   const [isLoading, setIsLoading] = useRecoilState(IsLoading);
+  const [imgURLs, setImgURLs] = useRecoilState(ImgURLs);
 
 
   // 페이지 렌더링 시 멤버에 대한 정보를 가져온다.
@@ -132,6 +134,18 @@ function Main() {
       setMemberID(res.data.memberID)
       setAnswerList(res.data.childrens[currentSlide]?.answers)
       setChildrens([...res.data.childrens, {childrenID: 0, name: "아이"}])
+
+      // firebase (image list)
+      setImgURLs([])
+      const listRef = ref(storage, `captureImages/${res.data.childrens[currentSlide].childrenID}`);
+      listAll(listRef).then((res) => {
+        res.items.forEach((item) => {
+          getDownloadURL(ref(storage, item.fullPath)).then((url) => {
+            setImgURLs((val) => [...val, url])
+          })
+        })
+      })
+
     })
   }, [])
   
@@ -143,14 +157,38 @@ function Main() {
     if (currentSlide + 1 < total) {
       setAnswerList(childrens[currentSlide+1].answers)
       setCurrentSlide((val) => val + 1);
+
+      // firebase (image list)
+      setImgURLs([])
+      const listRef = ref(storage, `captureImages/${childrens[currentSlide+1].childrenID}`);
+      listAll(listRef).then((res) => {
+        res.items.forEach((item) => {
+          getDownloadURL(ref(storage, item.fullPath)).then((url) => {
+            setImgURLs((val) => [...val, url])
+          })
+        })
+      })
+
     }
   }
   function goPrev() {
     if (currentSlide > 0) {
       setAnswerList(childrens[currentSlide-1].answers)
       setCurrentSlide((val) => val - 1);
+
+      // firebase (image list)
+      setImgURLs([])
+      const listRef = ref(storage, `captureImages/${childrens[currentSlide-1].childrenID}`);
+      listAll(listRef).then((res) => {
+        res.items.forEach((item) => {
+          getDownloadURL(ref(storage, item.fullPath)).then((url) => {
+            setImgURLs((val) => [...val, url])
+          })
+        })
+      })
     }
   }
+
 
 // 아이 삭제하기
   function deleteChildren(childrenID) {
@@ -211,7 +249,6 @@ function Main() {
     })
     .catch((err) => {console.log(err)})
   }
-
 
 // modal(for answer updating) code
   const [close, setClose] = useState(false) // 모달창 닫는 변수
@@ -275,7 +312,11 @@ function Main() {
               { childrenID ? <button className="plusBtn"><Link to={`/CreateAnswer/${childrenID}`} style={{textDecoration: "none", color: "black"}}>더보기</Link></button> : null }
             </FlexRow>
             <div className="body_picture">
-              {/* firebase 활용 예정 */}
+              {imgURLs.map((imgURL, idx) => {
+                return (
+                  <img key={idx} src={imgURL} className="picture_img"></img>
+                )
+              })}
             </div>
           </div>
         </div>
