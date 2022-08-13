@@ -15,4 +15,6 @@ public interface ChildrenService {
     boolean updateChildren(ChildrenDto childrenDto);
 
     boolean deleteChildren(int childrenID);
+
+    void updateVisitCount(int childrenID);
 }

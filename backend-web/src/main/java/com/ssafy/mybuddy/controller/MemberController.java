@@ -180,4 +180,12 @@ public class MemberController {
         }
         return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
     }
+
+    @ApiOperation(value="부모 이메일 반환", notes="Children의 ID를 통해 Member의 정보를 반환한다.", response = String.class)
+    @GetMapping("/iot/{childrenID}")
+    public ResponseEntity<String> getEmailByChildrenId(@PathVariable int childrenID) {
+        String email = memberService.getEmailByChildrenId(childrenID);
+        System.out.println("email 반환 : " + email);
+        return new ResponseEntity<>(email, HttpStatus.OK);
+    }
 }

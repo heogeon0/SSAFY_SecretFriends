@@ -3,8 +3,8 @@
 <mapper namespace="com.ssafy.mybuddy.mapper.ChildrenMapper">
 
     <insert id="insertChildren" parameterType="childrenDto" >
-        insert into children(birthYear, birthMonth, birthDay, name, nickname, hospitalizationDay, memberID)
-        values (#{birthYear}, #{birthMonth}, #{birthDay}, #{name}, #{nickname}, #{hospitalizationDay}, #{memberID})
+        insert into children(birthYear, birthMonth, birthDay, name, nickname, hospitalizationDay, memberID, count)
+        values (#{birthYear}, #{birthMonth}, #{birthDay}, #{name}, #{nickname}, #{hospitalizationDay}, #{memberID}, 0)
 
         <selectKey keyProperty="childrenID" resultType="int">
             select last_insert_id();
@@ -19,7 +19,8 @@
                `name`,
                `nickname`,
                `hospitalizationDay`,
-               `memberID`
+               `memberID`,
+               `count`
         from children
         where memberID = #{memberID};
     </select>
@@ -32,9 +33,10 @@
                `name`,
                `nickname`,
                `hospitalizationDay`,
-               `memberID`
-        from children
-        where childrenID = #{childrenID}
+               `memberID`,
+               `count`
+    from children
+    where childrenID = #{childrenID}
     </select>
 
     <update id="updateChildren" parameterType="childrenDto">
@@ -48,5 +50,11 @@
         where
             childrenID = #{childrenID}
     </delete>
+
+    <update id="updateVisitCount" parameterType="int">
+        update children
+        set count = count + 1
+        where childrenID = #{childrenID}
+    </update>
 
 </mapper>

@@ -65,6 +65,7 @@ public class ChildrenController {
     @ApiOperation(value="아이 정보(IOT)", notes="childrenID 해당하는 아이의 정보를 반환한다.", response = ChildrenDto.class)
     @GetMapping("iot/{childrenID}")
     public ResponseEntity<ChildrenDto> selectChildrenForIot(@PathVariable @ApiParam(value = "조회할 아이 번호", required = true) int childrenID) {
+        childrenService.updateVisitCount(childrenID); // 아이 정보 조회 시 방문횟수 증가
         logger.debug("childrenID에 해당하는 아이 정보를 리턴 : {}" , childrenID);
         return new ResponseEntity<>(childrenService.selectChildren(childrenID), HttpStatus.OK);
     }

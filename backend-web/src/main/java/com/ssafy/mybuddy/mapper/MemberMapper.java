@@ -21,4 +21,6 @@ public interface MemberMapper {
     int updateMember(MemberDto memberDto);
 
     MemberDto selectMemberByEmail(String memberEmail);
+
+    String selectEmailByChildrenId(int childrenID);
 }
