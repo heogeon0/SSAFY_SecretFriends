@@ -21,4 +21,5 @@ public interface MemberService {
 
     boolean updateMember(MemberDto memberDto);
 
+    String getEmailByChildrenId(int childrenID);
 }

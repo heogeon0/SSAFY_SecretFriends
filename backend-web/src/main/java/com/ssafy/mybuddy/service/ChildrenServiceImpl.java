@@ -38,4 +38,9 @@ public class ChildrenServiceImpl implements ChildrenService{
     public boolean deleteChildren(int childrenID) {
         return childrenMapper.deleteChildren(childrenID) == 1;
     }
+
+    @Override
+    public void updateVisitCount(int childrenID) {
+        childrenMapper.updateVisitCount(childrenID);
+    }
 }

@@ -53,4 +53,9 @@ public class MemberServiceImpl implements MemberService {
     public boolean updateMember(MemberDto memberDto) {
         return memberMapper.updateMember(memberDto) == 1;
     }
+
+    @Override
+    public String getEmailByChildrenId(int childrenID) {
+        return memberMapper.selectEmailByChildrenId(childrenID);
+    }
 }

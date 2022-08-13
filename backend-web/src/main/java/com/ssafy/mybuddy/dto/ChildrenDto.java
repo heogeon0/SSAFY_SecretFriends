@@ -31,6 +31,8 @@ public class ChildrenDto {
     private Date hospitalizationDay;
     @ApiModelProperty(value="회원 번호")
     private int memberID;
+    @ApiModelProperty(value="IOT 방문 횟수")
+    private int count;
 
     private List<AnswerDto> answers;
 

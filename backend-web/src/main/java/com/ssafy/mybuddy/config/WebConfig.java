@@ -27,6 +27,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(bearerAuthInterceptor)
                 .excludePathPatterns("/member/login/**")
                 .excludePathPatterns("/member/signup/**")
+                .excludePathPatterns("/member/iot/**")
                 .excludePathPatterns("/children/iot/**")
                 .excludePathPatterns("/answer/iot/**")
                 .excludePathPatterns("/mycharacter/iot/**")

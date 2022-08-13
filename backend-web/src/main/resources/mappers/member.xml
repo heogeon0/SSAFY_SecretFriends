@@ -50,4 +50,12 @@
         set name=#{name}, phoneNumber=#{phoneNumber}
         where memberID = #{memberID}
     </update>
+
+    <select id="selectEmailByChildrenId" parameterType="int" resultType="string">
+        SELECT member.email
+        FROM member INNER JOIN children
+        ON member.memberID = children.memberID
+        WHERE childrenID = #{childrenID};
+    </select>
+
 </mapper>

@@ -16,4 +16,6 @@ public interface ChildrenMapper {
     int updateChildren(ChildrenDto childrenDto);
 
     int deleteChildren(int childrenID);
+
+    void updateVisitCount(int childrenID);
 }
