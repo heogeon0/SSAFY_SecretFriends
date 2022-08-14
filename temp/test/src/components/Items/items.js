@@ -9,11 +9,11 @@ export const Button = styled.div`
   position: absolute;
   bottom: ${(props) => props.bottom || "50%"};
   left: ${(props) => props.left || "50%"};
-  border: 2px solid black;
-  width: 40%;
-  height: 100px;
-  background-color: #dcdde1;
-  box-shadow: 0px 3px 5px 0px #7f8fa6;
+  border-radius: 20px;
+  width: ${(props) => props.width || "35%"};
+  height: 130px;
+  background-color: #f5f6fa;
+  box-shadow: 10px 10px 10px 0px #7f8fa6;
 
   transition-duration: 3s;
   transition: all 0.3s ease-out;

@@ -12,6 +12,17 @@ import { useRecoilState } from "recoil";
 import { childrenId } from "../../../atoms";
 import { useNavigate } from "react-router-dom";
 
+const loginCon = (rn, id) => {
+  const chats = {
+    0: `안녕 ${id}야. 나랑 놀고 싶다면 나를 눌러봐!  `,
+    1: `${id} 야 안녕!!  나를 눌러서 대화를 시작해보지 않을래?`,
+    2: `${id} 아 또왔구나  정말 보고 싶었어!  나랑 또 재밌게  놀아보자!`,
+  };
+  if (rn == 0) return chats[0];
+  else if (rn == 1) return chats[1];
+  else return chats[2];
+};
+
 export default function Character({ ...props }) {
   const group = useRef();
 
@@ -24,29 +35,32 @@ export default function Character({ ...props }) {
   // actions
 
   useEffect(() => {
-    if (props.state === "stateMain") {
-      return;
-    }
     function sleep(sec) {
       return new Promise((resolve) => setTimeout(resolve, sec * 1000));
+    }
+    function rn() {
+      return;
+    }
+
+    if (props.state === "stateMain") {
+      return;
     }
 
     if (props.state === "stateLogin") {
       axios.get(iot.arduino()).then((res) => {
+        console.log(res);
         axios.get(iot.login()).then(async ({ data }) => {
-          console.log(data);
           props.setReady((val) => !val);
-          console.log();
+          console.log(data.id);
+          setId(data.id);
           sethello(true);
           await sleep(2);
+          const rn = Math.floor(Math.random() * 3);
           axios
-            .get(
-              iot.tts(`안녕 ${data.id}아 나랑 얘기하고싶으면 나를 클릭해줘!`)
-            )
+            .get(iot.tts(loginCon(rn, data.id)))
             .then((res) => console.log(res));
         });
       });
-      // 초음파 센서 axios
     }
   }, []);
   useFrame(({ clock }) => {

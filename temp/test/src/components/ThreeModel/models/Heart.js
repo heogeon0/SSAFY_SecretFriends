@@ -6,31 +6,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useBox } from "@react-three/cannon";
 import { useFrame } from "@react-three/fiber";
-import { basicChats } from "../../../atoms";
-import { useRecoilState } from "recoil";
+
 import axios from "axios";
 import iot from "../../../apis/iot";
 
-function Heart({ chat, ...props }) {
-  const [chats, setChats] = useRecoilState(basicChats);
-  const [position, sposition] = useState({});
-  useEffect(() => {
-    const setPosition = () => {
-      const minx = -15;
-      const maxx = 15;
-      const miny = -3;
-      const maxy = 4;
-      const minz = -5;
-      const maxz = 3;
-
-      const x = Math.floor(Math.random() * (maxx - minx) + minx);
-      const y = Math.floor(Math.random() * (maxy - miny) + miny);
-      const z = Math.floor(Math.random() * (maxz - minz) + minz);
-      sposition({ x, y, z });
-    };
-    setPosition();
-  }, []);
-
+function Heart({ setPosition, updateChat, chat, ...props }) {
   const group = useRef();
   useFrame(({ clock }) => {
     if (chat.isUsed !== true) {
@@ -45,32 +25,22 @@ function Heart({ chat, ...props }) {
     axios.get(iot.tts(c)).then((res) => {
       console.log(res.data);
     });
-    const newChat = chats.map((data) => {
-      if (data.answerID === id) {
-        return {
-          ...data,
-          isUsed: true,
-        };
-      } else {
-        return data;
-      }
-    });
-    setChats(newChat);
+    updateChat(id);
   };
 
   return (
     <>
-      {chat.isUsed ? null : (
-        <group
-          ref={group}
-          {...props}
-          dispose={null}
-          position={[position.x, position.y, position.z]}
-          onClick={() => onClick(chat.answerID, chat.content)}
-        >
-          <mesh geometry={nodes.Heart.geometry} material={materials.Red} />
-        </group>
-      )}
+      <group
+        ref={group}
+        {...props}
+        dispose={null}
+        position={[setPosition?.px, setPosition?.py, setPosition?.pz]}
+        onClick={() => onClick(chat.answerID, chat.content)}
+        scale={setPosition?.scale}
+        rotation={[setPosition?.rx, setPosition?.ry, setPosition?.rz]}
+      >
+        <mesh geometry={nodes.Heart.geometry} material={materials.Red} />
+      </group>
     </>
   );
 }

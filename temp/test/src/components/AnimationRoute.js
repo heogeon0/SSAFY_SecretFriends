@@ -9,7 +9,6 @@ function AnimationRoute() {
   return (
     <Routes>
       <Route path="/" element={<Login />}></Route>
-      <Route path="/main" element={<MyCanvas />}></Route>
       <Route path="/mains" element={<Main />}></Route>
       <Route path="/diary" element={<Diary />}></Route>
     </Routes>
