@@ -12,7 +12,7 @@ function Chat() {
   return (
     <>
       <form onSubmit={onSubmit}>
-        <input type="number" />
+        <input type="text" />
       </form>
       {id ? <MyChats name={id} /> : null}
     </>

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 
 function MyChats({ name }) {
-  console.log(name);
+  // console.log(name);
   const socket = io.connect("http://localhost:4000");
   useEffect(() => {
     socket.on("connect", function () {
-      console.log(name);
+      console.log("소켓이 바뀝니다" + name);
       name = JSON.parse(name);
       socket.emit("newUser", name);
     });
@@ -16,7 +16,8 @@ function MyChats({ name }) {
   const [message, setMessage] = useState("");
 
   const sendMessageHandler = () => {
-    socket.emit("chat message", { message: message });
+    socket.emit("chat message", JSON.parse(message));
+    // console.log(message);
     setMessage("");
   };
 
