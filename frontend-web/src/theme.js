@@ -15,6 +15,8 @@ const theme = {
   namingFont: "Katuri", // 아이 이름, 로그인 화면 안내말 폰트
   standardFont: "GmarketSansMedium", // 가이드 폰트
   formFont: "GothicA1-Regular", // 폼(로그인 등) 폰트
+  pretendard: "Pretendard-Regular", // pretendard font
+  cafe24: "Cafe24Simplehae",
 
   // color
   yellowColor: "#F6EABD",

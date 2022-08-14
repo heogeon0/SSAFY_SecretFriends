@@ -14,6 +14,7 @@ const Card = styled.div`
 
 const Title = styled.div`
   font-size: min(4vw, 2rem);
+  font-family: ${(props) => props.theme.questionFont};
   font-weight: bold;
   margin-bottom: 2vw;
   @media ${props => props.theme.mobile} {
@@ -24,6 +25,7 @@ const Text = styled.div`
   margin-top: 0.5vw;
   color: black;
   font-size: min(4vw, 1rem);
+  font-family: ${(props) => props.theme.questionFont};
   @media ${props => props.theme.mobile} {
     font-size: min(1vw, 1rem);
   }
@@ -45,12 +47,14 @@ const CharacterForm = styled.div`
 `;
 
 const CharacterName = styled.div`
-  font-size: min(1.5vw, 2rem);
+  font-family: ${(props) => props.theme.pretendard};
+  font-size: min(2vw, 2rem);
   font-weight: bold;
 `
 
 const InputTag = styled.input`
   padding: 10px;
+  font-family: ${(props) => props.theme.namingFont};
   background-color: ${(props) => props.theme.grayColor};
   border: ${(props) => props.theme.grayColor} 1px solid;
   height: 2.5rem;

@@ -79,6 +79,7 @@ export const Wrapper = styled.div`
     margin-left: 6px;
     font-size: min(2vw, 16px);
     background-color: #cde6d9;
+    font-family: ${props => props.theme.pretendard};
     border: none;
     border-radius: 4vw;
     :hover {

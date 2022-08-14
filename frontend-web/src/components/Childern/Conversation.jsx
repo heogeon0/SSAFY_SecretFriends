@@ -1,4 +1,3 @@
-import Wrapper from "./styles/Form";
 import styled from "styled-components";
 
 import ChatList from "./ChatList";
@@ -28,7 +27,8 @@ const Input = styled.input`
 `;
 
 const Title = styled.div`
-  font-size: min(2vw, 1rem);
+  font-family: ${(props) => props.theme.questionFont};
+  font-size: min(3vw, 2rem);
   font-weight: bold;
   margin: 1rem 0 0.8rem;
 `
@@ -37,6 +37,7 @@ const Button = styled.button`
   padding: 0.3rem 0.8rem;
   float: right;
   margin-left: 6px;
+  font-family: ${(props) => props.theme.pretendard};
   background-color: #cde6d9;
   border: none;
   border-radius: 4vw;

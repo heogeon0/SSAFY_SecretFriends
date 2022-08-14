@@ -41,7 +41,8 @@ const ModalCloseBtn = styled.button`
   background-color: #ececec;
   border-radius: 2vw;
   font-size: 1.5vw;
-  padding: 0 1vw;
+  font-family: ${props => props.theme.pretendard};
+  padding: 2px 1vw;
   :hover {
     cursor: pointer;
   }
@@ -59,7 +60,8 @@ const RowFlex = styled.div`
 `
 
 const Title = styled.div`
-  font-size: 3vw;
+  font-family: ${props => props.theme.pretendard};
+  font-size: 3.5vw;
   font-weight: bold;
   margin: 1vw 1vw;
 `
@@ -75,6 +77,8 @@ const ImgBox = styled.img`
 `
 
 const CardText = styled.div`
+  font-family: ${props => props.theme.pretendard};
+  font-weight: lighter;
   font-size: min(1.6vw, 1rem);
   line-height: 2vw;
   height: 30vw;

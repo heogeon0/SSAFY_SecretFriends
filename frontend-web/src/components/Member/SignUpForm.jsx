@@ -52,7 +52,7 @@ const FlexBox = styled.div`
 `
 const GrayBtn = styled.button`
   font-size: min(3vw, 1rem);
-  font-family: ${(props) => props.theme.formFont};
+  font-family: ${(props) => props.theme.pretendard};
   padding: 5px 10px;
   border: none;
   background-color: ${(props) => props.theme.grayColor};
@@ -67,7 +67,7 @@ const GrayBtn = styled.button`
 
 const YellowBtn = styled.button`
   font-size: min(3vw, 1rem);
-  font-family: ${(props) => props.theme.formFont};
+  font-family: ${(props) => props.theme.pretendard};
   padding: 0.3rem 1rem;
   border: none;
   background-color: ${(props) => props.theme.yellowColor};
@@ -82,7 +82,7 @@ const YellowBtn = styled.button`
 const Form = styled.form`
   display : flex;
   flex-direction: column;
-  font-family: ${(props) => props.theme.formFont};
+  font-family: ${(props) => props.theme.pretendard};
   padding: 2vw 2vw 1vw 2vw;
   margin-bottom: 1vw;
 `;

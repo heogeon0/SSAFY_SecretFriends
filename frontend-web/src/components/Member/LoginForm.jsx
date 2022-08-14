@@ -54,14 +54,14 @@ const FlexBox = styled.div`
 const Form = styled.form`
   display : flex;
   flex-direction: column;
-  font-family: ${(props) => props.theme.formFont};
+  font-family: ${(props) => props.theme.pretendard};
   padding: 2vw;
   margin-bottom: 1vw;
 
   ${ButtonWrap} {
     button {
       font-size: min(3vw, 1rem);
-      font-family: ${(props) => props.theme.formFont};
+      font-family: ${(props) => props.theme.pretendard};
       width: 22vw;
       max-width: 8.5rem;
       height: 1.8rem;

@@ -29,13 +29,14 @@ const CardImg = styled.img`
 
 const CardTitle = styled.div`
   /* 상, 우, 하, 좌 */
+  font-family: ${props => props.theme.pretendard};
   margin: 1vw 0 1.2vw;
-  font-size: 2vw;
+  font-size: 2.3vw;
   font-weight: bold;
   text-align: center;
   @media ${props => props.theme.mobile} {
-    margin: 1vw 0 2vw;
-    font-size: 3.2vw;
+    margin: 1.5vw 0 1.8vw;
+    font-size: 3.5vw;
   }
 `
 
@@ -48,29 +49,33 @@ const CardText = styled.div`
   -webkit-line-clamp: 3;
   font-size: 1.4vw;
   line-height: 1.5vw;
-  margin: 1vw 1.5vw 0.6vw 1.5vw;
+  margin: 1vw 1.5vw 0.5vw 1.5vw;
   font-weight: lighter;
+  font-family: ${props => props.theme.pretendard};
   text-overflow: ellipsis;
   /* line-height: 1.6vw; */
   @media ${props => props.theme.mobile} {
     font-size: 2.1vw;
     line-height: 2.6vw;
-    margin: 2vw 2vw;
+    margin: 1.5vw 2vw;
   }
 `
 
 const Button = styled.button`
   float: right;
+  font-size: 1.5vw;
+  /* font-family: ${props => props.theme.formFont}; */
+  font-family: ${props => props.theme.pretendard};
   font-weight: bold;
   border: none;
   color: gray;
   background-color: white;
-  margin: 0 1vw 1vw 1vw;
+  margin: 0.3vw 1vw 1vw 1vw;
   :hover {
     cursor: pointer;
     text-decoration: underline;
   }
-  font-size: 1.6vw;
+  
   @media ${props => props.theme.mobile} {
     font-size: 2.3vw;
     margin: 0 1vw 1vw 1vw;

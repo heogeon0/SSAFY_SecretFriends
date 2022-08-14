@@ -8,6 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
 }
 
 /* modal창 */
@@ -26,7 +27,6 @@
   background-color: rgb(255, 255, 255);
   border-radius: 12px;
   box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-  z-index: -2;
 }
 
 #modalCloseBtn {
@@ -36,7 +36,7 @@
   border: none;
   color: rgba(0, 0, 0, 0.7);
   background-color: transparent;
-  font-size: 16px;
+  font-size: 12px;
 }
 
 #modalCloseBtn:hover {

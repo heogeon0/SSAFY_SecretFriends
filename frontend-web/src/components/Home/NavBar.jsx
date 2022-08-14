@@ -30,6 +30,7 @@ const Logo = styled.img`
 const HeaderText = styled.div`
   margin: 0 1.5vw 0;
   font-size: min(1.4vw, 20px);
+  font-family: ${props => props.theme.pretendard};
   /* font-size: 20px; */
 `
 

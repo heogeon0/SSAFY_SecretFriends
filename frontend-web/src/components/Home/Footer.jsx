@@ -13,6 +13,7 @@ const Box = styled.div`
 const FooterText = styled.div`
   margin: 0.3vh;
   font-size: min(1vw, 16px);
+  font-family: ${props => props.theme.pretendard};
 `
 
 const Logo = styled.img`
@@ -20,6 +21,7 @@ const Logo = styled.img`
   height: auto;
   border-radius: 50%;
   margin: 0 1vw 0 0;
+  z-index: -1;
 `
 
 const LinkUrl = styled.a`
