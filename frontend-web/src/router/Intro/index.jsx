@@ -105,7 +105,7 @@ function Intro () {
   return (
     <div>
       <IntroBox>
-        <Title>"나의 비밀 친구"</Title>
+        <Title>"나의 단짝 친구"</Title>
         <hr style={{borderTop: 'dotted', width: '35vw', color: 'white', boxShadow: 'gray'}} />
         <IntroCarousel/>
       </IntroBox>
