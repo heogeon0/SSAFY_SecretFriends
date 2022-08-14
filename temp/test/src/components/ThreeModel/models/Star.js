@@ -8,31 +8,9 @@ import { useFrame } from "@react-three/fiber";
 
 import axios from "axios";
 
-import { useRecoilState } from "recoil";
-import { basicChats } from "../../../atoms";
 import iot from "../../../apis/iot";
 
-function Star({ chat, ...props }) {
-  const [position, sposition] = useState({});
-  useEffect(() => {
-    const setPosition = () => {
-      const minx = -2;
-      const maxx = 2;
-      // const miny = -3;
-      // const maxy = 4;
-      const minz = 0;
-      const maxz = 0;
-
-      const x = Math.floor(Math.random() * (maxx - minx) + minx);
-      // const y = Math.floor(Math.random() * (maxy - miny) + miny);
-      const y = 2.5;
-      // const z = Math.floor(Math.random() * (maxz - minz) + minz);
-      const z = 0;
-      sposition({ x, y, z });
-    };
-    setPosition();
-  }, []);
-  const [chats, setChats] = useRecoilState(basicChats);
+function Star({ setPosition, updateChat, chat, ...props }) {
   const group = useRef();
   useFrame(({ clock }) => {
     if (chat.isUsed !== true) {
@@ -41,39 +19,30 @@ function Star({ chat, ...props }) {
     }
   });
 
-  const { nodes, materials } = useGLTF("/models/Star.gltf");
+  // onClick 이벤트를  chat에서 관리해서 프롭스로 주자
 
+  const { nodes, materials } = useGLTF("/models/Star.gltf");
   const onClick = (id, c) => {
     console.log(c);
     axios.get(iot.tts(c)).then((res) => {
       console.log(res.data);
     });
-    const newChat = chats.map((data) => {
-      if (data.answerID === id) {
-        return {
-          ...data,
-          isUsed: true,
-        };
-      } else {
-        return data;
-      }
-    });
-    setChats(newChat);
+    updateChat(id);
   };
+
   return (
     <>
-      {chat.isUsed ? null : (
-        <group
-          ref={group}
-          {...props}
-          dispose={null}
-          position={[position.x, position.y, position.z]}
-          onClick={() => onClick(chat.answerID, chat.content)}
-          scale={0.5}
-        >
-          <mesh geometry={nodes.Star.geometry} material={materials.Gold} />
-        </group>
-      )}
+      <group
+        ref={group}
+        {...props}
+        dispose={null}
+        position={[setPosition?.px, setPosition?.py, setPosition?.pz]}
+        onClick={() => onClick(chat.answerID, chat.content)}
+        scale={setPosition?.scale}
+        rotation={[setPosition?.rx, setPosition?.ry, setPosition?.rz]}
+      >
+        <mesh geometry={nodes.Star.geometry} material={materials.Gold} />
+      </group>
     </>
   );
 }

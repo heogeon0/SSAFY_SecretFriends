@@ -8,21 +8,31 @@ import { useFrame } from "@react-three/fiber";
 import axios from "axios";
 import iot from "../../../apis/iot";
 
-export default function Coin({ ...props }) {
+export default function Coin({ setPosition, updateChat, chat, ...props }) {
   const group = useRef();
   useFrame(({ clock }) => {
     const a = clock.getElapsedTime();
-    group.current.rotation.y = a;
+    group.current.rotation.y = -a;
   });
   const { nodes, materials } = useGLTF("/models/Coin.gltf");
-  const onClick = () => {
-    console.log(iot.camera());
-    axios.get(iot.camera()).then((res) => {
+
+  const onClick = (id, c) => {
+    console.log(c);
+    axios.get(iot.tts(c)).then((res) => {
       console.log(res.data);
     });
+    updateChat(id);
   };
   return (
-    <group ref={group} {...props} dispose={null} onClick={onClick}>
+    <group
+      ref={group}
+      {...props}
+      dispose={null}
+      position={[setPosition?.px, setPosition?.py, setPosition?.pz]}
+      onClick={() => onClick(chat.answerID, chat.content)}
+      scale={setPosition?.scale}
+      rotation={[setPosition?.rx, setPosition?.ry, setPosition?.rz]}
+    >
       <mesh geometry={nodes.Cylinder012.geometry} material={materials.Gold} />
       <mesh
         geometry={nodes.Cylinder012_1.geometry}
