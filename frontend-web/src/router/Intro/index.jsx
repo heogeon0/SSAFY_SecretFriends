@@ -74,7 +74,7 @@ function Intro () {
     position: 'fixed',
     bottom: '60px',
     right: '20px',
-    width: '4vw',
+    width: '20px',
     height: '40px',
     borderRadius: '50%',
     color: '#e7e6e6',
@@ -85,7 +85,7 @@ function Intro () {
     position: 'fixed',
     bottom: '40px',
     right: '20px',
-    width: '4vw',
+    width: '20px',
     height: '20px',
     borderRadius: '50%',
     color: '#e7e6e6',
@@ -132,14 +132,6 @@ function Intro () {
           <ScrollBtn>
             <i onClick={moveToBottom} className="fa-solid fa-circle-chevron-down fa-2xl" style={ pageBottom }></i>
           </ScrollBtn>
-          {/* { Math.floor((window.scrollY / (document.body.clientHeight - window.innerHeight)) * 100) > 20 
-          ? <ScrollBtn>
-              <i onClick={moveToTop} className="fa-solid fa-circle-chevron-up fa-2xl" style={ pageTop }></i>
-            </ScrollBtn>
-          : <ScrollBtn>
-              <i onClick={moveToBottom} className="fa-solid fa-circle-chevron-down fa-2xl" style={ pageBottom }></i>
-            </ScrollBtn>
-          } */}
         </div>
       <hr style={{width: '95%'}} />
     </div>

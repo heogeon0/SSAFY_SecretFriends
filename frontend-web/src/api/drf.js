@@ -1,4 +1,5 @@
-const HOST = 'mybuddy/'
+const HOST = 'mybuddy/' // server
+// const HOST = 'http://localhost:9999/mybuddy/'  // local
 
 const MEMBER = 'member/'
 const CHARACTER = 'character'
