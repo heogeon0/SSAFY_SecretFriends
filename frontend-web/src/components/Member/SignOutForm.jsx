@@ -44,6 +44,7 @@ const InputTag = styled.input`
   border: ${(props) => props.theme.grayColor} 1px solid;
   height: 2.5rem;
   margin-bottom: min(4vw, 2.5rem);
+  padding: 10px;
   border-radius: 5px;
   @media ${props => props.theme.mobile} {
     height: 1.6rem;

@@ -11,7 +11,6 @@ const CardBox = styled.div`
   border-radius: 5px;
   box-shadow: 2px 2px 2px #b3b3b3;
   overflow: hidden;
-  /* max-height: 550px; */
   @media ${props => props.theme.mobile} {
     width: 83vw;
     margin: 1vw 1vw 10vw 1vw;
@@ -42,19 +41,20 @@ const CardTitle = styled.div`
 
 const CardText = styled.div`
   display: -webkit-box;
-  font-size: 1.4vw;
   -webkit-box-orient: vertical;
   word-wrap: break-word;
   text-overflow: ellipsis;
   overflow: hidden;
   -webkit-line-clamp: 3;
+  font-size: 1.4vw;
+  line-height: 1.5vw;
   margin: 1vw 1.5vw 0.6vw 1.5vw;
   font-weight: lighter;
   text-overflow: ellipsis;
-  line-height: 1.6vw;
+  /* line-height: 1.6vw; */
   @media ${props => props.theme.mobile} {
     font-size: 2.1vw;
-    line-height: 2.5vw;
+    line-height: 2.6vw;
     margin: 2vw 2vw;
   }
 `

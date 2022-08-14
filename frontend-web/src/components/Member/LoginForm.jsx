@@ -29,6 +29,7 @@ const InputTag = styled.input`
   border: ${(props) => props.theme.grayColor} 1px solid;
   height: 2.5rem;
   margin-bottom: 1rem;
+  padding: 10px;
   border-radius: 5px;
   @media ${props => props.theme.mobile} {
     height: 1.6rem;
@@ -39,8 +40,9 @@ const LabelTag = styled.label`
   text-align: left;
   line-height: 2vw;
   font-size: min(3vw, 1rem);
+  margin-bottom: 5px;
   @media ${props => props.theme.mobile} {
-    margin-bottom: 0.5vw;
+    margin-bottom: 5px;
   }
 `
 

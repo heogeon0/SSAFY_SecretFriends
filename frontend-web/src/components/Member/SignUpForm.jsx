@@ -26,11 +26,10 @@ const BtnFlex = styled.div`
 `
 const LabelTag = styled.label`
   text-align: left;
-  line-height: 2vw;
-  /* font-size: min(1vw, 1rem); */
-  /* margin-bottom: min(0.1vw, 10px); */
+  margin-bottom: 5px;
   @media ${props => props.theme.mobile} {
-    margin-bottom: min(0.5vw, 10px);
+    font-size: min(3vw, 1rem);
+    margin-bottom: min(0.5vw, 8px);
   };
   `
 
@@ -38,11 +37,12 @@ const InputTag = styled.input`
   background-color: ${(props) => props.theme.grayColor};
   border: ${(props) => props.theme.grayColor} 1px solid;
   height: 2.5rem;
-  margin-bottom: min(1vw, 5px);
+  margin-bottom: 12px;
   border-radius: 5px;
+  padding: 10px;
   @media ${props => props.theme.mobile} {
     height: 1.6rem;
-    margin-bottom: 3vw;
+    margin-bottom: 10px;
   };
 `
 
@@ -53,16 +53,15 @@ const FlexBox = styled.div`
 const GrayBtn = styled.button`
   font-size: min(3vw, 1rem);
   font-family: ${(props) => props.theme.formFont};
-  padding: 0.3rem 1rem;
+  padding: 5px 10px;
   border: none;
   background-color: ${(props) => props.theme.grayColor};
-  border-radius: 2vw;
+  border-radius: 1rem;
   :hover {
     cursor: pointer;
   }
   @media ${props => props.theme.mobile} {
-    padding: 2vw;
-    border-radius: 12px;
+    padding: 5px 8px;
   }
 `
 
@@ -72,13 +71,12 @@ const YellowBtn = styled.button`
   padding: 0.3rem 1rem;
   border: none;
   background-color: ${(props) => props.theme.yellowColor};
-  border-radius: 2vw;
+  border-radius: 1rem;
   :hover {
     cursor: pointer;
   }
   @media ${props => props.theme.mobile} {
-    padding: 2vw;
-    border-radius: 12px;
+    padding: 5px 8px;
   }
 `
 const Form = styled.form`

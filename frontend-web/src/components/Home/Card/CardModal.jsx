@@ -1,13 +1,8 @@
 import styled from "styled-components";
-import Slider from "react-slick";
-
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
 
 
 const ContentBox = styled.div`
   display: flex;
-  /* flex-direction: column; */
 `
 
 const Modal = styled.div`
@@ -32,6 +27,9 @@ const ModalBody = styled.div`
   background-color: rgb(255, 255, 255);
   border-radius: 5px;
   box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  @media ${props => props.theme.mobile} {
+    padding: 10px;
+  }
 `
 
 const ModalCloseBtn = styled.button`
@@ -50,9 +48,14 @@ const ModalCloseBtn = styled.button`
 `
 
 const RowFlex = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
-  padding: 1.5vw;
+  height: 80%;
+  padding: 10px;
+  @media ${props => props.theme.mobile} {
+    max-height: 140px;
+  }
 `
 
 const Title = styled.div`
@@ -61,20 +64,27 @@ const Title = styled.div`
   margin: 1vw 1vw;
 `
 const ImgBox = styled.img`
-  width: 27vw;
-  height: 37.5vw;
+  max-height: 60%;
+  max-width: 40%;
   object-fit: cover;
   border-radius: 5px;
   margin: 2vw 0 2vw 3vw;
+  @media ${props => props.theme.mobile} {
+    max-height: 120px;
+  }
 `
 
 const CardText = styled.div`
   font-size: min(1.6vw, 1rem);
-  line-height: 1.6vw;
+  line-height: 2vw;
   height: 30vw;
   margin: 0.3vw;
   padding: 0.5vw;
   overflow-y: scroll;
+  @media ${props => props.theme.mobile} {
+    font-size: min(0.5vw, 6px);
+    line-height: 2.7vw;
+  }
 `
 
 
