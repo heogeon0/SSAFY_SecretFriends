@@ -20,6 +20,8 @@ import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { Token } from "./atom";
 
+import Chat from "./router/Chat/chat";
+
 function Router() {
   const [token, setToken] = useRecoilState(Token);
 
@@ -49,6 +51,8 @@ function Router() {
           {/* 항상 접근 가능 */}
           <Route path="/" element={<Intro />}></Route>
           <Route path="*" element={<NotFound404 />}></Route>
+          {/* chat페이지*/}
+          <Route path="/chat" element={<PublicRoute authenticated={token} component={<Chat />} />}></Route>
         </Routes>
         <Footer />
       </BrowserRouter>
