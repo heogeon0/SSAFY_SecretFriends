@@ -47,6 +47,7 @@ const ModalBtn = styled.button`
   color: rgba(0, 0, 0, 0.7);
   background-color: transparent;
   font-size: min(2vw, 16px);
+  font-family: ${(props) => props.theme.pretendard};
   :hover {
     cursor: pointer;
   }

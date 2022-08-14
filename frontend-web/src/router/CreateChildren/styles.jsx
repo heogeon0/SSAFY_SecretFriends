@@ -95,6 +95,7 @@ const Wrapper = styled.div`
         padding: 20px 10px;
         right: 1.5vw;
         button {
+          font-family: ${props => props.theme.pretendard};
           padding: 0.3rem 1rem;
           background-color: #daf3af;
           border: none;

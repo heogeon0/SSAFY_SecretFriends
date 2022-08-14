@@ -27,7 +27,9 @@ const IntroContainer = styled.div`
 `
 
 const Introduction = styled.div`
-  font-size: 1.8vw;
+/* font-size: 1.8vw; */
+  font-size: 2vw;
+  font-family: ${props => props.theme.pretendard};
   margin: 0 0 0.5vh 0;
 `
 
@@ -51,6 +53,8 @@ const StyledLink = styled(Link)`
   padding: 0.8vw 1vw;
   border: solid 1px #c4c4c4;
   border-radius: 4vw;
+  /* font-family: ${props => props.theme.formFont}; */
+  font-family: ${props => props.theme.pretendard};
   font-weight: bold;
   font-size: 1.8vw;
   text-decoration: none;

@@ -54,12 +54,12 @@ const InputTag = styled.input`
 
 const Form = styled.form`
   padding: 2vw;
-  font-family: ${(props) => props.theme.formFont};
+  font-family: ${(props) => props.theme.pretendard};
 
   ${ButtonWrap} {
     button {
       font-size: min(3vw, 1rem);
-      font-family: ${(props) => props.theme.formFont};
+      font-family: ${(props) => props.theme.pretendard};
       width: 9vw;
       max-width: 5rem;
       height: 1.8rem;

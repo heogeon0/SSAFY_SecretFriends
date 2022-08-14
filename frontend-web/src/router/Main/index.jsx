@@ -46,6 +46,7 @@ const ChildBtn = styled.button`
   margin: min(1vw, 5px);
   padding: min(1vw, 5px) min(2vw, 16px);
   font-size: min(2vw, 16px);
+  font-family: ${props => props.theme.pretendard};
   background-color: ${props => props.theme.whiteColor};
   box-shadow: 3px 3px 3px gray;
   border: none;
@@ -57,6 +58,7 @@ const ChildBtn = styled.button`
 // conversation styles
 const ConversBtn = styled.button`
   font-size: min(5vw, 16px);
+  font-family: ${props => props.theme.pretendard};
   text-decoration: underline;
   padding: 0;
   border: none;
@@ -69,8 +71,9 @@ const ConversBtn = styled.button`
   }
 `
 const ConversText = styled.div`
+  font-family: ${props => props.theme.pretendard};
   @media ${props => props.theme.mobile} {
-    font-size: min(3vw, 16px);
+    font-size: min(2vw, 16px);
   }
 `
 const Icon = styled.i`
@@ -83,6 +86,14 @@ const Icon = styled.i`
   @media ${props => props.theme.mobile} {
     margin: 0 4vw;
   }
+`
+const GridTitle = styled.span`
+  font-family: ${props => props.theme.namingFont};
+  /* font-weight: bold; */
+  font-size: min(3vw, 1.5rem);
+`
+const LinkTag = styled(Link)`
+  font-family: ${(props) => props.theme.pretendard};
 `
 
 
@@ -294,7 +305,7 @@ function Main() {
           {/* conversation part */}
           <div className="body_grid">
             <FlexRow style={{justifyContent: "space-between"}}>
-              <p>{childrens[currentSlide] ? childrens?.[currentSlide].name : "아이"}에게 해주고싶은 말</p>
+              <GridTitle>{childrens[currentSlide] ? childrens?.[currentSlide].name : "아이"}에게 해주고싶은 말</GridTitle>
               { childrenID ? <button className="plusBtn"><Link to={`/CreateAnswer/${childrenID}`} style={{textDecoration: "none", color: "black"}}>추가하기</Link></button> : null }
             </FlexRow>
             <div className="body_conversation">
@@ -320,11 +331,10 @@ function Main() {
           {/* picture part */}
           <div className="body_grid" style={{position: "relative"}}>
             <FlexRow style={{justifyContent: "space-between"}}>
-              <p>{childrens[currentSlide] ? childrens?.[currentSlide].name : "아이"}와 함께한 사진</p>
-              {/* { childrenID ? <button className="plusBtn"><Link to={`/CreateAnswer/${childrenID}`} style={{textDecoration: "none", color: "black"}}>더보기</Link></button> : null } */}
+              <GridTitle>{childrens[currentSlide] ? childrens?.[currentSlide].name : "아이"}와 함께한 사진</GridTitle>
             </FlexRow>
             <div className="body_picture">
-              {/* <span style={{position: "absolute", width: "1rem", left: "0", height: "70%", backgroundColor: "#e2e2e2"}}></span> */}
+              <span style={{position: "absolute", width: "1rem", left: "0", height: "70%", backgroundColor: "#e2e2e2"}}></span>
               {imgURLs.map((imgURL, idx) => {
                 return (
                   <>
@@ -338,8 +348,8 @@ function Main() {
           </div>
         </div>
         <FlexRow style={{margin: "1rem", justifyContent: "flex-end"}}>
-          <Link style={{fontSize: "min(2vw, 16px)", color: "gray", margin: '0 1rem 0 0'}} to="/updateMember">회원정보 수정</Link>
-          <Link style={{fontSize: "min(2vw, 16px)", color: "gray"}} to="/signout">회원 탈퇴</Link>
+          <LinkTag style={{fontSize: "min(2vw, 16px)", color: "gray", margin: '0 1rem 0 0'}} to="/updateMember">회원정보 수정</LinkTag>
+          <LinkTag style={{fontSize: "min(2vw, 16px)", color: "gray"}} to="/signout">회원 탈퇴</LinkTag>
         </FlexRow>
       </Wrapper>
       {/* scroll button */}
