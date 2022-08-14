@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import "./styles/Modal.css"
+// import "./styles/Modal.css"
 
 import drf from "../../api/drf";
 import axios from "axios";
@@ -48,6 +48,45 @@ const Button = styled.button`
   }
 `
 
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.055);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+const ModalBody = styled.div`
+  position: absolute;
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  /* height: 35%; */
+  min-width: 350px;
+  min-height: 250px;
+  max-width: 500px;
+  max-height: 500px;
+  padding: 20px;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  border-radius: 12px;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+`
+const ModalCloseBtn = styled.button`
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  border: none;
+  color: rgba(0, 0, 0, 0.7);
+  background-color: transparent;
+  font-size: 16px;
+  :hover {
+    cursor: pointer;
+  }
+`
 
 function AnswerModal (props) {
   const answer = props.answer;
@@ -102,8 +141,8 @@ function AnswerModal (props) {
   }
 
   return (
-    <div className="Modal" onClick={closeModal}>
-      <div className="modalBody" onClick={(event) => event.stopPropagation()}>
+    <Modal onClick={closeModal}>
+      <ModalBody onClick={(event) => event.stopPropagation()}>
         <ContentBox>
           <Title>아이에게 전할 말을 적어주세요.</Title>
           <br />
@@ -112,9 +151,9 @@ function AnswerModal (props) {
             <Button onClick={onSubmit}>수정하기</Button>
           </form>
         </ContentBox>
-        <button id="modalCloseBtn" onClick={closeModal}>닫기</button>
-      </div>
-    </div>
+        <ModalCloseBtn onClick={closeModal}>닫기</ModalCloseBtn>
+      </ModalBody>
+    </Modal>
   )
 }
 
