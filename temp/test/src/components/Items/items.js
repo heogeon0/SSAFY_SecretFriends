@@ -35,11 +35,11 @@ export const Button = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .img {
-      width: 50px;
-      height: 50px;
-      background-position: center center;
-      background-size: cover;
-    }
+  }
+  .img {
+    width: 50px;
+    height: 50px;
+    background-position: center center;
+    background-size: cover;
   }
 `;

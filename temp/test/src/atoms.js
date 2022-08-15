@@ -23,3 +23,8 @@ export const wave = atom({
   key: "wave",
   default: false,
 });
+
+export const socket = atom({
+  key: "socket",
+  default: "",
+});

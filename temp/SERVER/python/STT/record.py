@@ -69,7 +69,7 @@ def sound_to_text():
     client_secret = "jFIfChmAa488TljBIQZvXsS5SmRTvVR0Tmo2rk8B"
     lang = "Kor"  # 언어 코드 ( Kor, Jpn, Eng, Chn )
     url = "https://naveropenapi.apigw.ntruss.com/recog/v1/stt?lang=" + lang
-    data = open('C:/프로젝트경로/S07P12D208/temp/SERVER/python/STT/audio.wav', 'rb')
+    data = open('C:/Users/multicampus/Desktop/MyGit/PJT/New/S07P12D208/temp/SERVER/python/STT/audio.wav', 'rb')
     headers = {
         "X-NCP-APIGW-API-KEY-ID": client_id,
         "X-NCP-APIGW-API-KEY": client_secret,
@@ -89,6 +89,6 @@ def sound_to_text():
 if __name__ == "__main__":
     stream_params = StreamParams()
     recorder = Recorder(stream_params)
-    recorder.record(5, "C:/프로젝트경로/S07P12D208/temp/SERVER/python/STT/audio.wav")
+    recorder.record(5, 'C:/Users/multicampus/Desktop/MyGit/PJT/New/S07P12D208/temp/SERVER/python/STT/audio.wav')
     sound_to_text()
 
