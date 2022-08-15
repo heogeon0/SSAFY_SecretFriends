@@ -23,12 +23,17 @@ import Chats from "../components/Chats/Chats";
 import Grass from "../components/ThreeModel/factors/grass";
 import Photozone from "../components/ThreeModel/factors/Photo/photozone";
 import { useNavigate } from "react-router-dom";
+import { io } from "socket.io-client";
+
+// 소켓연결
+const socket = io.connect("http://localhost:4000");
 
 function Main() {
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
   const [name, setName] = useRecoilState(childrenId);
   const [chats, setChats] = useState([]);
   const navigate = useNavigate();
+
   const takePhoto = () => {
     axios.get(iot.camera()).then((res) => {
       console.log(res);
@@ -149,6 +154,8 @@ function Main() {
       console.log(newChats);
       setChats(newChats);
     });
+
+    // sosket 연결
   }, []);
 
   return (
@@ -177,7 +184,7 @@ function Main() {
           </Physics>
         </RecoilBridge>
       </Canvas>
-      <Button bottom={"5%"} left={"10%"} onClick={() => navigate("/diary")}>
+      <Button bottom={"5%"} left={"10%"} onClick={() => navigate("/chat")}>
         <div className="flex_container">
           <div
             className="img"

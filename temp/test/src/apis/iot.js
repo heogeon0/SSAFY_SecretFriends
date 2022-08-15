@@ -6,4 +6,5 @@ export default {
   camera: () => HOST + "camera",
   login: () => HOST + "login",
   arduino: () => HOST + "arduino",
+  stt: () => HOST + "stt",
 };
