@@ -9,8 +9,10 @@ import { useFrame } from "@react-three/fiber";
 import axios from "axios";
 
 import iot from "../../../apis/iot";
+import { useBox } from "@react-three/cannon";
 
 function Star({ setPosition, updateChat, chat, ...props }) {
+  // const group = useRef();
   const group = useRef();
   useFrame(({ clock }) => {
     if (chat.isUsed !== true) {
@@ -24,6 +26,7 @@ function Star({ setPosition, updateChat, chat, ...props }) {
   const { nodes, materials } = useGLTF("/models/Star.gltf");
   const onClick = (id, c) => {
     console.log(c);
+
     axios.get(iot.tts(c)).then((res) => {
       console.log(res.data);
     });
