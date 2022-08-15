@@ -7,7 +7,7 @@ import {
   useRecoilBridgeAcrossReactRoots_UNSTABLE,
   useRecoilValue,
 } from "recoil";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { childrenId } from "../atoms";
 
 import iot from "../apis/iot";
@@ -26,13 +26,19 @@ import { useNavigate } from "react-router-dom";
 
 function Main() {
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
-  const name = useRecoilValue(childrenId);
+  const [name, setName] = useRecoilState(childrenId);
   const [chats, setChats] = useState([]);
   const navigate = useNavigate();
   const takePhoto = () => {
     axios.get(iot.camera()).then((res) => {
       console.log(res);
     });
+  };
+
+  const LogOut = () => {
+    axios.get(iot.tts(""));
+    setName("");
+    navigate("/");
   };
 
   const helloChats = [
@@ -99,9 +105,9 @@ function Main() {
   useEffect(() => {
     // 첫인사
 
-    // if (!childernId) {
-    //   navigate("/");
-    // }
+    if (!name) {
+      navigate("/");
+    }
     console.log(name);
     const now = new Date().getHours();
     let chat = "";
@@ -154,9 +160,9 @@ function Main() {
           height: "100vh",
           backgroundImage: "linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%)",
           position: "relative",
-          // backgroundImage: "url('/bgimg.png')",
-          // backgroundPosition : 'center',
-          // backgroundSize : 'cover'
+          backgroundImage: "url('/bgimg.png')",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
         }}
       >
         <RecoilBridge>
@@ -166,18 +172,36 @@ function Main() {
           {/* 조명추가 */}
           <spotLight position={[0, 10, 20]} angle={1} />
           <Physics>
-            <Character position={[0, -2, 0]} />
+            <Character position={[0, -2, 0]} state={"stateMain"} />
             <Chats chats={chats} setChats={setChats} />
           </Physics>
         </RecoilBridge>
       </Canvas>
       <Button bottom={"5%"} left={"10%"} onClick={() => navigate("/diary")}>
-        오늘의 그림일기를 그려주세요!
+        <div className="flex_container">
+          <div
+            className="img"
+            style={{ backgroundImage: "url('/icon/voice.png" }}
+          ></div>
+          <div className="content">친구와 함께 대화하기</div>
+        </div>
       </Button>
       <Button bottom={"5%"} left={"55%"} onClick={() => takePhoto()}>
-        친구와 함께 사진찍어요!
+        <div className="flex_container">
+          <div
+            className="img"
+            style={{ backgroundImage: "url('/icon/photo.png" }}
+          ></div>
+          <div className="content">친구와 함께 사진찍기</div>
+        </div>
       </Button>
-      <Button bottom={"11%"} left={"75%"} width={"15%"}>
+      <Button
+        bottom={"12%"}
+        left={"75%"}
+        width={"15%"}
+        height={"60px"}
+        onClick={LogOut}
+      >
         종료
       </Button>
     </div>
