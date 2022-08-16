@@ -15,77 +15,69 @@ const ERROR = styled.div`
   margin: min(0.8vw, 1rem) 0 min(2vw, 1rem) 0;
 `;
 
-const ButtonWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const BtnFlex = styled.div`
-  display: flex;
-  justify-content: space-between;
-`
-const LabelTag = styled.label`
-  text-align: left;
-  margin-bottom: 5px;
-  @media ${props => props.theme.mobile} {
-    font-size: min(3vw, 1rem);
-    margin-bottom: min(0.5vw, 8px);
-  };
-  `
-
-const InputTag = styled.input`
-  background-color: ${(props) => props.theme.grayColor};
-  border: ${(props) => props.theme.grayColor} 1px solid;
-  height: 2.5rem;
-  margin-bottom: 12px;
-  border-radius: 5px;
-  padding: 10px;
-  @media ${props => props.theme.mobile} {
-    height: 1.6rem;
-    margin-bottom: 10px;
-  };
-`
-
 const FlexBox = styled.div`
   display: flex;
   flex-direction: column;
 `
-const GrayBtn = styled.button`
-  font-size: min(3vw, 1rem);
-  font-family: ${(props) => props.theme.pretendard};
-  padding: 5px 10px;
-  border: none;
-  background-color: ${(props) => props.theme.grayColor};
-  border-radius: 1rem;
-  :hover {
-    cursor: pointer;
-  }
-  @media ${props => props.theme.mobile} {
-    padding: 5px 8px;
-  }
-`
 
-const YellowBtn = styled.button`
-  font-size: min(3vw, 1rem);
-  font-family: ${(props) => props.theme.pretendard};
-  padding: 0.3rem 1rem;
-  border: none;
-  background-color: ${(props) => props.theme.yellowColor};
-  border-radius: 1rem;
-  :hover {
-    cursor: pointer;
-  }
-  @media ${props => props.theme.mobile} {
-    padding: 5px 8px;
-  }
-`
 const Form = styled.form`
   display : flex;
   flex-direction: column;
   font-family: ${(props) => props.theme.pretendard};
   padding: 2vw 2vw 1vw 2vw;
   margin-bottom: 1vw;
+  .label {
+    text-align: left;
+    margin-bottom: 5px;
+    @media ${props => props.theme.mobile} {
+      font-size: min(3vw, 1rem);
+      margin-bottom: min(0.5vw, 8px);
+    };
+  };
+  .input {
+    background-color: ${(props) => props.theme.grayColor};
+    border: ${(props) => props.theme.grayColor} 1px solid;
+    height: 2.5rem;
+    margin-bottom: 12px;
+    border-radius: 5px;
+    padding: 10px;
+    @media ${props => props.theme.mobile} {
+      height: 1.6rem;
+      margin-bottom: 10px;
+    };
+  };
+  .button {
+    .gray__btn {
+      font-size: min(3vw, 1rem);
+      font-family: ${(props) => props.theme.pretendard};
+      border: none;
+      border-radius: 1rem;
+      padding: 5px 10px;
+      background-color: ${(props) => props.theme.grayColor};
+      :hover {
+      cursor: pointer;
+      }
+      @media ${props => props.theme.mobile} {
+        padding: 5px 8px;
+      }
+    };
+    .yellow__btn {
+      font-size: min(3vw, 1rem);
+      font-family: ${(props) => props.theme.pretendard};
+      border: none;
+      border-radius: 1rem;
+      padding: 0.3rem 1rem;
+      background-color: ${(props) => props.theme.yellowColor};
+      :hover {
+        cursor: pointer;
+      }
+      @media ${props => props.theme.mobile} {
+        padding: 5px 8px;
+      }
+    };
+  };
 `;
+
 
 function SignupForm({
   name, setName, phoneNumber, setPhoneNumber, isUpdate, memberID,
@@ -158,8 +150,8 @@ function SignupForm({
     <div>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <FlexBox>
-          <LabelTag htmlFor="name">이름</LabelTag>
-          <InputTag
+          <label className="label" htmlFor="name">이름</label>
+          <input className="input"
             {...register("name", {
               required: "이름을 입력해주세요!",
             })}
@@ -169,8 +161,8 @@ function SignupForm({
           />
         </FlexBox>
         <FlexBox>
-          <LabelTag htmlFor="phoneNumber" placeholder="숫자만 입력해주세요">휴대전화</LabelTag>
-          <InputTag
+          <label className="label" htmlFor="phoneNumber" placeholder="숫자만 입력해주세요">휴대전화</label>
+          <input className="input"
             {...register("phoneNumber", {
               required: "전화번호를 입력해주세요",
               pattern: {
@@ -186,8 +178,8 @@ function SignupForm({
         <>{ isUpdate ? null : 
           <>
             <FlexBox>
-              <LabelTag htmlFor="email">이메일</LabelTag>
-              <InputTag
+              <label className="label" htmlFor="email">이메일</label>
+              <input className="input"
                 {...register("email", {
                   required: "E-Mail을 입력해주세요",
                   pattern: {
@@ -200,8 +192,8 @@ function SignupForm({
               />
             </FlexBox>
             <FlexBox>
-              <LabelTag htmlFor="password">비밀번호</LabelTag>
-              <InputTag
+              <label className="label" htmlFor="password">비밀번호</label>
+              <input className="input"
                 {...register("password", {
                   required: "비밀번호를 입력해주세요",
                   minLength: {
@@ -214,8 +206,8 @@ function SignupForm({
               />
             </FlexBox>
             <FlexBox>
-              <LabelTag htmlFor="passwordCheck">비밀번호 확인</LabelTag>
-              <InputTag
+              <label className="label" htmlFor="passwordCheck">비밀번호 확인</label>
+              <input className="input"
                 {...register("passwordConfirm", {
                   validate: (value) =>
                     value === check ? true : "비밀번호가 틀립니다",
@@ -226,7 +218,7 @@ function SignupForm({
             </FlexBox>
           </>
         }</>
-        <ButtonWrap>
+        <div style={{display: "flex", flexDirection: "column"}}>
           <ERROR>
             {errors?.name?.message ||
               errors?.phoneNumber?.message ||
@@ -234,12 +226,12 @@ function SignupForm({
               errors?.password?.message ||
               errors?.passwordConfirm?.message}
           </ERROR>
-          <BtnFlex>
-            <div>{ isUpdate ? <GrayBtn onClick={(event) => goMain(event)}>취소</GrayBtn> : <GrayBtn onClick={(event) => goIntro(event)}>취소</GrayBtn> }</div>
+          <div style={{display: "flex", justifyContent: "space-between"}}>
+            <div className="button">{ isUpdate ? <button className="gray__btn" onClick={(event) => goMain(event)}>취소</button> : <button className="gray__btn" onClick={(event) => goIntro(event)}>취소</button> }</div>
             
-            <div>{ isUpdate ? <YellowBtn>회원정보 수정</YellowBtn> : <YellowBtn>회원가입</YellowBtn> }</div>
-          </BtnFlex>
-        </ButtonWrap>
+            <div className="button">{ isUpdate ? <button className="yellow__btn">회원정보 수정</button> : <button className="yellow__btn">회원가입</button> }</div>
+          </div>
+        </div>
       </Form>
     </div>
   );

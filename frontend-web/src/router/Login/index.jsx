@@ -9,23 +9,12 @@ const Box = styled.div`
   height: 80vh;
 `
 
-const Title = styled.span`
-  position: absolute;
-  padding: 1vw 4vw;
-  font-family: ${props => props.theme.formFont};
-  font-size: min(4vw, 1.5rem);
-  font-weight: bold;
-  background-color: ${props => props.theme.whiteColor};
-  border-radius: 5px;
-  top: -2.5vw;
-  left: 0%;
-`
 
 function Login() {
   return (
     <Box>
       <Wrapper>
-        <Title>LOGIN</Title>
+        <div className="title">LOGIN</div>
         <LoginForm />
       </Wrapper>
     </Box>

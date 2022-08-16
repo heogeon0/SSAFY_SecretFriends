@@ -14,18 +14,6 @@ const Box = styled.div`
   height: 800px;
 `
 
-const Title = styled.span`
-  position: absolute;
-  padding: 1vw 4vw;
-  font-family: ${props => props.theme.formFont};
-  font-size: min(4vw, 1.5rem);
-  font-weight: bold;
-  border-radius: 5px;
-  background-color: ${props => props.theme.whiteColor};
-  top: -2.5vw;
-  right: 0%;
-`
-
 function MemberUpdate() {
   const [currentUser, setCurrentUser] = useState();
 
@@ -57,7 +45,7 @@ function MemberUpdate() {
   return (
     <Box>
       <Wrapper>
-        <Title>EDIT PROFILE</Title>
+        <div className="title">EDIT PROFILE</div>
         <SignupForm
           name={name} setName={setName}
           phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber}
