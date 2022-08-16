@@ -149,10 +149,11 @@ io.on('connection', (socket) => {
           clients.forEach(element2 => {
             if(element2.mid == msg.memberID){
               console.log(element2.Pname);
-              socket.to(element.id).emit('chat message',{message: element2.Pname+' : '+ msg.message});
+              socket.to(element.id).emit('chat message',{type : 0, message: msg.message});
             }
           });
-          
+        }else if(element.mid == msg.memberID){
+          socket.to(element.id).emit('chat message',{type : 0, message: msg.message});
         }
       });
     }else if(msg && msg.childrenID){
@@ -160,10 +161,11 @@ io.on('connection', (socket) => {
         if(element.childrenID == msg.childrenID){
           clients.forEach(element2 => {
             if(element2.cid == msg.childrenID){
-              socket.to(element.id).emit('chat message',{message: element2.name+' : '+ msg.message});
+              socket.to(element.id).emit('chat message',{type : 1 ,message: msg.message});
             }
           });
-          
+        }else if(element.cid == msg.childrenID){
+          socket.to(element.id).emit('chat message',{type : 1 ,message: msg.message});
         }
       });
     }
