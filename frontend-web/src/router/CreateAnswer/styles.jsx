@@ -98,6 +98,7 @@ const Wrapper = styled.div`
           padding: 0.3rem 1rem;
           margin-left: 6px;
           background-color: #daf3af;
+          font-family: ${props => props.theme.pretendard};
           border: none;
           border-radius: 4vw;
           :hover {
