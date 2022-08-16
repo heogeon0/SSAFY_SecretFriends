@@ -43,6 +43,11 @@ io.on('connection', (socket) => {
 
     //들어온 사람이 부모님이면
     if(id && id.memberID ){
+      clients.forEach(element => {
+        if(element.mid == id.memberID){
+          return;
+        }
+      });
       
       // socket.ids = id.memberID;
       clientInfo.types = "member";
@@ -93,6 +98,11 @@ io.on('connection', (socket) => {
 
     //들어온 사람이 아이면
     else if(id && id.childrenID){
+      clients.forEach(element => {
+        if(element.cid == id.childrenID){
+          return;
+        }
+      });
       
       // socket.ids = id.childrenID;
       clientInfo.types = "children";
