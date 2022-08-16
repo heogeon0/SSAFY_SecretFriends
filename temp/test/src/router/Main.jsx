@@ -26,8 +26,8 @@ import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 
 // 소켓연결
-const socket = io.connect("http://localhost:4000");
 
+// const socket = io.connect("http://localhost:4000");
 function Main() {
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
   const [name, setName] = useRecoilState(childrenId);
@@ -106,7 +106,16 @@ function Main() {
       },
     ];
   };
-
+  // useEffect(() => {
+  //   socket.on(
+  //     "connect",
+  //     function () {
+  //       console.log("소켓이 바뀝니다" + name);
+  //       socket.emit("newUser", name);
+  //     },
+  //     []
+  //   );
+  // });
   useEffect(() => {
     // 첫인사
 

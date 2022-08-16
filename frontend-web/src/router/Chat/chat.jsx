@@ -43,7 +43,7 @@ function Chat({ socket, id }) {
       console.log("소켓이 바뀝니다" + name);
       socket.emit("newUser", name);
     });
-  });
+  }, []);
   return (
     <>
       {openChat ? (
