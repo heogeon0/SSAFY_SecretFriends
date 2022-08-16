@@ -9,11 +9,13 @@ import iot from "../apis/iot";
 
 import { Button } from "../components/Items/items";
 import Bee from "../components/ThreeModel/models/Bee";
+
 const socket = io.connect("http://localhost:4000");
 
 function Chat() {
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
   const [chat, setChat] = useState("");
+  const [readySTT, setReadyStt] = useState("");
   const name = { childrenID: 5 };
   const goStt = () => {
     axios.get(iot.stt()).then((res) => {
@@ -47,14 +49,17 @@ function Chat() {
     //   setChat([...chat, msg]);
     // });
     socket.on("chat message", ({ message }) => {
-      setChat(message);
       console.log(message);
-      axios.get(iot.tts(message)).then((res) => console.log(res));
+      setReadyStt(message);
     });
     socket.on("disconnected", (msg) => {
       setChat([...chat, msg]);
     });
-  }, [chat]);
+  }, []);
+
+  useEffect(() => {
+    axios.get(iot.tts(readySTT)).then((res) => console.log(res));
+  }, [readySTT]);
 
   return (
     <>

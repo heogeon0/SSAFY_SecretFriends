@@ -32,6 +32,7 @@ function MyChats({ name, socket, setOpenChat }) {
   // }, []);
 
   const [chat, setChat] = useState([]);
+  const [readyChat, setReadyChat] = useState({});
   const [message, setMessage] = useState("");
   const [memberID, setMemberId] = useRecoilState(MemberID);
 
@@ -51,17 +52,33 @@ function MyChats({ name, socket, setOpenChat }) {
 
   useEffect(() => {
     socket.on("newUser", (msg) => {
-      setChat([...chat, msg]);
+      console.log(msg?.message);
+      console.log(readyChat);
+      console.log(readyChat?.message);
+      if (msg?.message !== readyChat?.message) {
+        setReadyChat(msg);
+      }
     });
     socket.on("chat message", (msg) => {
-      console.log(msg);
-      setChat((chat) => [...chat, msg]);
-      console.log(chat);
+      console.log(msg?.message);
+      console.log(readyChat?.message);
+      if (msg?.message !== readyChat?.message) {
+        setReadyChat(msg);
+      }
     });
     socket.on("disconnected", (msg) => {
-      setChat([...chat, msg]);
+      console.log(msg?.message);
+      console.log(readyChat?.message);
+      if (msg?.message !== readyChat?.message) {
+        setReadyChat(msg);
+      }
     });
-  }, [chat]);
+  }, []);
+
+  useEffect(() => {
+    console.log(readyChat);
+    setChat((val) => [...val, readyChat]);
+  }, [readyChat]);
 
   return (
     <Wrapper>
