@@ -56,7 +56,7 @@ const CardText = styled.div`
   /* line-height: 1.6vw; */
   @media ${props => props.theme.mobile} {
     font-size: 2.1vw;
-    line-height: 2.6vw;
+    line-height: 2.8vw;
     margin: 1.5vw 2vw;
   }
 `
