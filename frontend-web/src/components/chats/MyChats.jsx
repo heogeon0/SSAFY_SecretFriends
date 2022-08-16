@@ -55,7 +55,7 @@ function MyChats({ name, socket, setOpenChat }) {
     });
     socket.on("chat message", (msg) => {
       console.log(msg);
-      setChat([...chat, msg]);
+      setChat((chat) => [...chat, msg]);
       console.log(chat);
     });
     socket.on("disconnected", (msg) => {
