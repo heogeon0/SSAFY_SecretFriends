@@ -24,39 +24,36 @@ const ButtonWrap = styled.div`
   align-items: center;
 `;
 
-const InputTag = styled.input`
-  background-color: ${(props) => props.theme.grayColor};
-  border: ${(props) => props.theme.grayColor} 1px solid;
-  height: 2.5rem;
-  margin-bottom: 1rem;
-  padding: 10px;
-  border-radius: 5px;
-  @media ${props => props.theme.mobile} {
-    height: 1.6rem;
-  };
-`
-
-const LabelTag = styled.label`
-  text-align: left;
-  line-height: 2vw;
-  font-size: min(3vw, 1rem);
-  margin-bottom: 5px;
-  @media ${props => props.theme.mobile} {
-    margin-bottom: 5px;
-  }
-`
-
-const FlexBox = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
 const Form = styled.form`
   display : flex;
   flex-direction: column;
   font-family: ${(props) => props.theme.pretendard};
   padding: 2vw;
   margin-bottom: 1vw;
+  .flex-box {
+    display: flex;
+    flex-direction: column;
+  }
+  .input {
+    background-color: ${(props) => props.theme.grayColor};
+    border: ${(props) => props.theme.grayColor} 1px solid;
+    height: 2.5rem;
+    margin-bottom: 1rem;
+    padding: 10px;
+    border-radius: 5px;
+    @media ${props => props.theme.mobile} {
+      height: 1.6rem;
+    };
+  }
+  .label {
+    text-align: left;
+    line-height: 2vw;
+    font-size: min(3vw, 1rem);
+    margin-bottom: 5px;
+    @media ${props => props.theme.mobile} {
+      margin-bottom: 5px;
+    }
+  }
 
   ${ButtonWrap} {
     button {
@@ -114,9 +111,9 @@ function LoginForm() {
   return (
     <>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <FlexBox>
-          <LabelTag htmlFor="email">이메일</LabelTag>
-          <InputTag
+        <div className="flex-box">
+          <label className="label" htmlFor="email">이메일</label>
+          <input className="input"
             {...register("email", {
               required: "E-mail을 입력해주세요",
               pattern: {
@@ -127,16 +124,16 @@ function LoginForm() {
             })}
             type="text"
           />
-        </FlexBox>
-        <FlexBox>
-          <LabelTag htmlFor="password">비밀번호</LabelTag>
-          <InputTag
+        </div>
+        <div className="flex-box">
+          <label className="label" htmlFor="password">비밀번호</label>
+          <input className="input"
             {...register("password", {
               required: "비밀번호를 입력해주세요",
             })}
             type="password"
           />
-        </FlexBox>
+        </div>
         <ERROR>{errors?.email?.message || errors?.password?.message}</ERROR>
         <ButtonWrap>
           <button style={{margin: "min(0.4vw, 1rem)"}}>로그인</button>

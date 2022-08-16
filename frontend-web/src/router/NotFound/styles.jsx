@@ -17,9 +17,35 @@ const Wrapper = styled.div`
   background-color: ${(props) => props.theme.whiteColor};
   border-radius: 5px;
   box-shadow: 5px 5px 15px 0.5px #dcdde1;
-  .title {
-    font-family: ${(props) => props.theme.namingFont};
-    text-align: center;
+  .title1 {
+    font-size: min(5vw, 3rem);
+    font-weight: bold;
+    font-family: ${props => props.theme.standardFont};
+  }
+  .title2 {
+    font-size: min(5vw, 3rem);
+    font-weight: bold;
+    font-family: ${props => props.theme.standardFont};
+  }
+  .content {
+    font-size: min(2vw, 1.2rem);
+    margin: 0.5vw;
+    @media ${props => props.theme.mobile} {
+      font-size: 0.4vw;
+      margin: 0.4vw;
+    }
+  }
+  .home_btn {
+    font-size: min(2vw, 1rem);
+    font-family: ${props => props.theme.pretendard};
+    margin: 3vw 0 0 0;
+    border-radius: 10vw;
+    border: none;
+    padding: 0.5vw 1vw;
+    background-color: ${props => props.theme.grayColor};
+    :hover {
+      cursor: pointer;
+    }
   }
 `;
 

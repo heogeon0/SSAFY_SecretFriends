@@ -1,5 +1,6 @@
+import Wrapper from "./styles";
+
 import React, { useEffect, useState } from "react";
-import io from "socket.io-client";
 import styled from "styled-components";
 import MyChats from "../../components/chats/MyChats";
 
@@ -18,28 +19,6 @@ const Circle = styled.img`
   z-index: 9999;
 `;
 
-const ChatBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  background-image: url("/img/background/green.jpg");
-  background-position: center;
-  background-size: cover;
-  bottom: 20px;
-  box-shadow: 0px 0px 15px #0000001f;
-
-  right: 60px;
-  width: 300px;
-  height: 550px;
-  border-radius: 25px;
-  @media ${props => props.theme.mobile} {
-    width: 200px;
-    height: 360px;
-  }
-
-  z-index: 9999;
-`;
 
 function Chat({ socket, id }) {
   const [openChat, setOpenChat] = useState(false);
@@ -55,14 +34,14 @@ function Chat({ socket, id }) {
     });
   }, []);
   return (
-    <>
+    <Wrapper>
       {openChat ? (
-        <ChatBox>
+        <div className="chat-box">
           <MyChats 
             id={id} socket={socket} setOpenChat={setOpenChat} 
             setAlarm={setAlarm}
           />
-        </ChatBox>
+        </div>
       ) : (
         <Circle src="img/chat.png" alarm={alarm}
           onClick={() => {
@@ -70,7 +49,7 @@ function Chat({ socket, id }) {
           }}
         ></Circle>
       )}
-    </>
+    </Wrapper>
   );
 }
 
