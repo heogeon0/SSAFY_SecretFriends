@@ -52,7 +52,7 @@ const Wrapper = styled.div`
         color: #dcdde1;
         transition: color 0.3s linear, background-color 0.3s linear;
         @media ${props => props.theme.mobile} {
-          padding: 1rem;
+          padding: 0.5rem;
         }
         p {
           font-size: min(2.5vw, 1.5rem);
@@ -102,6 +102,10 @@ const Wrapper = styled.div`
           border-radius: 4vw;
           :hover {
             cursor: pointer;
+          }
+          @media ${props => props.theme.mobile} {
+            font-size: 12px;
+            padding: 4px 10px;
           }
         }
       }

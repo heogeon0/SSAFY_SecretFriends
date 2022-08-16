@@ -96,12 +96,17 @@ const Wrapper = styled.div`
         padding: 20px 10px;
         right: 1.5vw;
         button {
+          font-family: ${props => props.theme.pretendard};
           padding: 0.3rem 1rem;
           background-color: #daf3af;
           border: none;
           border-radius: 4vw;
           :hover {
             cursor: pointer;
+          }
+          @media ${props => props.theme.mobile} {
+            padding: 0.3rem 0.8rem;
+            font-size: 12px;
           }
         }
       }

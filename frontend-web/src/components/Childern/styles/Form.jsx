@@ -4,7 +4,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  /* font-family: ${(props) => props.theme.formFont}; */
   font-family: ${(props) => props.theme.pretendard};
   height: 100%;
   margin-bottom: 10px;
@@ -15,6 +14,10 @@ const Wrapper = styled.div`
   label {
     text-align: left;
     line-height: 25px;
+    font-family: ${props => props.theme.pretendard};
+    @media ${props => props.theme.mobile} {
+      font-size: 13px;
+    };
   }
   input {
     padding: 10px;
@@ -26,6 +29,7 @@ const Wrapper = styled.div`
     margin-bottom: 1rem;
     @media ${props => props.theme.mobile} {
       height: 1.6rem;
+      margin-bottom: 0.5rem;
     };
   }
 `;
