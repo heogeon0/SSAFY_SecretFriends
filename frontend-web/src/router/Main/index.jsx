@@ -106,6 +106,7 @@ const LinkTag = styled(Link)`
 
 // 소켓연결
 const socket = io.connect("http://localhost:4000");
+
 function Main() {
   // page scroll button
   const pageTop = {
@@ -166,6 +167,7 @@ function Main() {
         socket.emit("newUser", name);
       });
       console.log(socket);
+
       // firebase (image list)
       setImgURLs([]);
       const listRef = ref(
