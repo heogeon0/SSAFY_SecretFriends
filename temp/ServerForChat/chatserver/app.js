@@ -69,6 +69,8 @@ io.on("connection", (socket) => {
             clientInfo.childrenID = element.childrenID;
             clientInfo.name = element.name;
             clients.push(clientInfo);
+            clients = [...new Set(clients.map(JSON.stringify))].map(JSON.parse);
+            // _.uniqBy(clients, "id");
             // console.log(clientInfo);
             //모든 clients를 돌면서 자신의 아이를 찾아서 자신이 접속했다는 정보를 전송
             for (let index = 0; index < clients.length; index++) {
@@ -132,6 +134,8 @@ io.on("connection", (socket) => {
           });
           // console.log(clientInfo);
           clients.push(clientInfo);
+          clients = [...new Set(clients.map(JSON.stringify))].map(JSON.parse);
+          // _.uniqBy(clients, "id");
           clientInfo = new Object();
         }
       );
@@ -157,6 +161,7 @@ io.on("connection", (socket) => {
         if (element.memberID == msg.memberID) {
           clients.forEach((element2) => {
             if (element2.mid == msg.memberID) {
+              console.log(clients);
               // console.log(element2.Pname);
               socket
                 .to(element.id)
@@ -164,6 +169,7 @@ io.on("connection", (socket) => {
             }
           });
         } else if (element.mid == msg.memberID) {
+          console.log(clients);
           socket
             .to(element.id)
             .emit("chat message", { type: 0, message: msg.message });
@@ -174,12 +180,14 @@ io.on("connection", (socket) => {
         if (element.childrenID == msg.childrenID) {
           clients.forEach((element2) => {
             if (element2.cid == msg.childrenID) {
+              console.log(clients);
               socket
                 .to(element.id)
                 .emit("chat message", { type: 1, message: msg.message });
             }
           });
         } else if (element.cid == msg.childrenID) {
+          console.log(clients);
           socket
             .to(element.id)
             .emit("chat message", { type: 1, message: msg.message });
@@ -206,8 +214,8 @@ io.on("connection", (socket) => {
     // }
   });
   socket.on("disconnect", () => {
-    console.log(socket.id);
-    console.log(clients);
+    // console.log(socket.id);
+    // console.log(clients);
     clients.forEach((element) => {
       //나간사람을 찾았다
       if (element.id == socket.id) {
