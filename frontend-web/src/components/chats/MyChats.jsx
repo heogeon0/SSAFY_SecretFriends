@@ -105,6 +105,7 @@ function MyChats({ name, socket, setOpenChat, setAlarm }) {
   // }, []);
 
   const [chat, setChat] = useState([]);
+  const [readyChat, setReadyChat] = useState({});
   const [message, setMessage] = useState("");
   const [memberID, setMemberId] = useRecoilState(MemberID);
   const [test, setTest] = useState([{type: 0, content: "1"}, {type:1, content: "2"}, {type: 0, content: "3"}]);
@@ -124,19 +125,37 @@ function MyChats({ name, socket, setOpenChat, setAlarm }) {
 
   useEffect(() => {
     socket.on("newUser", (msg) => {
-      setChat([...chat, msg]);
+      console.log(msg?.message);
+      console.log(readyChat);
+      console.log(readyChat?.message);
+      if (msg?.message !== readyChat?.message) {
+        setReadyChat(msg);
+      }
+
       setAlarm("#f37e91")
     });
     socket.on("chat message", (msg) => {
-      console.log(msg);
-      setChat([...chat, msg]);
-      console.log(chat);
+      console.log(msg?.message);
+      console.log(readyChat?.message);
+      if (msg?.message !== readyChat?.message) {
+        setReadyChat(msg);
+      }
     });
     socket.on("disconnected", (msg) => {
-      setChat([...chat, msg]);
+      console.log(msg?.message);
+      console.log(readyChat?.message);
+      if (msg?.message !== readyChat?.message) {
+        setReadyChat(msg);
+      }
       setAlarm("white")
     });
-  }, [chat]);
+  }, []);
+
+  useEffect(() => {
+    console.log(readyChat);
+    setChat((val) => [...val, readyChat]);
+  }, [readyChat]);
+
 
   return (
     <Wrapper>
