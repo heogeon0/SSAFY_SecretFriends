@@ -14,7 +14,7 @@ const CardBox = styled.div`
   @media ${props => props.theme.mobile} {
     width: 83vw;
     margin: 1vw 1vw 10vw 1vw;
-    height: 102vw;
+    height: 104vw;
   }
 `
 
@@ -64,7 +64,6 @@ const CardText = styled.div`
 const Button = styled.button`
   float: right;
   font-size: 1.5vw;
-  /* font-family: ${props => props.theme.formFont}; */
   font-family: ${props => props.theme.pretendard};
   font-weight: bold;
   border: none;

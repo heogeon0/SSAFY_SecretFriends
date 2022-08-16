@@ -87,6 +87,7 @@ const CardText = styled.div`
   overflow-y: scroll;
   @media ${props => props.theme.mobile} {
     font-size: min(0.5vw, 6px);
+    padding: 0.5vw 8px 0.5vw 0.5vw;
     line-height: 2.7vw;
   }
 `
