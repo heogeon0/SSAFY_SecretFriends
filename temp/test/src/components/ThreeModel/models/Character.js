@@ -9,9 +9,16 @@ import { useFrame, useThree } from "@react-three/fiber";
 import webapi from "../../../apis/webapi";
 import iot from "../../../apis/iot";
 import axios from "axios";
-import { useRecoilState } from "recoil";
-import { childrenId, death, no, yes, wave, childrenName } from "../../../atoms";
-import { useNavigate } from "react-router-dom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+  childrenId,
+  death,
+  no,
+  yes,
+  wave,
+  childrenName,
+  memberEmail,
+} from "../../../atoms";
 
 const loginCon = (rn, id) => {
   const chats = {
@@ -33,6 +40,7 @@ export default function Character({ ...props }) {
   const [sayHi, setSayHi] = useState(false);
   const [id, setId] = useRecoilState(childrenId);
   const [myName, setMyName] = useRecoilState(childrenName);
+  const setEmail = useSetRecoilState(memberEmail);
 
   const [deathm, setDeath] = useRecoilState(death);
   const [nom, setNo] = useRecoilState(no);
@@ -52,41 +60,45 @@ export default function Character({ ...props }) {
     if (props.state === "stateLogin") {
       axios.get(iot.arduino()).then((res) => {
         axios.get(iot.login()).then(({ data }) => {
-          axios.get(webapi.answers.info(data.id)).then(async (info) => {
-            console.log(info.data);
-            const childrenData = {
-              birthDay: `${info.data.birthDay}/${info.data.birthDay}`,
-              name: `${info.data.name}`,
-              nickname: info.data.nickname,
-              count: info.data.count,
-            };
-            setMyName(childrenData);
-            props.setReady((val) => !val);
-            setId(data.id);
-            sethello(true);
-            await sleep(1);
+          axios.get(webapi.answers.email(data.id)).then(({ data: email }) => {
+            setEmail(email);
+            axios.get(webapi.answers.info(data.id)).then(async (info) => {
+              console.log(info.data);
+              const childrenData = {
+                birthDay: `${info.data.birthMonth}/${info.data.birthDay}`,
+                name: `${info.data.name}`,
+                nickname: info.data.nickname,
+                count: info.data.count,
+              };
+              setMyName(childrenData);
+              props.setReady(true);
+              setId(data.id);
+              sethello(true);
+              await sleep(1);
 
-            const rn = Math.floor(Math.random() * 3);
-            axios.get(iot.tts(loginCon(rn, info.data.nickname)));
+              const rn = Math.floor(Math.random() * 3);
+              axios.get(iot.tts(loginCon(rn, info.data.nickname)));
+            });
           });
         });
       });
     }
   }, []);
-  useFrame(({ clock }) => {
-    if (props.ready) {
-      const elapsedTime = clock.getElapsedTime();
-      if (group.current.position.x > 2.1) {
-        group.current.position.x = group.current.position.x - 0.02;
-        group.current.position.y = group.current.position.y + 0.01;
-      }
+
+  function Rig() {
+    return useFrame((state) => {
+      group.current.position.x = group.current.position.x + 0.02;
+      group.current.position.y = group.current.position.y + 0.01;
+      if (group.current.position.x > -3) sethello(false);
       // console.log(group.current);
-    }
-  });
+    });
+  }
 
   function onClick() {
     if (props.state === "stateLogin" && id) {
-      props.goMain();
+      axios
+        .get(iot.tts("좋아! 오늘도 너에게 해주고싶은 말이 많아!"))
+        .then((res) => props.setGoNext(true));
     } else if (props.state === "stateMain") {
       axios
         .get(
@@ -94,23 +106,19 @@ export default function Character({ ...props }) {
             "나 말고 별과 하트를 눌러봐. 내 친구들이 너한테 해주고 싶은 말이 있대!"
           )
         )
-        .then((res) => {
-          setDeath(true);
-        });
+        .then((res) => {});
     }
-
-    sethello((val) => !val);
   }
   function delay(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
   }
 
   useEffect(() => {
-    console.log(actions);
-    actions?.Yes?.play();
-    return () => {
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
       actions?.Wave?.play();
-    };
+    }
   }, [hello]);
 
   useEffect(() => {
@@ -133,6 +141,7 @@ export default function Character({ ...props }) {
 
   return (
     <group ref={group} {...props} dispose={null} onClick={onClick} scale={1}>
+      {hello ? <Rig /> : null}
       <group name="Scene">
         <group name="CharacterArmature">
           <primitive object={nodes.Root} />

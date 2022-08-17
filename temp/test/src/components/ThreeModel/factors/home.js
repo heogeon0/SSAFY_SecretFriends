@@ -1,7 +1,7 @@
 import SmallBarn from "../models/SmallBarn";
 
 function Home() {
-  return <SmallBarn position={[-7, -4, -4]} />;
+  return <SmallBarn position={[2, -8, -40]} />;
 }
 
 export default Home;
