@@ -36,7 +36,6 @@ function CreateAnswer() {
     }).then((res) => {
       goMain()
     }).catch((err) => {
-      console.log(err)
     })
   }
 

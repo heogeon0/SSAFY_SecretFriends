@@ -98,7 +98,6 @@ function AnswerModal (props) {
         navigate('/main')
       })
       .catch((err) => {
-        console.log(err)
     })
   }
 

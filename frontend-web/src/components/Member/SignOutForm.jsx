@@ -109,7 +109,8 @@ function SignOutForm() {
       .then(res => {
         setCurrentUser(res)
       })
-      .catch(err => { console.log(err) })
+      .catch(err => {
+      })
     }, [])
 
   
