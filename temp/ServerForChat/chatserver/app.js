@@ -50,6 +50,7 @@ io.on("connection", (socket) => {
     let flag_childern = 0;
 
     if (id && id.memberID) {
+      console.log(id.memberID);//들어온사람확인
       clients.forEach((element) => {
         if (element.mid == id.memberID) {
           flag = 1;
@@ -77,6 +78,7 @@ io.on("connection", (socket) => {
             clientInfo.name = element.name;
             clients.push(clientInfo);
             clients = [...new Set(clients.map(JSON.stringify))].map(JSON.parse);
+            console.log(clients);
             // _.uniqBy(clients, "id");
             // console.log(clientInfo);
             //모든 clients를 돌면서 자신의 아이를 찾아서 자신이 접속했다는 정보를 전송
