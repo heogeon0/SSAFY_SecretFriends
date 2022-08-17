@@ -109,6 +109,7 @@ io.on("connection", (socket) => {
 
     //들어온 사람이 아이면
     else if (id && id.childrenID) {
+      console.log(id.childrenID);
       clients.forEach((element) => {
         if (element.cid == id.childrenID) {
           flag_childern = 1;
@@ -144,6 +145,7 @@ io.on("connection", (socket) => {
           // console.log(clientInfo);
           clients.push(clientInfo);
           clients = [...new Set(clients.map(JSON.stringify))].map(JSON.parse);
+          console.log(clients);
           // _.uniqBy(clients, "id");
           clientInfo = new Object();
         }
