@@ -9,6 +9,9 @@ const Box = styled.div`
   background-image: url("img/background/pink.jpg");
   background-size: cover;
   height: 800px;
+  @media ${props => props.theme.mobile} {
+    height: 650px;
+  }
 `
 
 

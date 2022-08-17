@@ -96,7 +96,7 @@ function Intro () {
             <i onClick={moveToBottom} className="fa-solid fa-circle-chevron-down fa-2xl" style={ pageBottom }></i>
           </div>
         </div>
-      <hr style={{width: '95%'}} />
+      <hr style={{width: '95%', margin: "auto"}} />
     </Wrapper>
   )
 }

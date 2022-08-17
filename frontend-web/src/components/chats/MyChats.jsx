@@ -97,32 +97,6 @@ function MyChats({ name, socket, setOpenChat, setAlarm }) {
 
   const [message, setMessage] = useState("");
   const memberID = useRecoilValue(MemberID);
-  const [test, setTest] = useState([
-    {
-      type: 0,
-      content: "1",
-      day: getDate(new Date()),
-      time: getTime(new Date()),
-    },
-    {
-      type: 1,
-      content: "2",
-      day: getDate(new Date()),
-      time: getTime(new Date()),
-    },
-    {
-      type: 0,
-      content: "3",
-      day: getDate(new Date()),
-      time: getTime(new Date()),
-    },
-    {
-      type: 1,
-      content: "안녕하세요",
-      day: getDate(new Date()),
-      time: getTime(new Date()),
-    },
-  ]);
 
   const sendMessageHandler = (e) => {
     e.preventDefault();
@@ -195,14 +169,12 @@ function MyChats({ name, socket, setOpenChat, setAlarm }) {
   function getTime(day) {
     var hours = ("0" + day.getHours()).slice(-2);
     var minutes = ("0" + day.getMinutes()).slice(-2);
-    var seconds = ("0" + day.getSeconds()).slice(-2);
 
     if (hours >= 12) {
-      var timeString = "오후 " + hours + ":" + minutes;
+      var timeString = "오후 " + (hours-12) + ":" + minutes;
     } else {
       var timeString = "오전 " + hours + ":" + minutes;
     }
-    // var timeString = hours + ':' + minutes  + ':' + seconds;
     return timeString;
   }
 

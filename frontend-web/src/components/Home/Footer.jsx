@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   align-items: center;
   position: relative;
   top: 100%;
-  padding: 1vh 0 2vh 0;
+  padding: 1vh 0 1vh 0;
   width: 100%;
   .logo {
     width: 6.4vw;

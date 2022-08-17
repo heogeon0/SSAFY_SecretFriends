@@ -7,7 +7,6 @@ import { CurrentSlide, ChildrenList } from "../../atom";
 
 const Container = styled.div`
   position: relative;
-  margin: auto;
   width: 70%;
   max-width: 800px;
   height: 80%;

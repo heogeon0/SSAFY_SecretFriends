@@ -45,7 +45,7 @@ const FlexReflex = styled.div`
 `;
 const CarouselGrid = styled.div`
   display: grid;
-  grid-template-rows: 7fr 1fr;
+  grid-template-rows: 8fr 1fr;
   @media ${(props) => props.theme.mobile} {
     grid-template-rows: 4fr 1fr;
   }
@@ -318,7 +318,7 @@ function Main() {
       <Wrapper>
         <div className="head">
           <CarouselGrid>
-            <FlexRow>
+            <FlexRow style={{marginTop: "2vw"}}>
               {childrens.length !== 1 && currentSlide !== 0 ? (
                 <Icon
                   onClick={goPrev}
