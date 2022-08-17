@@ -81,10 +81,8 @@ function Conversation() {
       method: 'get',
     })
     .then((res) => {
-      // console.log(res)
     })
     .catch((err) => {
-      console.log(err)
     })
   })
   

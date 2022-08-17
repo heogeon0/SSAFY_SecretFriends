@@ -54,7 +54,8 @@ function CreateChildren() {
       .then(res => {
         setMemberID(res.data.memberID)
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+      })
   })
 
   // separation of date of birth
@@ -72,7 +73,6 @@ function CreateChildren() {
       await uploadBytes(storageRef, face)
       alert("업로드 완료");
     } catch (err) {
-      console.log(err);
     }
     setUploading(false);
   };
@@ -106,7 +106,6 @@ function CreateChildren() {
       next()
     }
     catch (err) {
-      console.log(err)
     }
   }
 
@@ -125,7 +124,6 @@ function CreateChildren() {
       })
     }
     catch(err) {
-      console.log(err)
     }
   }
   // third axios. for create answer (optional)
@@ -144,7 +142,6 @@ function CreateChildren() {
       })
     }
     catch(e) {
-      console.log(e)
     }
   }
   // after three axios done, it goes to "main" page
@@ -154,7 +151,6 @@ function CreateChildren() {
       navigate('/main')
     }
     catch(err) {
-      console.log(err)
     }
   }
 

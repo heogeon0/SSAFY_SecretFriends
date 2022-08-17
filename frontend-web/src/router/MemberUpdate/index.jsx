@@ -38,7 +38,6 @@ function MemberUpdate() {
         setMemberID(res.data.memberID)
       })
       .catch(err => {
-        console.log(err)
       })
     }, [])
 
