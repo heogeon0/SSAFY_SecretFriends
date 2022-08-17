@@ -73,6 +73,7 @@ function UpdateChildren() {
   function updateChildren () {
     updateInfo()
     updateCharacter()
+    alert("아이 정보가 업데이트 되었습니다.")
     goMain()
   }
 

@@ -127,7 +127,7 @@ function SignupForm({
         headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
       })
         .then(res => {
-          alert('회원정보가 수정되었습니다.')
+          alert('회원정보가 업데이트 되었습니다.')
           console.log(res)
           navigate('/main')
         })
