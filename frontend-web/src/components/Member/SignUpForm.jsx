@@ -116,7 +116,6 @@ function SignupForm({
             if (err.response.data === "email error") {
               alert("이메일이 중복됩니다.")
             }
-            console.log(err)
           })
     // case2: 회원정보 수정 form
     } else {
@@ -128,10 +127,10 @@ function SignupForm({
       })
         .then(res => {
           alert('회원정보가 업데이트 되었습니다.')
-          console.log(res)
           navigate('/main')
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+        })
     }
   }
 
