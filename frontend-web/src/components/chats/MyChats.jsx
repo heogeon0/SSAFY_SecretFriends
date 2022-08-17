@@ -92,7 +92,7 @@ const SendImg = styled.img`
   }
 `;
 
-function MyChats({ name, socket, setOpenChat, setAlarm }) {
+function MyChats({ name, socket, setOpenChat, setAlarm, setIsActive }) {
   const [chat, setChat] = useState([]);
 
   const [message, setMessage] = useState("");
@@ -131,6 +131,7 @@ function MyChats({ name, socket, setOpenChat, setAlarm }) {
       setChat((val) => [...val, messageToken]);
       // 아이 소켓 접속여부 확인
       setAlarm("#f37e91");
+      setIsActive(true)
     });
     socket.on("chat message", (msg) => {
       const messageToken = {
@@ -150,6 +151,7 @@ function MyChats({ name, socket, setOpenChat, setAlarm }) {
       };
       setChat((val) => [...val, messageToken]);
       setAlarm("white");
+      setIsActive(false)
     });
   }, []);
 
