@@ -1,16 +1,25 @@
 import { Physics } from "@react-three/cannon";
-import { Stars } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
+import {
+  CameraShake,
+  Environment,
+  OrbitControls,
+  Sky,
+  Stars,
+  Sphere,
+} from "@react-three/drei";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useRecoilBridgeAcrossReactRoots_UNSTABLE } from "recoil";
 import { io } from "socket.io-client";
 import iot from "../apis/iot";
+import * as THREE from "three";
 
 import { Button } from "../components/Items/items";
+
 import Bee from "../components/ThreeModel/models/Bee";
 
-const socket = io.connect("http://localhost:4000");
+const socket = io.connect("https://i7d208.p.ssafy.io:4000");
 
 function Chat() {
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
@@ -61,29 +70,80 @@ function Chat() {
     axios.get(iot.tts(readySTT)).then((res) => console.log(res));
   }, [readySTT]);
 
+  function Light() {
+    const ref = useRef();
+    useFrame((_) => (ref.current.rotation.x = _.clock.elapsedTime));
+    return (
+      <group ref={ref}>
+        <rectAreaLight
+          width={15}
+          height={100}
+          position={[30, 30, -10]}
+          intensity={5}
+          onUpdate={(self) => self.lookAt(0, 0, 0)}
+        />
+      </group>
+    );
+  }
+  function Rig() {
+    const [vec] = useState(() => new THREE.Vector3());
+    const { camera, mouse } = useThree();
+    useFrame(() => camera.position.lerp(vec.set(mouse.x * 2, 1, 60), 0.05));
+    return (
+      <CameraShake
+        maxYaw={0.01}
+        maxPitch={0.01}
+        maxRoll={0.01}
+        yawFrequency={0.5}
+        pitchFrequency={0.5}
+        rollFrequency={0.4}
+      />
+    );
+  }
   return (
     <>
       <Canvas
-        camera={{ fov: 100, position: [0, 0.5, 3] }}
+        shadows
+        dpr={[1, 2]}
+        camera={{ position: [0, 160, 160], fov: 20 }}
+        // camera={{ fov: 100, position: [0, 0.5, 3] }}
         style={{
           width: "100vw",
           height: "100vh",
           backgroundImage: "linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%)",
           position: "relative",
-          backgroundImage: "url('/bgimg.png')",
+          // backgroundImage: "url('/bgimg.png')",
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}
       >
+        <fog attach="fog" args={["black", 60, 100]} />
         <RecoilBridge>
           {/* fov : 카메라 확대 정도 */}
-          <Stars />
+          {/* <Stars /> */}
           {/* 궤도 추가 */}
           {/* 조명추가 */}
-          <spotLight position={[0, 10, 20]} angle={1} />
-          <Physics>
-            <Bee position={[0, -1, 0]} state={"stateMain"} />
-          </Physics>
+          {/* <spotLight position={[0, 10, 20]} angle={1} /> */}
+          {/* <Sky azimuth={1} inclination={0.6} distance={1000} /> */}
+          {/* <ambientLight /> */}
+          <pointLight position={[10, 10, 10]} />
+
+          <Suspense fallback={null}>
+            <ambientLight intensity={0.5} />
+            <spotLight position={[50, 50, -30]} castShadow />
+            <pointLight position={[0, -5, 5]} intensity={0.5} />
+            <directionalLight
+              position={[0, -5, 0]}
+              color="blue"
+              intensity={2}
+            />
+            <Light />
+            <Rig />
+            <Sky />
+
+            <Bee position={[0, -1, -1]} state={"stateMain"} />
+          </Suspense>
+          <OrbitControls makeDefault />
         </RecoilBridge>
       </Canvas>
 

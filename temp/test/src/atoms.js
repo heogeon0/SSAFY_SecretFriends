@@ -7,7 +7,17 @@ export const childrenId = atom({
 
 export const childrenName = atom({
   key: "childrenName",
-  default: {},
+  default: {
+    birthDay: "",
+    name: "",
+    nickname: "",
+    count: 0,
+  },
+});
+
+export const memberEmail = atom({
+  key: "memberEmail",
+  default: "",
 });
 
 export const nameSelector = selector({

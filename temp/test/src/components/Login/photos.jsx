@@ -10,9 +10,10 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-rows: repeat(8, 1fr);
   grid-template-columns: repeat(9, 1fr);
-  grid-gap: 20px;
+  padding-bottom: 300px;
+  grid-gap: 50px;
   width: 95vw;
-  height: 80vh;
+  height: 60vh;
   .content {
     background-position: center center;
     background-size: cover;

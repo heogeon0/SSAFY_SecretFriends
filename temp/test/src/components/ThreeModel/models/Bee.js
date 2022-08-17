@@ -15,7 +15,7 @@ export default function Bee({ ...props }) {
     actions.Flying.play();
   });
   return (
-    <group ref={group} {...props} dispose={null} scale={1}>
+    <group ref={group} {...props} dispose={null} scale={2}>
       <group name="Scene">
         <group name="MonsterArmature">
           <primitive object={nodes.Body} />

@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Stars } from "@react-three/drei";
+import { OrbitControls, Stars, Cloud, Sky } from "@react-three/drei";
 import { useBox, Physics } from "@react-three/cannon";
 
 import React, { useEffect, useRef, useState } from "react";
@@ -18,22 +18,21 @@ import axios from "axios";
 import { Button } from "../components/Items/items";
 import Character from "../components/ThreeModel/models/Character";
 
-import Cloud from "../components/ThreeModel/factors/cloud";
-import Plane from "../components/ThreeModel/factors/plane";
 import Chats from "../components/Chats/Chats";
-import Grass from "../components/ThreeModel/factors/grass";
-import Photozone from "../components/ThreeModel/factors/Photo/photozone";
+
 import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 
 // 소켓연결
 
-const socket = io.connect("http://localhost:4000");
+const socket = io.connect("https://i7d208.p.ssafy.io:4000");
+console.log(socket);
 function Main() {
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
   const [id, setId] = useRecoilState(childrenId);
   const name = useRecoilValue(nameSelector);
-  const setInfo = useSetRecoilState(childrenName);
+  const [info, setInfo] = useRecoilState(childrenName);
+
   const [chats, setChats] = useState([]);
   const navigate = useNavigate();
 
@@ -42,7 +41,7 @@ function Main() {
       console.log(res);
     });
   };
-
+  const count = info.count;
   const LogOut = () => {
     axios.get(iot.tts(""));
     setId("");
@@ -54,7 +53,7 @@ function Main() {
     "좋은아침이야",
     `${name}아 점심은 먹었어? 밥을 많이먹는게 중요하다고 들었어!`,
     `왜 안자고있어? 일찍 자야 키가 쑥쑥 큰다구! `,
-    `내 주위에 있는 별과 하트를 눌러보면 재밌는 일이 생길거야!`,
+    `내 주위에 있는 별과 하트를 눌러봐! 내친구들이 너에게 해주고 싶은 말이 있어! 아래의 버튼을 통해 내 친구와 대화하거나 사진도 찍을 수 있어!`,
   ];
 
   const setBasicChats = (name) => {
@@ -97,14 +96,14 @@ function Main() {
       },
       {
         answerID: 99997,
-        content: `어제보다 더  튼튼보인다    앞으로도 열심히 치료 받자!!`,
+        content: `어제보다 더  튼튼해보인다    앞으로도 열심히 치료 받자!!`,
         isUsed: false,
         questionID: 0,
       },
 
       {
         answerID: 99998,
-        content: `용감한 ${name}   내가 본 사람중에 ${name}이가 제일 멋져`,
+        content: `용감한 ${name} !!!!  내가 본 사람중에 ${name}이가 제일 멋져`,
         isUsed: false,
         questionID: 0,
       },
@@ -135,10 +134,9 @@ function Main() {
     console.log(name);
     const now = new Date().getHours();
     let chat = "";
-    // if (count == 0) {
-    //   chat = helloChats[3];
-    // }
-    if (now <= 9) {
+    if (count == 0) {
+      chat = helloChats[3];
+    } else if (now <= 9) {
       chat = helloChats[0];
     } else if (now < 16) {
       chat = helloChats[1];
@@ -146,7 +144,7 @@ function Main() {
       chat = helloChats[2];
     }
 
-    axios.get(iot.tts(chat));
+    axios.get(iot.tts(chat)).then((res) => console.log(res));
 
     // 컴포넌트 대화말
 
@@ -166,7 +164,7 @@ function Main() {
         if (randomNum + j >= basicChats.length) {
           randomNum = -j;
         }
-        // 수정해야함
+
         const content = basicChats.slice(j + randomNum, j + randomNum + 1);
         console.log(content);
         newChats.push(content[0]);
@@ -195,6 +193,13 @@ function Main() {
           backgroundSize: "cover",
         }}
       >
+        <Sky
+          azimuth={0.1}
+          turbidity={10}
+          rayleigh={0.5}
+          inclination={0.6}
+          distance={1000}
+        />
         <RecoilBridge>
           {/* fov : 카메라 확대 정도 */}
           <Stars />

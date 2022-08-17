@@ -9,7 +9,13 @@ export default function SmallBarn({ ...props }) {
   const group = useRef();
   const { nodes, materials } = useGLTF("models/SmallBarn.gltf");
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group
+      ref={group}
+      {...props}
+      dispose={null}
+      rotation={[0, -1.5, 0]}
+      scale={1}
+    >
       <group rotation={[-Math.PI / 2, -0.02, 1.45]} scale={1.35}>
         <mesh geometry={nodes.Cube013.geometry} material={materials.DarkRed} />
         <mesh geometry={nodes.Cube013_1.geometry} material={materials.White} />
