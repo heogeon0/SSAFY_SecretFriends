@@ -1,5 +1,6 @@
 // var cors = require("cors")
 // app.use(cors())
+const fs = require('fs');
 var mysql = require("mysql2");
 var connection = mysql.createPool({
   host: "3.35.238.205",
@@ -7,9 +8,15 @@ var connection = mysql.createPool({
   password: "_m2d%zytxzqR+Orif~Ui~R!L17z~MX",
   database: "mybuddy",
 });
-
+const https_options = {
+  key : fs.readFileSync('/etc/letsencrypt/live/i7d208.p.ssafy.io/privkey.pem'),
+  cert : fs.readFileSync('/etc/letsencrypt/live/i7d208.p.ssafy.io/cert.pem'),
+  ca : fs.readFileSync('/etc/letsencrypt/live/i7d208.p.ssafy.io/chain.pem'),
+  requestCert : false,
+  rejectUnauthorized : false
+}
 var app = require("express")(); //express 모듈 사용
-var http = require("http").createServer(app); //http라는 이름의 express 모듈 기반 http web server 객체 생성
+var http = require("https").createServer(https_options, app); //http라는 이름의 express 모듈 기반 http web server 객체 생성
 var io = require("socket.io")(http, {
   cors: {
     origin: "*",

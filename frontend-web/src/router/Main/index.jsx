@@ -106,7 +106,7 @@ const LinkTag = styled(Link)`
 
 // 소켓연결
 // const socket = io.connect("http://3.35.238.205:4000");
-const socket = io.connect("http://localhost:4000");
+const socket = io.connect("https://3.35.238.205:4000");
 
 function Main() {
   // page scroll button
