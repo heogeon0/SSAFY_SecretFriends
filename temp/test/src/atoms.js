@@ -1,8 +1,21 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 
 export const childrenId = atom({
   key: "childrenId",
-  default: 7,
+  default: 0,
+});
+
+export const childrenName = atom({
+  key: "childrenName",
+  default: {},
+});
+
+export const nameSelector = selector({
+  key: "nameSelector",
+  get: ({ get }) => {
+    const name = get(childrenName).nickname;
+    return name;
+  },
 });
 
 //actions

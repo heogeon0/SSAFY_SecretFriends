@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+  /* background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%); */
 `;
 
 function Login() {
@@ -33,7 +33,11 @@ function Login() {
   return (
     <>
       <Wrapper>
-        <Photos ready={ready} />
+        <video autoPlay loop width={"100%"} height={"100%"}>
+          <source src="/green.mp4" type="video/mp4" />
+        </video>
+
+        {/* <Photos ready={ready} /> */}
         <Canvas
           camera={{ fov: 100, position: [0, 0.5, 3] }}
           style={{

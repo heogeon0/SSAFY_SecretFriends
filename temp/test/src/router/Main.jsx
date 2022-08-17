@@ -6,9 +6,10 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   useRecoilBridgeAcrossReactRoots_UNSTABLE,
   useRecoilValue,
+  useSetRecoilState,
 } from "recoil";
 import { useRecoilState } from "recoil";
-import { childrenId } from "../atoms";
+import { childrenId, childrenName, nameSelector } from "../atoms";
 
 import iot from "../apis/iot";
 import webapi from "../apis/webapi";
@@ -27,10 +28,12 @@ import { io } from "socket.io-client";
 
 // 소켓연결
 
-// const socket = io.connect("http://localhost:4000");
+const socket = io.connect("http://localhost:4000");
 function Main() {
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
-  const [name, setName] = useRecoilState(childrenId);
+  const [id, setId] = useRecoilState(childrenId);
+  const name = useRecoilValue(nameSelector);
+  const setInfo = useSetRecoilState(childrenName);
   const [chats, setChats] = useState([]);
   const navigate = useNavigate();
 
@@ -42,13 +45,14 @@ function Main() {
 
   const LogOut = () => {
     axios.get(iot.tts(""));
-    setName("");
+    setId("");
+    setInfo({});
     navigate("/");
   };
 
   const helloChats = [
     "좋은아침이야",
-    `${name}야 점심은 먹었어? 밥을 많이먹는게 중요하다고 들었어!`,
+    `${name}아 점심은 먹었어? 밥을 많이먹는게 중요하다고 들었어!`,
     `왜 안자고있어? 일찍 자야 키가 쑥쑥 큰다구! `,
     `내 주위에 있는 별과 하트를 눌러보면 재밌는 일이 생길거야!`,
   ];
@@ -56,25 +60,25 @@ function Main() {
   const setBasicChats = (name) => {
     return [
       {
-        answerID: 99999,
+        answerID: 99991,
         content: `오늘 치료도 화이팅!! 내가 응원할게`,
         isUsed: false,
         questionID: 0,
       },
       {
-        answerID: 99998,
+        answerID: 99992,
         content: `${name}이가 좋아하는 색이 있어? 나는 파란색을 좋아해! 마음이 편안해지는 느낌이야`,
         isUsed: false,
         questionID: 0,
       },
       {
-        answerID: 99997,
-        content: `나는 우주에서 온 ${name}야! 밤하늘의 별을 보면 내가 온 고향이 보이는건 비밀이야!`,
+        answerID: 99993,
+        content: `나는 우주에서 온 공팔이야아! 밤하늘의 별을 보면 내가 온 고향이 보이는건 비밀이야!`,
         isUsed: false,
         questionID: 0,
       },
       {
-        answerID: 99996,
+        answerID: 99994,
         content: `야채랑 과일을 많이 먹으면 더 튼튼해져!!`,
         isUsed: false,
         questionID: 0,
@@ -86,36 +90,42 @@ function Main() {
         questionID: 0,
       },
       {
-        answerID: 99994,
+        answerID: 99996,
         content: `나는 ${name}가 세상에서 제일 좋아! `,
         isUsed: false,
         questionID: 0,
       },
       {
-        answerID: 99993,
+        answerID: 99997,
         content: `어제보다 더  튼튼보인다    앞으로도 열심히 치료 받자!!`,
         isUsed: false,
         questionID: 0,
       },
 
       {
-        answerID: 99992,
-        content: `용감한 ${name}   내가 본 사람중에 ${name}가 제일 멋져`,
+        answerID: 99998,
+        content: `용감한 ${name}   내가 본 사람중에 ${name}이가 제일 멋져`,
+        isUsed: false,
+        questionID: 0,
+      },
+      {
+        answerID: 99999,
+        content: `지금 조금 힘들지라도 흔들리지 않고 나아가자 `,
         isUsed: false,
         questionID: 0,
       },
     ];
   };
-  // useEffect(() => {
-  //   socket.on(
-  //     "connect",
-  //     function () {
-  //       console.log("소켓이 바뀝니다" + name);
-  //       socket.emit("newUser", name);
-  //     },
-  //     []
-  //   );
-  // });
+  useEffect(() => {
+    socket.on(
+      "connect",
+      function () {
+        console.log("소켓이 바뀝니다" + id);
+        socket.emit("newUser", id);
+      },
+      []
+    );
+  }, []);
   useEffect(() => {
     // 첫인사
 
@@ -151,10 +161,14 @@ function Main() {
         if (newChats.length > 3) break;
       }
       console.log(basicChats);
+      let randomNum = Math.floor(Math.random() * basicChats.length);
       for (let j = 0; j < basicChats.length; j++) {
-        const randomNum = Math.floor(Math.random() * basicChats.length);
-        const content = basicChats.slice(randomNum, randomNum + 1);
-
+        if (randomNum + j >= basicChats.length) {
+          randomNum = -j;
+        }
+        // 수정해야함
+        const content = basicChats.slice(j + randomNum, j + randomNum + 1);
+        console.log(content);
         newChats.push(content[0]);
         if (newChats.length + chats.length >= 7) {
           break;

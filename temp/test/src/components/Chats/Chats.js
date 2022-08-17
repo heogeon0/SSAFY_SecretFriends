@@ -57,7 +57,7 @@ function Chats({ chats, setChats, childernId }) {
           if (idx < 4) {
             return (
               <Star
-                key={chat.answerID + idx}
+                key={chat.answerID}
                 chat={chat}
                 updateChat={updateChat}
                 setPosition={starPosition[idx]}
@@ -66,7 +66,7 @@ function Chats({ chats, setChats, childernId }) {
           } else if (idx < 6) {
             return (
               <Heart
-                key={chat.answerID + idx}
+                key={chat.answerID}
                 chat={chat}
                 updateChat={updateChat}
                 setPosition={starPosition[idx]}
@@ -75,7 +75,7 @@ function Chats({ chats, setChats, childernId }) {
           } else {
             return (
               <Coin
-                key={chat.answerID + idx}
+                key={chat.answerID}
                 chat={chat}
                 updateChat={updateChat}
                 setPosition={starPosition[idx]}
