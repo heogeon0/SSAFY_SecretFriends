@@ -19,20 +19,44 @@ const Circle = styled.img`
   z-index: 9999;
 `;
 
+const RedCircle = styled.div`
+  position: fixed;
+  bottom: 45px;
+  right: 65px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: red;
+  z-index: 9999;
+`
+const WhiteCircle = styled.div`
+  position: fixed;
+  bottom: 50.52px;
+  right: 70.52px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: white;
+  z-index: 9999;
+`
+
 function Chat({ socket, id }) {
   const [openChat, setOpenChat] = useState(false);
   // 아이가 소켓에 들어왔는지 여부 확인
   // 들어왔으면: #f37e91 아니면: white
   const [alarm, setAlarm] = useState("white");
+  const [isActive, setIsActive] = useState(false);
 
   const name = { memberID: 8 };
 
   useEffect(() => {
     socket.on("newUser", (msg) => {
       setAlarm("#f37e91");
+      setIsActive(true)
     });
     socket.on("disconnected", (msg) => {
       setAlarm("white");
+      setIsActive(false)
     });
   }, []);
 
@@ -45,16 +69,25 @@ function Chat({ socket, id }) {
             socket={socket}
             setOpenChat={setOpenChat}
             setAlarm={setAlarm}
+            setIsActive={setIsActive}
           />
         </div>
       ) : (
-        <Circle
-          src="img/chat.png"
-          alarm={alarm}
-          onClick={() => {
-            setOpenChat((val) => !val);
-          }}
-        ></Circle>
+        <div>
+          <Circle
+            src="img/chat.png"
+            alarm={alarm}
+            onClick={() => {
+              setOpenChat((val) => !val);
+            }}
+          ></Circle>
+          { !isActive 
+          ? <>
+              <RedCircle></RedCircle>
+              <WhiteCircle></WhiteCircle>
+            </> 
+          : null}
+        </div>
       )}
     </Wrapper>
   );
