@@ -9,7 +9,7 @@ var connection = mysql.createPool({
 });
 
 var app = require("express")(); //express 모듈 사용
-var http = require("http").createServer(app); //http라는 이름의 express 모듈 기반 http web server 객체 생성
+var http = require("https").createServer(app); //http라는 이름의 express 모듈 기반 http web server 객체 생성
 var io = require("socket.io")(http, {
   cors: {
     origin: "*",
