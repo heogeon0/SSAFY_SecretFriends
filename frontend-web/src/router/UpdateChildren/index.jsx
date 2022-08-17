@@ -50,7 +50,8 @@ function UpdateChildren() {
         setMemberID(res.data.memberID)
         // 생년월일, 입원일은 저장 불가
       })
-      .catch(err => console.log(err))
+      .catch((err) => {
+      })
 
       axios({
         url: drf.mycharacter.updateCharacter(childrenID),
@@ -94,7 +95,6 @@ function UpdateChildren() {
       }
     }).then((res) => {
     }).catch((err) => {
-      console.log(err)
     })
   }
 
@@ -110,7 +110,6 @@ function UpdateChildren() {
       }
     }).then((res) => {
     }).catch((err) => {
-      console.log(err)
     })
   }
 
