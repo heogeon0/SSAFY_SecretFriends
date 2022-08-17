@@ -163,9 +163,9 @@ function MyChats({ name, socket, setOpenChat, setAlarm }) {
     return dateString;
   }
   function getTime (day) {
-    var hours = ('0' + day.getHours()).slice(-2); 
+    var hours = ('0' + day.getHours()).slice(-2);
     var minutes = ('0' + day.getMinutes()).slice(-2);
-    var seconds = ('0' + day.getSeconds()).slice(-2); 
+    var seconds = ('0' + day.getSeconds()).slice(-2);
 
     if (hours >= 12) {
       var timeString = '오후 ' + hours + ':' + minutes;
