@@ -14,7 +14,7 @@ const CardBox = styled.div`
   @media ${props => props.theme.mobile} {
     width: 83vw;
     margin: 1vw 1vw 10vw 1vw;
-    height: 104vw;
+    height: 103vw;
   }
 `
 
@@ -35,8 +35,8 @@ const CardTitle = styled.div`
   font-weight: bold;
   text-align: center;
   @media ${props => props.theme.mobile} {
-    margin: 1.5vw 0 1.8vw;
-    font-size: 3.5vw;
+    margin: 1.8vw 0 1.8vw;
+    font-size: 3.7vw;
   }
 `
 

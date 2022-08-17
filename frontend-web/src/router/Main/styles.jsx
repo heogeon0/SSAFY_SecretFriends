@@ -6,10 +6,10 @@ export const Wrapper = styled.div`
   display: grid;
   grid-gap: 10px;
   grid-template-columns: 1fr;
-  grid-template-rows: minmax(350px, 1fr) 3fr;
+  grid-template-rows: minmax(380px, 1fr) 3fr;
   @media ${props => props.theme.mobile} {
     grid-gap: 20px;
-    grid-template-rows: minmax(150px, 1fr) 3fr;
+    grid-template-rows: minmax(120px, 1fr) 3fr;
     }
   p {
     display: flex;
