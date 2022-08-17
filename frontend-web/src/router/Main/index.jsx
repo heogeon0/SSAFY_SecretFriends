@@ -163,7 +163,7 @@ function Main() {
 
       socket.on("connect", function () {
         console.log("소켓 연결" + res.data.memberID);
-        const name = { memberID: 8 };
+        const name = { memberID: res.data.memberID };
         socket.emit("newUser", name);
       });
       console.log(socket);
