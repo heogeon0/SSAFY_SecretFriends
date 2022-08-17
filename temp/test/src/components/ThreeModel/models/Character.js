@@ -6,16 +6,17 @@ import React, { useEffect, useRef, useState } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 
+import webapi from "../../../apis/webapi";
 import iot from "../../../apis/iot";
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { childrenId, death, no, yes, wave } from "../../../atoms";
+import { childrenId, death, no, yes, wave, childrenName } from "../../../atoms";
 import { useNavigate } from "react-router-dom";
 
 const loginCon = (rn, id) => {
   const chats = {
-    0: `안녕 ${id}야. 나랑 놀고 싶다면 나를 눌러봐!  `,
-    1: `${id} 야 안녕!!  나를 눌러서 대화를 시작해보지 않을래?`,
+    0: `안녕 ${id}아. 나랑 놀고 싶다면 나를 눌러봐!  `,
+    1: `${id} 아 안녕!!  나를 눌러서 대화를 시작해보지 않을래?`,
     2: `${id} 아 또왔구나  정말 보고 싶었어!  나랑 또 재밌게  놀아보자!`,
   };
   if (rn == 0) return chats[0];
@@ -31,6 +32,8 @@ export default function Character({ ...props }) {
   const [hello, sethello] = useState(false);
   const [sayHi, setSayHi] = useState(false);
   const [id, setId] = useRecoilState(childrenId);
+  const [myName, setMyName] = useRecoilState(childrenName);
+
   const [deathm, setDeath] = useRecoilState(death);
   const [nom, setNo] = useRecoilState(no);
   const [yesm, setYes] = useRecoilState(yes);
@@ -48,17 +51,24 @@ export default function Character({ ...props }) {
 
     if (props.state === "stateLogin") {
       axios.get(iot.arduino()).then((res) => {
-        console.log(res);
-        axios.get(iot.login()).then(async ({ data }) => {
-          props.setReady((val) => !val);
-          console.log(data);
-          setId(data.id);
-          sethello(true);
-          await sleep(2);
-          const rn = Math.floor(Math.random() * 3);
-          axios
-            .get(iot.tts(loginCon(rn, data.id)))
-            .then((res) => console.log(res));
+        axios.get(iot.login()).then(({ data }) => {
+          axios.get(webapi.answers.info(data.id)).then(async (info) => {
+            console.log(info.data);
+            const childrenData = {
+              birthDay: `${info.data.birthDay}/${info.data.birthDay}`,
+              name: `${info.data.name}`,
+              nickname: info.data.nickname,
+              count: info.data.count,
+            };
+            setMyName(childrenData);
+            props.setReady((val) => !val);
+            setId(data.id);
+            sethello(true);
+            await sleep(1);
+
+            const rn = Math.floor(Math.random() * 3);
+            axios.get(iot.tts(loginCon(rn, info.data.nickname)));
+          });
         });
       });
     }
@@ -97,9 +107,9 @@ export default function Character({ ...props }) {
 
   useEffect(() => {
     console.log(actions);
-    actions.Yes.play();
+    actions?.Yes?.play();
     return () => {
-      actions.Wave.play();
+      actions?.Wave?.play();
     };
   }, [hello]);
 
@@ -108,9 +118,9 @@ export default function Character({ ...props }) {
       mounted.current = true;
     } else {
       actions.Yes.stop();
-      actions.Death.play();
+      actions?.Death?.play();
       sleep(1);
-      actions.Death.stop();
+      actions?.Death?.stop();
     }
   }, [deathm]);
   // useEffect(() => {
