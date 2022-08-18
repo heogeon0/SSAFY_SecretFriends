@@ -37,7 +37,7 @@ function Main() {
   const navigate = useNavigate();
 
   const takePhoto = () => {
-    axios.get(iot.camera()).then((res) => {
+    axios.get(iot.camera(id)).then((res) => {
       console.log(res);
     });
   };
