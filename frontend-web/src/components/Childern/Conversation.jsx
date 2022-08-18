@@ -51,6 +51,9 @@ const Grid = styled.div`
   grid-template-rows: 1fr 3fr;
   grid-template-columns: 1fr;
   grid-gap: 30px;
+  @media ${props => props.theme.mobile} {
+    grid-template-rows: 50px 3fr;
+  }
 
   .content {
     overflow-y: scroll;
