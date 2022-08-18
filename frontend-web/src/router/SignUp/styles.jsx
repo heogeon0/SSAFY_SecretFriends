@@ -5,7 +5,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  top: 50%;
+  top: 62%;
   left: 50%;
   padding: 20px;
   transform: translate(-50%, -50%);
@@ -16,6 +16,9 @@ const Wrapper = styled.div`
   background-color: ${(props) => props.theme.whiteColor};
   border-radius: 5px;
   box-shadow: 5px 5px 15px 0.5px #dcdde1;
+  @media ${props => props.theme.mobile} {
+    top: 50%;
+  }
   .title {
     position: absolute;
     padding: 15px 30px;
