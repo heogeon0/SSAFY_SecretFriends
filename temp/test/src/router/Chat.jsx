@@ -39,6 +39,7 @@ function Chat() {
       .then((res) => {
         setIsMic("red");
         axios.get(iot.stt()).then((res) => {
+          setIsMic(false);
           console.log(res.data.result);
           const messageToken = {
             ...name,
@@ -46,7 +47,6 @@ function Chat() {
           };
           console.log(messageToken);
           socket.emit("chat message", messageToken);
-          setTimeout(setIsMic(false), 5000);
         });
       });
   };
@@ -58,9 +58,7 @@ function Chat() {
 
     axios
       .get(
-        iot.tts(
-          "안녕 너랑 얘기해보고 싶어서 찾아왔어!     나한테 말하고 싶으면 아래 버튼을 누르고 말하면 돼!"
-        )
+        iot.tts("안녕!     나한테 말하고 싶으면 아래 버튼을 누르고 말하면 돼!")
       )
       .then((res) => {
         console.log(res);
@@ -175,7 +173,7 @@ function Chat() {
         ></div>
       </Button>
       <Button
-        onClick={() => navigtaion("/main")}
+        onClick={() => navigtaion("/mains")}
         bottom={"5%"}
         left={"35%"}
         width={"30%"}

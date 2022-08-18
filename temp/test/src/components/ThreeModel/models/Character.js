@@ -89,7 +89,7 @@ export default function Character({ ...props }) {
     return useFrame((state) => {
       group.current.position.x = group.current.position.x + 0.02;
       group.current.position.y = group.current.position.y + 0.01;
-      if (group.current.position.x > -3) sethello(false);
+      if (group.current.position.x > -4) sethello(false);
       // console.log(group.current);
     });
   }

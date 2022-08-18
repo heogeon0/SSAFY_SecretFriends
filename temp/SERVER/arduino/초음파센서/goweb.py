@@ -17,9 +17,10 @@ from urllib import parse
 #     baudrate=9600,
 # )
 if __name__ == '__main__':
-    print('good')
-    exit()
+
     while True:
+        print('s')
+        exit()
         if py_serial.readable():
             response = py_serial.readline()
             allStr = response[:len(response) - 1].decode()
