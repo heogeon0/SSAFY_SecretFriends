@@ -80,7 +80,7 @@ io.on("connection", (socket) => {
             console.log("push직후 " + clients);
             clients = [...new Set(clients.map(JSON.stringify))].map(JSON.parse);
             console.log("set 직후" + clients);
-            clients.filter(
+            clients = clients.filter(
               (arr, index, callback) => index === callback.findIndex(t => t.mid === arr.mid || t.cid === arr.cid)
             );
             // clients = clients.filter((character, idx, arr)=>{
@@ -152,7 +152,7 @@ io.on("connection", (socket) => {
           console.log("push직후 " + clients);
           clients = [...new Set(clients.map(JSON.stringify))].map(JSON.parse);
           console.log("set 직후" + clients);
-          clients.filter(
+          clients = clients.filter(
             (arr, index, callback) => index === callback.findIndex(t => t.mid === arr.mid || t.cid === arr.cid)
           );
           
