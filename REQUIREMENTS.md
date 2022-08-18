@@ -36,6 +36,14 @@ npm install cors
 
 #### 2. 사진촬영
 
+```bash
+npm install opencv-python
+npm install mediapipe
+npm install playsound
+npm install numpy
+npm install cvzone
+```
+
 #### 3. 얼굴인식
 
 1. 얼굴인식
