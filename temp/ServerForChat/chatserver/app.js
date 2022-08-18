@@ -77,9 +77,18 @@ io.on("connection", (socket) => {
             clientInfo.childrenID = element.childrenID;
             clientInfo.name = element.name;
             clients.push(clientInfo);
-            console.log(clients);
+            console.log("push직후 " + clients);
             clients = [...new Set(clients.map(JSON.stringify))].map(JSON.parse);
-            console.log(clients);
+            console.log("set 직후" + clients);
+            clients.reduce(function(acc, current) {
+              if (acc.findIndex(({ mid }) => mid === current.mid) === -1) {
+                acc.push(current);
+              }else if(acc.findIndex(({ cid }) => cid === current.cid) === -1) {
+                acc.push(current);
+              }
+              return acc;
+            }, []);
+            console.log("reduce 직후" + clients);
             // clients = clients.filter((character, idx, arr)=>{
             //   return arr.findIndex((item) => item.mid === character.mid || item.cid === character.cid) === idx
             // });
@@ -146,9 +155,18 @@ io.on("connection", (socket) => {
           });
           // console.log(clientInfo);
           clients.push(clientInfo);
-          console.log(clients);
+          console.log("push직후 " + clients);
           clients = [...new Set(clients.map(JSON.stringify))].map(JSON.parse);
-          console.log(clients);
+          console.log("set 직후" + clients);
+          clients.reduce(function(acc, current) {
+            if (acc.findIndex(({ mid }) => mid === current.mid) === -1) {
+              acc.push(current);
+            }else if(acc.findIndex(({ cid }) => cid === current.cid) === -1) {
+              acc.push(current);
+            }
+            return acc;
+          }, []);
+          console.log("reduce 직후" + clients);
           // clients = clients.filter((character, idx, arr)=>{
           //   return arr.findIndex((item) => item.mid === character.mid || item.cid === character.cid) === idx
           // });
