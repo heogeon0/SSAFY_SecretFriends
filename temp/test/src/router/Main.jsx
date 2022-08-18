@@ -43,10 +43,11 @@ function Main() {
   };
   const count = info.count;
   const LogOut = () => {
-    axios.get(iot.tts(""));
-    setId("");
-    setInfo({});
-    navigate("/");
+    axios.get(iot.tts("잘가! 다음에 또 보자!"));
+    window.location.reload();
+    // setId("");
+    // setInfo({});
+    // navigate("/");
   };
 
   const helloChats = [
@@ -150,7 +151,7 @@ function Main() {
 
     const basicChats = setBasicChats(name);
 
-    axios.get(webapi.answers.answer(7)).then((res) => {
+    axios.get(webapi.answers.answer(id)).then((res) => {
       const newChats = [];
       for (let i = 0; i < res.data.length; i++) {
         if (!res.data[i].isUsed) {
@@ -212,7 +213,12 @@ function Main() {
           </Physics>
         </RecoilBridge>
       </Canvas>
-      <Button bottom={"5%"} left={"10%"} onClick={() => navigate("/chat")}>
+      <Button
+        fontSize={"30px"}
+        bottom={"5%"}
+        left={"10%"}
+        onClick={() => navigate("/chat")}
+      >
         <div className="flex_container">
           <div
             className="img"
@@ -221,7 +227,12 @@ function Main() {
           <div className="content">친구와 함께 대화하기</div>
         </div>
       </Button>
-      <Button bottom={"5%"} left={"55%"} onClick={() => takePhoto()}>
+      <Button
+        fontSize={"30px"}
+        bottom={"5%"}
+        left={"55%"}
+        onClick={() => takePhoto()}
+      >
         <div className="flex_container">
           <div
             className="img"
@@ -231,11 +242,12 @@ function Main() {
         </div>
       </Button>
       <Button
-        bottom={"12%"}
+        bottom={"18%"}
         left={"75%"}
         width={"15%"}
         height={"60px"}
         onClick={LogOut}
+        fontSize={"30px"}
       >
         종료
       </Button>

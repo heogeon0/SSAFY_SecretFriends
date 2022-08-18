@@ -3,7 +3,8 @@ const HOST = "http://localhost:8000/";
 
 export default {
   tts: (text) => HOST + `tts?word=${text}`,
-  camera: () => HOST + "camera",
+  camera: (childrenId) =>
+    HOST + `camera?id=${childrenId}?email=heo3793@naver.com`,
   login: () => HOST + "login",
   arduino: () => HOST + "arduino",
   stt: () => HOST + "stt",
