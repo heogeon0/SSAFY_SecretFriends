@@ -78,6 +78,10 @@ io.on("connection", (socket) => {
             clientInfo.name = element.name;
             clients.push(clientInfo);
             clients = [...new Set(clients.map(JSON.stringify))].map(JSON.parse);
+            clients = clients.filter((character, idx, arr)=>{
+              return arr.findIndex((item) => item.mid === character.mid || item.cid === character.cid) === idx
+            });
+            
             console.log(clients);
             // _.uniqBy(clients, "id");
             // console.log(clientInfo);
@@ -141,6 +145,10 @@ io.on("connection", (socket) => {
           // console.log(clientInfo);
           clients.push(clientInfo);
           clients = [...new Set(clients.map(JSON.stringify))].map(JSON.parse);
+          clients = clients.filter((character, idx, arr)=>{
+            return arr.findIndex((item) => item.mid === character.mid || item.cid === character.cid) === idx
+          });
+          
           clients.forEach((element2) => {
             if (id.childrenID == element2.childrenID) {
               socket.to(element2.id).emit("newUser", {
