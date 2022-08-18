@@ -69,7 +69,7 @@ function CreateChildren() {
   const handleImageUpload = async (childrenID) => {
     try {
       setUploading(true);
-      const storageRef = ref(storage, `images/${childrenID}`);
+      const storageRef = ref(storage, `images/${childrenID}.jpg`);
       await uploadBytes(storageRef, face)
       alert("업로드 완료");
     } catch (err) {
