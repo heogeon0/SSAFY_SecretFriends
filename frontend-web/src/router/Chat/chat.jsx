@@ -81,7 +81,7 @@ function Chat({ socket, id }) {
               setOpenChat((val) => !val);
             }}
           ></Circle>
-          { !isActive 
+          { isActive 
           ? <>
               <RedCircle></RedCircle>
               <WhiteCircle></WhiteCircle>

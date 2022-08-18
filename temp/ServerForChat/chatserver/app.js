@@ -134,17 +134,20 @@ io.on("connection", (socket) => {
             clientInfo.memberID = element.memberID;
             clientInfo.name = element.name;
             // console.log(element.name + "님이 접속했습니다.");
-            clients.forEach((element2) => {
-              if (id.childrenID == element2.childrenID) {
-                socket.to(element2.id).emit("newUser", {
-                  message: `${element.name}님이 접속했습니다.`,
-                });
-              }
-            });
+
+
+            
           });
           // console.log(clientInfo);
           clients.push(clientInfo);
           clients = [...new Set(clients.map(JSON.stringify))].map(JSON.parse);
+          clients.forEach((element2) => {
+            if (id.childrenID == element2.childrenID) {
+              socket.to(element2.id).emit("newUser", {
+                message: `${clientInfo.name}님이 접속했습니다.`,
+              });
+            }
+          });
           console.log(clients);
           // _.uniqBy(clients, "id");
           clientInfo = new Object();

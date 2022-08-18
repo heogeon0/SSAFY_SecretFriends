@@ -23,7 +23,7 @@ if __name__ == '__main__':
             allStr = response[:len(response) - 1].decode()
             check = allStr[0:7]
 
-            if check == 'Sensor1' and int(float(allStr[-3:])) < int(20):
+            if check == 'Sensor1' and int(float(allStr[-3:])) < int(30):
                 # print(response[:len(response) - 1].decode())
                 # print(int(float(allStr[-3:])))
                 # req = requests.get(url)
@@ -33,9 +33,9 @@ if __name__ == '__main__':
                 print('good')
                 exit()
 
-            elif check == "Sensor1" and int(float(allStr[-3:])) > int(50) and int(float(allStr[-3:])) < int(200):
-                # req = requests.get(url2)
-                print('good')
-                exit()
+            # elif check == "Sensor1" and int(float(allStr[-3:])) > int(50) and int(float(allStr[-3:])) < int(200):
+            #     # req = requests.get(url2)
+            #     print('good')
+            #     exit()
                 
             print(response[:len(response) - 1].decode())
