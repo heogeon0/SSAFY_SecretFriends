@@ -57,8 +57,8 @@ class FaceRecog():
                 self.known_face_names.append(name)
                 pathname = os.path.join(dirname, filename)
                 img = face_recognition.load_image_file(pathname)
-                if face_recognition.face_encodings(img):
-                    face_encoding = face_recognition.face_encodings(img)[0]
+       
+                face_encoding = face_recognition.face_encodings(img)[0]
                 self.known_face_encodings.append(face_encoding)
 
         # Initialize some variables
