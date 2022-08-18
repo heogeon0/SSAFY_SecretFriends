@@ -54,7 +54,7 @@ export default function Character({ ...props }) {
   const mounted = useRef(false);
   useEffect(() => {
     if (props.state === "stateMain") {
-      return;
+      setYes(true);
     }
 
     if (props.state === "stateLogin") {
@@ -131,13 +131,13 @@ export default function Character({ ...props }) {
       actions?.Death?.stop();
     }
   }, [deathm]);
-  // useEffect(() => {
-  //   if (!mounted.current) {
-  //     mounted.current = true;
-  //   } else {
-  //     actions.No.play();
-  //   }
-  // }, [nom]);
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
+      actions?.Yes?.play();
+    }
+  }, [yes]);
 
   return (
     <group ref={group} {...props} dispose={null} onClick={onClick} scale={1}>

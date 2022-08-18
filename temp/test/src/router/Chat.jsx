@@ -10,49 +10,62 @@ import {
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import axios from "axios";
 import { Suspense, useEffect, useRef, useState } from "react";
-import { useRecoilBridgeAcrossReactRoots_UNSTABLE } from "recoil";
+import {
+  useRecoilBridgeAcrossReactRoots_UNSTABLE,
+  useRecoilValue,
+} from "recoil";
 import { io } from "socket.io-client";
 import iot from "../apis/iot";
 import * as THREE from "three";
 
+import { useNavigate } from "react-router-dom";
 import { Button } from "../components/Items/items";
 
 import Bee from "../components/ThreeModel/models/Bee";
-
-const socket = io.connect("https://i7d208.p.ssafy.io:4000");
+import { childrenId } from "../atoms";
 
 function Chat() {
+  const socket = io.connect("https://i7d208.p.ssafy.io:4000");
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
   const [chat, setChat] = useState("");
   const [readySTT, setReadyStt] = useState("");
-  const name = { childrenID: 5 };
+  const [isMic, setIsMic] = useState("white");
+  const childrenID = useRecoilValue(childrenId);
+  const name = { childrenID: childrenID };
+  const navigtaion = useNavigate();
   const goStt = () => {
-    axios.get(iot.stt()).then((res) => {
-      console.log(res.data.result);
-      const messageToken = {
-        ...name,
-        message: res.data.result,
-      };
-      console.log(messageToken);
-      socket.emit("chat message", messageToken);
-    });
+    axios
+      .get(iot.tts("지금이야! 지금 나한테 하고싶은 말을 해줘!"))
+      .then((res) => {
+        setIsMic("red");
+        axios.get(iot.stt()).then((res) => {
+          console.log(res.data.result);
+          const messageToken = {
+            ...name,
+            message: res.data.result,
+          };
+          console.log(messageToken);
+          socket.emit("chat message", messageToken);
+          setTimeout(setIsMic(false), 5000);
+        });
+      });
   };
   useEffect(() => {
     socket.on("connect", function () {
-      console.log("소켓이 바뀝니다" + name);
+      console.log("소켓이 바뀝니다" + name.childrenID);
       socket.emit("newUser", name);
     });
 
-    // axios
-    //   .get(
-    //     iot.tts(
-    //       "안녕 너랑 얘기해보고 싶어서 찾아왔어!     나한테 말하고 싶으면 아래 버튼을 누르고 말하면 돼!"
-    //     )
-    //   )
-    //   .then((res) => {
-    //     console.log(res);
-    //   });
-  });
+    axios
+      .get(
+        iot.tts(
+          "안녕 너랑 얘기해보고 싶어서 찾아왔어!     나한테 말하고 싶으면 아래 버튼을 누르고 말하면 돼!"
+        )
+      )
+      .then((res) => {
+        console.log(res);
+      });
+  }, []);
   useEffect(() => {
     // socket.on("newUser", (msg) => {
     //   setChat([...chat, msg]);
@@ -100,6 +113,7 @@ function Chat() {
       />
     );
   }
+
   return (
     <>
       <Canvas
@@ -148,16 +162,27 @@ function Chat() {
       </Canvas>
 
       <Button
-        bottom={"12%"}
+        bottom={"15%"}
         left={"42%"}
         width={"15%"}
         height={"60px"}
         onClick={goStt}
+        isMic={isMic}
       >
         <div
           className="img"
           style={{ backgroundImage: "url('/icon/voice.png')" }}
         ></div>
+      </Button>
+      <Button
+        onClick={() => navigtaion("/main")}
+        bottom={"5%"}
+        left={"35%"}
+        width={"30%"}
+        height={"5%"}
+        fontSize={"30px"}
+      >
+        나가기
       </Button>
     </>
   );

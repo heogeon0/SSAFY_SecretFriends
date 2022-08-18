@@ -103,7 +103,7 @@ function MyChats({ name, socket, setOpenChat, setAlarm, setIsActive }) {
     // 수정해야할 부분
     const messageToken_1 = {
       // memberId 를 다른 키로
-      memberID: 8,
+      memberID: memberID,
       message: message,
     };
     const messageToken = {
@@ -131,7 +131,7 @@ function MyChats({ name, socket, setOpenChat, setAlarm, setIsActive }) {
       setChat((val) => [...val, messageToken]);
       // 아이 소켓 접속여부 확인
       setAlarm("#f37e91");
-      setIsActive(true)
+      setIsActive(true);
     });
     socket.on("chat message", (msg) => {
       const messageToken = {
@@ -151,7 +151,7 @@ function MyChats({ name, socket, setOpenChat, setAlarm, setIsActive }) {
       };
       setChat((val) => [...val, messageToken]);
       setAlarm("white");
-      setIsActive(false)
+      setIsActive(false);
     });
   }, []);
 
@@ -173,7 +173,7 @@ function MyChats({ name, socket, setOpenChat, setAlarm, setIsActive }) {
     var minutes = ("0" + day.getMinutes()).slice(-2);
 
     if (hours >= 12) {
-      var timeString = "오후 " + (hours-12) + ":" + minutes;
+      var timeString = "오후 " + (hours - 12) + ":" + minutes;
     } else {
       var timeString = "오전 " + hours + ":" + minutes;
     }
