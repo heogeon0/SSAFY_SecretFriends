@@ -201,12 +201,13 @@ io.on("connection", (socket) => {
                 .emit("chat message", { type: 1, message: msg.message });
             }
           });
-        } else if (element.cid == msg.childrenID) {
-          console.log(clients);
-          socket
-            .to(element.id)
-            .emit("chat message", { type: 1, message: msg.message });
-        }
+        } 
+        // else if (element.cid == msg.childrenID) {
+        //   console.log(clients);
+        //   socket
+        //     .to(element.id)
+        //     .emit("chat message", { type: 1, message: msg.message });
+        // }
       });
     }
 
