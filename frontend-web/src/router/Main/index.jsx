@@ -106,9 +106,9 @@ const LinkTag = styled(Link)`
 
 // 소켓연결
 // const socket = io.connect("http://3.35.238.205:4000");
-const socket = io.connect("https://i7d208.p.ssafy.io:4000");
 
 function Main() {
+  const socket = io.connect("https://i7d208.p.ssafy.io:4000");
   // page scroll button
   const pageTop = {
     position: "fixed",
@@ -318,7 +318,7 @@ function Main() {
       <Wrapper>
         <div className="head">
           <CarouselGrid>
-            <FlexRow style={{marginTop: "2vw"}}>
+            <FlexRow style={{ marginTop: "2vw" }}>
               {childrens.length !== 1 && currentSlide !== 0 ? (
                 <Icon
                   onClick={goPrev}
