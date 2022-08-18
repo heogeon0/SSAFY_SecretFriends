@@ -171,6 +171,7 @@ io.on("connection", (socket) => {
   socket.on("chat message", (msg) => {
     //부모라면?
     if (msg && msg.memberID) {
+      console.log(clients);
       clients.forEach((element) => {
         if (element.memberID == msg.memberID) {
           clients.forEach((element2) => {
