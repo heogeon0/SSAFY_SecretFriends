@@ -14,22 +14,23 @@ export const Button = styled.div`
   justify-content: center;
   font-family: "yg-jalnan";
   align-items: center;
-  font-size: 40px;
+  font-size: ${(props) => props.fontSize || "50%"};
   position: absolute;
   bottom: ${(props) => props.bottom || "50%"};
   left: ${(props) => props.left || "50%"};
   border-radius: 20px;
   width: ${(props) => props.width || "35%"};
   height: ${(props) => props.height || "130px"};
-  background-color: #f5f6fa;
+  animation: ${(props) =>
+    props.isMic || "${jumpHover} 0.3s infinite linear alternate"};
+
   box-shadow: 10px 10px 10px 0px #7f8fa6;
 
+  background-color: ${(props) => props.isMic || "white"};
   transition-duration: 3s;
   transition: all 0.3s ease-out;
   :hover {
     cursor: pointer;
-    animation: ${jumpHover} 0.3s infinite linear alternate;
-    background-color: #f5f6fa;
   }
   .flex_container {
     display: flex;

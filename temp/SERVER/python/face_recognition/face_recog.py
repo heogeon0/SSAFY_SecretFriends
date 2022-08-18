@@ -44,7 +44,7 @@ class FaceRecog():
                     if file.name == "images/":
                         continue
 
-                    storage.child(file.name).download(file.name, "c:/Users/multicampus/Desktop/MyGit/PJT/New/S07P12D208/temp/SERVER/python/face_recognition/faces/" + os.path.basename(file.name) + '.jpg') 
+                    storage.child(file.name).download(file.name, "c:/Users/multicampus/Desktop/MyGit/PJT/New/S07P12D208/temp/SERVER/python/face_recognition/faces/" + os.path.basename(file.name)) 
             except:
                 print('Download Failed')
 

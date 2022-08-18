@@ -12,11 +12,13 @@ from urllib import parse
 # url2 = ('http://localhost:8000/tts?word='+word2)
 # chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
 
-py_serial = serial.Serial(
-    port='COM3',
-    baudrate=9600,
-)
+# py_serial = serial.Serial(
+#     port='COM3',
+#     baudrate=9600,
+# )
 if __name__ == '__main__':
+    print('good')
+    exit()
     while True:
         if py_serial.readable():
             response = py_serial.readline()
