@@ -42,7 +42,7 @@ io.on("connection", (socket) => {
   socket.on("newUser", function (id) {
     // console.log(typeof id);
     //memberID : 번호 or childrenID : 번호 json형태로받자
-    var clientInfo = new Object();
+    var clientInfo = {};
     // console.log(clients);
 
     //들어온 사람이 부모님이면
@@ -101,7 +101,7 @@ io.on("connection", (socket) => {
                 });
               }
             }
-            clientInfo = new Object();
+            clientInfo = {};
           });
         }
       );
@@ -169,7 +169,7 @@ io.on("connection", (socket) => {
           });
           console.log(clients);
           // _.uniqBy(clients, "id");
-          clientInfo = new Object();
+          clientInfo = {};
         }
       );
 
