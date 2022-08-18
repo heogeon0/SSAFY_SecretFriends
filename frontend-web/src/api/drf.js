@@ -1,5 +1,5 @@
-// const HOST = 'mybuddy/' // server
-const HOST = "https://i7d208.p.ssafy.io/mybuddy/"; // local
+// const HOST = 'localhost:9999/mybuddy/' // local
+const HOST = "https://i7d208.p.ssafy.io/mybuddy/"; // server
 
 const MEMBER = "member/";
 const CHARACTER = "character";
