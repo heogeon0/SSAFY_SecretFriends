@@ -5,7 +5,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  top: 60%;
+  top: 50%;
   left: 50%;
   padding: 20px;
   transform: translate(-50%, -50%);
