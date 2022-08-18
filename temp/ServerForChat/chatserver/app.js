@@ -77,10 +77,12 @@ io.on("connection", (socket) => {
             clientInfo.childrenID = element.childrenID;
             clientInfo.name = element.name;
             clients.push(clientInfo);
+            console.log(clients);
             clients = [...new Set(clients.map(JSON.stringify))].map(JSON.parse);
-            clients = clients.filter((character, idx, arr)=>{
-              return arr.findIndex((item) => item.mid === character.mid || item.cid === character.cid) === idx
-            });
+            console.log(clients);
+            // clients = clients.filter((character, idx, arr)=>{
+            //   return arr.findIndex((item) => item.mid === character.mid || item.cid === character.cid) === idx
+            // });
             
             console.log(clients);
             // _.uniqBy(clients, "id");
@@ -144,10 +146,12 @@ io.on("connection", (socket) => {
           });
           // console.log(clientInfo);
           clients.push(clientInfo);
+          console.log(clients);
           clients = [...new Set(clients.map(JSON.stringify))].map(JSON.parse);
-          clients = clients.filter((character, idx, arr)=>{
-            return arr.findIndex((item) => item.mid === character.mid || item.cid === character.cid) === idx
-          });
+          console.log(clients);
+          // clients = clients.filter((character, idx, arr)=>{
+          //   return arr.findIndex((item) => item.mid === character.mid || item.cid === character.cid) === idx
+          // });
           
           clients.forEach((element2) => {
             if (id.childrenID == element2.childrenID) {
