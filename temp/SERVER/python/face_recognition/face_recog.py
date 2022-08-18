@@ -39,12 +39,12 @@ class FaceRecog():
         for file in all_files:
 
             try:
-                if "knowns" in file.name:
+                if "images" in file.name:
                     #print(file.name)
-                    if file.name == "knowns/":
+                    if file.name == "images/":
                         continue
 
-                    storage.child(file.name).download(file.name, "c:/Users/multicampus/Desktop/MyGit/PJT/New/S07P12D208/temp/SERVER/python/face_recognition/faces/" + os.path.basename(file.name))
+                    storage.child(file.name).download(file.name, "c:/Users/multicampus/Desktop/MyGit/PJT/New/S07P12D208/temp/SERVER/python/face_recognition/faces/" + os.path.basename(file.name) + '.jpg') 
             except:
                 print('Download Failed')
 
