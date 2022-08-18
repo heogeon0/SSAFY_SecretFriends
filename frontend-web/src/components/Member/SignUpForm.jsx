@@ -5,6 +5,7 @@ import drf from "../../api/drf";
 
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 
 const ERROR = styled.div`
@@ -91,12 +92,27 @@ function SignupForm({
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (phoneNumber.length === 10) {
+      setPhoneNumber(phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
+    }
+    if (phoneNumber.length === 13) {
+      setPhoneNumber(phoneNumber.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
+    }
+  }, [phoneNumber]);
+
+
+
   function ChangeName(event) {
     setName(event.target.value)
   }
 
   function ChangePhoneNumber(event) {
-    setPhoneNumber(event.target.value)
+    const regex = /^[0-9\b -]{0,13}$/;
+    if (regex.test(event.target.value)) {
+      setPhoneNumber(event.target.value);
+    }
+    // setPhoneNumber(event.target.value)
   }
 
   function onSubmit({name, phoneNumber, password, email}) {

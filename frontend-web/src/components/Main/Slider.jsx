@@ -44,7 +44,7 @@ function Slider({ check, child, idx }) {
 
   useEffect(() => {
     setIsLoading(true)
-    const storageRef = ref(storage, `images/${child.childrenID}`);
+    const storageRef = ref(storage, `images/${child.childrenID}.jpg`);
       getDownloadURL(storageRef).then((url) => {
         setURL(url)
         setIsLoading(false)
