@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.mybuddy.mapper.MemberMapper">
+
+    <insert id="insertMember" parameterType="memberDto">
+        insert into member(name, phoneNumber, email, password, isSuperuser)
+        values (#{name}, #{phoneNumber}, #{email}, #{password}, 0)
+    </insert>
+
+    <select id="login" parameterType="memberDto" resultType="memberDto">
+        select memberID, name, email, password, isSuperuser, phoneNumber
+        from member
+        where email=#{email} and password=#{password}
+    </select>
+
+    <!-- 모든 회원의 정보를 반환 -->
+    <select id="retrieveMember" resultType="memberDto">
+        select memberID, name,
+               phoneNumber, email, password, isSuperuser
+        from member;
+    </select>
+
+    <!-- 특정 회원의 정보를 반환 -->
+    <select id="selectMember" parameterType="int" resultType="memberDto">
+        select memberID, name, phoneNumber, email, password, isSuperuser
+        from member where memberID = #{memberID}
+    </select>
+
+    <select id="selectMemberByEmail" parameterType="string" resultType="memberDto">
+        select memberID, name, phoneNumber, email, password, isSuperuser
+        from member where email = #{memberEmail}
+    </select>
+
+    <!-- 회원 삭제 -->
+    <delete id="deleteMember" parameterType="int">
+        delete from member
+        where
+            memberID = #{memberID}
+    </delete>
+
+    <select id="selectEmail" parameterType="string" resultType="int">
+        select
+            count(*)
+        from member
+        where email = #{email}
+    </select>
+
+    <update id="updateMember" parameterType="memberDto">
+        update member
+        set name=#{name}, phoneNumber=#{phoneNumber}
+        where memberID = #{memberID}
+    </update>
+
+    <select id="selectEmailByChildrenId" parameterType="int" resultType="string">
+        SELECT member.email
+        FROM member INNER JOIN children
+        ON member.memberID = children.memberID
+        WHERE childrenID = #{childrenID};
+    </select>
+
+</mapper>

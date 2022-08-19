@@ -1,26 +1,43 @@
 import styled from "styled-components";
 
-import { useState } from "react";
 import CardModal from "./CardModal";
+import { useState } from "react";
+
 
 const CardBox = styled.div`
-  width: 1fr;
-  /* border: solid black 1px; */
+  /* width: 100%; */
+  height: 39vw;
+  margin: 1vw 2vw;
   border-radius: 5px;
-  margin: 1rem;
-  box-shadow: 2px 2px 2px gray;
+  box-shadow: 2px 2px 2px #b3b3b3;
   overflow: hidden;
-`
-
-const CardTitle = styled.div`
-  /* 상, 우, 하, 좌 */
-  margin: 1rem 0.5rem 0 0.5rem;
-  font-size: 24px;
-  font-weight: bold;
+  @media ${props => props.theme.mobile} {
+    width: 83vw;
+    margin: 1vw 1vw 10vw 1vw;
+    height: 103vw;
+  }
 `
 
 const CardImg = styled.img`
   width: 100%;
+  height: 26vw;
+  object-fit: cover;
+  @media ${props => props.theme.mobile} {
+    height: 80vw;
+  }
+`
+
+const CardTitle = styled.div`
+  /* 상, 우, 하, 좌 */
+  font-family: ${props => props.theme.pretendard};
+  margin: 1vw 0 1.2vw;
+  font-size: 2.3vw;
+  font-weight: bold;
+  text-align: center;
+  @media ${props => props.theme.mobile} {
+    margin: 1.8vw 0 1.8vw;
+    font-size: 3.7vw;
+  }
 `
 
 const CardText = styled.div`
@@ -29,23 +46,38 @@ const CardText = styled.div`
   word-wrap: break-word;
   text-overflow: ellipsis;
   overflow: hidden;
-  -webkit-line-clamp: 2;
-  margin: 0.5rem 1rem 1rem 1rem;
+  -webkit-line-clamp: 3;
+  font-size: 1.4vw;
+  line-height: 1.5vw;
+  margin: 1vw 1.5vw 0.5vw 1.5vw;
   font-weight: lighter;
+  font-family: ${props => props.theme.pretendard};
   text-overflow: ellipsis;
+  /* line-height: 1.6vw; */
+  @media ${props => props.theme.mobile} {
+    font-size: 2.1vw;
+    line-height: 2.8vw;
+    margin: 1.5vw 2vw;
+  }
 `
 
 const Button = styled.button`
+  float: right;
+  font-size: 1.5vw;
+  font-family: ${props => props.theme.pretendard};
   font-weight: bold;
-  font-size: large;
   border: none;
-  background-color: "#e0e0e00";
-  border-radius: 10px;
-  margin: 0 0.5rem 1rem 0.5rem;
+  color: gray;
+  background-color: white;
+  margin: 0.3vw 1vw 1vw 1vw;
   :hover {
     cursor: pointer;
-    background-color: black;
-    color: white;
+    text-decoration: underline;
+  }
+  
+  @media ${props => props.theme.mobile} {
+    font-size: 2.3vw;
+    margin: 0 1vw 1vw 1vw;
   }
 `
 
@@ -59,9 +91,9 @@ function Card ({item}) {
           <CardImg src={item.imgSrc} alt={item.altSrc}></CardImg>
           <CardTitle>{item.title}</CardTitle>
           <CardText>{item.description}</CardText>
-          <Button clasdsName="blueBtn" onClick={() => setClose(!close)}>더보기</Button>
+          <Button onClick={() => setClose(!close)}>더보기</Button>
           { close && (
-            <CardModal closeModal={() => setClose(!close)} childern={"abc"}/>
+            <CardModal closeModal={() => setClose(!close)} item={item}/>
           )}
         </div>
       </CardBox>

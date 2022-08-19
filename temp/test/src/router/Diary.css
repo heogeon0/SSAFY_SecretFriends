@@ -1,0 +1,63 @@
+.canvas-container {
+    /* border: 2px solid #000; */
+    /* margin-top: 30px; */
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 45%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.color-btn {
+    width: 30px;
+    height: 30px;
+    border : none;
+    border-radius: 50%;
+}
+.color-btn[data-color="black"]{
+    background: #2c2c2c;
+}
+.color-btn[data-color="red"]{
+    background: #ff3b30;
+}
+.color-btn[data-color="orange"]{
+    background: #ff9500;
+}
+.color-btn[data-color="yellow"]{
+    background: #ffcc00;
+}
+.color-btn[data-color="green"]{
+    background: #4cd963;
+}
+.color-btn[data-color="sky"]{
+    background: #5ac8fa;
+}
+.color-btn[data-color="blue"]{
+    background: #0579ff;
+}
+.color-btn[data-color="violet"]{
+    background: #5856d6;
+}
+.control {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 87%;
+    left: 50%;
+    /* margin-top: 20px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.controlBtn {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 90%;
+    left: 50%;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30%;
+}

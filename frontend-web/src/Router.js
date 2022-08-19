@@ -1,24 +1,17 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import NavBar from "./components/Home/NavBar";
+import Footer from "./components/Home/Footer";
 
-// router
-import SignUp from "./router/SignUp";
-import Login from "./router/Login";
-import Intro from "./router/Intro";
-import Main from "./router/Main";
-import CreateChildern from "./router/CreateChildern/Index";
+import AnimationRouter from "./AnimationRouter";
+
 
 function Router() {
   return (
     <div>
       <BrowserRouter>
-        <Routes>
-          {/* <Route path="/"></Route> */}
-          <Route path="/signup" element={<SignUp />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/" element={<Intro />}></Route>
-          <Route path="/main" element={<Main />}></Route>
-          <Route path="/createChildern" element={<CreateChildern />}></Route>
-        </Routes>
+        <NavBar />
+        <AnimationRouter />
+        <Footer />
       </BrowserRouter>
     </div>
   );

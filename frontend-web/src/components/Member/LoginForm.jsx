@@ -1,71 +1,143 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import AccountErrorList from "./AccountErrorList";
 
-const ButtonWrap = styled.div``;
+import axios from "axios";
+import drf from "../../api/drf";
+
+import { Link, useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { useForm } from "react-hook-form";
+import { Token } from "../../atom";
+
+
+const ERROR = styled.div`
+  text-align: center;
+  font-size: min(2vw, 1rem);
+  font-family: ${(props) => props.theme.standardFont};
+  color: #c23616;
+  margin-bottom: min(2vw, 1rem);
+`;
+
+const ButtonWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 const Form = styled.form`
-  width: 95%;
-  max-width: 500px;
-  margin-bottom: 5%; // 버튼 추가시 수정 필요
-  font-family: ${(props) => props.theme.namingFont};
-  div {
-    display: grid;
-    grid-template-columns: minmax(90px, 1fr) 10fr;
-    margin: 10px;
-    gap: 10px;
-    label {
-      text-align: right;
-      line-height: 40px;
-    }
-    input {
-      background-color: ${(props) => props.theme.yellowColor};
-      height: 40px;
-      background: linear-gradient(
-        ${(props) => props.theme.yellowColor},
-        ${(props) => props.theme.grayColor}
-      );
-      border: ${(props) => props.theme.yellowColor} 1px solid;
+  display : flex;
+  flex-direction: column;
+  font-family: ${(props) => props.theme.pretendard};
+  padding: 2vw;
+  margin-bottom: 1vw;
+  .flex-box {
+    display: flex;
+    flex-direction: column;
+  }
+  .input {
+    background-color: ${(props) => props.theme.grayColor};
+    border: ${(props) => props.theme.grayColor} 1px solid;
+    height: 2.5rem;
+    margin-bottom: 1rem;
+    padding: 10px;
+    border-radius: 5px;
+    @media ${props => props.theme.mobile} {
+      height: 1.6rem;
+    };
+  }
+  .label {
+    text-align: left;
+    line-height: 2vw;
+    font-size: min(3vw, 1rem);
+    margin-bottom: 5px;
+    @media ${props => props.theme.mobile} {
+      margin-bottom: 5px;
     }
   }
+
   ${ButtonWrap} {
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-    width: 95%;
-    margin-right: 0px;
     button {
-      font-family: ${(props) => props.theme.namingFont};
-      width: 80px;
-      height: 25px;
+      font-size: min(3vw, 1rem);
+      font-family: ${(props) => props.theme.pretendard};
+      width: 22vw;
+      max-width: 8.5rem;
+      height: 1.8rem;
+      border: none;
+      background-color: ${(props) => props.theme.grayColor};
+      border-radius: 1rem;
       :hover {
         cursor: pointer;
+      }
+      @media ${(props) => props.theme.mobile} {
+        width: 25vw;
+        height: 6vw;
       }
     }
   }
 `;
 
 function LoginForm() {
+  const setToken = useSetRecoilState(Token);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const navigate = useNavigate();
+
+  function onSubmit(data) {
+    axios.post(
+      drf.member.login(),
+      {
+        email: data.email,
+        password: data.password,
+      },
+      )
+      .then((res) => {
+        const accessToken = res.data.token;
+        axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
+        localStorage.setItem("token", accessToken)
+        setToken(accessToken)
+        navigate("/")
+      })
+      .catch((err) => {
+        alert('잘못된 정보입니다.')
+      })
+    }
+
   return (
     <>
-      <AccountErrorList />
-
-      <Form>
-        <div>
-          <label htmlFor="email">E-Mail : </label>
-          <input id="email" type="text" />
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex-box">
+          <label className="label" htmlFor="email">이메일</label>
+          <input className="input"
+            {...register("email", {
+              required: "E-mail을 입력해주세요",
+              pattern: {
+                value:
+                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                message: "E-mail 양식을 확인해 주세요",
+              },
+            })}
+            type="text"
+          />
         </div>
-        <div>
-          <label htmlFor="password">Password : </label>
-          <input id="password" type="password" />
+        <div className="flex-box">
+          <label className="label" htmlFor="password">비밀번호</label>
+          <input className="input"
+            {...register("password", {
+              required: "비밀번호를 입력해주세요",
+            })}
+            type="password"
+          />
         </div>
+        <ERROR>{errors?.email?.message || errors?.password?.message}</ERROR>
         <ButtonWrap>
-          <Link to="/main">
-            <button>로그인</button>
-          </Link>
-          <Link to="/signup">
-            <button>회원가입</button>
-          </Link>
+          <button style={{margin: "min(0.4vw, 1rem)"}}>로그인</button>
+          <div style={{fontSize: "min(3vw, 1rem)", margin: "min(0.4vw, 1rem)"}}>or</div>
+          <Link style={{color: "black", fontSize: "min(3vw, 1rem)", margin: "min(0.4vw, 1rem)"}} to="/signup">계정이 없으신가요?</Link>
         </ButtonWrap>
       </Form>
     </>

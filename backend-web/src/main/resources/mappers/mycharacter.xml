@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.mybuddy.mapper.MyCharactermapper">
+    <insert id="insertMyCharacter" parameterType="MycharacterDto">
+        insert into mycharacter (nickname, characterID, childrenID)
+        values (#{nickname},#{characterID},#{childrenID})
+    </insert>
+
+    <update id="updateMyCharacter" parameterType="MycharacterDto">
+        update mycharacter
+        set
+            nickname = #{nickname},
+            characterID = #{characterID}
+        where childrenID = #{childrenID}
+    </update>
+
+    <delete id="deleteMyCharacter" parameterType="int">
+        delete
+        from mycharacter
+        where childrenID = #{childrenID}
+    </delete>
+
+    <select id="selectMyCharacter" resultType="MycharacterDto">
+        select myCharacterID, nickname, characterID, childrenID
+        from mycharacter
+        where childrenID = #{childrenID}
+    </select>
+
+</mapper>

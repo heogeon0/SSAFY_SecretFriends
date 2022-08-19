@@ -5,7 +5,8 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
 
   body {
-    background-color: #F6EABD;
+    /* background-image: url("img/background/pastel1.jpg"); */
+    /* background-color: #F6EABD; */
   }
 
   * {
