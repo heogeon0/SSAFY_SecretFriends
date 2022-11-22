@@ -320,9 +320,6 @@
 - 회의록(https://www.notion.so/8296bb2a520e4d26ad0825c6361791e8)
 - 기획안(https://www.notion.so/0fb44cd880ca438595a4946b5d33fb82)
 - 회고(https://www.notion.so/25689111faec4a8a892cf8439cb4686e)
-- 포팅 매뉴얼(https://lab.ssafy.com/s07-webmobile3-sub2/S07P12D208/-/blob/master/exec/공통PJT_구미2반_D208_포팅메뉴얼.pdf)
-- 시연 시나리오(https://lab.ssafy.com/s07-webmobile3-sub2/S07P12D208/-/blob/master/exec/공통PJT_구미2반_D208_시연시나리오.pdf)
-- APK 파일(https://lab.ssafy.com/s07-webmobile3-sub2/S07P12D208/-/blob/master/exec/app-release.apk)
 
 
 
