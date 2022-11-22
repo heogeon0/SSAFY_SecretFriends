@@ -29,7 +29,7 @@
 
 ## 프로젝트 기술 스택
 
-![기술 스택](README.assets/기술 스택.png)
+![기술스택](README.assets/기술스택.png)
 
 1. 이슈관리: Jira
 
@@ -107,7 +107,7 @@
 
    ![시작1](README.assets/시작1.gif)
 
-   ![메인페이지(mobile)](README.assets/메인페이지(mobile).gif)
+   ![메인페이지mobile](README.assets/메인페이지mobile.gif)
 
 2. 회원가입
 
@@ -115,7 +115,7 @@
 
 3. 회원정보 수정
 
-   ![회원정보 수정](README.assets/회원정보 수정.gif)
+   ![회원정보수정](README.assets/회원정보수정.gif)
 
 4. 회원 탈퇴
 
@@ -147,15 +147,15 @@
 
 1. 아이에게 해주고 싶은 말 CRUD
 
-   ![아이에게 해주고 싶은 말 CRUD](README.assets/아이에게 해주고 싶은 말 CRUD.gif)
+   ![아이에게해주고싶은말CRUD](README.assets/아이에게해주고싶은말CRUD.gif)
 
 2. 아이 정보 수정
 
-   ![아이정보 수정](README.assets/아이정보 수정.gif)
+   ![아이정보수정](README.assets/아이정보수정.gif)
 
 3. 아이 정보 삭제
 
-   ![아이정보 삭제](README.assets/아이정보 삭제.gif)
+   ![아이정보삭제](README.assets/아이정보삭제.gif)
 
 
 
@@ -202,7 +202,7 @@
 
 1. 웹소켓의 on메소드로 채팅을 수신하면 오른쪽 아래 메세지 표시가 빨간색으로 변함
 
-   ![채팅1(알림)](README.assets/채팅1(알림).gif)
+   ![채팅1알림](README.assets/채팅1알림.gif)
 
 2. 웹소켓의 소켓정보를 활용해서 특정 클라이언트에게 emit메소드로 메세지 전송
 
