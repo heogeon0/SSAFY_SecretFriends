@@ -111,7 +111,7 @@
 
 2. 회원가입
 
-   ![회원가입3(완료 후 로그인)](README.assets/회원가입3(완료 후 로그인).gif)
+   ![회원가입3(완료 후 로그인)](README.assets/회원가입3(완료 후 로그인)-16690969070341.gif)
 
 3. 회원정보 수정
 
@@ -125,21 +125,21 @@
 
 ### 2. 아이 정보 등록
 
-Step1. 아이 이름, 별명, 생년월일, 입원일자를 필수로 입력한다.
+1. Step1. 아이 이름, 별명, 생년월일, 입원일자를 필수로 입력한다.
 
-![step1](README.assets/step1.gif)
+   ![step1](README.assets/step1.gif)
 
-Step2. IoT 기기에서 얼굴 인식 로그인에 사용할 사진을 등록한다.
+2. Step2. IoT 기기에서 얼굴 인식 로그인에 사용할 사진을 등록한다.
 
-![step2](README.assets/step2.gif)
+   ![step2](README.assets/step2.gif)
 
-Step3. IoT 기기에 뜨는 캐릭터를 고르고 별명을 짓는다.
+3. Step3. IoT 기기에 뜨는 캐릭터를 고르고 별명을 짓는다.
 
-![step3](README.assets/step3.gif)
+   ![step3](README.assets/step3.gif)
 
-Step4. 아이에게 해주고 싶은 말을 등록한다. 여기서 작성한 글이 IoT 기기에서 컴포넌트를 통해 아이에게 전달된다.
+4. Step4. 아이에게 해주고 싶은 말을 등록한다. 여기서 작성한 글이 IoT 기기에서 컴포넌트를 통해 아이에게 전달된다.
 
-![step4](README.assets/step4.gif)
+   ![step4](README.assets/step4.gif)
 
 
 
@@ -147,34 +147,34 @@ Step4. 아이에게 해주고 싶은 말을 등록한다. 여기서 작성한 �
 
 1. 아이에게 해주고 싶은 말 CRUD
 
-![아이에게 해주고 싶은 말 CRUD](README.assets/아이에게 해주고 싶은 말 CRUD.gif)
+   ![아이에게 해주고 싶은 말 CRUD](README.assets/아이에게 해주고 싶은 말 CRUD.gif)
 
 2. 아이 정보 수정
 
-![아이정보 수정](README.assets/아이정보 수정.gif)
+   ![아이정보 수정](README.assets/아이정보 수정.gif)
 
 3. 아이 정보 삭제
 
-![아이정보 삭제](README.assets/아이정보 삭제.gif)
+   ![아이정보 삭제](README.assets/아이정보 삭제.gif)
 
 
 
 ### 4. IoT 기기 로그인/메인화면
 
 1. 로그인
+   
    - IoT기기에 가까이 다가가면 초음파센서로 인식하여 얼굴인식기능이 시작된다.
    - 웹을 통해 가입된 사용자라면 얼굴인식 기반 로그인이 되며 캐릭터가 나타난다.
    - 캐릭터를 클릭하면 메인화면으로 이동한다.
-
-![iot로그인](README.assets/iot로그인.gif)
+   
+   ![iot로그인](README.assets/iot로그인.gif)
 
 2. 메인화면
 
    - 메인화면에는 3D 캐릭터와 함께 다양한 컴포넌트들이 렌더링된다.
-
    - 캐릭터의 대사에 따라 컴포넌트들을 터치한다면 보호자가 등록한 아이에게 해주고싶은말이 TTS를 통해 캐릭터 음성으로 재생된다.
-
-![iot_main-min](README.assets/iot_main-min.gif)
+   
+   ![iot_main-min](README.assets/iot_main-min.gif)
 
 
 
@@ -202,11 +202,11 @@ Step4. 아이에게 해주고 싶은 말을 등록한다. 여기서 작성한 �
 
 1. 웹소켓의 on메소드로 채팅을 수신하면 오른쪽 아래 메세지 표시가 빨간색으로 변함
 
-![채팅1(알림)](README.assets/채팅1(알림).gif)
+   ![채팅1(알림)](README.assets/채팅1(알림).gif)
 
 2. 웹소켓의 소켓정보를 활용해서 특정 클라이언트에게 emit메소드로 메세지 전송
 
-![시연2](README.assets/시연2.gif)
+   ![시연2](README.assets/시연2.gif)
 
 
 
